@@ -4,9 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useToast } from "@/hooks/use-toast";
-import { CheckCircle2, ArrowRight, Download } from "lucide-react";
-import { supabase } from "@/lib/supabase";
-import ReactCountryFlag from "react-country-flag";
+import { CheckCircle2, ArrowRight, Download, Loader2 } from "lucide-react";
 import {
   Dialog,
   DialogContent,
@@ -14,6 +12,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/components/ui/dialog";
+import { registerUser } from "@/lib/api";
 
 const WHATSAPP_LINK = "https://chat.whatsapp.com/CxkVX14yHcrLRpMoDVftMN";
 const APP_DOWNLOAD_LINK = "http://svastha.fit/download";
@@ -30,54 +29,36 @@ const WhatsAppIcon = () => (
   </svg>
 );
 
-const COUNTRY_CODES = [
-  { code: "+91", country: "IN", label: "India (+91)" },
-  { code: "+1", country: "US", label: "USA (+1)" },
-  { code: "+44", country: "GB", label: "UK (+44)" },
-  { code: "+971", country: "AE", label: "UAE (+971)" },
-  { code: "+65", country: "SG", label: "Singapore (+65)" },
-  { code: "+61", country: "AU", label: "Australia (+61)" },
-  { code: "+49", country: "DE", label: "Germany (+49)" },
-  { code: "+33", country: "FR", label: "France (+33)" },
-  { code: "+81", country: "JP", label: "Japan (+81)" },
-  { code: "+86", country: "CN", label: "China (+86)" },
-];
+
 
 const RegistrationSection = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalStep, setModalStep] = useState(1);
   const [isLoading, setIsLoading] = useState(false);
+
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    countryCode: "+91",
-    phone: "",
   });
   const [errors, setErrors] = useState({
     name: "",
     email: "",
-    phone: "",
   });
   const { toast } = useToast();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-
-    // Restrict phone to 10 digits only
-    if (name === "phone") {
-      const digitsOnly = value.replace(/\D/g, "").slice(0, 10);
-      setFormData((prev) => ({ ...prev, phone: digitsOnly }));
-    } else {
-      setFormData((prev) => ({ ...prev, [name]: value }));
-    }
+    setFormData((prev) => ({ ...prev, [name]: value }));
 
     if (errors[name as keyof typeof errors]) {
       setErrors((prev) => ({ ...prev, [name]: "" }));
     }
   };
 
+
+
   const validateForm = () => {
-    const newErrors = { name: "", email: "", phone: "" };
+    const newErrors = { name: "", email: "" };
 
     if (!formData.name.trim()) {
       newErrors.name = "Name is required";
@@ -85,24 +66,17 @@ const RegistrationSection = () => {
       newErrors.name = "Name must be at least 2 characters";
     }
 
-    // Email validation (optional field)
-    if (formData.email.trim()) {
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       if (!emailRegex.test(formData.email.trim())) {
         newErrors.email = "Please enter a valid email address";
       }
     }
 
-    if (!formData.phone.trim()) {
-      newErrors.phone = "Phone number is required";
-    } else if (!/^\d+$/.test(formData.phone.trim())) {
-      newErrors.phone = "Only digits allowed";
-    } else if (formData.phone.trim().length < 10) {
-      newErrors.phone = "Enter at least 10 digits";
-    }
-
     setErrors(newErrors);
-    return !newErrors.name && !newErrors.email && !newErrors.phone;
+    return !newErrors.name && !newErrors.email;
   };
 
   const handleSubmit = async (e: React.FormEvent) => {
@@ -155,6 +129,8 @@ const RegistrationSection = () => {
     }
   };
 
+
+
   const handleJoinWhatsApp = () => {
     window.open(WHATSAPP_LINK, "_blank");
     setModalStep(2);
@@ -199,8 +175,14 @@ const RegistrationSection = () => {
           className="max-w-2xl mx-auto"
         >
           <div className="bg-card rounded-3xl p-8 md:p-12 shadow-hover">
+
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.1 }}
+              >
                 <Label htmlFor="name" className="text-base">
                   Full Name *
                 </Label>
@@ -210,17 +192,28 @@ const RegistrationSection = () => {
                   value={formData.name}
                   onChange={handleInputChange}
                   placeholder="Enter your full name"
-                  className="mt-2"
+                  className="mt-2 transition-all duration-300 focus:scale-[1.02] focus:shadow-md"
                   disabled={isLoading}
                 />
                 {errors.name && (
-                  <p className="text-destructive text-sm mt-1">{errors.name}</p>
+                  <motion.p
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-destructive text-sm mt-1"
+                  >
+                    {errors.name}
+                  </motion.p>
                 )}
-              </div>
+              </motion.div>
 
-              <div>
+              <motion.div
+                initial={{ opacity: 0, x: -20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.2 }}
+              >
                 <Label htmlFor="email" className="text-base">
-                  Email Address (Optional)
+                  Email Address *
                 </Label>
                 <Input
                   id="email"
@@ -229,72 +222,42 @@ const RegistrationSection = () => {
                   value={formData.email}
                   onChange={handleInputChange}
                   placeholder="Enter your email address"
-                  className="mt-2"
+                  className="mt-2 transition-all duration-300 focus:scale-[1.02] focus:shadow-md"
                   disabled={isLoading}
                 />
                 {errors.email && (
-                  <p className="text-destructive text-sm mt-1">{errors.email}</p>
+                  <motion.p
+                    initial={{ opacity: 0, y: -10 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    className="text-destructive text-sm mt-1"
+                  >
+                    {errors.email}
+                  </motion.p>
                 )}
-              </div>
+              </motion.div>
 
-              <div>
-                <Label htmlFor="phone" className="text-base">
-                  Phone Number *
-                </Label>
-                <div className="flex gap-2 mt-2">
-                  <div className="relative">
-                    <div className="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none">
-                      <ReactCountryFlag
-                        countryCode={COUNTRY_CODES.find((c) => c.code === formData.countryCode)?.country || "IN"}
-                        svg
-                        style={{ width: "1.2em", height: "1.2em" }}
-                      />
-                    </div>
-                    <select
-                      name="countryCode"
-                      value={formData.countryCode}
-                      onChange={(e) => setFormData((prev) => ({ ...prev, countryCode: e.target.value }))}
-                      disabled={isLoading}
-                      className="flex h-10 w-20 rounded-md border border-input bg-background pl-9 pr-2 py-2 text-sm ring-offset-background focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 appearance-none"
-                    >
-                      {COUNTRY_CODES.map((c) => (
-                        <option key={c.code} value={c.code}>
-                          {c.code}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                  <Input
-                    id="phone"
-                    name="phone"
-                    type="tel"
-                    value={formData.phone}
-                    onChange={handleInputChange}
-                    placeholder="Phone number"
-                    disabled={isLoading}
-                    className="flex-1"
-                  />
-                </div>
-                <div className="flex justify-between mt-1">
-                  {errors.phone ? (
-                    <p className="text-destructive text-sm">{errors.phone}</p>
-                  ) : (
-                    <span />
-                  )}
-                  <span className={`text-sm ${formData.phone.length >= 10 ? "text-green-600" : "text-muted-foreground"}`}>
-                    {formData.phone.length}/10
-                  </span>
-                </div>
-              </div>
-
-              <Button
-                type="submit"
-                size="lg"
-                disabled={isLoading}
-                className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-6 shadow-hover transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ delay: 0.3 }}
               >
-                {isLoading ? "Registering..." : "Complete Registration"}
-              </Button>
+                <Button
+                  type="submit"
+                  size="lg"
+                  disabled={isLoading}
+                  className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-6 shadow-hover transition-all duration-300 hover:scale-105 disabled:opacity-50 disabled:cursor-not-allowed disabled:hover:scale-100"
+                >
+                  {isLoading ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Registering...
+                    </>
+                  ) : (
+                    "Complete Registration"
+                  )}
+                </Button>
+              </motion.div>
             </form>
           </div>
         </motion.div>
