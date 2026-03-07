@@ -1,18 +1,20 @@
 import { useState, useEffect, useCallback } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
+import { Badge } from '@/components/ui/badge';
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
   type CarouselApi
 } from '@/components/ui/carousel';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Clock, CheckCircle, XCircle, Eye } from 'lucide-react';
 import { useTransformations } from '@/hooks/gamification/useTransformations';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 export function BeforeAfterDashboardCard() {
   const { t } = useLanguage();
-  const { approvedTransformations, isLoadingApproved, isLoadingUser } = useTransformations();
+  const { approvedTransformations, userTransformations, isLoadingApproved, isLoadingUser } = useTransformations();
+  const [showMyStatus, setShowMyStatus] = useState(false);
   const [api, setApi] = useState<CarouselApi>();
   const [isPaused, setIsPaused] = useState(false);
 
@@ -32,17 +34,127 @@ export function BeforeAfterDashboardCard() {
     setIsPaused(prev => !prev);
   }, []);
 
+  const getStatusIcon = (status: string) => {
+    switch (status) {
+      case 'submitted':
+        return <Clock className="h-3 w-3 text-yellow-500" />;
+      case 'approved':
+        return <CheckCircle className="h-3 w-3 text-green-500" />;
+      case 'rejected':
+        return <XCircle className="h-3 w-3 text-red-500" />;
+      default:
+        return <Clock className="h-3 w-3 text-gray-500" />;
+    }
+  };
+
+  const getStatusColor = (status: string) => {
+    switch (status) {
+      case 'submitted':
+        return 'bg-yellow-100 text-yellow-800 border-yellow-200';
+      case 'approved':
+        return 'bg-green-100 text-green-800 border-green-200';
+      case 'rejected':
+        return 'bg-red-100 text-red-800 border-red-200';
+      default:
+        return 'bg-gray-100 text-gray-800 border-gray-200';
+    }
+  };
+
+  const getStatusText = (status: string) => {
+    switch (status) {
+      case 'submitted':
+        return t('transformations.underReview');
+      case 'approved':
+        return t('transformations.approved');
+      case 'rejected':
+        return t('transformations.rejected');
+      default:
+        return t('transformations.unknown');
+    }
+  };
+
   return (
     <Card className="overflow-hidden bg-gradient-to-br from-purple-50 via-pink-50 to-orange-50 dark:from-purple-950/30 dark:via-pink-950/30 dark:to-orange-950/30 border-0 shadow-lg">
       <CardContent className="p-0">
+        {/* User's Own Transformations Status - Toggleable */}
+        {userTransformations.length > 0 && showMyStatus && (
+          <div className="px-4 pb-3 border-b border-gray-100">
+            <div className="flex items-center justify-between mb-3">
+              <div className="flex items-center gap-2">
+                <Eye className="h-4 w-4 text-purple-500" />
+                <h4 className="font-semibold text-sm">
+                  {t('transformations.myTransformationStatus')}
+                </h4>
+              </div>
+              <div className="text-xs text-gray-500">
+                {userTransformations.length} {userTransformations.length > 1 ? t('transformations.submissions') : t('transformations.submission')}
+              </div>
+            </div>
+
+            {/* Summary Stats */}
+            <div className="bg-gradient-to-r from-purple-50 to-pink-50 p-3 rounded-lg mb-3 border border-purple-100">
+              <div className="grid grid-cols-2 gap-3 text-center">
+                <div>
+                  <p className="text-xs text-purple-600 font-medium">
+                    {t('transformations.totalPoints')}
+                  </p>
+                  <p className="text-lg font-bold text-purple-700">
+                    {userTransformations.reduce((sum, t) => sum + t.points_awarded, 0).toLocaleString()}
+                  </p>
+                </div>
+                <div>
+                  <p className="text-xs text-purple-600 font-medium">
+                    {t('transformations.approved')}
+                  </p>
+                  <p className="text-lg font-bold text-green-600">
+                    {userTransformations.filter(t => t.submission_status === 'approved').length}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Submissions List */}
+            <div className="space-y-2 max-h-48 overflow-y-auto">
+              {userTransformations.map((transformation, index) => (
+                <div
+                  key={transformation.id}
+                  className="flex items-center justify-between p-3 bg-white rounded-lg border border-gray-100"
+                >
+                  <div className="flex items-center gap-3">
+                    {getStatusIcon(transformation.submission_status)}
+                    <div>
+                      <p className="text-sm font-medium">
+                        {t('transformations.submissionNumber')}{userTransformations.length - index}
+                      </p>
+                      <p className="text-xs text-gray-500">
+                        {new Date(transformation.created_at).toLocaleDateString('en-US', {
+                          month: 'short',
+                          day: 'numeric',
+                          year: 'numeric'
+                        })}
+                      </p>
+                    </div>
+                  </div>
+                  <div className="text-right">
+                    <Badge className={`text-xs mb-1 ${getStatusColor(transformation.submission_status)}`}>
+                      {getStatusText(transformation.submission_status)}
+                    </Badge>
+                    <p className="text-xs text-purple-600 font-medium">
+                      +{transformation.points_awarded.toLocaleString()} {t('transformations.pts')}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
         {/* Carousel */}
         {isLoadingApproved || isLoadingUser ? (
           <div className="px-4 pb-4">
             <div className="h-48 bg-muted/50 rounded-xl animate-pulse" />
           </div>
-        ) : null}
-
-        {!isLoadingApproved && !isLoadingUser && approvedTransformations.length > 0 && (
+        ) : approvedTransformations.length > 0 ? (
             <div className="px-2 pb-2">
               <Carousel
                 setApi={setApi}
@@ -166,9 +278,7 @@ export function BeforeAfterDashboardCard() {
                 </CarouselContent>
               </Carousel>
             </div>
-          )}
-
-          {!isLoadingApproved && !isLoadingUser && approvedTransformations.length === 0 && (
+          ) : (
             <div className="px-4 pb-4">
               <div className="h-48 bg-muted/30 rounded-xl flex items-center justify-center">
                 <p className="text-muted-foreground text-sm">
