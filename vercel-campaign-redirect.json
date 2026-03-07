@@ -1,0 +1,9 @@
+{
+  "redirects": [
+    {
+      "source": "/:path*",
+      "destination": "https://svastha.fit/:path*",
+      "permanent": true
+    }
+  ]
+}
