@@ -1,0 +1,80 @@
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+import { motion, AnimatePresence } from "framer-motion";
+import { X } from "lucide-react";
+
+const StickyCTA = () => {
+  const [isVisible, setIsVisible] = useState(false);
+  const [isDismissed, setIsDismissed] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show sticky CTA after scrolling 500px
+      if (window.scrollY > 500 && !isDismissed) {
+        setIsVisible(true);
+      } else if (window.scrollY <= 500) {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [isDismissed]);
+
+  const scrollToRegister = () => {
+    const element = document.querySelector("#register");
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth" });
+    }
+  };
+
+  const handleDismiss = () => {
+    setIsDismissed(true);
+    setIsVisible(false);
+  };
+
+  return (
+    <AnimatePresence>
+      {isVisible && (
+        <motion.div
+          initial={{ y: 100, opacity: 0 }}
+          animate={{ y: 0, opacity: 1 }}
+          exit={{ y: 100, opacity: 0 }}
+          transition={{ duration: 0.3 }}
+          className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-green-600 to-emerald-600 shadow-2xl"
+        >
+          <div className="container mx-auto px-4 py-4">
+            <div className="flex items-center justify-between gap-4">
+              <div className="flex-1 min-w-0">
+                <p className="text-white font-bold text-lg md:text-xl truncate">
+                  Join the 14 Day Yoga & Fat Loss Camp
+                </p>
+                <p className="text-white/90 text-sm md:text-base">
+                  Only ₹99 • Limited Seats Available
+                </p>
+              </div>
+              <div className="flex items-center gap-2 flex-shrink-0">
+                <Button
+                  onClick={scrollToRegister}
+                  size="lg"
+                  className="bg-white text-green-700 hover:bg-gray-100 font-bold shadow-lg"
+                >
+                  Register Now
+                </Button>
+                <button
+                  onClick={handleDismiss}
+                  className="text-white hover:bg-white/20 p-2 rounded-full transition-colors"
+                  aria-label="Dismiss"
+                >
+                  <X className="w-5 h-5" />
+                </button>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+};
+
+export default StickyCTA;

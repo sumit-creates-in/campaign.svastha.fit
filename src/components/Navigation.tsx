@@ -45,7 +45,7 @@ const Navigation = () => {
               className="h-10 w-10 md:h-12 md:w-12 rounded-full object-cover flex-shrink-0"
             />
             <span className="text-base sm:text-lg md:text-2xl font-bold text-primary whitespace-nowrap">
-              Svastha X StrongByYoga
+              Svastha
             </span>
           </motion.div>
 
