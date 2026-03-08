@@ -3,7 +3,7 @@ import { Award } from "lucide-react";
 import karishmaImg from "@/assets/Karishma.jpg";
 import saumyaImg from "@/assets/Saumya.jpg";
 import muditImg from "@/assets/Mudit.jpg";
-import sumitImg from "@/assets/Sumit Sharma.png";
+import sumitImg from "@/assets/sumit sharma.png";
 
 const MentorsSection = () => {
   const coaches = [
