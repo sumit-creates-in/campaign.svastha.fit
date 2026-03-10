@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { Clock, Flame, Leaf, Check, BadgeCheck, Weight } from "lucide-react";
 import CountdownTimer from "./CountdownTimer";
 import RegistrationModal from "@/components/RegistrationModal";
+import svasthaLogo from "@/assets/svastha.png";
 
 const FatLossHero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -17,20 +18,26 @@ const FatLossHero = () => {
 
       <div className="container mx-auto relative z-10">
         <div className="max-w-4xl mx-auto text-center">
+          <div className="flex flex-row items-center justify-center gap-3 mb-12">
+            <img src={svasthaLogo} alt="Svastha" className="w-8 h-8" />
+            <span className="text-xl font-bold bg-gradient-to-r from-green-600 via-blue-500 to-blue-600 bg-clip-text text-transparent">Svastha</span>
+          </div>
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
             {/* Guaranteed Badge */}
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-full shadow-lg mb-6">
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-full shadow-lg mb-6">
               <BadgeCheck className="w-5 h-5" />
               <span className="font-bold text-sm">Guaranteed Weight Loss</span>
             </div>
 
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-              <div className="text-purple-600">✦ 14 Day Weight Loss</div>
-              <div className="text-teal-600">& Yoga Camp ✦</div>
+              <div className="text-purple-600">✦ 14 Day</div>
+              <div className="text-purple-600">Weight Loss</div>
+              <div className="text-teal-600">&</div>
+              <div className="text-teal-600">Yoga Camp ✦</div>
             </h1>
 
             {/* YouTube Video */}

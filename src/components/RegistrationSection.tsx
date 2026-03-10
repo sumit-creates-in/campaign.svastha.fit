@@ -279,7 +279,7 @@ const RegistrationSection = () => {
             <Button
               type="button"
               size="lg"
-              onClick={() => window.open("https://api.whatsapp.com/send/?phone=%2B917208683034&text=Hi%2C+I+want+to+know+more+about+Ultimate+21+Day+Weight+Loss+Challenge&type=phone_number&app_absent=0", "_blank")}
+              onClick={() => window.open("https://chat.whatsapp.com/JzEKSbc2jgFJajjJW4wslC", "_blank")}
               className="bg-green-700 hover:bg-green-600 text-white text-lg py-6 px-8 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105"
             >
               <MessageCircle className="w-6 h-6" />
