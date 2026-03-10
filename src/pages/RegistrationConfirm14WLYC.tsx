@@ -54,13 +54,8 @@ const RegistrationConfirm14WLYC = () => {
                 </div>
             </section>
             <div className="flex justify-center py-4">
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={{ opacity: 1, y: [0, 8, 0] }}
-                    transition={{ duration: 0.6, delay: 0.1, times: [0, 0.5, 1], repeat: Infinity, repeatDelay: 0.4 }}
-                >
-                    <ArrowBigDown className="w-14 h-14 text-green-600" />
-                </motion.div>
+                <ArrowBigDown className="w-14 h-14 text-green-600" />
+
             </div>
 
             {/* Main Content */}
@@ -74,7 +69,7 @@ const RegistrationConfirm14WLYC = () => {
                         className="bg-white rounded-2xl shadow-lg p-8 md:p-12 mb-12 border-2 border-green-200"
                     >
                         <div className="flex items-center gap-3 mb-4">
-                            <CheckCircle className="w-8 h-8 text-green-600" />
+                            <CheckCircle className="w-12 h-12 text-green-600" />
                             <h2 className="text-2xl font-bold text-gray-900">
                                 Your seat has been successfully reserved.
                             </h2>
