@@ -9,7 +9,7 @@ const RegistrationConfirm14WLYC = () => {
     }, []);
 
     const handleJoinWhatsApp = () => {
-        window.open("https://chat.whatsapp.com/YOUR_WHATSAPP_GROUP_LINK", "_blank");
+        window.open("https://chat.whatsapp.com/JzEKSbc2jgFJajjJW4wslC", "_blank");
     };
 
     const steps = [
