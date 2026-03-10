@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Clock, Flame, Leaf } from "lucide-react";
+import { Clock, Flame, Leaf, Check, BadgeCheck, Weight } from "lucide-react";
 import CountdownTimer from "./CountdownTimer";
 
 const FatLossHero = () => {
@@ -25,9 +25,15 @@ const FatLossHero = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
+            {/* Guaranteed Badge */}
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-full shadow-lg mb-6">
+              <BadgeCheck className="w-5 h-5" />
+              <span className="font-bold text-sm">Guaranteed Weight Loss</span>
+            </div>
+
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
-              <div className="text-purple-600">14 Day Yoga</div>
-              <div className="text-teal-600">& Fat Loss Camp</div>
+              <div className="text-purple-600">✦ 14 Day Weight Loss</div>
+              <div className="text-teal-600">& Yoga Camp ✦</div>
             </h1>
 
             {/* YouTube Video */}
@@ -42,26 +48,56 @@ const FatLossHero = () => {
                 ></iframe>
               </div>
             </div>
-            
+
             <p className="text-2xl md:text-3xl text-green-700 font-semibold mb-4">
-              Transform Your Body, Energy & Mind in Just 14 Days
+              Lose up to 7 Kg 🔥 in Just 14 Days
             </p>
-            
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-full shadow-lg mb-6">
+              <BadgeCheck className="w-5 h-5" />
+              <span className="font-bold text-sm">100% Money Back Guarantee</span>
+            </div>
+
             <p className="text-lg md:text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
-              Lose weight naturally, feel lighter, and build healthy habits with daily live yoga sessions from expert instructors.
+              Lose Weight Naturally With Yoga & Simple Habits
             </p>
+
+            {/* Key Benefits */}
+            <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-8">
+              <div className="flex items-center gap-2">
+                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
+                  <Check className="w-4 h-4 text-white" />
+                </div>
+                <span className="text-gray-800 font-medium">Without starving yourself</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
+                  <Check className="w-4 h-4 text-white" />
+                </div>
+                <span className="text-gray-800 font-medium">Without expensive diets</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <div className="flex-shrink-0 w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
+                  <Check className="w-4 h-4 text-white" />
+                </div>
+                <span className="text-gray-800 font-medium">Without going to the gym</span>
+              </div>
+            </div>
 
             {/* Highlights */}
             <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-10">
-              <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-3 rounded-full shadow-md">
+              <div className="flex items-center gap-2 bg-white/50 backdrop-blur-sm px-4 py-3 rounded-full shadow-md">
                 <Flame className="w-5 h-5 text-orange-500" />
                 <span className="font-semibold text-gray-800">Only ₹99 Commitment Fee</span>
               </div>
-              <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-3 rounded-full shadow-md">
+              <div className="flex items-center gap-2 bg-white/50 backdrop-blur-sm px-4 py-3 rounded-full shadow-md">
+                <Check className="w-5 h-5 text-gray-500" />
+                <span className="font-semibold text-sm text-gray-800">Lose Weight or Get Full Refund</span>
+              </div>
+              <div className="flex items-center gap-2 bg-white/50 backdrop-blur-sm px-4 py-3 rounded-full shadow-md">
                 <Leaf className="w-5 h-5 text-green-600" />
                 <span className="font-semibold text-gray-800">Camp Starts: 22 March</span>
               </div>
-              <div className="flex items-center gap-2 bg-white/80 backdrop-blur-sm px-4 py-3 rounded-full shadow-md">
+              <div className="flex items-center gap-2 bg-white/50 backdrop-blur-sm px-4 py-3 rounded-full shadow-md">
                 <Clock className="w-5 h-5 text-blue-600" />
                 <span className="font-semibold text-gray-800">Orientation: 9:00 AM</span>
               </div>
@@ -69,21 +105,25 @@ const FatLossHero = () => {
 
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-10">
-              <Button
-                onClick={scrollToRegister}
-                size="lg"
-                className="bg-green-600 hover:bg-green-700 text-white px-8 py-6 text-lg font-semibold rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+              <motion.div
+                animate={{
+                  scale: [1.15, 1.05, 1.15],
+                }}
+                transition={{
+                  duration: 0.6,
+                  repeat: Infinity,
+                  repeatType: "reverse"
+                }}
               >
-                Reserve Your Spot Now
-              </Button>
-              <Button
-                onClick={scrollToRegister}
-                size="lg"
-                variant="outline"
-                className="border-2 border-green-600 text-green-700 hover:bg-green-50 px-8 py-6 text-lg font-semibold rounded-full shadow-lg"
-              >
-                Join the Camp for ₹99
-              </Button>
+                <Button
+                  onClick={scrollToRegister}
+                  size="lg"
+                  className="relative bg-gradient-to-r from-green-500 via-emerald-600 to-teal-600 hover:from-green-600 hover:via-emerald-700 hover:to-teal-700 text-white px-8 py-6 text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden group"
+                >
+                  <span className="relative z-10">Register Now</span>
+                  <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></span>
+                </Button>
+              </motion.div>
             </div>
 
             {/* Countdown Timer */}
@@ -92,8 +132,8 @@ const FatLossHero = () => {
             </div>
           </motion.div>
         </div>
-      </div>
-    </section>
+      </div >
+    </section >
   );
 };
 

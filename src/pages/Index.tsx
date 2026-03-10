@@ -1,5 +1,4 @@
 import { motion } from "framer-motion";
-import Navigation from "@/components/Navigation";
 import HeroSection from "@/components/HeroSection";
 import WhyJoinSection from "@/components/WhyJoinSection";
 import JourneySection from "@/components/JourneySection";
@@ -12,7 +11,6 @@ import InstructorsSection from "@/components/InstructorsSection";
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <Navigation />
       <HeroSection />
       <WhyJoinSection />
       <JourneySection />

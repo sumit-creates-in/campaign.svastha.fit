@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
 
 const StickyCTA = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -46,28 +45,34 @@ const StickyCTA = () => {
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-between gap-4">
               <div className="flex-1 min-w-0">
-                <p className="text-white font-bold text-lg md:text-xl truncate">
-                  Join the 14 Day Yoga & Fat Loss Camp
-                </p>
-                <p className="text-white/90 text-sm md:text-base">
-                  Only ₹99 • Limited Seats Available
+                <p className="text-white font-bold text-sm md:text-xl">
+                  14 Day Weight Loss & Yoga Camp
                 </p>
               </div>
-              <div className="flex items-center gap-2 flex-shrink-0">
-                <Button
-                  onClick={scrollToRegister}
-                  size="lg"
-                  className="bg-white text-green-700 hover:bg-gray-100 font-bold shadow-lg"
-                >
-                  Register Now
-                </Button>
-                <button
-                  onClick={handleDismiss}
-                  className="text-white hover:bg-white/20 p-2 rounded-full transition-colors"
-                  aria-label="Dismiss"
-                >
-                  <X className="w-5 h-5" />
-                </button>
+              <div className="flex items-center gap-4 flex-shrink-0">
+                <div className="flex flex-col items-center gap-1">
+                  <motion.div
+                    animate={{
+                      scale: [1.15, 1.05, 1.15],
+                    }}
+                    transition={{
+                      duration: 0.6,
+                      repeat: Infinity,
+                      repeatType: "reverse"
+                    }}
+                  >
+                    <Button
+                      onClick={scrollToRegister}
+                      size="lg"
+                      className="bg-white text-green-700 hover:bg-gray-100 font-bold shadow-lg"
+                    >
+                      Register Now
+                    </Button>
+                  </motion.div>
+                  <p className="text-white/90 text-sm md:text-base">
+                    Only ₹99
+                  </p>
+                </div>
               </div>
             </div>
           </div>

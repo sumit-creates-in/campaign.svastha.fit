@@ -8,9 +8,16 @@ export interface ApiResponse {
 // Register user via webhook
 export const registerUser = async (
   name: string,
-  email: string
+  email: string,
+  phone?: string,
 ): Promise<ApiResponse> => {
   try {
+    const userData = {
+      name: name,
+      email: email,
+      ...(phone && { phone: phone }),
+    };
+
     // Try POST first
     let response = await fetch(
       "https://strongbyyoga.com/wp-json/uap/v2/uap-76485-76486",
@@ -20,19 +27,13 @@ export const registerUser = async (
           "Content-Type": "application/json",
           Accept: "application/json",
         },
-        body: JSON.stringify({
-          name: name,
-          email: email,
-        }),
-      }
+        body: JSON.stringify(userData),
+      },
     );
 
     // If POST fails with 404, try GET with query parameters
     if (!response.ok && response.status === 404) {
-      const params = new URLSearchParams({
-        name: name,
-        email: email,
-      });
+      const params = new URLSearchParams(userData as Record<string, string>);
 
       response = await fetch(
         `https://strongbyyoga.com/wp-json/uap/v2/uap-76485-76486?${params}`,
@@ -41,7 +42,7 @@ export const registerUser = async (
           headers: {
             Accept: "application/json",
           },
-        }
+        },
       );
     }
 
@@ -50,13 +51,14 @@ export const registerUser = async (
       const formData = new FormData();
       formData.append("name", name);
       formData.append("email", email);
+      if (phone) formData.append("phone", phone);
 
       response = await fetch(
         "https://strongbyyoga.com/wp-json/uap/v2/uap-76485-76486",
         {
           method: "POST",
           body: formData,
-        }
+        },
       );
     }
 
