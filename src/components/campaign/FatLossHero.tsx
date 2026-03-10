@@ -1,15 +1,12 @@
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { Clock, Flame, Leaf, Check, BadgeCheck, Weight } from "lucide-react";
 import CountdownTimer from "./CountdownTimer";
+import RegistrationModal from "@/components/RegistrationModal";
 
 const FatLossHero = () => {
-  const scrollToRegister = () => {
-    const element = document.querySelector("#register");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16 px-4">
@@ -116,7 +113,7 @@ const FatLossHero = () => {
                 }}
               >
                 <Button
-                  onClick={scrollToRegister}
+                  onClick={() => setIsModalOpen(true)}
                   size="lg"
                   className="relative bg-gradient-to-r from-green-500 via-emerald-600 to-teal-600 hover:from-green-600 hover:via-emerald-700 hover:to-teal-700 text-white px-8 py-6 text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden group"
                 >
@@ -133,6 +130,8 @@ const FatLossHero = () => {
           </motion.div>
         </div>
       </div >
+
+      <RegistrationModal isOpen={isModalOpen} onOpenChange={setIsModalOpen} />
     </section >
   );
 };
