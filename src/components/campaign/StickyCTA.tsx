@@ -1,10 +1,12 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
+import RegistrationModal from "@/components/RegistrationModal";
 
 const StickyCTA = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -20,65 +22,62 @@ const StickyCTA = () => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, [isDismissed]);
 
-  const scrollToRegister = () => {
-    const element = document.querySelector("#register");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
-
   const handleDismiss = () => {
     setIsDismissed(true);
     setIsVisible(false);
   };
 
   return (
-    <AnimatePresence>
-      {isVisible && (
-        <motion.div
-          initial={{ y: 100, opacity: 0 }}
-          animate={{ y: 0, opacity: 1 }}
-          exit={{ y: 100, opacity: 0 }}
-          transition={{ duration: 0.3 }}
-          className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-green-600 to-emerald-600 shadow-2xl"
-        >
-          <div className="container mx-auto px-4 py-4">
-            <div className="flex items-center justify-between gap-4">
-              <div className="flex-1 min-w-0">
-                <p className="text-white font-bold text-sm md:text-xl">
-                  14 Day Weight Loss & Yoga Camp
-                </p>
-              </div>
-              <div className="flex items-center gap-4 flex-shrink-0">
-                <div className="flex flex-col items-center gap-1">
-                  <motion.div
-                    animate={{
-                      scale: [1.15, 1.05, 1.15],
-                    }}
-                    transition={{
-                      duration: 0.6,
-                      repeat: Infinity,
-                      repeatType: "reverse"
-                    }}
-                  >
-                    <Button
-                      onClick={scrollToRegister}
-                      size="lg"
-                      className="bg-white text-green-700 hover:bg-gray-100 font-bold shadow-lg"
-                    >
-                      Register Now
-                    </Button>
-                  </motion.div>
-                  <p className="text-white/90 text-sm md:text-base">
-                    Only ₹99
+    <>
+      <AnimatePresence>
+        {isVisible && (
+          <motion.div
+            initial={{ y: 100, opacity: 0 }}
+            animate={{ y: 0, opacity: 1 }}
+            exit={{ y: 100, opacity: 0 }}
+            transition={{ duration: 0.3 }}
+            className="fixed bottom-0 left-0 right-0 z-50 bg-gradient-to-r from-green-600 to-emerald-600 shadow-2xl"
+          >
+            <div className="container mx-auto px-4 py-4">
+              <div className="flex items-center justify-between gap-4">
+                <div className="flex-1 min-w-0">
+                  <p className="text-white font-bold text-sm md:text-xl">
+                    14 Day Weight Loss & Yoga Camp
                   </p>
+                </div>
+                <div className="flex items-center gap-4 flex-shrink-0">
+                  <div className="flex flex-col items-center gap-1">
+                    <motion.div
+                      animate={{
+                        scale: [1.15, 1.05, 1.15],
+                      }}
+                      transition={{
+                        duration: 0.6,
+                        repeat: Infinity,
+                        repeatType: "reverse"
+                      }}
+                    >
+                      <Button
+                        onClick={() => setIsModalOpen(true)}
+                        size="lg"
+                        className="bg-white text-green-700 hover:bg-gray-100 font-bold shadow-lg"
+                      >
+                        Register Now
+                      </Button>
+                    </motion.div>
+                    <p className="text-white/90 text-sm md:text-base">
+                      Only ₹99
+                    </p>
+                  </div>
                 </div>
               </div>
             </div>
-          </div>
-        </motion.div>
-      )}
-    </AnimatePresence>
+          </motion.div>
+        )}
+      </AnimatePresence>
+
+      <RegistrationModal isOpen={isModalOpen} onOpenChange={setIsModalOpen} />
+    </>
   );
 };
 

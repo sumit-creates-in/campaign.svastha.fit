@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import { Calendar, Clock } from "lucide-react";
 import heroImage from "@/assets/hero-yoga.jpg";
 import ReactCountryFlag from "react-country-flag";
-import svasthaLogo from "@/assets/svastha.png";
+import RegistrationModal from "@/components/RegistrationModal";
 
 const HeroSection = () => {
   const [timeLeft, setTimeLeft] = useState({
@@ -13,6 +13,7 @@ const HeroSection = () => {
     minutes: 0,
     seconds: 0,
   });
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const targetDate = new Date("2026-01-05T00:00:00").getTime();
@@ -38,11 +39,6 @@ const HeroSection = () => {
 
     return () => clearInterval(interval);
   }, []);
-
-  const scrollToRegister = () => {
-    const element = document.querySelector("#register");
-    element?.scrollIntoView({ behavior: "smooth" });
-  };
 
   return (
     <section
@@ -138,7 +134,7 @@ const HeroSection = () => {
 
                 <Button
                   size="lg"
-                  onClick={scrollToRegister}
+                  onClick={() => setIsModalOpen(true)}
                   className="bg-primary hover:bg-primary/90 text-primary-foreground text-lg px-8 py-6 shadow-hover transition-all duration-300 hover:scale-110"
                 >
                   Register Now
@@ -402,6 +398,8 @@ const HeroSection = () => {
 
       {/* Decorative gradient overlay */}
       <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-background pointer-events-none" />
+
+      <RegistrationModal isOpen={isModalOpen} onOpenChange={setIsModalOpen} />
     </section>
   );
 };

@@ -1,8 +1,12 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Clock, Users } from "lucide-react";
+import RegistrationModal from "@/components/RegistrationModal";
 
 const PricingSection = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const includes = [
     "Orientation session",
     "14 days live yoga classes",
@@ -10,13 +14,6 @@ const PricingSection = () => {
     "Community support",
     "Class recordings"
   ];
-
-  const scrollToRegister = () => {
-    const element = document.querySelector("#register");
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-  };
 
   return (
     <section id="pricing" className="py-20 px-4 bg-white">
@@ -80,7 +77,7 @@ const PricingSection = () => {
             </div>
 
             <Button
-              onClick={scrollToRegister}
+              onClick={() => setIsModalOpen(true)}
               size="lg"
               className="w-full bg-green-600 hover:bg-green-700 text-white py-6 text-xl font-bold rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
             >
@@ -94,6 +91,8 @@ const PricingSection = () => {
           </div>
         </motion.div>
       </div>
+
+      <RegistrationModal isOpen={isModalOpen} onOpenChange={setIsModalOpen} />
     </section>
   );
 };
