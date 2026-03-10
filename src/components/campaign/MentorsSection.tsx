@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Award } from "lucide-react";
+import { Award, Instagram } from "lucide-react";
 import karishmaImg from "@/assets/Karishma.jpg";
 import saumyaImg from "@/assets/Saumya.jpg";
 import muditImg from "@/assets/Mudit.jpg";
@@ -17,11 +17,6 @@ const MentorsSection = () => {
       specialty: "Mobility, flexibility & strength",
       image: saumyaImg
     },
-    {
-      name: "Mudit",
-      specialty: "Posture correction & beginner-friendly yoga",
-      image: muditImg
-    }
   ];
 
   return (
@@ -71,14 +66,23 @@ const MentorsSection = () => {
                 </span>
               </div>
               <p className="text-lg text-gray-700 mb-3">
-                <span className="font-semibold">Founder of Strong By Yoga</span>
+                <span className="font-semibold">Founder of Svastha</span>
               </p>
-              <div className="flex items-start gap-2 text-gray-600">
+              <div className="flex items-start gap-2 text-gray-600 mb-4">
                 <Award className="w-5 h-5 text-green-600 mt-1 flex-shrink-0" />
                 <p className="text-base">
                   Over 10 years of experience helping thousands transform their health naturally.
                 </p>
               </div>
+              <a
+                href="https://www.instagram.com/sumit_sharma_coach/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-pink-600 hover:text-pink-700 font-semibold transition-colors"
+              >
+                <Instagram className="w-5 h-5" />
+                <span>@sumit_sharma_coach</span>
+              </a>
             </div>
           </div>
         </motion.div>

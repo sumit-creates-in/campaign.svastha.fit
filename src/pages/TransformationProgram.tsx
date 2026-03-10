@@ -12,8 +12,6 @@ import BonusesSection from "@/components/transformation/BonusesSection";
 import UrgencySection from "@/components/transformation/UrgencySection";
 import FinalCTASection from "@/components/transformation/FinalCTASection";
 import StickyCTA from "@/components/transformation/StickyCTA";
-import WhatsAppButton from "@/components/campaign/WhatsAppButton";
-import ScrollToTop from "@/components/ScrollToTop";
 
 const TransformationProgram = () => {
   useEffect(() => {
@@ -35,8 +33,6 @@ const TransformationProgram = () => {
       <UrgencySection />
       <FinalCTASection />
       <StickyCTA />
-      <WhatsAppButton />
-      <ScrollToTop />
     </div>
   );
 };

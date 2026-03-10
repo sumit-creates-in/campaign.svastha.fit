@@ -29,7 +29,7 @@ const PricingSection = () => {
           className="text-center mb-12"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-            Join the 14 Day Yoga & Fat Loss Camp
+            Join the 14 Day Weight Loss & Yoga Camp
           </h2>
         </motion.div>
 
@@ -52,7 +52,7 @@ const PricingSection = () => {
             <h3 className="text-2xl font-bold text-gray-900 mb-6 text-center">
               What's Included:
             </h3>
-            
+
             <div className="space-y-4 mb-8">
               {includes.map((item, index) => (
                 <motion.div

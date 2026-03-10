@@ -23,7 +23,7 @@ const FinalCTASection = () => {
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
             Start Your Transformation Today
           </h2>
-          
+
           <div className="flex flex-wrap justify-center gap-6 mb-8">
             <motion.div
               initial={{ opacity: 0, scale: 0.8 }}
@@ -64,7 +64,7 @@ const FinalCTASection = () => {
             transition={{ duration: 0.6, delay: 0.4 }}
           >
             <p className="text-3xl md:text-4xl font-bold text-white mb-2">
-              Join the 14 Day Yoga & Fat Loss Camp
+              Join the 14 Day Weight Loss & Yoga Camp
             </p>
             <p className="text-2xl text-white/90 mb-8">Only ₹99</p>
           </motion.div>

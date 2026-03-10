@@ -45,7 +45,7 @@ const CoachSection = () => {
               {/* Floating Badge */}
               <div className="absolute -bottom-6 left-1/2 transform -translate-x-1/2 bg-white rounded-2xl shadow-xl px-6 py-4 border-2 border-emerald-200">
                 <p className="text-sm text-gray-600">Founder of</p>
-                <p className="text-xl font-bold text-emerald-600">Strong By Yoga</p>
+                <p className="text-xl font-bold text-emerald-600">Svastha</p>
               </div>
             </div>
 
@@ -66,7 +66,7 @@ const CoachSection = () => {
                 </div>
                 <div className="flex items-center gap-3">
                   <div className="w-2 h-2 bg-emerald-600 rounded-full"></div>
-                  <p className="text-lg text-gray-700 font-medium">Founder of Strong By Yoga</p>
+                  <p className="text-lg text-gray-700 font-medium">Founder of Svastha</p>
                 </div>
               </div>
 

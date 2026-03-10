@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Sunrise, Sunset, Video, Clock } from "lucide-react";
 
 const BatchesSection = () => {
-  const morningBatches = ["5:30 AM", "6:30 AM", "7:30 AM", "8:30 AM", "9:30 AM"];
+  const morningBatches = ["6:30 AM", "7:30 AM", "8:30 AM"];
   const eveningBatches = ["5:30 PM", "6:30 PM"];
 
   return (
