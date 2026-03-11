@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 
 const VideoTestimonialSection2 = () => {
     return (
-        <section className="py-20 px-4 bg-gradient-to-br from-blue-50 to-indigo-50">
+        <section className="py-20 px-0 bg-gradient-to-br from-blue-50 to-indigo-50">
             <div className="container mx-auto max-w-4xl">
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}

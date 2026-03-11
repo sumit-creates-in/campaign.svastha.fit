@@ -11,27 +11,27 @@ const WhyDifferentSection = () => {
 
   return (
     <section className="py-20 px-4 bg-gradient-to-br from-green-50 to-emerald-50">
-      <div className="container mx-auto max-w-5xl">
+      <div className="w-full px-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-12 px-4"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">
             This is Not Just a Yoga Camp
           </h2>
         </motion.div>
 
-        <div className="grid md:grid-cols-2 gap-8 mb-12">
+        <div className="grid md:grid-cols-2 gap-4 mb-12">
           {/* Problems */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-white rounded-2xl p-8 shadow-lg"
+            className="bg-white rounded-lg px-4 py-8 shadow-lg border-2 border-red-200"
           >
             <h3 className="text-2xl font-bold text-red-600 mb-6">Common Problems:</h3>
             <div className="space-y-4">
@@ -52,7 +52,7 @@ const WhyDifferentSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-gradient-to-br from-green-600 to-emerald-600 rounded-2xl p-8 shadow-xl text-white flex flex-col justify-center"
+            className="bg-gradient-to-br from-green-600 to-emerald-600 rounded-lg px-4 py-8 shadow-xl text-white flex flex-col justify-center border-2 border-green-700"
           >
             <div className="flex items-center gap-3 mb-4">
               <div className="bg-white/20 p-3 rounded-full flex-shrink-0">

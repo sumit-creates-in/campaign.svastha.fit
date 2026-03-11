@@ -4,13 +4,13 @@ import { Shield, CheckCircle } from "lucide-react";
 const MoneyBackGuaranteeSection = () => {
   return (
     <section className="py-20 px-4 bg-gradient-to-br from-green-50 to-blue-50">
-      <div className="container mx-auto max-w-4xl">
+      <div className="w-full px-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center"
+          className="text-center px-4"
         >
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
@@ -33,12 +33,12 @@ const MoneyBackGuaranteeSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.3 }}
-            className="bg-white rounded-2xl p-8 md:p-12 shadow-2xl"
+            className="bg-white rounded-lg p-8 md:p-12 shadow-2xl border-2 border-green-200"
           >
             <p className="text-xl text-gray-700 mb-6">
               We want you to experience real results.
             </p>
-            
+
             <div className="bg-gradient-to-r from-green-100 to-blue-100 rounded-xl p-6 mb-6">
               <p className="text-2xl font-bold text-gray-900 mb-4">
                 So we are offering a 100% refund guarantee.

@@ -18,20 +18,20 @@ const WhyPeopleFailSection = () => {
 
   return (
     <section className="py-20 px-4 bg-gradient-to-br from-orange-50 via-red-50 to-pink-50">
-      <div className="container mx-auto max-w-5xl">
+      <div className="w-full px-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-12 px-4"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-8">
             Why Most People Fail To Lose Weight
           </h2>
-          
+
           <p className="text-xl text-gray-700 mb-6">You may have tried:</p>
-          
+
           <div className="grid sm:grid-cols-2 gap-4 max-w-2xl mx-auto mb-8">
             {failedMethods.map((method, index) => (
               <motion.div
@@ -40,7 +40,7 @@ const WhyPeopleFailSection = () => {
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: index * 0.1 }}
-                className="flex items-center gap-3 bg-white p-4 rounded-lg shadow-md"
+                className="flex items-center gap-3 bg-white p-4 rounded-lg shadow-md border-2 border-red-200"
               >
                 <X className="w-6 h-6 text-red-600 flex-shrink-0" />
                 <span className="text-lg font-semibold text-gray-800 whitespace-nowrap">{method}</span>
@@ -53,7 +53,7 @@ const WhyPeopleFailSection = () => {
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.4 }}
-            className="bg-white rounded-2xl p-8 shadow-xl mb-8"
+            className="bg-white rounded-lg p-8 shadow-xl mb-8 border-2 border-red-300"
           >
             <p className="text-2xl font-bold mb-4">
               <span className="text-red-600">But the weight always comes back.</span>{" "}
@@ -72,10 +72,10 @@ const WhyPeopleFailSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="bg-gradient-to-br from-green-100 to-blue-100 rounded-2xl p-8 shadow-xl"
+            className="bg-gradient-to-br from-green-100 to-blue-100 rounded-lg p-8 shadow-xl border-2 border-green-300"
           >
             <p className="text-xl font-semibold text-gray-900 mb-6">When you combine:</p>
-            
+
             <div className="grid sm:grid-cols-2 gap-4 mb-8">
               {successFactors.map((factor, index) => (
                 <motion.div
@@ -84,7 +84,7 @@ const WhyPeopleFailSection = () => {
                   whileInView={{ opacity: 1, scale: 1 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: 0.7 + index * 0.1 }}
-                  className="flex flex-col items-center justify-center gap-2 bg-white p-6 rounded-lg shadow-md text-center"
+                  className="flex flex-col items-center justify-center gap-2 bg-white p-6 rounded-lg shadow-md text-center border-2 border-green-200"
                 >
                   <span className="text-4xl">{factor.emoji}</span>
                   <span className="text-lg font-semibold text-gray-800">{factor.text}</span>

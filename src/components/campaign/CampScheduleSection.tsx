@@ -11,27 +11,27 @@ const CampScheduleSection = () => {
 
   return (
     <section className="py-20 px-4 bg-white">
-      <div className="container mx-auto max-w-5xl">
+      <div className="w-full px-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-16 px-4"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Camp Schedule
           </h2>
         </motion.div>
 
-        <div className="space-y-8">
+        <div className="grid gap-4">
           {/* Day 0 - Orientation */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 shadow-lg"
+            className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg p-8 shadow-lg border-2 border-blue-200"
           >
             <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
               <div className="bg-blue-600 text-white px-4 py-2 rounded-full font-bold text-lg whitespace-nowrap w-fit">
@@ -80,7 +80,7 @@ const CampScheduleSection = () => {
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
-            className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 shadow-lg"
+            className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg p-8 shadow-lg border-2 border-green-700"
           >
             <div className="flex flex-col sm:flex-row sm:items-center gap-3">
               <div className="bg-green-600 text-white px-4 py-2 rounded-full font-bold text-lg whitespace-nowrap w-fit">
