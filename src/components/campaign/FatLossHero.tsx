@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
-import { Clock, Flame, Leaf, Check, BadgeCheck, Weight } from "lucide-react";
+import { Clock, Flame, Leaf, Check, BadgeCheck } from "lucide-react";
 import CountdownTimer from "./CountdownTimer";
 import RegistrationModal from "@/components/RegistrationModal";
 import svasthaLogo from "@/assets/svastha.png";
@@ -10,30 +10,37 @@ const FatLossHero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-16 px-4">
-      {/* Background with gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-br from-green-100 via-emerald-50 to-teal-100">
-        <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200')] bg-cover bg-center opacity-10"></div>
-      </div>
-
-      <div className="container mx-auto relative z-10">
-        <div className="max-w-4xl mx-auto text-center">
-          <div className="flex flex-row items-center justify-center gap-3 mb-12">
+    <>
+      {/* Logo at the very top */}
+      <div className="bg-gradient-to-br from-green-100 via-emerald-50 to-teal-100 pt-8 pb-4">
+        <div className="container mx-auto">
+          <div className="flex flex-row items-center justify-center gap-3">
             <img src={svasthaLogo} alt="Svastha" className="w-8 h-8" />
             <span className="text-xl font-bold bg-gradient-to-r from-green-600 via-blue-500 to-blue-600 bg-clip-text text-transparent">Svastha</span>
           </div>
+        </div>
+      </div>
+
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pb-16 px-4">
+        {/* Background with gradient overlay */}
+        <div className="absolute inset-0 bg-gradient-to-br from-green-100 via-emerald-50 to-teal-100">
+          <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200')] bg-cover bg-center opacity-10"></div>
+        </div>
+
+        <div className="container mx-auto relative z-10">
+          <div className="max-w-4xl mx-auto text-center">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
           >
             {/* Guaranteed Badge */}
-            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-full shadow-lg mb-6">
+            <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-full shadow-lg mb-8">
               <BadgeCheck className="w-5 h-5" />
               <span className="font-bold text-sm">Guaranteed Weight Loss</span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight">
+            <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
               <div className="text-purple-600">✦ 14 Day</div>
               <div className="text-purple-600">Weight Loss</div>
               <div className="text-teal-600">&</div>
@@ -135,11 +142,12 @@ const FatLossHero = () => {
               <CountdownTimer />
             </div>
           </motion.div>
+          </div>
         </div>
-      </div >
+      </section>
 
       <RegistrationModal isOpen={isModalOpen} onOpenChange={setIsModalOpen} />
-    </section >
+    </>
   );
 };
 
