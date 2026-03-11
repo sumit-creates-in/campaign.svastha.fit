@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import RegistrationModal from "@/components/RegistrationModal";
 import { BeforeAfterDashboardCard } from "@/components/gamification/BeforeAfterDashboardCard";
 import sumitSharmaImage from "@/assets/sumit sharma.png";
+import svasthaLogo from "@/assets/svastha.png";
 
 const FourteenDayHero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -16,8 +17,8 @@ const FourteenDayHero = () => {
             <div className="flex flex-col md:flex-row items-center justify-between gap-8">
               {/* Left Side - Svastha */}
               <div className="text-center flex-1">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">SVASTHA</span>
+                <div className="w-20 h-20 mx-auto mb-4 rounded-full bg-white flex items-center justify-center shadow-md">
+                  <img src={svasthaLogo} alt="Svastha" className="w-16 h-16" />
                 </div>
                 <h2 className="text-lg md:text-xl font-bold text-gray-800 mb-2">
                   Sustainable Weight<br />Loss Naturally
@@ -32,7 +33,7 @@ const FourteenDayHero = () => {
 
               {/* Right Side - Sumit Sharma */}
               <div className="text-center flex-1">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden bg-orange-400">
+                <div className="w-20 h-20 mx-auto mb-4 rounded-full overflow-hidden bg-orange-400">
                   <img 
                     src={sumitSharmaImage} 
                     alt="Sumit Sharma" 
@@ -60,10 +61,11 @@ const FourteenDayHero = () => {
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               <iframe
                 className="absolute top-0 left-0 w-full h-full rounded-2xl shadow-lg"
-                src="https://www.youtube.com/embed/0zkAOy4AP38"
+                src="https://www.youtube.com/embed/0zkAOy4AP38?enablejsapi=1&modestbranding=1&rel=0&showinfo=0&fs=1&playsinline=1"
                 title="Inspiring Transformations"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                 allowFullScreen
+                referrerPolicy="strict-origin-when-cross-origin"
               ></iframe>
             </div>
           </div>
@@ -83,7 +85,7 @@ const FourteenDayHero = () => {
                 Most Popular
               </div>
               <Button
-                onClick={() => setIsModalOpen(true)}
+                onClick={() => window.open('/14-Day-Yoga-Fat-Loss-Camp', '_self')}
                 className="w-full bg-gradient-to-r from-blue-800 to-blue-900 hover:from-blue-900 hover:to-blue-950 text-white py-3 md:py-4 text-sm md:text-base font-semibold rounded-full shadow-lg"
               >
                 🔥 14 Day Weight Loss Challenge
@@ -94,7 +96,7 @@ const FourteenDayHero = () => {
             <div className="text-center">
               <p className="text-xs md:text-sm text-gray-600 mb-3">For Exclusive, Faster Weight Loss</p>
               <Button
-                onClick={() => setIsModalOpen(true)}
+                onClick={() => window.open('https://strongbyyoga.com/weight-loss-consultation-with-expert', '_blank')}
                 className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-3 md:py-4 text-sm md:text-base font-semibold rounded-full shadow-lg"
               >
                 ✓ Weight Loss Consultation with Expert

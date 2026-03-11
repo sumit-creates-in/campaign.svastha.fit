@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import RegistrationModal from "@/components/RegistrationModal";
 import sumitSharmaImage from "@/assets/sumit sharma.png";
+import svasthaLogo from "@/assets/svastha.png";
 
 const ConsultationHero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -10,6 +11,12 @@ const ConsultationHero = () => {
     <>
       <section className="bg-gray-50 py-12 px-4">
         <div className="container mx-auto max-w-4xl text-center">
+          {/* Svastha Logo */}
+          <div className="flex justify-center items-center gap-3 mb-8">
+            <img src={svasthaLogo} alt="Svastha" className="w-16 h-16" />
+            <span className="text-3xl font-bold bg-gradient-to-r from-green-600 via-blue-500 to-blue-600 bg-clip-text text-transparent">Svastha</span>
+          </div>
+
           {/* Profile Image */}
           <div className="w-24 h-24 mx-auto mb-8 rounded-full overflow-hidden bg-orange-400 shadow-lg">
             <img 
@@ -61,9 +68,9 @@ const ConsultationHero = () => {
           <div className="w-32 h-1 bg-gray-300 mx-auto mb-8"></div>
 
           {/* Call to Action Text */}
-          <h7 className="text-2xl md:text-3xl font-bold text-blue-900 mb-4">
+          <div className="text-2xl md:text-3xl font-bold text-blue-900 mb-4">
             Serious About Taking Charge of
-          </h7>
+          </div>
           <p className="text-2xl md:text-3xl font-bold text-blue-900 mb-4">
             Your Health <span className="text-orange-500">💪</span>
           </p>
@@ -80,9 +87,9 @@ const ConsultationHero = () => {
 
           {/* CTA Section */}
           <div className="bg-white rounded-2xl shadow-lg p-8 max-w-md mx-auto">
-            <h8 className="text-xl md:text-2xl font-bold text-green-600 mb-4">
+            <div className="text-xl md:text-2xl font-bold text-green-600 mb-4">
               Weight Loss Consultation
-            </h8>
+            </div>
             <p className="text-sm text-gray-600 mb-4">Fee: Rs. 99/- Only</p>
             <p className="text-xs text-gray-500 mb-6">✅ 100% Genuine</p>
             

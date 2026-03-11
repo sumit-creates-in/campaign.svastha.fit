@@ -15,8 +15,8 @@ const FatLossHero = () => {
       <div className="bg-gradient-to-br from-green-100 via-emerald-50 to-teal-100 pt-8 pb-4">
         <div className="container mx-auto">
           <div className="flex flex-row items-center justify-center gap-3">
-            <img src={svasthaLogo} alt="Svastha" className="w-8 h-8" />
-            <span className="text-xl font-bold bg-gradient-to-r from-green-600 via-blue-500 to-blue-600 bg-clip-text text-transparent">Svastha</span>
+            <img src={svasthaLogo} alt="Svastha" className="w-12 h-12" />
+            <span className="text-2xl font-bold bg-gradient-to-r from-green-600 via-blue-500 to-blue-600 bg-clip-text text-transparent">Svastha</span>
           </div>
         </div>
       </div>
@@ -52,10 +52,11 @@ const FatLossHero = () => {
               <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
                 <iframe
                   className="absolute top-0 left-0 w-full h-full rounded-2xl shadow-2xl"
-                  src="https://www.youtube.com/embed/0zkAOy4AP38"
+                  src="https://www.youtube.com/embed/0zkAOy4AP38?enablejsapi=1&modestbranding=1&rel=0&showinfo=0&fs=1&playsinline=1"
                   title="14 Day Yoga & Fat Loss Camp"
-                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
                   allowFullScreen
+                  referrerPolicy="strict-origin-when-cross-origin"
                 ></iframe>
               </div>
             </div>
