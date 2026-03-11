@@ -17,13 +17,13 @@ const PricingSection = () => {
 
   return (
     <section id="pricing" className="py-20 px-4 bg-white">
-      <div className="container mx-auto max-w-4xl">
+      <div className="w-full px-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-12 px-4"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Join the 14 Day Weight Loss & Yoga Camp
