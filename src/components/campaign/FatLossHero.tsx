@@ -16,13 +16,13 @@ const FatLossHero = () => {
 
 
 
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pb-16 px-4">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pb-16 px-4 bg-gradient-to-br from-green-100 via-emerald-50 to-teal-100">
         {/* Background with gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-green-100 via-emerald-50 to-teal-100">
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200')] bg-cover bg-center opacity-10"></div>
         </div>
 
-        <div className="container mx-auto relative z-10">
+        <div className="w-full relative z-10">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, y: 30 }}

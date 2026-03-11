@@ -27,7 +27,7 @@ const FatLossCampaign = () => {
   }, []);
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-green-50 via-white to-green-50">
+    <div className="min-h-screen bg-gradient-to-b from-green-50 via-white to-green-50 overflow-x-hidden">
       {/* <Navigation /> */}
       <FatLossHero />
       <VideoTestimonialSection />
