@@ -12,13 +12,13 @@ const FinalCTASection = () => {
         <div className="absolute bottom-10 right-10 w-96 h-96 bg-white rounded-full blur-3xl"></div>
       </div>
 
-      <div className="container mx-auto max-w-4xl relative z-10">
+      <div className="w-full px-0 relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-12"
+          className="text-center mb-12 px-4"
         >
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white mb-6">
             Start Your Transformation Today
@@ -76,6 +76,7 @@ const FinalCTASection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6, delay: 0.5 }}
+          className="px-4"
         >
           <RegistrationSection />
         </motion.div>

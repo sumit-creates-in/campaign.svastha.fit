@@ -21,13 +21,13 @@ const MentorsSection = () => {
 
   return (
     <section className="py-20 px-4 bg-gradient-to-br from-green-50 to-teal-50">
-      <div className="container mx-auto max-w-6xl">
+      <div className="w-full px-0">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="text-center mb-16"
+          className="text-center mb-16 px-4"
         >
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Meet Your Mentors
@@ -40,7 +40,7 @@ const MentorsSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           transition={{ duration: 0.6 }}
-          className="bg-white rounded-3xl shadow-2xl p-8 md:p-12 mb-12"
+          className="bg-white rounded-lg shadow-2xl p-8 md:p-12 mb-12 border-2 border-green-200"
         >
           <div className="flex flex-col md:flex-row items-center gap-8">
             <div className="w-48 h-48 rounded-full bg-gradient-to-br from-green-400 to-emerald-600 p-1 flex-shrink-0">
@@ -88,7 +88,7 @@ const MentorsSection = () => {
         </motion.div>
 
         {/* Yoga Coaches */}
-        <div className="grid md:grid-cols-3 gap-8">
+        <div className="grid md:grid-cols-3 gap-4">
           {coaches.map((coach, index) => (
             <motion.div
               key={index}
@@ -96,7 +96,7 @@ const MentorsSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.1 }}
-              className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300"
+              className="bg-white rounded-lg shadow-lg overflow-hidden hover:shadow-xl transition-shadow duration-300 border-2 border-teal-200"
             >
               <div className="aspect-square overflow-hidden bg-gray-200">
                 <img
