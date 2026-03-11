@@ -18,9 +18,14 @@ const BatchesSection = () => {
           <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
             Choose Your Preferred Batch
           </h2>
-          <div className="flex items-center justify-center gap-2 text-green-700 font-semibold text-lg">
-            <Video className="w-5 h-5" />
-            <span>All classes are conducted LIVE on Zoom</span>
+          <div className="text-center text-green-700 font-semibold text-base sm:text-lg">
+            <div className="flex items-center justify-center gap-2 sm:gap-3 whitespace-nowrap">
+              <Video className="w-6 h-6 sm:w-8 sm:h-8 flex-shrink-0" />
+              <span>All classes are conducted LIVE</span>
+            </div>
+            <div className="mt-1">
+              <span>on Zoom</span>
+            </div>
           </div>
         </motion.div>
 
