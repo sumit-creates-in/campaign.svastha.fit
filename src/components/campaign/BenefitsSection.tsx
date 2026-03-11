@@ -1,38 +1,12 @@
 import { motion } from "framer-motion";
-import { Flame, Zap, Activity, TrendingUp, Target } from "lucide-react";
 
 const BenefitsSection = () => {
   const benefits = [
-    {
-      icon: Flame,
-      title: "Burn fat naturally through yoga",
-      color: "text-orange-600",
-      bgColor: "bg-orange-100"
-    },
-    {
-      icon: Zap,
-      title: "Feel lighter and more energetic",
-      color: "text-yellow-600",
-      bgColor: "bg-yellow-100"
-    },
-    {
-      icon: Activity,
-      title: "Improve flexibility and stamina",
-      color: "text-blue-600",
-      bgColor: "bg-blue-100"
-    },
-    {
-      icon: TrendingUp,
-      title: "Learn simple habits to lose weight faster",
-      color: "text-green-600",
-      bgColor: "bg-green-100"
-    },
-    {
-      icon: Target,
-      title: "Build discipline and consistency",
-      color: "text-purple-600",
-      bgColor: "bg-purple-100"
-    }
+    { emoji: "🌟", text: "Learn powerful weight loss habits", bgColor: "bg-yellow-100" },
+    { emoji: "🥗", text: "Eat simple home food like Daal, Roti, Sabji & Rice", bgColor: "bg-green-100" },
+    { emoji: "🔥", text: "Train your body to burn fat for energy", bgColor: "bg-orange-100" },
+    { emoji: "✅", text: "Learn the right way of intermittent fasting", bgColor: "bg-blue-100" },
+    { emoji: "🧘‍♀️", text: "Join daily live yoga classes from home", bgColor: "bg-purple-100" }
   ];
 
   return (
@@ -53,7 +27,7 @@ const BenefitsSection = () => {
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
           {benefits.map((benefit, index) => (
             <motion.div
-              key={index}
+              key={benefit.text}
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
@@ -61,10 +35,10 @@ const BenefitsSection = () => {
               className="flex flex-col items-center text-center p-6 rounded-2xl bg-gradient-to-br from-white to-gray-50 shadow-lg hover:shadow-xl transition-shadow duration-300"
             >
               <div className={`${benefit.bgColor} p-4 rounded-full mb-4`}>
-                <benefit.icon className={`w-8 h-8 ${benefit.color}`} />
+                <span className="text-4xl">{benefit.emoji}</span>
               </div>
               <h3 className="text-lg font-semibold text-gray-800">
-                {benefit.title}
+                {benefit.text}
               </h3>
             </motion.div>
           ))}

@@ -33,11 +33,11 @@ const CampScheduleSection = () => {
             transition={{ duration: 0.6 }}
             className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-2xl p-8 shadow-lg"
           >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="bg-blue-600 text-white px-4 py-2 rounded-full font-bold text-lg">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3 mb-6">
+              <div className="bg-blue-600 text-white px-4 py-2 rounded-full font-bold text-lg whitespace-nowrap w-fit">
                 Day 0
               </div>
-              <h3 className="text-2xl font-bold text-gray-900">Orientation Session</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Orientation Session</h3>
             </div>
 
             <div className="grid md:grid-cols-2 gap-6 mb-6">
@@ -82,11 +82,11 @@ const CampScheduleSection = () => {
             transition={{ duration: 0.6 }}
             className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-2xl p-8 shadow-lg"
           >
-            <div className="flex items-center gap-3">
-              <div className="bg-green-600 text-white px-4 py-2 rounded-full font-bold text-lg">
+            <div className="flex flex-col sm:flex-row sm:items-center gap-3">
+              <div className="bg-green-600 text-white px-4 py-2 rounded-full font-bold text-lg whitespace-nowrap w-fit">
                 Day 1
               </div>
-              <h3 className="text-2xl font-bold text-gray-900">Camp Begins</h3>
+              <h3 className="text-xl sm:text-2xl font-bold text-gray-900">Camp Begins</h3>
             </div>
             <div className="mt-4 flex items-center gap-2">
               <Calendar className="w-5 h-5 text-green-600" />

@@ -54,10 +54,12 @@ const WhyDifferentSection = () => {
             transition={{ duration: 0.6 }}
             className="bg-gradient-to-br from-green-600 to-emerald-600 rounded-2xl p-8 shadow-xl text-white flex flex-col justify-center"
           >
-            <div className="bg-white/20 p-3 rounded-full w-fit mb-4">
-              <Check className="w-8 h-8" />
+            <div className="flex items-center gap-3 mb-4">
+              <div className="bg-white/20 p-3 rounded-full flex-shrink-0">
+                <Check className="w-8 h-8" />
+              </div>
+              <h3 className="text-2xl font-bold">Our Solution:</h3>
             </div>
-            <h3 className="text-2xl font-bold mb-4">Our Solution:</h3>
             <p className="text-lg leading-relaxed">
               This 14 Day Yoga & Fat Loss Camp provides daily guidance, structured sessions, and a supportive community to help you stay consistent.
             </p>

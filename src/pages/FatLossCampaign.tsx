@@ -10,9 +10,14 @@ import MentorsSection from "@/components/campaign/MentorsSection";
 import CampScheduleSection from "@/components/campaign/CampScheduleSection";
 import DailyGuidanceSection from "@/components/campaign/DailyGuidanceSection";
 import CommunitySection from "@/components/campaign/CommunitySection";
+import WhyPeopleFailSection from "@/components/campaign/WhyPeopleFailSection";
+import PerfectForYouSection from "@/components/campaign/PerfectForYouSection";
+import BenefitsExperienceSection from "@/components/campaign/BenefitsExperienceSection";
+import MoneyBackGuaranteeSection from "@/components/campaign/MoneyBackGuaranteeSection";
 import RealTransformationsSection from "@/components/transformation/RealTransformationsSection";
 import WhoShouldJoinSection from "@/components/campaign/WhoShouldJoinSection";
 import PricingSection from "@/components/campaign/PricingSection";
+import FAQSection from "@/components/campaign/FAQSection";
 import FinalCTASection from "@/components/campaign/FinalCTASection";
 import StickyCTA from "@/components/campaign/StickyCTA";
 
@@ -34,9 +39,14 @@ const FatLossCampaign = () => {
       <CampScheduleSection />
       <DailyGuidanceSection />
       <CommunitySection />
+      <WhyPeopleFailSection />
+      <PerfectForYouSection />
+      <BenefitsExperienceSection />
+      <MoneyBackGuaranteeSection />
       <RealTransformationsSection />
       <WhoShouldJoinSection />
       <PricingSection />
+      <FAQSection />
       <FinalCTASection />
       <StickyCTA />
     </div>
