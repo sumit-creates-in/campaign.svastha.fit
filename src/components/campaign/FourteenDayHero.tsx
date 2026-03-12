@@ -126,7 +126,7 @@ const FourteenDayHero = () => {
         <div className="fixed bottom-0 left-0 right-0 bg-green-500 text-white py-3 z-50">
           <div className="container mx-auto text-center">
             <Button
-              onClick={() => window.open('https://wa.me/1234567890', '_blank')}
+              onClick={() => window.open('https://api.whatsapp.com/send/?phone=917208683034&text&type=phone_number&app_absent=0', '_blank')}
               className="bg-white text-green-500 hover:bg-gray-100 font-bold px-6 py-2 rounded-full"
             >
               <MessageCircle />
