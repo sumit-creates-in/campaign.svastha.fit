@@ -1,11 +1,15 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import RegistrationModal from "@/components/RegistrationModal";
 import { BeforeAfterDashboardCard } from "@/components/gamification/BeforeAfterDashboardCard";
 import sumitSharmaImage from "@/assets/sumit sharma.png";
+import svasthaLogo from "@/assets/svastha.png";
+import { ChartBarIcon, MessageCircle } from "lucide-react";
 
 const FourteenDayHero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const navigate = useNavigate();
 
   return (
     <>
@@ -16,8 +20,12 @@ const FourteenDayHero = () => {
             <div className="flex flex-col md:flex-row items-center justify-between gap-8">
               {/* Left Side - Svastha */}
               <div className="text-center flex-1">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-r from-green-400 via-blue-500 to-purple-600 flex items-center justify-center">
-                  <span className="text-white font-bold text-sm">SVASTHA</span>
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden bg-white flex items-center justify-center p-2">
+                  <img
+                    src={svasthaLogo}
+                    alt="Svastha"
+                    className="w-full h-full object-contain"
+                  />
                 </div>
                 <h2 className="text-lg md:text-xl font-bold text-gray-800 mb-2">
                   Sustainable Weight<br />Loss Naturally
@@ -32,10 +40,10 @@ const FourteenDayHero = () => {
 
               {/* Right Side - Sumit Sharma */}
               <div className="text-center flex-1">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden bg-orange-400">
-                  <img 
-                    src={sumitSharmaImage} 
-                    alt="Sumit Sharma" 
+                <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden bg-orange-400 flex items-center justify-center">
+                  <img
+                    src={sumitSharmaImage}
+                    alt="Sumit Sharma"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -83,7 +91,7 @@ const FourteenDayHero = () => {
                 Most Popular
               </div>
               <Button
-                onClick={() => setIsModalOpen(true)}
+                onClick={() => navigate('/14-Day-Yoga-Fat-Loss-Camp')}
                 className="w-full bg-gradient-to-r from-blue-800 to-blue-900 hover:from-blue-900 hover:to-blue-950 text-white py-3 md:py-4 text-sm md:text-base font-semibold rounded-full shadow-lg"
               >
                 🔥 14 Day Weight Loss Challenge
@@ -94,7 +102,7 @@ const FourteenDayHero = () => {
             <div className="text-center">
               <p className="text-xs md:text-sm text-gray-600 mb-3">For Exclusive, Faster Weight Loss</p>
               <Button
-                onClick={() => setIsModalOpen(true)}
+                onClick={() => window.location.href = 'https://strongbyyoga.com/weight-loss-consultation-with-expert/'}
                 className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-3 md:py-4 text-sm md:text-base font-semibold rounded-full shadow-lg"
               >
                 ✓ Weight Loss Consultation with Expert
@@ -121,7 +129,8 @@ const FourteenDayHero = () => {
               onClick={() => window.open('https://wa.me/1234567890', '_blank')}
               className="bg-white text-green-500 hover:bg-gray-100 font-bold px-6 py-2 rounded-full"
             >
-              💬 Chat with Us
+              <MessageCircle />
+              Chat with Us
             </Button>
           </div>
         </div>
