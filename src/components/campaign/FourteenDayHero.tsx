@@ -39,8 +39,8 @@ const FourteenDayHero = () => {
               </div>
 
               {/* Right Side - Sumit Sharma */}
-              <div className="text-center flex-1">
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full overflow-hidden bg-orange-400 flex items-center justify-center">
+              <div className="text-center flex-1 mb-6">
+                <div className="w-14 h-14 mx-auto mb-4 rounded-full overflow-hidden bg-orange-400 flex items-center justify-center">
                   <img
                     src={sumitSharmaImage}
                     alt="Sumit Sharma"
