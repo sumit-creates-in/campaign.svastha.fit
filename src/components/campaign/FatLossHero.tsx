@@ -39,11 +39,11 @@ const FatLossHero = () => {
                 <span className="font-bold text-sm">Guaranteed Weight Loss</span>
               </div>
 
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
-                <div className="text-purple-600">✦ 14 Day</div>
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight">
+                <div className="text-purple-600">✦ 14 Day✦</div>
                 <div className="text-purple-600">Weight Loss</div>
                 <div className="text-teal-600">&</div>
-                <div className="text-teal-600">Yoga Camp ✦</div>
+                <div className="text-teal-600">Yoga Camp</div>
               </h1>
 
               {/* YouTube Video */}
