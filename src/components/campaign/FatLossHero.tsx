@@ -39,11 +39,11 @@ const FatLossHero = () => {
                 <span className="font-bold text-sm">Guaranteed Weight Loss</span>
               </div>
 
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
-                <div className="text-purple-600">✦ 14 Day</div>
+              <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight">
+                <div className="text-purple-600">✦ 14 Day✦</div>
                 <div className="text-purple-600">Weight Loss</div>
                 <div className="text-teal-600">&</div>
-                <div className="text-teal-600">Yoga Camp ✦</div>
+                <div className="text-teal-600">Yoga Camp</div>
               </h1>
 
               {/* YouTube Video */}
@@ -51,7 +51,7 @@ const FatLossHero = () => {
                 <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
                   <iframe
                     className="absolute top-0 left-0 w-full h-full rounded-2xl shadow-2xl"
-                    src="https://www.youtube.com/embed/0zkAOy4AP38"
+                    src="https://www.youtube.com/embed/m9fPoVvUlfA"
                     title="14 Day Yoga & Fat Loss Camp"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen

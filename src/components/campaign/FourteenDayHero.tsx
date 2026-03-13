@@ -110,7 +110,7 @@ const FourteenDayHero = () => {
             </div>
 
             {/* Instagram Button */}
-            <div className="text-center">
+            <div className="text-center" style={{ marginBottom: '50px' }}>
               <p className="text-xs md:text-sm text-gray-600 mb-3">Follow Sumit Sharma on Instagram</p>
               <Button
                 onClick={() => window.open('https://www.instagram.com/sumit_sharma_coach?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==', '_blank')}
