@@ -51,7 +51,7 @@ const FatLossHero = () => {
                 <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
                   <iframe
                     className="absolute top-0 left-0 w-full h-full rounded-2xl shadow-2xl"
-                    src="https://www.youtube.com/embed/0zkAOy4AP38"
+                    src="https://www.youtube.com/embed/m9fPoVvUlfA"
                     title="14 Day Yoga & Fat Loss Camp"
                     allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                     allowFullScreen
