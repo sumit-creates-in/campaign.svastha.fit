@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { useMeta } from "@/hooks/useMeta";
 import Navigation from "@/components/Navigation";
 import FatLossHero from "@/components/campaign/FatLossHero";
 import VideoTestimonialSection from "@/components/campaign/VideoTestimonialSection";
@@ -25,6 +26,18 @@ const FatLossCampaign = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  // Set meta tags for 14-Day Fat Loss Campaign
+  useMeta({
+    title: "14-Day Yoga Fat Loss Camp | Transform Your Body in 14 Days",
+    description: "Join our intensive 14-Day Yoga Fat Loss Camp. Proven yoga techniques for rapid fat loss, daily live classes, expert guidance, and guaranteed results. Register now!",
+    ogTitle: "14-Day Yoga Fat Loss Camp | Svastha Wellness",
+    ogDescription: "Transform your body in just 14 days with our intensive yoga fat loss program. Daily live classes, expert instructors, and proven results.",
+    ogImage: "/src/assets/hero-yoga.jpg",
+    twitterTitle: "14-Day Yoga Fat Loss Camp | Svastha Wellness",
+    twitterDescription: "Transform your body in just 14 days with our intensive yoga fat loss program. Daily live classes, expert instructors, and proven results.",
+    twitterImage: "/src/assets/hero-yoga.jpg"
+  });
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 via-white to-green-50 overflow-x-hidden">

@@ -1,0 +1,8 @@
+# Serve static HTML files for specific campaign routes for social media crawlers
+/14-Day-Yoga-Fat-Loss-Camp/  /14-Day-Yoga-Fat-Loss-Camp/index.html  200
+/healthy-life-by-sumit/  /healthy-life-by-sumit/index.html  200
+/weight-loss-consultation-with-expert/  /weight-loss-consultation-with-expert/index.html  200
+/12-week-Total-Body-Transformation-Program/  /12-week-Total-Body-Transformation-Program/index.html  200
+
+# Fallback to main SPA for all other routes
+/*  /index.html  200
