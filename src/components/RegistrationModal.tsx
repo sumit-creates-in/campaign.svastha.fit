@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -19,20 +19,31 @@ const COUNTRY_CODES = [
 interface RegistrationModalProps {
     isOpen: boolean;
     onOpenChange: (open: boolean) => void;
+    hideNameEmail?: boolean;
+    defaultCountryCode?: string;
+    phoneLabel?: string;
+    buttonText?: string;
+    modalTitle?: string;
+    isInternational?: boolean;
 }
 
-const RegistrationModal = ({ isOpen, onOpenChange }: RegistrationModalProps) => {
+const RegistrationModal = ({ isOpen, onOpenChange, hideNameEmail = false, defaultCountryCode = "+91", phoneLabel = "Phone Number", buttonText = "Proceed to Payment - ₹99", modalTitle = "Registration Details", isInternational = false }: RegistrationModalProps) => {
     const [formData, setFormData] = useState({
         name: "",
         email: "",
         phone: "",
-        countryCode: "+91",
+        countryCode: defaultCountryCode,
     });
     const [errors, setErrors] = useState({
         name: "",
         email: "",
         phone: "",
     });
+
+    // Update country code when defaultCountryCode prop changes
+    useEffect(() => {
+        setFormData(prev => ({ ...prev, countryCode: defaultCountryCode }));
+    }, [defaultCountryCode]);
 
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value } = e.target;
@@ -56,18 +67,20 @@ const RegistrationModal = ({ isOpen, onOpenChange }: RegistrationModalProps) => 
     const validateForm = () => {
         const newErrors = { name: "", email: "", phone: "" };
 
-        if (!formData.name.trim()) {
-            newErrors.name = "Name is required";
-        } else if (formData.name.trim().length < 2) {
-            newErrors.name = "Name must be at least 2 characters";
-        }
+        if (!hideNameEmail) {
+            if (!formData.name.trim()) {
+                newErrors.name = "Name is required";
+            } else if (formData.name.trim().length < 2) {
+                newErrors.name = "Name must be at least 2 characters";
+            }
 
-        if (!formData.email.trim()) {
-            newErrors.email = "Email is required";
-        } else {
-            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-            if (!emailRegex.test(formData.email.trim())) {
-                newErrors.email = "Please enter a valid email address";
+            if (!formData.email.trim()) {
+                newErrors.email = "Email is required";
+            } else {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailRegex.test(formData.email.trim())) {
+                    newErrors.email = "Please enter a valid email address";
+                }
             }
         }
 
@@ -85,6 +98,34 @@ const RegistrationModal = ({ isOpen, onOpenChange }: RegistrationModalProps) => 
         e.preventDefault();
         if (!validateForm()) return;
 
+        // For international users, fire webhook and redirect to confirmation page
+        if (isInternational) {
+            // Remove + from country code and combine with phone number
+            const phoneWithoutPlus = formData.countryCode.replace('+', '') + formData.phone.trim();
+            
+            // Fire webhook
+            const webhookUrl = "https://campaigns.svastha.fit/wp-json/uap/v2/uap-175-176";
+            fetch(webhookUrl, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    phone: phoneWithoutPlus
+                })
+            }).catch(error => {
+                console.error('Webhook error:', error);
+            });
+
+            // Redirect to confirmation page
+            window.location.href = "/registration-confirm-14-day-yoga-fat-loss-camp-int";
+            
+            setFormData({ name: "", email: "", phone: "", countryCode: defaultCountryCode });
+            onOpenChange(false);
+            return;
+        }
+
+        // For domestic users, proceed to payment
         const baseUrl = "https://pages.razorpay.com/pl_SPR12T8v0hv9BD/view";
         const params = new URLSearchParams({
             email: formData.email.trim(),
@@ -108,7 +149,7 @@ const RegistrationModal = ({ isOpen, onOpenChange }: RegistrationModalProps) => 
             <DialogContent className="sm:max-w-md">
                 <DialogHeader>
                     <DialogTitle className="text-center text-2xl">
-                        Registration Details
+                        {modalTitle}
                     </DialogTitle>
                     <DialogDescription className="text-center">
                         Fill your details to proceed to payment
@@ -116,48 +157,52 @@ const RegistrationModal = ({ isOpen, onOpenChange }: RegistrationModalProps) => 
                 </DialogHeader>
 
                 <form onSubmit={handleSubmit} className="space-y-4">
-                    <div>
-                        <Label htmlFor="name" className="text-base">
-                            Full Name *
-                        </Label>
-                        <Input
-                            id="name"
-                            name="name"
-                            value={formData.name}
-                            onChange={handleInputChange}
-                            placeholder="Enter your full name"
-                            className="mt-2"
-                        />
-                        {errors.name && (
-                            <p className="text-destructive text-sm mt-1">
-                                {errors.name}
-                            </p>
-                        )}
-                    </div>
+                    {!hideNameEmail && (
+                        <div>
+                            <Label htmlFor="name" className="text-base">
+                                Full Name *
+                            </Label>
+                            <Input
+                                id="name"
+                                name="name"
+                                value={formData.name}
+                                onChange={handleInputChange}
+                                placeholder="Enter your full name"
+                                className="mt-2"
+                            />
+                            {errors.name && (
+                                <p className="text-destructive text-sm mt-1">
+                                    {errors.name}
+                                </p>
+                            )}
+                        </div>
+                    )}
 
-                    <div>
-                        <Label htmlFor="email" className="text-base">
-                            Email Address *
-                        </Label>
-                        <Input
-                            id="email"
-                            name="email"
-                            type="email"
-                            value={formData.email}
-                            onChange={handleInputChange}
-                            placeholder="Enter your email address"
-                            className="mt-2"
-                        />
-                        {errors.email && (
-                            <p className="text-destructive text-sm mt-1">
-                                {errors.email}
-                            </p>
-                        )}
-                    </div>
+                    {!hideNameEmail && (
+                        <div>
+                            <Label htmlFor="email" className="text-base">
+                                Email Address *
+                            </Label>
+                            <Input
+                                id="email"
+                                name="email"
+                                type="email"
+                                value={formData.email}
+                                onChange={handleInputChange}
+                                placeholder="Enter your email address"
+                                className="mt-2"
+                            />
+                            {errors.email && (
+                                <p className="text-destructive text-sm mt-1">
+                                    {errors.email}
+                                </p>
+                            )}
+                        </div>
+                    )}
 
                     <div>
                         <Label htmlFor="phone" className="text-base">
-                            Phone Number *
+                            {phoneLabel} *
                         </Label>
                         <div className="flex gap-2 mt-2">
                             <Select value={formData.countryCode} onValueChange={handleCountryCodeChange}>
@@ -203,7 +248,7 @@ const RegistrationModal = ({ isOpen, onOpenChange }: RegistrationModalProps) => 
                         size="lg"
                         className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-6 mt-6"
                     >
-                        Proceed to Payment - ₹99
+                        {buttonText}
                     </Button>
                 </form>
             </DialogContent>

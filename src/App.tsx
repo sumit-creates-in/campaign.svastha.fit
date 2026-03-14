@@ -5,10 +5,12 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Index from "./pages/Index";
 import FatLossCampaign from "./pages/FatLossCampaign";
+import FatLossCampaignInt from "./pages/FatLossCampaignInt";
 import FourteenDayCampaign from "./pages/FourteenDayCampaign";
 import WeightLossConsultation from "./pages/WeightLossConsultation";
 import TransformationProgram from "./pages/TransformationProgram";
 import RegistrationConfirm14WLYC from "./pages/RegistrationConfirm14WLYC";
+import RegistrationConfirm14WLYCInt from "./pages/RegistrationConfirm14WLYCInt";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -23,9 +25,11 @@ const App = () => (
           <Route path="/" element={<Navigate to="/ultimate-21days/yoga-camp" replace />} />
           <Route path="/ultimate-21days/yoga-camp" element={<Index />} />
           <Route path="/14-Day-Yoga-Fat-Loss-Camp" element={<FatLossCampaign />} />
+          <Route path="/14-Day-Yoga-Fat-Loss-Camp-int" element={<FatLossCampaignInt />} />
           <Route path="/healthy-life-by-sumit" element={<FourteenDayCampaign />} />
           <Route path="/weight-loss-consultation-with-expert" element={<WeightLossConsultation />} />
           <Route path="/reg-confirm-14wlyc" element={<RegistrationConfirm14WLYC />} />
+          <Route path="/reg-confirm-14wlyc-int" element={<RegistrationConfirm14WLYCInt />} />
           <Route path="/12-week-Total-Body-Transformation-Program" element={<TransformationProgram />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

@@ -19,7 +19,11 @@ const COUNTRY_CODES = [
   { code: "+1", country: "US", flag: "🇺🇸" },
 ];
 
-const RegistrationSection = () => {
+interface RegistrationSectionProps {
+  isInternational?: boolean;
+}
+
+const RegistrationSection = ({ isInternational = false }: RegistrationSectionProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
@@ -85,6 +89,34 @@ const RegistrationSection = () => {
     e.preventDefault();
     if (!validateForm()) return;
 
+    // For international users, fire webhook and redirect to confirmation page
+    if (isInternational) {
+      // Remove + from country code and combine with phone number
+      const phoneWithoutPlus = formData.countryCode.replace('+', '') + formData.phone.trim();
+      
+      // Fire webhook
+      const webhookUrl = "https://campaigns.svastha.fit/wp-json/uap/v2/uap-175-176";
+      fetch(webhookUrl, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          phone: phoneWithoutPlus
+        })
+      }).catch(error => {
+        console.error('Webhook error:', error);
+      });
+
+      // Redirect to confirmation page
+      window.location.href = "/registration-confirm-14-day-yoga-fat-loss-camp-int";
+      
+      setFormData({ name: "", email: "", phone: "", countryCode: "+91" });
+      setIsModalOpen(false);
+      return;
+    }
+
+    // For domestic users, proceed to payment
     // Create URL with pre-filled parameters for Razorpay Payment Link
     const baseUrl = "https://pages.razorpay.com/pl_SPR12T8v0hv9BD/view";
     const params = new URLSearchParams({
@@ -112,20 +144,7 @@ const RegistrationSection = () => {
         className="py-20 bg-gradient-to-b from-background to-primary/5"
       >
         <div className="w-full px-0">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="text-center mb-12 px-4"
-          >
-            <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-              Register Now
-            </h2>
-            <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
-              Secure your spot in the Ultimate 14-Day Yoga Camp for just ₹99
-            </p>
-          </motion.div>
+
 
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -250,7 +269,7 @@ const RegistrationSection = () => {
                       size="lg"
                       className="w-full bg-primary hover:bg-primary/90 text-primary-foreground text-lg py-6 mt-6"
                     >
-                      Proceed to Payment - ₹99
+                      {isInternational ? "Complete Registration" : "Proceed to Payment - ₹99"}
                     </Button>
                   </form>
                 </DialogContent>

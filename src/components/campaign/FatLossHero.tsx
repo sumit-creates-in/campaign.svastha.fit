@@ -6,7 +6,14 @@ import CountdownTimer from "./CountdownTimer";
 import RegistrationModal from "@/components/RegistrationModal";
 import svasthaLogo from "@/assets/svastha.png";
 
-const FatLossHero = () => {
+interface FatLossHeroProps {
+  badgeText?: string;
+  showGuarantees?: boolean;
+  commitmentFeeText?: string;
+  intlModal?: boolean;
+}
+
+const FatLossHero = ({ badgeText = "Guaranteed Weight Loss", showGuarantees = true, commitmentFeeText = "Only ₹99 Commitment Fee", intlModal = false }: FatLossHeroProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -33,10 +40,10 @@ const FatLossHero = () => {
                 <img src={svasthaLogo} alt="Svastha" className="w-8 h-8" />
                 <span className="text-xl font-bold bg-gradient-to-r from-green-600 via-blue-500 to-blue-600 bg-clip-text text-transparent">Svastha</span>
               </div>
-              {/* Guaranteed Badge */}
+              {/* Badge */}
               <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-full shadow-lg mb-8">
                 <BadgeCheck className="w-5 h-5" />
-                <span className="font-bold text-sm">Guaranteed Weight Loss</span>
+                <span className="font-bold text-sm">{badgeText}</span>
               </div>
 
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight">
@@ -62,10 +69,12 @@ const FatLossHero = () => {
               <p className="text-2xl md:text-3xl text-green-700 font-semibold mb-4">
                 Lose up to 7 Kg 🔥 in Just 14 Days
               </p>
-              <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-full shadow-lg mb-6">
-                <BadgeCheck className="w-5 h-5" />
-                <span className="font-bold text-sm">100% Money Back Guarantee</span>
-              </div>
+              {showGuarantees && (
+                <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-4 py-2 rounded-full shadow-lg mb-6">
+                  <BadgeCheck className="w-5 h-5" />
+                  <span className="font-bold text-sm">100% Money Back Guarantee</span>
+                </div>
+              )}
 
               {/* <p className="text-lg md:text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
                 Lose Weight Naturally With Yoga & Simple Habits
@@ -101,12 +110,14 @@ const FatLossHero = () => {
               <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-10">
                 <div className="flex items-center gap-2 bg-white/50 backdrop-blur-sm px-4 py-3 rounded-full shadow-md">
                   <Flame className="w-5 h-5 text-orange-500" />
-                  <span className="font-semibold text-gray-800">Only ₹99 Commitment Fee</span>
+                  <span className="font-semibold text-gray-800">{commitmentFeeText}</span>
                 </div>
-                <div className="flex items-center gap-2 bg-white/50 backdrop-blur-sm px-4 py-3 rounded-full shadow-md">
-                  <Check className="w-5 h-5 text-gray-500" />
-                  <span className="font-semibold text-sm text-gray-800">Lose Weight or Get Full Refund</span>
-                </div>
+                {showGuarantees && (
+                  <div className="flex items-center gap-2 bg-white/50 backdrop-blur-sm px-4 py-3 rounded-full shadow-md">
+                    <Check className="w-5 h-5 text-gray-500" />
+                    <span className="font-semibold text-sm text-gray-800">Lose Weight or Get Full Refund</span>
+                  </div>
+                )}
                 <div className="flex items-center gap-2 bg-white/50 backdrop-blur-sm px-4 py-3 rounded-full shadow-md">
                   <Leaf className="w-5 h-5 text-green-600" />
                   <span className="font-semibold text-gray-800">Camp Starts: 22 March</span>
@@ -149,7 +160,16 @@ const FatLossHero = () => {
         </div>
       </section>
 
-      <RegistrationModal isOpen={isModalOpen} onOpenChange={setIsModalOpen} />
+      <RegistrationModal 
+        isOpen={isModalOpen} 
+        onOpenChange={setIsModalOpen} 
+        hideNameEmail={intlModal} 
+        defaultCountryCode={intlModal ? "+1" : "+91"} 
+        phoneLabel={intlModal ? "Whatsapp Number" : "Phone Number"} 
+        buttonText={intlModal ? "Get Instructions on Whatsapp" : "Proceed to Payment - ₹99"}
+        modalTitle={intlModal ? "Free Weight Loss&Yoga Camp" : "Registration Details"}
+        isInternational={intlModal}
+      />
     </>
   );
 };
