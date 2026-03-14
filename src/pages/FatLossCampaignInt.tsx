@@ -13,7 +13,6 @@ import CommunitySection from "@/components/campaign/CommunitySection";
 import WhyPeopleFailSection from "@/components/campaign/WhyPeopleFailSection";
 import PerfectForYouSection from "@/components/campaign/PerfectForYouSection";
 import BenefitsExperienceSection from "@/components/campaign/BenefitsExperienceSection";
-import MoneyBackGuaranteeSection from "@/components/campaign/MoneyBackGuaranteeSection";
 import RealTransformationsSection from "@/components/transformation/RealTransformationsSection";
 import WhoShouldJoinSection from "@/components/campaign/WhoShouldJoinSection";
 import PricingSection from "@/components/campaign/PricingSection";
@@ -54,11 +53,10 @@ const FatLossCampaignInt = () => {
       <WhyPeopleFailSection />
       <PerfectForYouSection />
       <BenefitsExperienceSection />
-      <MoneyBackGuaranteeSection />
       <RealTransformationsSection />
       <WhoShouldJoinSection />
       <PricingSection isInternational={true} />
-      <FAQSection />
+      <FAQSection isInternational={true} />
       <FinalCTASection isInternational={true} />
       <StickyCTA priceText="FREE" intlModal={true} />
     </div>

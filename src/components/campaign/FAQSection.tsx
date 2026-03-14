@@ -1,7 +1,7 @@
 import { ChevronDown } from "lucide-react";
 import { useState } from "react";
 
-const FAQSection = () => {
+const FAQSection = ({ isInternational = false }: { isInternational?: boolean }) => {
   const [openIndex, setOpenIndex] = useState<number | null>(null);
 
   const faqs = [
@@ -15,7 +15,7 @@ const FAQSection = () => {
     },
     {
       question: "Can I join from outside India?",
-      answer: "Yes. Recordings will be available.",
+      answer: "Yes. You can join anywhere from the world.",
     },
     {
       question: "What if I miss a session?",
@@ -27,6 +27,10 @@ const FAQSection = () => {
     },
   ];
 
+  const filteredFaqs = isInternational
+    ? faqs.filter(f => f.question !== "What if I miss a session?")
+    : faqs;
+
   return (
     <section className="py-16 px-4 bg-white">
       <div className="max-w-4xl mx-auto">
@@ -34,7 +38,7 @@ const FAQSection = () => {
           Frequently Asked Questions
         </h2>
         <div className="space-y-4">
-          {faqs.map((faq, index) => (
+          {filteredFaqs.map((faq, index) => (
             <div
               key={index}
               className="border border-gray-200 rounded-lg overflow-hidden"
@@ -45,9 +49,8 @@ const FAQSection = () => {
               >
                 <span className="font-semibold text-gray-900">{faq.question}</span>
                 <ChevronDown
-                  className={`w-5 h-5 text-gray-600 transition-transform ${
-                    openIndex === index ? "transform rotate-180" : ""
-                  }`}
+                  className={`w-5 h-5 text-gray-600 transition-transform ${openIndex === index ? "transform rotate-180" : ""
+                    }`}
                 />
               </button>
               {openIndex === index && (
