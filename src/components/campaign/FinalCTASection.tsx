@@ -1,13 +1,17 @@
+import { useState } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
 import RegistrationSection from "@/components/RegistrationSection";
+import RegistrationModal from "@/components/RegistrationModal";
 
 interface FinalCTASectionProps {
   isInternational?: boolean;
 }
 
 const FinalCTASection = ({ isInternational = false }: FinalCTASectionProps) => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   return (
     <section id="register" className="py-20 px-4 bg-gradient-to-br from-green-600 via-emerald-600 to-teal-600 relative overflow-hidden">
       {/* Decorative elements */}
@@ -71,6 +75,21 @@ const FinalCTASection = ({ isInternational = false }: FinalCTASectionProps) => {
               Join the 14 Day Weight Loss & Yoga Camp
             </p>
             {!isInternational && <p className="text-2xl text-white/90 mb-8">Only ₹99</p>}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.6, delay: 0.5 }}
+              className="mt-6"
+            >
+              <Button
+                size="lg"
+                onClick={() => setIsModalOpen(true)}
+                className="px-10 bg-white text-green-700 hover:bg-gray-100 font-bold text-lg py-6 shadow-lg transition-all duration-300 hover:scale-105"
+              >
+                Complete Registration
+              </Button>
+            </motion.div>
           </motion.div>
         </motion.div>
 
@@ -85,6 +104,17 @@ const FinalCTASection = ({ isInternational = false }: FinalCTASectionProps) => {
           <RegistrationSection isInternational={isInternational} />
         </motion.div>
       </div>
+
+      <RegistrationModal
+        isOpen={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        hideNameEmail={isInternational}
+        defaultCountryCode={isInternational ? "+1" : "+91"}
+        phoneLabel={isInternational ? "Whatsapp Number" : "Phone Number"}
+        buttonText={isInternational ? "Get Instructions on Whatsapp" : "Proceed to Payment - ₹99"}
+        modalTitle={isInternational ? "Free Weight Loss&Yoga Camp" : "Registration Details"}
+        isInternational={isInternational}
+      />
     </section>
   );
 };
