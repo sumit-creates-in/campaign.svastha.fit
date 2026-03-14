@@ -1,9 +1,78 @@
 import { motion } from "framer-motion";
 import { Sunrise, Sunset, Video, Clock } from "lucide-react";
+import { useState, useEffect } from "react";
 
-const BatchesSection = () => {
-  const morningBatches = ["6:30 AM", "7:30 AM", "8:30 AM"];
-  const eveningBatches = ["5:30 PM", "6:30 PM"];
+interface BatchesSectionProps {
+  isInternational?: boolean;
+}
+
+const BatchesSection = ({ isInternational = false }: BatchesSectionProps) => {
+  const [userTimezone, setUserTimezone] = useState("");
+  const [morningBatches, setMorningBatches] = useState<string[]>([]);
+  const [eveningBatches, setEveningBatches] = useState<string[]>([]);
+
+  useEffect(() => {
+    if (isInternational) {
+      // Get user's timezone
+      const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      setUserTimezone(timezone);
+
+      // IST times for morning batches: 6:30 AM, 7:30 AM, 8:30 AM
+      // IST times for evening batches: 5:30 PM, 6:30 PM
+      const istMorningTimes = [
+        { hour: 6, minute: 30 },
+        { hour: 7, minute: 30 },
+        { hour: 8, minute: 30 }
+      ];
+      const istEveningTimes = [
+        { hour: 17, minute: 30 },
+        { hour: 18, minute: 30 }
+      ];
+
+      // Convert IST to user's timezone
+      const convertToUserTimezone = (hour: number, minute: number) => {
+        // Create a date in IST (UTC+5:30)
+        const now = new Date();
+        const istDate = new Date(Date.UTC(
+          now.getUTCFullYear(),
+          now.getUTCMonth(),
+          now.getUTCDate(),
+          hour - 5,
+          minute - 30
+        ));
+
+        // Format in user's timezone
+        const timeStr = istDate.toLocaleTimeString('en-US', {
+          timeZone: timezone,
+          hour: 'numeric',
+          minute: '2-digit',
+          hour12: true
+        });
+
+        return timeStr;
+      };
+
+      const morningConverted = istMorningTimes.map(t => convertToUserTimezone(t.hour, t.minute));
+      const eveningConverted = istEveningTimes.map(t => convertToUserTimezone(t.hour, t.minute));
+
+      setMorningBatches(morningConverted);
+      setEveningBatches(eveningConverted);
+    } else {
+      // Default IST times for non-international
+      setMorningBatches(["6:30 AM", "7:30 AM", "8:30 AM"]);
+      setEveningBatches(["5:30 PM", "6:30 PM"]);
+    }
+  }, [isInternational]);
+
+  const getTimezoneDisplay = () => {
+    if (!isInternational) return "";
+    // Extract city/region from timezone (e.g., "America/Chicago" -> "Chicago/USA")
+    const parts = userTimezone.split('/');
+    if (parts.length === 2) {
+      return ` ${parts[1]}/${parts[0]}`;
+    }
+    return ` ${userTimezone}`;
+  };
 
   return (
     <section className="py-20 px-4 bg-white">
@@ -25,59 +94,120 @@ const BatchesSection = () => {
         </motion.div>
 
         <div className="grid md:grid-cols-2 gap-4 mb-8">
-          {/* Morning Batches */}
-          <motion.div
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-lg p-8 shadow-lg border-2 border-orange-200"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="bg-orange-100 p-3 rounded-full">
-                <Sunrise className="w-6 h-6 text-orange-600" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">Morning Batches</h3>
-            </div>
-            <div className="space-y-3">
-              {morningBatches.map((time, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-lg p-4 shadow-md flex items-center gap-3 hover:shadow-lg transition-shadow"
-                >
-                  <Clock className="w-5 h-5 text-orange-600" />
-                  <span className="text-lg font-semibold text-gray-800">{time}</span>
+          {/* Swap order for international: Evening first, Morning second */}
+          {isInternational ? (
+            <>
+              {/* Evening Batches - Left side for international */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-8 shadow-lg border-2 border-purple-200"
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="bg-purple-100 p-3 rounded-full">
+                    <Sunset className="w-6 h-6 text-purple-600" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900">Evening Batches</h3>
                 </div>
-              ))}
-            </div>
-          </motion.div>
+                <div className="space-y-3">
+                  {eveningBatches.map((time, index) => (
+                    <div
+                      key={index}
+                      className="bg-white rounded-lg p-4 shadow-md flex items-center gap-3 hover:shadow-lg transition-shadow"
+                    >
+                      <Clock className="w-5 h-5 text-purple-600" />
+                      <span className="text-lg font-semibold text-gray-800">{time}{getTimezoneDisplay()}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
 
-          {/* Evening Batches */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-8 shadow-lg border-2 border-purple-200"
-          >
-            <div className="flex items-center gap-3 mb-6">
-              <div className="bg-purple-100 p-3 rounded-full">
-                <Sunset className="w-6 h-6 text-purple-600" />
-              </div>
-              <h3 className="text-2xl font-bold text-gray-900">Evening Batches</h3>
-            </div>
-            <div className="space-y-3">
-              {eveningBatches.map((time, index) => (
-                <div
-                  key={index}
-                  className="bg-white rounded-lg p-4 shadow-md flex items-center gap-3 hover:shadow-lg transition-shadow"
-                >
-                  <Clock className="w-5 h-5 text-purple-600" />
-                  <span className="text-lg font-semibold text-gray-800">{time}</span>
+              {/* Morning Batches - Right side for international */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-lg p-8 shadow-lg border-2 border-orange-200"
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="bg-orange-100 p-3 rounded-full">
+                    <Sunrise className="w-6 h-6 text-orange-600" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900">Morning Batches</h3>
                 </div>
-              ))}
-            </div>
-          </motion.div>
+                <div className="space-y-3">
+                  {morningBatches.map((time, index) => (
+                    <div
+                      key={index}
+                      className="bg-white rounded-lg p-4 shadow-md flex items-center gap-3 hover:shadow-lg transition-shadow"
+                    >
+                      <Clock className="w-5 h-5 text-orange-600" />
+                      <span className="text-lg font-semibold text-gray-800">{time}{getTimezoneDisplay()}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </>
+          ) : (
+            <>
+              {/* Morning Batches - Left side for non-international */}
+              <motion.div
+                initial={{ opacity: 0, x: -30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="bg-gradient-to-br from-orange-50 to-yellow-50 rounded-lg p-8 shadow-lg border-2 border-orange-200"
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="bg-orange-100 p-3 rounded-full">
+                    <Sunrise className="w-6 h-6 text-orange-600" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900">Morning Batches</h3>
+                </div>
+                <div className="space-y-3">
+                  {morningBatches.map((time, index) => (
+                    <div
+                      key={index}
+                      className="bg-white rounded-lg p-4 shadow-md flex items-center gap-3 hover:shadow-lg transition-shadow"
+                    >
+                      <Clock className="w-5 h-5 text-orange-600" />
+                      <span className="text-lg font-semibold text-gray-800">{time}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+
+              {/* Evening Batches - Right side for non-international */}
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6 }}
+                className="bg-gradient-to-br from-purple-50 to-pink-50 rounded-lg p-8 shadow-lg border-2 border-purple-200"
+              >
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="bg-purple-100 p-3 rounded-full">
+                    <Sunset className="w-6 h-6 text-purple-600" />
+                  </div>
+                  <h3 className="text-2xl font-bold text-gray-900">Evening Batches</h3>
+                </div>
+                <div className="space-y-3">
+                  {eveningBatches.map((time, index) => (
+                    <div
+                      key={index}
+                      className="bg-white rounded-lg p-4 shadow-md flex items-center gap-3 hover:shadow-lg transition-shadow"
+                    >
+                      <Clock className="w-5 h-5 text-purple-600" />
+                      <span className="text-lg font-semibold text-gray-800">{time}</span>
+                    </div>
+                  ))}
+                </div>
+              </motion.div>
+            </>
+          )}
         </div>
 
         <motion.div

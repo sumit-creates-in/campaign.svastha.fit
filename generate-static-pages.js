@@ -78,6 +78,15 @@ const routes = {
       "Transform your body in just 14 days with our intensive yoga fat loss program. Daily live classes, expert instructors, and proven results.",
     ogImage: "https://campaign.svastha.fit/hero-yoga.jpg",
   },
+  "14-Day-Yoga-Fat-Loss-Camp-int": {
+    title: "14-Day Yoga Fat Loss Camp | Transform Your Body in 14 Days",
+    description:
+      "Join our intensive 14-Day Yoga Fat Loss Camp. Proven yoga techniques for rapid fat loss, daily live classes, expert guidance, and guaranteed results. Register now!",
+    ogTitle: "14-Day Yoga Fat Loss Camp | Svastha Wellness",
+    ogDescription:
+      "Transform your body in just 14 days with our intensive yoga fat loss program. Daily live classes, expert instructors, and proven results.",
+    ogImage: "https://campaign.svastha.fit/hero-yoga.jpg",
+  },
   "healthy-life-by-sumit": {
     title: "14-Day Healthy Life Transformation | Sumit's Yoga Program",
     description:

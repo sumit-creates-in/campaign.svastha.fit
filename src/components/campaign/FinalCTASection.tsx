@@ -3,7 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Sparkles } from "lucide-react";
 import RegistrationSection from "@/components/RegistrationSection";
 
-const FinalCTASection = () => {
+interface FinalCTASectionProps {
+  isInternational?: boolean;
+}
+
+const FinalCTASection = ({ isInternational = false }: FinalCTASectionProps) => {
   return (
     <section id="register" className="py-20 px-4 bg-gradient-to-br from-green-600 via-emerald-600 to-teal-600 relative overflow-hidden">
       {/* Decorative elements */}
@@ -66,7 +70,7 @@ const FinalCTASection = () => {
             <p className="text-3xl md:text-4xl font-bold text-white mb-2">
               Join the 14 Day Weight Loss & Yoga Camp
             </p>
-            <p className="text-2xl text-white/90 mb-8">Only ₹99</p>
+            {!isInternational && <p className="text-2xl text-white/90 mb-8">Only ₹99</p>}
           </motion.div>
         </motion.div>
 
@@ -78,7 +82,7 @@ const FinalCTASection = () => {
           transition={{ duration: 0.6, delay: 0.5 }}
           className="px-4"
         >
-          <RegistrationSection />
+          <RegistrationSection isInternational={isInternational} />
         </motion.div>
       </div>
     </section>

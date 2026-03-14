@@ -4,7 +4,11 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle2, Clock, Users } from "lucide-react";
 import RegistrationModal from "@/components/RegistrationModal";
 
-const PricingSection = () => {
+interface PricingSectionProps {
+  isInternational?: boolean;
+}
+
+const PricingSection = ({ isInternational = false }: PricingSectionProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const includes = [
@@ -38,11 +42,15 @@ const PricingSection = () => {
           className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl shadow-2xl overflow-hidden"
         >
           <div className="bg-gradient-to-r from-green-600 to-emerald-600 text-white p-8 text-center">
-            <p className="text-lg mb-2 opacity-90">Commitment Fee</p>
-            <div className="flex items-center justify-center gap-2">
-              <span className="text-6xl md:text-7xl font-bold">₹99</span>
-            </div>
-            <p className="text-lg mt-2 opacity-90">One-time payment</p>
+            <p className="text-lg mb-2 opacity-90">{isInternational ? "Free Community camp" : "Commitment Fee"}</p>
+            {!isInternational && (
+              <>
+                <div className="flex items-center justify-center gap-2">
+                  <span className="text-6xl md:text-7xl font-bold">₹99</span>
+                </div>
+                <p className="text-lg mt-2 opacity-90">One-time payment</p>
+              </>
+            )}
           </div>
 
           <div className="p-8 md:p-12">
@@ -81,7 +89,7 @@ const PricingSection = () => {
               size="lg"
               className="w-full bg-green-600 hover:bg-green-700 text-white py-6 text-xl font-bold rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
             >
-              Register Now for ₹99
+              {isInternational ? "Register Now" : "Register Now for ₹99"}
             </Button>
 
             <div className="mt-6 flex items-center justify-center gap-2 text-gray-600">

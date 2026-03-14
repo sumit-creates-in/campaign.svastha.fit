@@ -3,7 +3,12 @@ import { Button } from "@/components/ui/button";
 import { motion, AnimatePresence } from "framer-motion";
 import RegistrationModal from "@/components/RegistrationModal";
 
-const StickyCTA = () => {
+interface StickyCTAProps {
+  priceText?: string;
+  intlModal?: boolean;
+}
+
+const StickyCTA = ({ priceText = "Only ₹99", intlModal = false }: StickyCTAProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [isDismissed, setIsDismissed] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -66,7 +71,7 @@ const StickyCTA = () => {
                       </Button>
                     </motion.div>
                     <p className="text-white/90 text-sm md:text-base">
-                      Only ₹99
+                      {priceText}
                     </p>
                   </div>
                 </div>
@@ -76,7 +81,16 @@ const StickyCTA = () => {
         )}
       </AnimatePresence>
 
-      <RegistrationModal isOpen={isModalOpen} onOpenChange={setIsModalOpen} />
+      <RegistrationModal 
+        isOpen={isModalOpen} 
+        onOpenChange={setIsModalOpen}
+        hideNameEmail={intlModal}
+        defaultCountryCode={intlModal ? "+1" : "+91"}
+        phoneLabel={intlModal ? "Whatsapp Number" : "Phone Number"}
+        buttonText={intlModal ? "Get Instructions on Whatsapp" : "Proceed to Payment - ₹99"}
+        modalTitle={intlModal ? "Free Weight Loss&Yoga Camp" : "Registration Details"}
+        isInternational={intlModal}
+      />
     </>
   );
 };
