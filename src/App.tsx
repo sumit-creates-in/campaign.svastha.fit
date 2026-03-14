@@ -29,7 +29,9 @@ const App = () => (
           <Route path="/healthy-life-by-sumit" element={<FourteenDayCampaign />} />
           <Route path="/weight-loss-consultation-with-expert" element={<WeightLossConsultation />} />
           <Route path="/reg-confirm-14wlyc" element={<RegistrationConfirm14WLYC />} />
+          <Route path="/registration-confirm-14-day-yoga-fat-loss-camp" element={<RegistrationConfirm14WLYC />} />
           <Route path="/reg-confirm-14wlyc-int" element={<RegistrationConfirm14WLYCInt />} />
+          <Route path="/registration-confirm-14-day-yoga-fat-loss-camp-int" element={<RegistrationConfirm14WLYCInt />} />
           <Route path="/12-week-Total-Body-Transformation-Program" element={<TransformationProgram />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
