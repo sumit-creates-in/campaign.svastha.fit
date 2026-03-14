@@ -18,7 +18,7 @@ const BatchesSection = ({ isInternational = false }: BatchesSectionProps) => {
       setUserTimezone(timezone);
 
       // IST times for morning batches: 6:30 AM, 7:30 AM, 8:30 AM
-      // IST times for evening batches: 5:30 PM, 6:30 PM
+      // IST times for evening batches: 4:30 PM, 5:30 PM, 6:30 PM
       const istMorningTimes = [
         { hour: 6, minute: 30 },
         { hour: 7, minute: 30 },
@@ -61,7 +61,7 @@ const BatchesSection = ({ isInternational = false }: BatchesSectionProps) => {
     } else {
       // Default IST times for non-international
       setMorningBatches(["6:30 AM", "7:30 AM", "8:30 AM"]);
-      setEveningBatches(["5:30 PM", "6:30 PM"]);
+      setEveningBatches(["4:30 PM", "5:30 PM", "6:30 PM"]);
     }
   }, [isInternational]);
 
