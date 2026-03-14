@@ -1,5 +1,6 @@
 import { motion } from "framer-motion";
 import { Calendar, Clock, Video, CheckCircle2 } from "lucide-react";
+import ReactCountryFlag from "react-country-flag";
 
 const CampScheduleSection = () => {
   const orientationTopics = [
@@ -52,7 +53,7 @@ const CampScheduleSection = () => {
                 <Clock className="w-6 h-6 text-blue-600" />
                 <div>
                   <p className="text-sm text-gray-600">Time</p>
-                  <p className="font-semibold text-gray-900">9:00 AM</p>
+                  <p className="font-semibold text-gray-900">10:00 AM Eastern Time (ET) <ReactCountryFlag countryCode="US" svg style={{ width: "1.1em", height: "1.1em" }} /></p>
                 </div>
               </div>
             </div>
