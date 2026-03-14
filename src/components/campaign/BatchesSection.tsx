@@ -25,6 +25,7 @@ const BatchesSection = ({ isInternational = false }: BatchesSectionProps) => {
         { hour: 8, minute: 30 }
       ];
       const istEveningTimes = [
+         { hour: 16, minute: 30 },
         { hour: 17, minute: 30 },
         { hour: 18, minute: 30 }
       ];

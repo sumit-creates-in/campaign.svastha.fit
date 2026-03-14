@@ -104,7 +104,7 @@ const RegistrationModal = ({ isOpen, onOpenChange, hideNameEmail = false, defaul
             const phoneWithoutPlus = formData.countryCode.replace('+', '') + formData.phone.trim();
             
             // Fire webhook
-            const webhookUrl = "https://campaigns.svastha.fit/wp-json/uap/v2/uap-175-176";
+            const webhookUrl = "https://dash.botbiz.io/webhook/whatsapp-workflow/106644.353253.334276.1773479085";
             fetch(webhookUrl, {
                 method: 'POST',
                 headers: {

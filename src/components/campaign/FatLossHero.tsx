@@ -5,6 +5,7 @@ import { Clock, Flame, Leaf, Check, BadgeCheck } from "lucide-react";
 import CountdownTimer from "./CountdownTimer";
 import RegistrationModal from "@/components/RegistrationModal";
 import svasthaLogo from "@/assets/svastha.png";
+import ReactCountryFlag from "react-country-flag";
 
 interface FatLossHeroProps {
   badgeText?: string;
@@ -44,6 +45,13 @@ const FatLossHero = ({ badgeText = "Guaranteed Weight Loss", showGuarantees = tr
               <div className="inline-flex items-center gap-2 bg-gradient-to-r from-green-500 to-emerald-600 text-white px-6 py-3 rounded-full shadow-lg mb-8">
                 <BadgeCheck className="w-5 h-5" />
                 <span className="font-bold text-sm">{badgeText}</span>
+                {badgeText?.includes("Free Community Camp") && (
+                  <ReactCountryFlag
+                    countryCode="US"
+                    svg
+                    style={{ width: "1.1em", height: "1.1em" }}
+                  />
+                )}
               </div>
 
               <h1 className="text-5xl md:text-7xl lg:text-8xl font-bold mb-8 leading-tight">
@@ -124,7 +132,11 @@ const FatLossHero = ({ badgeText = "Guaranteed Weight Loss", showGuarantees = tr
                 </div>
                 <div className="flex items-center gap-2 bg-white/50 backdrop-blur-sm px-4 py-3 rounded-full shadow-md">
                   <Clock className="w-5 h-5 text-blue-600" />
-                  <span className="font-semibold text-gray-800">Orientation: 9:00 AM</span>
+                  <span className="font-semibold text-gray-800">Orientation:10:00 AM Eastern Time (ET)   <ReactCountryFlag
+                                      countryCode="US"
+                                      svg
+                                      style={{ width: "1.1em", height: "1.1em" }}
+                                    /></span>
                 </div>
               </div>
 
@@ -145,7 +157,7 @@ const FatLossHero = ({ badgeText = "Guaranteed Weight Loss", showGuarantees = tr
                     size="lg"
                     className="relative bg-gradient-to-r from-green-500 via-emerald-600 to-teal-600 hover:from-green-600 hover:via-emerald-700 hover:to-teal-700 text-white px-8 py-6 text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden group"
                   >
-                    <span className="relative z-10">Register Now</span>
+                    <span className="relative z-10">{intlModal ? "REGISTER for FREE" : "Register Now"}</span>
                     <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></span>
                   </Button>
                 </motion.div>
