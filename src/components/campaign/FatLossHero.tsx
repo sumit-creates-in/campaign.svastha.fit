@@ -67,29 +67,33 @@ const FatLossHero = () => {
                 <span className="font-bold text-sm">100% Money Back Guarantee</span>
               </div>
 
-              <p className="text-lg md:text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
+              {/* <p className="text-lg md:text-xl text-gray-700 mb-8 max-w-2xl mx-auto">
                 Lose Weight Naturally With Yoga & Simple Habits
-              </p>
+              </p> */}
 
               {/* Key Benefits */}
               <div className="flex flex-wrap justify-center gap-4 md:gap-6 mb-8">
                 <div className="flex items-center gap-2">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
-                    <Check className="w-4 h-4 text-white" />
-                  </div>
-                  <span className="text-gray-800 font-medium">Without starving yourself</span>
+                  <span className="text-gray-800 font-medium">🥗 Eat simple home food like Daal, Roti, Sabji & Rice
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
-                    <Check className="w-4 h-4 text-white" />
-                  </div>
-                  <span className="text-gray-800 font-medium">Without expensive diets</span>
+
+                  <span className="text-gray-800 font-medium">🔥 Train your body to burn fat for energy</span>
                 </div>
                 <div className="flex items-center gap-2">
-                  <div className="flex-shrink-0 w-6 h-6 rounded-full bg-green-500 flex items-center justify-center">
-                    <Check className="w-4 h-4 text-white" />
-                  </div>
-                  <span className="text-gray-800 font-medium">Without going to the gym</span>
+
+                  <span className="text-gray-800 font-medium">🌟 Learn powerful weight loss habits</span>
+                </div>
+                <div className="flex items-center gap-2">
+
+                  <span className="text-gray-800 font-medium">✅ Learn the right way of intermittent fasting
+                  </span>
+                </div>
+                <div className="flex items-center gap-2">
+
+                  <span className="text-gray-800 font-medium">🧘‍♀️ Join daily live yoga classes from home
+                  </span>
                 </div>
               </div>
 
