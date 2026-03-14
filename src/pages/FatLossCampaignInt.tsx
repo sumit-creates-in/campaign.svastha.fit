@@ -41,7 +41,7 @@ const FatLossCampaignInt = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 via-white to-green-50 overflow-x-hidden">
       {/* <Navigation /> */}
-      <FatLossHero badgeText="Free Community camp" showGuarantees={false} commitmentFeeText="FREE" intlModal={true} />
+      <FatLossHero badgeText="Free Community Camp " showGuarantees={false} commitmentFeeText="FREE" intlModal={true} />
       <VideoTestimonialSection />
       <BenefitsSection />
       <VideoTestimonialSection2 />

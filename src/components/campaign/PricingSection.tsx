@@ -89,7 +89,7 @@ const PricingSection = ({ isInternational = false }: PricingSectionProps) => {
               size="lg"
               className="w-full bg-green-600 hover:bg-green-700 text-white py-6 text-xl font-bold rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
             >
-              {isInternational ? "Register Now" : "Register Now for ₹99"}
+              {isInternational ? "REGISTER for FREE" : "Register Now for ₹99"}
             </Button>
 
             <div className="mt-6 flex items-center justify-center gap-2 text-gray-600">
@@ -100,7 +100,16 @@ const PricingSection = ({ isInternational = false }: PricingSectionProps) => {
         </motion.div>
       </div>
 
-      <RegistrationModal isOpen={isModalOpen} onOpenChange={setIsModalOpen} />
+      <RegistrationModal 
+        isOpen={isModalOpen} 
+        onOpenChange={setIsModalOpen}
+        hideNameEmail={isInternational}
+        defaultCountryCode={isInternational ? "+1" : "+91"}
+        phoneLabel={isInternational ? "Whatsapp Number" : "Phone Number"}
+        buttonText={isInternational ? "Get Instructions on Whatsapp" : "Proceed to Payment - ₹99"}
+        modalTitle={isInternational ? "Free Weight Loss&Yoga Camp" : "Registration Details"}
+        isInternational={isInternational}
+      />
     </section>
   );
 };

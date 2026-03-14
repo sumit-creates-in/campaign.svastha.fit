@@ -67,12 +67,14 @@ const StickyCTA = ({ priceText = "Only ₹99", intlModal = false }: StickyCTAPro
                         size="lg"
                         className="bg-white text-green-700 hover:bg-gray-100 font-bold shadow-lg"
                       >
-                        Register Now
+                        {intlModal ? "REGISTER for FREE" : "Register Now"}
                       </Button>
                     </motion.div>
-                    <p className="text-white/90 text-sm md:text-base">
-                      {priceText}
-                    </p>
+                    {!intlModal && (
+                      <p className="text-white/90 text-sm md:text-base">
+                        {priceText}
+                      </p>
+                    )}
                   </div>
                 </div>
               </div>
