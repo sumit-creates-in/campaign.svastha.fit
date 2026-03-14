@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Calendar, Clock, Monitor, Users, ArrowBigDown } from "lucide-react";
 import { useEffect } from "react";
+import ReactCountryFlag from "react-country-flag";
 
 const RegistrationConfirm14WLYCInt = () => {
     useEffect(() => {
@@ -26,7 +27,7 @@ const RegistrationConfirm14WLYCInt = () => {
         {
             number: "3️⃣",
             title: "Attend the orientation session on time",
-            description: "Join the Zoom call at 9:00 AM on 22 March"
+            description: "Join the Zoom call at 10:00 AM Eastern Time (ET) 🇺🇸 on 22 March"
         }
     ];
 
@@ -115,7 +116,7 @@ const RegistrationConfirm14WLYCInt = () => {
                                 <Clock className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                                 <div>
                                     <p className="text-sm text-gray-600 font-semibold">Time</p>
-                                    <p className="text-lg text-gray-900 font-bold">9:00 AM (India Time)</p>
+                                    <p className="text-lg text-gray-900 font-bold">10:00 AM Eastern Time (ET) <ReactCountryFlag countryCode="US" svg style={{ width: "1.1em", height: "1.1em" }} /></p>
                                 </div>
                             </div>
 
