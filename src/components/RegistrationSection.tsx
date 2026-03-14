@@ -13,7 +13,7 @@ const RegistrationSection = ({ isInternational = false }: RegistrationSectionPro
 
   return (
     <>
-      <section
+      {/* <section
         id="register"
         className="py-20 bg-gradient-to-b from-background to-primary/5"
       >
@@ -41,7 +41,7 @@ const RegistrationSection = ({ isInternational = false }: RegistrationSectionPro
             </motion.div>
           </motion.div>
         </div>
-      </section>
+      </section> */}
 
       <RegistrationModal
         isOpen={isModalOpen}
