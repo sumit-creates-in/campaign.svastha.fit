@@ -84,10 +84,16 @@ const FinalCTASection = ({ isInternational = false }: FinalCTASectionProps) => {
             >
               <Button
                 size="lg"
-                onClick={() => setIsModalOpen(true)}
+                onClick={() => {
+                  if (isInternational) {
+                    window.open('https://wa.me/15557533653?text=Join%20FREE%2014%20Weight%20Loss%20%26%20Yoga%20Camp', '_blank');
+                  } else {
+                    setIsModalOpen(true);
+                  }
+                }}
                 className="px-10 bg-white text-green-700 hover:bg-gray-100 font-bold text-lg py-6 shadow-lg transition-all duration-300 hover:scale-105"
               >
-                Complete Registration
+                {isInternational ? "JOIN for FREE" : "Complete Registration"}
               </Button>
             </motion.div>
           </motion.div>
