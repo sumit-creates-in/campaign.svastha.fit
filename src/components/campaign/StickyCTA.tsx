@@ -63,11 +63,17 @@ const StickyCTA = ({ priceText = "Only ₹99", intlModal = false }: StickyCTAPro
                       }}
                     >
                       <Button
-                        onClick={() => setIsModalOpen(true)}
+                        onClick={() => {
+                          if (intlModal) {
+                            window.open('https://wa.me/15557533653?text=Join%20FREE%2014%20Weight%20Loss%20%26%20Yoga%20Camp', '_blank');
+                          } else {
+                            setIsModalOpen(true);
+                          }
+                        }}
                         size="lg"
                         className="bg-white text-green-700 hover:bg-gray-100 font-bold shadow-lg"
                       >
-                        {intlModal ? "REGISTER for FREE" : "Register Now"}
+                        {intlModal ? "JOIN for FREE" : "Register Now"}
                       </Button>
                     </motion.div>
                     {!intlModal && (

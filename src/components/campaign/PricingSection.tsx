@@ -85,11 +85,17 @@ const PricingSection = ({ isInternational = false }: PricingSectionProps) => {
             </div>
 
             <Button
-              onClick={() => setIsModalOpen(true)}
+              onClick={() => {
+                if (isInternational) {
+                  window.open('https://wa.me/15557533653?text=Join%20FREE%2014%20Weight%20Loss%20%26%20Yoga%20Camp', '_blank');
+                } else {
+                  setIsModalOpen(true);
+                }
+              }}
               size="lg"
               className="w-full bg-green-600 hover:bg-green-700 text-white py-6 text-xl font-bold rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
             >
-              {isInternational ? "REGISTER for FREE" : "Register Now for ₹99"}
+              {isInternational ? "JOIN for FREE" : "Register Now for ₹99"}
             </Button>
 
             <div className="mt-6 flex items-center justify-center gap-2 text-gray-600">

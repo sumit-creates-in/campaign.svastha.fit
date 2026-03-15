@@ -153,11 +153,17 @@ const FatLossHero = ({ badgeText = "Guaranteed Weight Loss", showGuarantees = tr
                   }}
                 >
                   <Button
-                    onClick={() => setIsModalOpen(true)}
+                    onClick={() => {
+                      if (intlModal) {
+                        window.open('https://wa.me/15557533653?text=Join%20FREE%2014%20Weight%20Loss%20%26%20Yoga%20Camp', '_blank');
+                      } else {
+                        setIsModalOpen(true);
+                      }
+                    }}
                     size="lg"
                     className="relative bg-gradient-to-r from-green-500 via-emerald-600 to-teal-600 hover:from-green-600 hover:via-emerald-700 hover:to-teal-700 text-white px-8 py-6 text-lg font-semibold shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 overflow-hidden group"
                   >
-                    <span className="relative z-10">{intlModal ? "REGISTER for FREE" : "Register Now"}</span>
+                    <span className="relative z-10">{intlModal ? "JOIN for FREE" : "Register Now"}</span>
                     <span className="absolute inset-0 bg-gradient-to-r from-transparent via-white/30 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out"></span>
                   </Button>
                 </motion.div>
