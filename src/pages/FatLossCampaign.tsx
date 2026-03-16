@@ -42,14 +42,14 @@ const FatLossCampaign = () => {
   return (
     <div className="min-h-screen bg-gradient-to-b from-green-50 via-white to-green-50 overflow-x-hidden">
       {/* <Navigation /> */}
-      <FatLossHero />
+      <FatLossHero orientationDisplay="9:00 AM" />
       <VideoTestimonialSection />
       <BenefitsSection />
       <VideoTestimonialSection2 />
       <WhyDifferentSection />
       <BatchesSection />
       <MentorsSection />
-      <CampScheduleSection />
+      <CampScheduleSection orientationDisplay="9:00 AM" />
       <DailyGuidanceSection />
       <CommunitySection />
       <WhyPeopleFailSection />

@@ -7,7 +7,7 @@ import Index from "./pages/Index";
 import FatLossCampaign from "./pages/FatLossCampaign";
 import FatLossCampaignInt from "./pages/FatLossCampaignInt";
 import FourteenDayCampaign from "./pages/FourteenDayCampaign";
-import WeightLossConsultation from "./pages/WeightLossConsultation";
+
 import TransformationProgram from "./pages/TransformationProgram";
 import RegistrationConfirm14WLYC from "./pages/RegistrationConfirm14WLYC";
 import RegistrationConfirm14WLYCInt from "./pages/RegistrationConfirm14WLYCInt";
@@ -27,7 +27,7 @@ const App = () => (
           <Route path="/14-Day-Yoga-Fat-Loss-Camp" element={<FatLossCampaign />} />
           <Route path="/14-Day-Yoga-Fat-Loss-Camp-int" element={<FatLossCampaignInt />} />
           <Route path="/healthy-life-by-sumit" element={<FourteenDayCampaign />} />
-          <Route path="/weight-loss-consultation-with-expert" element={<WeightLossConsultation />} />
+
           <Route path="/reg-confirm-14wlyc" element={<RegistrationConfirm14WLYC />} />
           <Route path="/registration-confirm-14-day-yoga-fat-loss-camp" element={<RegistrationConfirm14WLYC />} />
           <Route path="/reg-confirm-14wlyc-int" element={<RegistrationConfirm14WLYCInt />} />

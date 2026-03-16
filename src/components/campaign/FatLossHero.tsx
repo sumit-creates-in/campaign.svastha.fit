@@ -12,9 +12,10 @@ interface FatLossHeroProps {
   showGuarantees?: boolean;
   commitmentFeeText?: string;
   intlModal?: boolean;
+  orientationDisplay?: string;
 }
 
-const FatLossHero = ({ badgeText = "Guaranteed Weight Loss", showGuarantees = true, commitmentFeeText = "Only ₹99 Commitment Fee", intlModal = false }: FatLossHeroProps) => {
+const FatLossHero = ({ badgeText = "Guaranteed Weight Loss", showGuarantees = true, commitmentFeeText = "Only ₹99 Commitment Fee", intlModal = false, orientationDisplay }: FatLossHeroProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   return (
@@ -132,11 +133,16 @@ const FatLossHero = ({ badgeText = "Guaranteed Weight Loss", showGuarantees = tr
                 </div>
                 <div className="flex items-center gap-2 bg-white/50 backdrop-blur-sm px-4 py-3 rounded-full shadow-md">
                   <Clock className="w-5 h-5 text-blue-600" />
-                  <span className="font-semibold text-gray-800">Orientation:10:00 AM Eastern Time (ET)   <ReactCountryFlag
-                                      countryCode="US"
-                                      svg
-                                      style={{ width: "1.1em", height: "1.1em" }}
-                                    /></span>
+                  <span className="font-semibold text-gray-800">
+                    Orientation:{orientationDisplay || "10:00 AM Eastern Time (ET)"}
+                    {!orientationDisplay && (
+                      <ReactCountryFlag
+                        countryCode="US"
+                        svg
+                        style={{ width: "1.1em", height: "1.1em", marginLeft: "0.5em" }}
+                      />
+                    )}
+                  </span>
                 </div>
               </div>
 
