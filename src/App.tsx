@@ -34,7 +34,7 @@ const App = () => (
           <Route path="/reg-confirm-14wlyc-int" element={<RegistrationConfirm14WLYCInt />} />
           <Route path="/registration-confirm-14-day-yoga-fat-loss-camp-int" element={<RegistrationConfirm14WLYCInt />} />
           <Route path="/12-week-Total-Body-Transformation-Program" element={<TransformationProgram />} />
-          <Route path="/Ultimate-21-day-weight-loss-challenge-registration" element={<Ultimate21DayChallenge />} />
+          <Route path="/Ultimate-21-day-weight-loss-challenge" element={<Ultimate21DayChallenge />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
