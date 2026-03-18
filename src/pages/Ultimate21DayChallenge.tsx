@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import { useMeta } from "@/hooks/useMeta";
 import { Button } from "@/components/ui/button";
@@ -7,28 +7,23 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import { Card, CardContent } from "@/components/ui/card";
-import { 
-  CheckCircle2, Users, Star, Trophy, Heart, Zap, 
-  Target, TrendingDown, Award, Shield, Phone, Mail, 
+import {
+  CheckCircle2, Users, Star, Trophy, Heart, Zap,
+  Target, TrendingDown, Award, Shield, Phone, Mail,
   Calendar, ChevronRight, Sparkles, Scale, Utensils,
   Stethoscope, Activity, Briefcase, Home, Users2,
-  Frown, UserCheck, ChefHat, HandHeart, User, Clock
+  Frown, UserCheck, ChefHat, HandHeart, User, Clock,
+  BookOpen, PlayCircle, MessageCircle, Gift
 } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import * as z from "zod";
 import { toast } from "sonner";
-import { useState, useEffect } from "react";
 import sumitImage from "@/assets/sumit sharma.png";
 import ankitImage from "@/assets/ankit sharma.webp";
 import anishaImage from "@/assets/Anisha.jpeg";
 import muskanImage from "@/assets/muskan lalwani.jpeg";
 import venikaImage from "@/assets/venika agarwal.jpeg";
-import { watch } from "fs";
-import { register } from "module";
-import { watch } from "fs";
-import { register } from "module";
-import { register } from "module";
 
 // Form validation schema
 const registrationSchema = z.object({
@@ -79,12 +74,12 @@ const Ultimate21DayChallenge = () => {
       // TODO: Integrate with Supabase edge function: create-challenge-payment
       // For now, redirect to Razorpay payment
       const paymentUrl = `https://pages.razorpay.com/pl_CHALLENGE21DAY/view?name=${encodeURIComponent(data.name)}&phone=${data.phone}&contact=${data.phone}`;
-      
+
       toast.success("Redirecting to payment...");
-      
+
       // Open payment in new tab
       window.open(paymentUrl, "_blank");
-      
+
       // After successful payment, redirect to: /download?challenge=true&phone=${data.phone}
     } catch (error) {
       toast.error("Something went wrong. Please try again.");
@@ -94,7 +89,7 @@ const Ultimate21DayChallenge = () => {
 
   return (
     <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">
-      
+
       {/* HERO SECTION */}
       <section className="relative py-12 md:py-16 px-4 bg-white overflow-hidden">
         <div className="container mx-auto max-w-7xl">
@@ -103,8 +98,7 @@ const Ultimate21DayChallenge = () => {
             initial={{ opacity: 0, y: -20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
-            className="text-center mb-8"
-          >
+            className="text-center mb-8">
             <div className="inline-block bg-gradient-to-r from-emerald-500 via-teal-500 to-purple-500 text-white px-8 py-2 rounded-full text-xl md:text-2xl font-bold tracking-wide">
               SVASTHA.FIT
             </div>
@@ -115,8 +109,7 @@ const Ultimate21DayChallenge = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-center mb-12"
-          >
+            className="text-center mb-12">
             <div className="flex items-center justify-center gap-2 mb-2">
               <span className="text-emerald-500 text-2xl">✦</span>
               <h1 className="text-3xl md:text-4xl font-bold text-gray-900 italic">
@@ -139,8 +132,7 @@ const Ultimate21DayChallenge = () => {
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="space-y-6"
-            >
+              className="space-y-6">
               {/* Main Headline */}
               <div>
                 <h4 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 whitespace-nowrap">
@@ -190,8 +182,7 @@ const Ultimate21DayChallenge = () => {
                 <Button
                   onClick={scrollToRegistration}
                   size="lg"
-                  className="w-full md:w-auto bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold text-xl px-12 py-6 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
-                >
+                  className="w-full md:w-auto bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold text-xl px-12 py-6 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
                   Register Now
                 </Button>
                 <p className="text-center md:text-left mt-3 text-lg font-semibold text-gray-700">
@@ -209,8 +200,7 @@ const Ultimate21DayChallenge = () => {
               initial={{ opacity: 0, x: 30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="w-full order-first lg:order-last"
-            >
+              className="w-full order-first lg:order-last">
               <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl border-4 border-emerald-100" style={{ paddingBottom: '56.25%' }}>
                 <iframe
                   className="absolute top-0 left-0 w-full h-full"
@@ -232,8 +222,7 @@ const Ultimate21DayChallenge = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
-          >
+            className="text-center mb-12">
             <div className="flex items-center justify-center gap-2 mb-3">
               <Trophy className="w-8 h-8 text-emerald-600" />
               <h2 className="text-3xl md:text-4xl font-bold text-emerald-700">
@@ -253,8 +242,7 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="flex-1 max-w-[200px]"
-            >
+              className="flex-1 max-w-[200px]">
               <div className="bg-white rounded-2xl p-6 shadow-lg border-4 border-gray-300 text-center">
                 <div className="text-6xl mb-3">🥈</div>
                 <div className="text-emerald-600 font-bold text-xl mb-2">2nd Place</div>
@@ -268,8 +256,7 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="flex-1 max-w-[220px]"
-            >
+              className="flex-1 max-w-[220px]">
               <div className="bg-gradient-to-br from-emerald-100 to-teal-100 rounded-2xl p-8 shadow-2xl border-4 border-emerald-500 text-center transform scale-110">
                 <div className="text-7xl mb-4">🏆</div>
                 <div className="text-emerald-700 font-bold text-2xl mb-2">1st Place</div>
@@ -283,8 +270,7 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="flex-1 max-w-[200px]"
-            >
+              className="flex-1 max-w-[200px]">
               <div className="bg-white rounded-2xl p-6 shadow-lg border-4 border-orange-300 text-center">
                 <div className="text-6xl mb-3">🥉</div>
                 <div className="text-emerald-600 font-bold text-xl mb-2">3rd Place</div>
@@ -302,8 +288,7 @@ const Ultimate21DayChallenge = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
-          >
+            className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Success Stories
             </h2>
@@ -315,8 +300,7 @@ const Ultimate21DayChallenge = () => {
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="order-2 md:order-1"
-            >
+              className="order-2 md:order-1">
               <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl" style={{ paddingBottom: '56.25%' }}>
                 <iframe
                   className="absolute top-0 left-0 w-full h-full"
@@ -331,8 +315,7 @@ const Ultimate21DayChallenge = () => {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="order-1 md:order-2"
-            >
+              className="order-1 md:order-2">
               <div className="bg-white rounded-xl p-8 shadow-lg">
                 <div className="flex items-center gap-2 mb-4">
                   <Star className="w-6 h-6 text-yellow-500 fill-yellow-500" />
@@ -345,7 +328,7 @@ const Ultimate21DayChallenge = () => {
                   Lost 6.5 kg in 6 days!
                 </h3>
                 <p className="text-lg text-gray-700 mb-4">
-                  "I couldn't believe the results! The combination of diet and yoga worked wonders. 
+                  "I couldn't believe the results! The combination of diet and yoga worked wonders.
                   I feel more energetic and confident than ever before."
                 </p>
                 <p className="font-semibold text-emerald-600">- Jyoti</p>
@@ -372,7 +355,7 @@ const Ultimate21DayChallenge = () => {
                   Amazing Transformation!
                 </h3>
                 <p className="text-lg text-gray-700 mb-4">
-                  "The support from the community and coaches made all the difference. 
+                  "The support from the community and coaches made all the difference.
                   I learned sustainable habits that I'll keep for life."
                 </p>
                 <p className="font-semibold text-emerald-600">- Aanchal</p>
@@ -404,8 +387,7 @@ const Ultimate21DayChallenge = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-8"
-          >
+            className="text-center mb-8">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Zap className="w-8 h-8 text-emerald-600" />
               <h2 className="text-3xl md:text-4xl font-bold text-emerald-700">
@@ -419,8 +401,7 @@ const Ultimate21DayChallenge = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
-          >
+            className="text-center mb-12">
             <p className="text-xl md:text-2xl font-semibold text-gray-900">
               Everything you need for complete health transformation
             </p>
@@ -430,34 +411,34 @@ const Ultimate21DayChallenge = () => {
           <div className="mb-12">
             <div className="md:grid md:grid-cols-2 lg:grid-cols-4 md:gap-6 flex md:flex-none overflow-x-auto gap-4 pb-4 snap-x snap-mandatory scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
               {[
-                { 
-                  step: "1", 
-                  icon: "✓", 
-                  title: "Join the Challenge", 
+                {
+                  step: "1",
+                  icon: "✓",
+                  title: "Join the Challenge",
                   desc: "Secure your spot by registering right now! Get instant access to our exclusive community.",
                   bgColor: "from-blue-50 to-blue-100",
                   iconBg: "bg-blue-500"
                 },
-                { 
-                  step: "2", 
-                  icon: "📅", 
-                  title: "Attend Live Session", 
+                {
+                  step: "2",
+                  icon: "📅",
+                  title: "Attend Live Session",
                   desc: "Join the live session on 4th Jan 2026 to learn everything about the course and get started.",
                   bgColor: "from-green-50 to-green-100",
                   iconBg: "bg-green-500"
                 },
-                { 
-                  step: "3", 
-                  icon: "📖", 
-                  title: "Follow The Plan", 
+                {
+                  step: "3",
+                  icon: "📖",
+                  title: "Follow The Plan",
                   desc: "Start following the personalized plan. Get daily reminders & motivation via WhatsApp Group.",
                   bgColor: "from-orange-50 to-orange-100",
                   iconBg: "bg-orange-500"
                 },
-                { 
-                  step: "4", 
-                  icon: "🏆", 
-                  title: "Transform & Win", 
+                {
+                  step: "4",
+                  icon: "🏆",
+                  title: "Transform & Win",
                   desc: "Track your progress on the leaderboard & push yourself to the top! Celebrate your success.",
                   bgColor: "from-purple-50 to-purple-100",
                   iconBg: "bg-purple-500"
@@ -469,18 +450,17 @@ const Ultimate21DayChallenge = () => {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: idx * 0.1 }}
-                  className="flex-shrink-0 w-[280px] md:w-auto snap-center"
-                >
+                  className="flex-shrink-0 w-[280px] md:w-auto snap-center">
                   <Card className={`h-full bg-gradient-to-br ${item.bgColor} border-2 border-white shadow-lg hover:shadow-xl transition-all duration-300`}>
                     <CardContent className="p-6">
                       {/* Icon */}
                       <div className={`w-14 h-14 ${item.iconBg} rounded-xl flex items-center justify-center text-white text-2xl font-bold mb-4 shadow-md`}>
                         {item.icon}
                       </div>
-                      
+
                       {/* Title */}
                       <h3 className="text-xl font-bold text-gray-900 mb-3">{item.title}</h3>
-                      
+
                       {/* Description */}
                       <p className="text-gray-700 text-sm leading-relaxed mb-4">{item.desc}</p>
                     </CardContent>
@@ -489,23 +469,23 @@ const Ultimate21DayChallenge = () => {
               ))}
             </div>
           </div>
-        </section>
+        </div>
+      </section>
 
-        <section className="py-20 bg-gradient-to-br from-orange-50 via-white to-purple-50">
-          <div className="container mx-auto px-4">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="text-center mb-16"
-            >
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Everything You Need to Succeed
-              </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                A complete transformation system designed for busy people
-              </p>
-            </motion.div>
+      <section className="py-20 bg-gradient-to-br from-orange-50 via-white to-purple-50">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+              Everything You Need to Succeed
+            </h2>
+            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              A complete transformation system designed for busy people
+            </p>
+          </motion.div>
 
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {[
@@ -574,35 +554,10 @@ const Ultimate21DayChallenge = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-16 text-center"
-          >
+            className="mt-16 text-center">
             <div className="bg-white rounded-2xl p-8 shadow-xl border-4 border-purple-100 max-w-md mx-auto">
               <h3 className="text-2xl font-bold text-gray-900 mb-4">Total Value</h3>
               <div className="text-4xl font-bold text-gray-400 line-through mb-2">$472</div>
-              <div className="text-5xl font-bold text-purple-600 mb-4">$97</div>
-              <p className="text-gray-600">Limited time offer - Save $375!</p>
-            </div>
-          </motion.div>
-        </div>
-      </section>      <div className="font-bold text-gray-900">78</div>
-                      <div className="text-sm text-gray-600">following</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Bio */}
-              <div className="mb-4 text-sm text-gray-800 leading-relaxed">
-                <p className="mb-1">🏋️ Weight Loss Expert | 🥗 Dietitian | 🧘 Yoga Teacher</p>
-                <p className="mb-1">⭐ Follow me to learn secrets of intermittent fasting</p>
-                <p className="mb-1">📚 Plans, Courses & Services</p>
-                <p className="text-blue-600 mb-2">🔗 strongbyyoga.com/healthy-life-by-sumit...</p>
-                <p className="text-gray-600">👥 Fasting Champs 1K members</p>
-              </div>
-
-              {/* Professional Dashboard */}
-              <div className="bg-gray-50 rounded-lg p-3 mb-4">
-                <div className="text-sm font-semibold text-gray-900 mb-1">Professional dashboard</div>
               <div className="text-5xl font-bold text-purple-600 mb-4">$97</div>
               <p className="text-gray-600">Limited time offer - Save $375!</p>
             </div>
@@ -619,15 +574,14 @@ const Ultimate21DayChallenge = () => {
               initial={{ opacity: 0, x: -30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="bg-white rounded-2xl p-6 shadow-xl border-4 border-emerald-100 max-w-sm mx-auto lg:mx-0"
-            >
+              className="bg-white rounded-2xl p-6 shadow-xl border-4 border-emerald-100 max-w-sm mx-auto lg:mx-0">
               {/* Header */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-full overflow-hidden">
-                    <img 
-                      src={sumitImage} 
-                      alt="Sumit Sharma" 
+                    <img
+                      src={sumitImage}
+                      alt="Sumit Sharma"
                       className="w-full h-full object-cover"
                     />
                   </div>
@@ -683,8 +637,7 @@ const Ultimate21DayChallenge = () => {
               initial={{ opacity: 0, x: 30 }}
               whileInView={{ opacity: 1, x: 0 }}
               viewport={{ once: true }}
-              className="space-y-6"
-            >
+              className="space-y-6">
               <div>
                 <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">
                   Sumit Sharma
@@ -694,7 +647,7 @@ const Ultimate21DayChallenge = () => {
                     Certified Dietitian | Yoga Teacher | Lifestyle Coach | Intermittent Fasting Expert | Founder: Svastha
                   </div>
                 </div>
-                
+
                 <div className="flex items-center gap-2 mb-6">
                   <Star className="w-5 h-5 text-emerald-600 fill-emerald-600" />
                   <span className="text-emerald-600 font-semibold">Get trained by the best</span>
@@ -709,8 +662,7 @@ const Ultimate21DayChallenge = () => {
                 <Button
                   onClick={scrollToRegistration}
                   size="lg"
-                  className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold text-lg px-8 py-6 rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
-                >
+                  className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold text-lg px-8 py-6 rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
                   Register Now - Learn from Sumit
                 </Button>
               </div>
@@ -721,7 +673,12 @@ const Ultimate21DayChallenge = () => {
 
       {/* MORE MENTORS SECTION */}
       <section className="py-20 px-4 bg-white">
-          >
+        <div className="container mx-auto max-w-5xl">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="text-center mb-12">
             <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-8">
               More Mentors are here...
             </h2>
@@ -734,12 +691,11 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="text-center flex-shrink-0 w-[200px] md:w-auto snap-center"
-            >
+              className="text-center flex-shrink-0 w-[200px] md:w-auto snap-center">
               <div className="w-full aspect-square rounded-2xl overflow-hidden shadow-lg mb-4 bg-gradient-to-br from-pink-100 to-purple-100">
-                <img 
-                  src={anishaImage} 
-                  alt="Anisha Ghosh" 
+                <img
+                  src={anishaImage}
+                  alt="Anisha Ghosh"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -753,12 +709,11 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-center flex-shrink-0 w-[200px] md:w-auto snap-center"
-            >
+              className="text-center flex-shrink-0 w-[200px] md:w-auto snap-center">
               <div className="w-full aspect-square rounded-2xl overflow-hidden shadow-lg mb-4 bg-gradient-to-br from-blue-100 to-teal-100">
-                <img 
-                  src={muskanImage} 
-                  alt="Muskan Lalwani" 
+                <img
+                  src={muskanImage}
+                  alt="Muskan Lalwani"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -772,12 +727,11 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-center flex-shrink-0 w-[200px] md:w-auto snap-center"
-            >
+              className="text-center flex-shrink-0 w-[200px] md:w-auto snap-center">
               <div className="w-full aspect-square rounded-2xl overflow-hidden shadow-lg mb-4 bg-gradient-to-br from-green-100 to-emerald-100">
-                <img 
-                  src={ankitImage} 
-                  alt="Ankit Sharma" 
+                <img
+                  src={ankitImage}
+                  alt="Ankit Sharma"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -791,12 +745,11 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="text-center flex-shrink-0 w-[200px] md:w-auto snap-center"
-            >
+              className="text-center flex-shrink-0 w-[200px] md:w-auto snap-center">
               <div className="w-full aspect-square rounded-2xl overflow-hidden shadow-lg mb-4 bg-gradient-to-br from-orange-100 to-yellow-100">
-                <img 
-                  src={venikaImage} 
-                  alt="Venika Agarwal" 
+                <img
+                  src={venikaImage}
+                  alt="Venika Agarwal"
                   className="w-full h-full object-cover"
                 />
               </div>
@@ -826,8 +779,7 @@ const Ultimate21DayChallenge = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
-          >
+            className="text-center mb-12">
             <div className="flex items-center justify-center gap-2 mb-4">
               <span className="text-3xl">💪</span>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
@@ -843,13 +795,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white"
-            >
+              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white">
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="w-32 h-32 bg-yellow-400 rounded-3xl flex-shrink-0 overflow-hidden">
-                  <img 
-                    src={sumitImage} 
-                    alt="Sumit Sharma" 
+                  <img
+                    src={sumitImage}
+                    alt="Sumit Sharma"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -874,13 +825,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white"
-            >
+              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white">
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="w-32 h-32 bg-white rounded-3xl flex-shrink-0 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=400&fit=crop" 
-                    alt="Diet Plan" 
+                  <img
+                    src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=400&fit=crop"
+                    alt="Diet Plan"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -901,13 +851,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white"
-            >
+              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white">
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="w-32 h-32 bg-yellow-400 rounded-3xl flex-shrink-0 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1495364141860-b0d03eccd065?w=400&h=400&fit=crop" 
-                    alt="Intermittent Fasting" 
+                  <img
+                    src="https://images.unsplash.com/photo-1495364141860-b0d03eccd065?w=400&h=400&fit=crop"
+                    alt="Intermittent Fasting"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -926,13 +875,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white"
-            >
+              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white">
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="w-32 h-32 bg-white rounded-3xl flex-shrink-0 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=400&fit=crop" 
-                    alt="Yoga Classes" 
+                  <img
+                    src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=400&fit=crop"
+                    alt="Yoga Classes"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -958,13 +906,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white"
-            >
+              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white">
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="w-32 h-32 bg-white rounded-3xl flex-shrink-0 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=400&fit=crop" 
-                    alt="Daily Motivation" 
+                  <img
+                    src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=400&fit=crop"
+                    alt="Daily Motivation"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -982,13 +929,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white"
-            >
+              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white">
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="w-32 h-32 bg-white rounded-3xl flex-shrink-0 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=400&h=400&fit=crop" 
-                    alt="Weight Loss Contest" 
+                  <img
+                    src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=400&h=400&fit=crop"
+                    alt="Weight Loss Contest"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -1007,13 +953,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.6 }}
-              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white"
-            >
+              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white">
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="w-32 h-32 bg-white rounded-3xl flex-shrink-0 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=400&fit=crop" 
-                    alt="Community" 
+                  <img
+                    src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=400&fit=crop"
+                    alt="Community"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -1031,13 +976,11 @@ const Ultimate21DayChallenge = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mt-12"
-          >
+            className="text-center mt-12">
             <Button
               onClick={scrollToRegistration}
               size="lg"
-              className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold text-lg px-12 py-6 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
-            >
+              className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold text-lg px-12 py-6 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               Register Now
             </Button>
           </motion.div>
@@ -1051,8 +994,7 @@ const Ultimate21DayChallenge = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
-          >
+            className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Lose up to <span className="text-emerald-600">10 Kg in 21 Days</span>
             </h2>
@@ -1095,8 +1037,7 @@ const Ultimate21DayChallenge = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
-          >
+            className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Who is this for?
             </h2>
@@ -1109,8 +1050,7 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="text-center"
-            >
+              className="text-center">
               <div className="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Frown className="w-10 h-10 text-white" />
               </div>
@@ -1124,8 +1064,7 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="text-center"
-            >
+              className="text-center">
               <div className="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <TrendingDown className="w-10 h-10 text-white" />
               </div>
@@ -1139,8 +1078,7 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="text-center"
-            >
+              className="text-center">
               <div className="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <ChefHat className="w-10 h-10 text-white" />
               </div>
@@ -1155,8 +1093,7 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="text-center"
-            >
+              className="text-center">
               <div className="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Frown className="w-10 h-10 text-white" />
               </div>
@@ -1170,8 +1107,7 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="text-center"
-            >
+              className="text-center">
               <div className="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <HandHeart className="w-10 h-10 text-white" />
               </div>
@@ -1185,8 +1121,7 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="text-center"
-            >
+              className="text-center">
               <div className="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Scale className="w-10 h-10 text-white" />
               </div>
@@ -1201,8 +1136,7 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.6 }}
-              className="text-center"
-            >
+              className="text-center">
               <div className="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <UserCheck className="w-10 h-10 text-white" />
               </div>
@@ -1216,8 +1150,7 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.7 }}
-              className="text-center"
-            >
+              className="text-center">
               <div className="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <User className="w-10 h-10 text-white" />
               </div>
@@ -1231,8 +1164,7 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.8 }}
-              className="text-center"
-            >
+              className="text-center">
               <div className="w-20 h-20 bg-emerald-500 rounded-full flex items-center justify-center mx-auto mb-4">
                 <Users2 className="w-10 h-10 text-white" />
               </div>
@@ -1251,8 +1183,7 @@ const Ultimate21DayChallenge = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-16"
-          >
+            className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Benefits You will Gain
             </h2>
@@ -1265,13 +1196,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-4 shadow-lg"
-            >
+              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-4 shadow-lg">
               <div className="flex items-center gap-6">
                 <div className="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 bg-emerald-100 flex items-center justify-center">
-                  <img 
-                    src="https://cdn.pixabay.com/photo/2017/05/11/19/44/fresh-2305192_1280.jpg" 
-                    alt="Healthy Natural Fat Loss" 
+                  <img
+                    src="https://cdn.pixabay.com/photo/2017/05/11/19/44/fresh-2305192_1280.jpg"
+                    alt="Healthy Natural Fat Loss"
                     className="w-full h-full object-cover"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none';
@@ -1293,13 +1223,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-4 shadow-lg"
-            >
+              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-4 shadow-lg">
               <div className="flex items-center gap-6">
                 <div className="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 bg-emerald-100 flex items-center justify-center">
-                  <img 
-                    src="https://cdn.pixabay.com/photo/2017/08/07/14/02/people-2604149_1280.jpg" 
-                    alt="Lose Inches Like Magic" 
+                  <img
+                    src="https://cdn.pixabay.com/photo/2017/08/07/14/02/people-2604149_1280.jpg"
+                    alt="Lose Inches Like Magic"
                     className="w-full h-full object-cover"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none';
@@ -1321,13 +1250,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-4 shadow-lg"
-            >
+              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-4 shadow-lg">
               <div className="flex items-center gap-6">
                 <div className="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 bg-emerald-100 flex items-center justify-center">
-                  <img 
-                    src="https://cdn.pixabay.com/photo/2017/10/04/09/56/laboratory-2815641_1280.jpg" 
-                    alt="Fight Health Issues" 
+                  <img
+                    src="https://cdn.pixabay.com/photo/2017/10/04/09/56/laboratory-2815641_1280.jpg"
+                    alt="Fight Health Issues"
                     className="w-full h-full object-cover"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none';
@@ -1349,13 +1277,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-4 shadow-lg"
-            >
+              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-4 shadow-lg">
               <div className="flex items-center gap-6">
                 <div className="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 bg-emerald-100 flex items-center justify-center">
-                  <img 
-                    src="https://cdn.pixabay.com/photo/2017/03/05/00/34/panorama-2117310_1280.jpg" 
-                    alt="Naturally Detox & Cleanse Your Body" 
+                  <img
+                    src="https://cdn.pixabay.com/photo/2017/03/05/00/34/panorama-2117310_1280.jpg"
+                    alt="Naturally Detox & Cleanse Your Body"
                     className="w-full h-full object-cover"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none';
@@ -1377,13 +1304,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-4 shadow-lg"
-            >
+              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-4 shadow-lg">
               <div className="flex items-center gap-6">
                 <div className="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 bg-emerald-100 flex items-center justify-center">
-                  <img 
-                    src="https://cdn.pixabay.com/photo/2017/06/16/11/38/breakfast-2408818_1280.jpg" 
-                    alt="Learn the Right Way to Cook & Eat Food" 
+                  <img
+                    src="https://cdn.pixabay.com/photo/2017/06/16/11/38/breakfast-2408818_1280.jpg"
+                    alt="Learn the Right Way to Cook & Eat Food"
                     className="w-full h-full object-cover"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none';
@@ -1405,13 +1331,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-4 shadow-lg"
-            >
+              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-4 shadow-lg">
               <div className="flex items-center gap-6">
                 <div className="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 bg-emerald-100 flex items-center justify-center">
-                  <img 
-                    src="https://cdn.pixabay.com/photo/2016/11/19/14/00/code-1840425_1280.jpg" 
-                    alt="Get Rid of Your Cravings & Food Addiction" 
+                  <img
+                    src="https://cdn.pixabay.com/photo/2016/11/19/14/00/code-1840425_1280.jpg"
+                    alt="Get Rid of Your Cravings & Food Addiction"
                     className="w-full h-full object-cover"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none';
@@ -1433,13 +1358,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.6 }}
-              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-4 shadow-lg"
-            >
+              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-4 shadow-lg">
               <div className="flex items-center gap-6">
                 <div className="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 bg-emerald-100 flex items-center justify-center">
-                  <img 
-                    src="https://cdn.pixabay.com/photo/2016/11/29/06/15/adult-1867743_1280.jpg" 
-                    alt="Build Habits that will Help You Stay Healthy, Fit Forever" 
+                  <img
+                    src="https://cdn.pixabay.com/photo/2016/11/29/06/15/adult-1867743_1280.jpg"
+                    alt="Build Habits that will Help You Stay Healthy, Fit Forever"
                     className="w-full h-full object-cover"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none';
@@ -1461,13 +1385,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.7 }}
-              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-4 shadow-lg"
-            >
+              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-4 shadow-lg">
               <div className="flex items-center gap-6">
                 <div className="w-20 h-20 rounded-2xl overflow-hidden flex-shrink-0 bg-emerald-100 flex items-center justify-center">
-                  <img 
-                    src="https://cdn.pixabay.com/photo/2017/08/07/14/02/man-2604149_1280.jpg" 
-                    alt="Increased Stamina, Strength & Flexibility" 
+                  <img
+                    src="https://cdn.pixabay.com/photo/2017/08/07/14/02/man-2604149_1280.jpg"
+                    alt="Increased Stamina, Strength & Flexibility"
                     className="w-full h-full object-cover"
                     onError={(e) => {
                       e.currentTarget.style.display = 'none';
@@ -1493,8 +1416,7 @@ const Ultimate21DayChallenge = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
-          >
+            className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               Real People, Real Results
             </h2>
@@ -1509,8 +1431,7 @@ const Ultimate21DayChallenge = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ duration: 0.5, delay: idx * 0.1 }}
-                className="bg-gradient-to-br from-emerald-100 to-teal-100 rounded-xl p-6 text-center"
-              >
+                className="bg-gradient-to-br from-emerald-100 to-teal-100 rounded-xl p-6 text-center">
                 <div className="bg-white rounded-lg p-4 mb-4 aspect-square flex items-center justify-center">
                   <div className="text-center">
                     <Trophy className="w-16 h-16 text-emerald-600 mx-auto mb-2" />
@@ -1532,8 +1453,7 @@ const Ultimate21DayChallenge = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
-          >
+            className="text-center mb-12">
             <div className="flex items-center justify-center gap-2 mb-4">
               <span className="text-3xl">💪</span>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
@@ -1549,13 +1469,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5 }}
-              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white"
-            >
+              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white">
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="w-32 h-32 bg-yellow-400 rounded-3xl flex-shrink-0 overflow-hidden">
-                  <img 
-                    src={sumitImage} 
-                    alt="Sumit Sharma" 
+                  <img
+                    src={sumitImage}
+                    alt="Sumit Sharma"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -1580,13 +1499,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white"
-            >
+              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white">
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="w-32 h-32 bg-white rounded-3xl flex-shrink-0 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=400&fit=crop" 
-                    alt="Diet Plan" 
+                  <img
+                    src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=400&h=400&fit=crop"
+                    alt="Diet Plan"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -1607,13 +1525,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.2 }}
-              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white"
-            >
+              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white">
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="w-32 h-32 bg-yellow-400 rounded-3xl flex-shrink-0 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1495364141860-b0d03eccd065?w=400&h=400&fit=crop" 
-                    alt="Intermittent Fasting" 
+                  <img
+                    src="https://images.unsplash.com/photo-1495364141860-b0d03eccd065?w=400&h=400&fit=crop"
+                    alt="Intermittent Fasting"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -1632,13 +1549,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.3 }}
-              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white"
-            >
+              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white">
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="w-32 h-32 bg-white rounded-3xl flex-shrink-0 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=400&fit=crop" 
-                    alt="Yoga Classes" 
+                  <img
+                    src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&h=400&fit=crop"
+                    alt="Yoga Classes"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -1664,13 +1580,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.4 }}
-              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white"
-            >
+              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white">
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="w-32 h-32 bg-white rounded-3xl flex-shrink-0 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=400&fit=crop" 
-                    alt="Daily Motivation" 
+                  <img
+                    src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=400&fit=crop"
+                    alt="Daily Motivation"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -1688,13 +1603,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.5 }}
-              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white"
-            >
+              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white">
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="w-32 h-32 bg-white rounded-3xl flex-shrink-0 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=400&h=400&fit=crop" 
-                    alt="Weight Loss Contest" 
+                  <img
+                    src="https://images.unsplash.com/photo-1552674605-db6ffd4facb5?w=400&h=400&fit=crop"
+                    alt="Weight Loss Contest"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -1713,13 +1627,12 @@ const Ultimate21DayChallenge = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: 0.6 }}
-              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white"
-            >
+              className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-lg border-4 border-white">
               <div className="flex flex-col md:flex-row items-center gap-6">
                 <div className="w-32 h-32 bg-white rounded-3xl flex-shrink-0 overflow-hidden">
-                  <img 
-                    src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=400&fit=crop" 
-                    alt="Community" 
+                  <img
+                    src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=400&h=400&fit=crop"
+                    alt="Community"
                     className="w-full h-full object-cover"
                   />
                 </div>
@@ -1737,13 +1650,11 @@ const Ultimate21DayChallenge = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mt-12"
-          >
+            className="text-center mt-12">
             <Button
               onClick={scrollToRegistration}
               size="lg"
-              className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold text-lg px-12 py-6 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
-            >
+              className="bg-gradient-to-r from-emerald-500 to-teal-500 hover:from-emerald-600 hover:to-teal-600 text-white font-bold text-lg px-12 py-6 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
               Register Now
             </Button>
           </motion.div>
@@ -1751,14 +1662,13 @@ const Ultimate21DayChallenge = () => {
       </section>
 
       {/* REGISTRATION FORM SECTION */}
-      <section id="registration" className="py-20 px-4 bg-gradient-to-br from-emerald-600 via-green-600 to-teal-600 text-white">
+      < section id="registration" className="py-20 px-4 bg-gradient-to-br from-emerald-600 via-green-600 to-teal-600 text-white">
         <div className="container mx-auto max-w-2xl">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
-          >
+            className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold mb-4">
               Register Now
             </h2>
@@ -1769,8 +1679,7 @@ const Ultimate21DayChallenge = () => {
             initial={{ opacity: 0, scale: 0.95 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="bg-white rounded-2xl p-8 md:p-12 shadow-2xl"
-          >
+            className="bg-white rounded-2xl p-8 md:p-12 shadow-2xl">
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
               <div>
                 <Label htmlFor="name" className="text-base text-gray-900 font-semibold">
@@ -1851,8 +1760,7 @@ const Ultimate21DayChallenge = () => {
               <Button
                 type="submit"
                 size="lg"
-                className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-xl py-8 rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
-              >
+                className="w-full bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-bold text-xl py-8 rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
                 Register Now - Pay ₹990
                 <Zap className="ml-2 w-6 h-6" />
               </Button>
@@ -1883,8 +1791,7 @@ const Ultimate21DayChallenge = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="mt-8 text-center"
-          >
+            className="mt-8 text-center">
             <p className="text-lg opacity-90">
               🔒 Your payment is 100% secure with Razorpay
             </p>
@@ -1899,8 +1806,7 @@ const Ultimate21DayChallenge = () => {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center mb-12"
-          >
+            className="text-center mb-12">
             <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
               FAQs
             </h2>
@@ -1977,8 +1883,7 @@ const Ultimate21DayChallenge = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-center"
-          >
+            className="text-center">
             <h2 className="text-4xl md:text-6xl font-bold mb-6">
               Ready to Transform Your Life?
             </h2>
@@ -2005,8 +1910,7 @@ const Ultimate21DayChallenge = () => {
               <Button
                 onClick={scrollToRegistration}
                 size="lg"
-                className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold text-2xl px-16 py-8 rounded-full shadow-2xl hover:shadow-yellow-400/50 transform hover:scale-105 transition-all duration-300"
-              >
+                className="bg-yellow-400 hover:bg-yellow-500 text-gray-900 font-bold text-2xl px-16 py-8 rounded-full shadow-2xl hover:shadow-yellow-400/50 transform hover:scale-105 transition-all duration-300">
                 Join the Challenge Now
                 <ChevronRight className="ml-2 w-8 h-8" />
               </Button>
