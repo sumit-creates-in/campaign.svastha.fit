@@ -1,24 +1,24 @@
 import { motion } from "framer-motion";
-import saumyaImage from "@/assets/saumya gangwar.webp";
-import jayshreeImage from "@/assets/jayshree.webp";
-import amritaImage from "@/assets/Amrita.webp";
+import muditImage from "@/assets/mudit.jpeg";
+import karishmaImage from "@/assets/Karishma.jpg";
+import saumyaImage from "@/assets/Saumya.jpg";
 
 export const YogaTeachersSection = () => {
   const teachers = [
     {
+      name: "Mudit Malviya",
+      title: "Yoga Instructor",
+      image: muditImage,
+    },
+    {
+      name: "Karishma Kaintura",
+      title: "Restorative Yoga",
+      image: karishmaImage,
+    },
+    {
       name: "Saumya Gangwar",
       title: "Yoga & Workout Expert",
       image: saumyaImage,
-    },
-    {
-      name: "Jayshree Rathi",
-      title: "Yoga Teacher",
-      image: jayshreeImage,
-    },
-    {
-      name: "Amrita Bhade",
-      title: "Yoga Teacher",
-      image: amritaImage,
     },
   ];
 
