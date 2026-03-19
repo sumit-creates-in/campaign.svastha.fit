@@ -12,10 +12,15 @@ export const LeaderboardSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-center md:text-left w-full md:pr-4">
-            <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
-              <BarChart3 className="w-8 h-8 md:w-10 md:h-10 text-emerald-600 flex-shrink-0" />
+            <div className="flex flex-col items-center md:flex-row md:items-center justify-center md:justify-start gap-3 mb-4">
+              <div className="flex items-center gap-3">
+                <BarChart3 className="w-8 h-8 md:w-10 md:h-10 text-emerald-600 flex-shrink-0 mt-1" />
+                <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
+                  LIVE Weight Loss
+                </h2>
+              </div>
               <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
-                LIVE Weight Loss Leaderboard
+                Leaderboard
               </h2>
             </div>
             <p className="text-base md:text-lg lg:text-xl text-gray-700 md:ml-11">

@@ -94,7 +94,7 @@ export const FAQSection = () => {
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mt-16">
+          className="text-center mt-16 mb-12 md:mb-0">
           <p className="text-xl text-gray-600 italic mb-1">
             Still have concerns?
           </p>

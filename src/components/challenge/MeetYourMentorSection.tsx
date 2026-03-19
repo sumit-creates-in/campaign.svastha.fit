@@ -150,9 +150,11 @@ export const MeetYourMentorSection = () => {
               </p>
             </div>
 
-            <Button className="bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold px-8 py-6 rounded-lg text-base shadow-lg hover:shadow-xl transition-all duration-300">
-              Register Now - Learn from Sumit
-            </Button>
+            <div className="flex justify-center">
+              <Button className="bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold px-8 py-6 rounded-lg text-base shadow-lg hover:shadow-xl transition-all duration-300">
+                Register Now - Learn from Sumit
+              </Button>
+            </div>
           </motion.div>
         </div>
       </div>

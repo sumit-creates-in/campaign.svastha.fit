@@ -31,9 +31,13 @@ export const YogaTeachersSection = () => {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 flex items-center justify-center gap-2">
-            <span>🧘‍♀️</span>
-            <span>Meet Your Yoga Teachers</span>
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900">
+            <div className="flex items-center justify-center gap-3 mb-2">
+              <span className="text-4xl">🧘‍♀️</span>
+              <span>Meet Your</span>
+            </div>
+            <div>Yoga</div>
+            <div>Teachers</div>
           </h2>
         </motion.div>
 
