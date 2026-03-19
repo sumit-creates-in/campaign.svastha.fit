@@ -88,7 +88,7 @@ const Ultimate21DayChallenge = () => {
         }
         
         .ultimate-challenge-page button {
-          animation: heartbeat 2s ease-in-out infinite;
+          animation: heartbeat 1s ease-in-out infinite;
         }
       `}</style>
       <div className="ultimate-challenge-page min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">

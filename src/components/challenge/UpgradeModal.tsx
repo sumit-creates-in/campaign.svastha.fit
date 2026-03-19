@@ -23,21 +23,26 @@ export const UpgradeModal = ({ isOpen, onClose, onUpgrade, onJoinGroup }: Upgrad
         </button>
 
         {/* Modal Content */}
-        <div className="px-6 py-8">
+        <div className="px-8 py-10">
           {/* Header */}
-          <div className="flex items-start gap-3 mb-4">
-            <div className="w-6 h-6 rounded-md bg-emerald-500 flex items-center justify-center flex-shrink-0 mt-0.5">
-              <Check className="w-4 h-4 text-white" strokeWidth={3} />
+          <div className="mb-4 text-center">
+            <div className="flex items-center justify-center gap-3 mb-1">
+              <div className="w-6 h-6 rounded-md bg-emerald-500 flex items-center justify-center flex-shrink-0">
+                <Check className="w-4 h-4 text-white" strokeWidth={3} />
+              </div>
+              <h2 className="text-base font-bold text-gray-900 leading-tight">
+                Want to Upgrade to 21 Day
+              </h2>
             </div>
             <h2 className="text-base font-bold text-gray-900 leading-tight">
-              Want to Upgrade to 21 Day Personalized Plan?
+              Personalized Plan?
             </h2>
           </div>
 
           {/* Upgrade Benefits */}
           <div className="mb-5">
-            <p className="text-xs text-gray-700 mb-2 italic">Upgrade to get:</p>
-            <div className="space-y-1.5">
+            <p className="text-xs text-gray-700 mb-2 italic text-center">Upgrade to get:</p>
+            <div className="space-y-1.5 flex flex-col items-start pl-8">
               {[
                 "Start Anytime (Priority Onboarding)",
                 "Dedicated Dietitian",
