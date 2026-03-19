@@ -29,21 +29,6 @@ export const WhatYouGetSection = ({ scrollToRegistration }: WhatYouGetSectionPro
       imageType: "photo"
     },
     {
-      title: "Become Part a Group Filled With Highly Motivated People",
-      image: image3,
-      imageType: "photo"
-    },
-    {
-      title: "Daily Motivation & Reminders",
-      image: image4,
-      imageType: "photo"
-    },
-    {
-      title: "🏆 Weight Loss Cham Contest",
-      image: image5,
-      imageType: "photo"
-    },
-    {
       title: "⏰ Intermittent Fasting Plan & Daily Guidance",
       image: image6,
       imageType: "photo"
@@ -58,6 +43,21 @@ export const WhatYouGetSection = ({ scrollToRegistration }: WhatYouGetSectionPro
         "Recordings of the classes will be provided."
       ],
       image: image7,
+      imageType: "photo"
+    },
+    {
+      title: "Daily Motivation & Reminders",
+      image: image4,
+      imageType: "photo"
+    },
+    {
+      title: "🏆 Weight Loss Cham Contest",
+      image: image5,
+      imageType: "photo"
+    },
+    {
+      title: "Become Part a Group Filled With Highly Motivated People",
+      image: image3,
       imageType: "photo"
     }
   ];
