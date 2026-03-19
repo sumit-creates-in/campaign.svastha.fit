@@ -10,6 +10,7 @@ export { BenefitsSection } from './BenefitsSection';
 export { TransformationsSection } from './TransformationsSection';
 export { WhoIsThisForSection } from './WhoIsThisForSection';
 export { YogaTeachersSection } from './YogaTeachersSection';
+export { PeopleSayingSection } from './PeopleSayingSection';
 export { VideoTestimonialsSection } from './VideoTestimonialsSection';
 export { UpgradeModal } from './UpgradeModal';
 export { ScrollPopupModal } from './ScrollPopupModal';
