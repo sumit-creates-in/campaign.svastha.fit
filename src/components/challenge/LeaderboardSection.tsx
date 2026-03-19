@@ -12,13 +12,13 @@ export const LeaderboardSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="text-center md:text-left w-full md:pr-4">
-            <div className="flex items-center justify-center md:justify-start gap-3 mb-3">
-              <BarChart3 className="w-6 h-6 md:w-7 md:h-7 text-emerald-600 flex-shrink-0" />
-              <h2 className="text-xl md:text-2xl lg:text-3xl font-bold text-gray-900 whitespace-nowrap">
+            <div className="flex items-center justify-center md:justify-start gap-3 mb-4">
+              <BarChart3 className="w-8 h-8 md:w-10 md:h-10 text-emerald-600 flex-shrink-0" />
+              <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900">
                 LIVE Weight Loss Leaderboard
               </h2>
             </div>
-            <p className="text-sm md:text-base lg:text-lg text-gray-700 whitespace-nowrap md:ml-10">
+            <p className="text-base md:text-lg lg:text-xl text-gray-700 md:ml-11">
               Track your progress & stay motivated to be #1!
             </p>
           </motion.div>
@@ -29,9 +29,9 @@ export const LeaderboardSection = () => {
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             className="flex justify-center md:justify-end w-full md:pl-4">
-            <div className="relative max-w-xs w-full">
+            <div className="relative max-w-xs w-full pt-20 md:pt-24">
               {/* Star on top */}
-              <div className="absolute -top-12 md:-top-16 left-1/2 transform -translate-x-1/2 z-10">
+              <div className="absolute top-4 md:top-6 left-1/2 transform -translate-x-1/2 z-10">
                 <svg width="60" height="60" viewBox="0 0 100 100" className="drop-shadow-lg md:w-20 md:h-20">
                   <polygon
                     points="50,10 61,40 92,40 67,60 78,90 50,70 22,90 33,60 8,40 39,40"
@@ -42,15 +42,18 @@ export const LeaderboardSection = () => {
                 </svg>
               </div>
 
+              {/* Yellow vertical line connecting star to #1 podium */}
+              <div className="absolute top-16 md:top-20 left-1/2 transform -translate-x-1/2 w-1.5 bg-yellow-400 z-0" style={{ height: 'calc(100% - 15rem)' }}></div>
+
               {/* Podium */}
-              <div className="flex items-end gap-1 relative pb-2">
+              <div className="flex items-end gap-1 relative pb-2 mt-8 z-10">
                 {/* 2nd Place */}
                 <div className="bg-emerald-500 rounded-t-xl w-full h-28 md:h-36 flex items-center justify-center shadow-lg">
                   <span className="text-white text-4xl md:text-6xl font-bold">2</span>
                 </div>
 
                 {/* 1st Place - Taller */}
-                <div className="bg-emerald-600 rounded-t-xl w-full h-36 md:h-48 flex items-center justify-center shadow-xl">
+                <div className="bg-emerald-600 rounded-t-xl w-full h-36 md:h-48 flex items-center justify-center shadow-xl relative">
                   <span className="text-white text-4xl md:text-6xl font-bold">1</span>
                 </div>
 

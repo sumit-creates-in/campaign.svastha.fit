@@ -14,6 +14,7 @@ export { PeopleSayingSection } from './PeopleSayingSection';
 export { VideoTestimonialsSection } from './VideoTestimonialsSection';
 export { UpgradeModal } from './UpgradeModal';
 export { ScrollPopupModal } from './ScrollPopupModal';
+export { StickyBottomBar } from './StickyBottomBar';
 export { RegisterHereSection } from './RegisterHereSection';
 export { RegistrationFormSection, type RegistrationFormData } from './RegistrationFormSection';
 export { FAQSection } from './FAQSection';

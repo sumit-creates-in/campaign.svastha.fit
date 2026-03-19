@@ -51,7 +51,7 @@ export const WhatYouGetSection = ({ scrollToRegistration }: WhatYouGetSectionPro
       imageType: "photo"
     },
     {
-      title: "🏆 Weight Loss Cham Contest",
+      title: "🏆 Weight Loss Champ Contest",
       image: image5,
       imageType: "photo"
     },
@@ -86,8 +86,13 @@ export const WhatYouGetSection = ({ scrollToRegistration }: WhatYouGetSectionPro
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-sm border-2 border-gray-200">
-              <div className="flex flex-col md:flex-row items-center md:items-center gap-6">
+              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-sm border-2 border-gray-200 relative">
+              {/* Number Badge */}
+              <div className="absolute top-4 left-4 w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg">
+                {idx + 1}
+              </div>
+              
+              <div className="flex flex-col md:flex-row items-center md:items-center gap-6 mt-2">
                 {/* Image */}
                 <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-3xl flex items-center justify-center flex-shrink-0 shadow-sm overflow-hidden mx-auto md:mx-0">
                   {benefit.imageType === "photo" ? (

@@ -20,6 +20,7 @@ import {
   FAQSection,
   UpgradeModal,
   ScrollPopupModal,
+  StickyBottomBar,
 } from "@/components/challenge";
 
 const Ultimate21DayChallenge = () => {
@@ -55,32 +56,69 @@ const Ultimate21DayChallenge = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">
-      <HeroSection scrollToRegistration={scrollToRegistration} />
-      <LeaderboardSection />
-      <JyotiTestimonialSection />
-      <HowItWorksSection />
-      <AanchalTestimonialSection />
-      <WhatYouGetSection scrollToRegistration={scrollToRegistration} />
-      <MeetYourMentorSection />
-      <MoreMentorsSection />
-      <BenefitsSection />
-      <TransformationsSection />
-      <WhoIsThisForSection />
-      <YogaTeachersSection />
-      <RegisterHereSection onRegister={handleJoinGroup} />
-      <FAQSection />
-      <UpgradeModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
-        onUpgrade={handleUpgrade}
-        onJoinGroup={handleJoinGroup}
-      />
-      <ScrollPopupModal
-        onUpgrade={handleUpgrade}
-        onJoinGroup={handleJoinGroup}
-      />
-    </div>
+    <>
+      <style>{`
+        .ultimate-challenge-page section {
+          padding-left: 8px !important;
+          padding-right: 8px !important;
+        }
+        .ultimate-challenge-page .fixed {
+          padding-left: 8px !important;
+          padding-right: 8px !important;
+        }
+        .ultimate-challenge-page .container {
+          padding-left: 8px !important;
+          padding-right: 8px !important;
+        }
+        .ultimate-challenge-page [class*="px-"] {
+          padding-left: 8px !important;
+          padding-right: 8px !important;
+        }
+        
+        @keyframes heartbeat {
+          0%, 100% {
+            transform: scale(1);
+          }
+          25% {
+            transform: scale(1.05);
+          }
+          50% {
+            transform: scale(1);
+          }
+        }
+        
+        .ultimate-challenge-page button {
+          animation: heartbeat 2s ease-in-out infinite;
+        }
+      `}</style>
+      <div className="ultimate-challenge-page min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">
+        <HeroSection scrollToRegistration={scrollToRegistration} />
+        <LeaderboardSection />
+        <JyotiTestimonialSection />
+        <HowItWorksSection />
+        <AanchalTestimonialSection />
+        <WhatYouGetSection scrollToRegistration={scrollToRegistration} />
+        <MeetYourMentorSection />
+        <MoreMentorsSection />
+        <BenefitsSection />
+        <TransformationsSection />
+        <WhoIsThisForSection />
+        <YogaTeachersSection />
+        <RegisterHereSection onRegister={handleJoinGroup} />
+        <FAQSection />
+        <UpgradeModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onUpgrade={handleUpgrade}
+          onJoinGroup={handleJoinGroup}
+        />
+        <ScrollPopupModal
+          onUpgrade={handleUpgrade}
+          onJoinGroup={handleJoinGroup}
+        />
+        <StickyBottomBar onRegisterClick={scrollToRegistration} />
+      </div>
+    </>
   );
 };
 

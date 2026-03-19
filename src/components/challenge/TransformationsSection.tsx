@@ -13,62 +13,64 @@ import transformation9 from "@/assets/tranformation9.jpeg";
 export const TransformationsSection = () => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
     if (!scrollContainer) return;
 
-    let scrollInterval: NodeJS.Timeout;
-    let isScrolling = false;
+    let animationFrameId: number;
+    const scrollSpeed = 0.5; // Pixels per frame
 
     const updateCurrentIndex = () => {
       if (scrollContainer) {
         const scrollPosition = scrollContainer.scrollLeft;
         const cardWidth = 256 + 24; // w-64 (256px) + gap-6 (24px)
-        const index = Math.round(scrollPosition / cardWidth);
+        const index = Math.round(scrollPosition / cardWidth) % transformations.length;
         setCurrentIndex(index);
       }
     };
 
-    const startAutoScroll = () => {
-      scrollInterval = setInterval(() => {
-        if (!isScrolling && scrollContainer) {
-          const maxScroll = scrollContainer.scrollWidth - scrollContainer.clientWidth;
-          const currentScroll = scrollContainer.scrollLeft;
-
-          if (currentScroll >= maxScroll) {
-            scrollContainer.scrollLeft = 0;
-          } else {
-            scrollContainer.scrollLeft += 2;
-          }
-          updateCurrentIndex();
+    const autoScroll = () => {
+      if (!isPaused && scrollContainer) {
+        scrollContainer.scrollLeft += scrollSpeed;
+        
+        // Seamless loop: reset to start when reaching halfway through duplicated content
+        const halfWidth = scrollContainer.scrollWidth / 2;
+        if (scrollContainer.scrollLeft >= halfWidth) {
+          scrollContainer.scrollLeft = 0;
         }
-      }, 15);
+        
+        updateCurrentIndex();
+      }
+      animationFrameId = requestAnimationFrame(autoScroll);
     };
 
-    const handleUserScroll = () => {
-      isScrolling = true;
-      clearInterval(scrollInterval);
-      updateCurrentIndex();
+    const handleInteractionStart = () => {
+      setIsPaused(true);
+    };
+
+    const handleInteractionEnd = () => {
       setTimeout(() => {
-        isScrolling = false;
-        startAutoScroll();
-      }, 3000);
+        setIsPaused(false);
+      }, 2000);
     };
 
-    scrollContainer.addEventListener('scroll', handleUserScroll);
-    scrollContainer.addEventListener('touchstart', handleUserScroll);
-    scrollContainer.addEventListener('mousedown', handleUserScroll);
+    scrollContainer.addEventListener('mouseenter', handleInteractionStart);
+    scrollContainer.addEventListener('mouseleave', handleInteractionEnd);
+    scrollContainer.addEventListener('touchstart', handleInteractionStart);
+    scrollContainer.addEventListener('touchend', handleInteractionEnd);
 
-    startAutoScroll();
+    animationFrameId = requestAnimationFrame(autoScroll);
 
     return () => {
-      clearInterval(scrollInterval);
-      scrollContainer.removeEventListener('scroll', handleUserScroll);
-      scrollContainer.removeEventListener('touchstart', handleUserScroll);
-      scrollContainer.removeEventListener('mousedown', handleUserScroll);
+      cancelAnimationFrame(animationFrameId);
+      scrollContainer.removeEventListener('mouseenter', handleInteractionStart);
+      scrollContainer.removeEventListener('mouseleave', handleInteractionEnd);
+      scrollContainer.removeEventListener('touchstart', handleInteractionStart);
+      scrollContainer.removeEventListener('touchend', handleInteractionEnd);
     };
-  }, []);
+  }, [isPaused]);
 
   const transformations = [
     {
@@ -129,12 +131,37 @@ export const TransformationsSection = () => {
         {/* Transformations Horizontal Scroll */}
         <div 
           ref={scrollRef} 
-          className="overflow-x-auto pb-4 scroll-smooth [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+          className="overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
           <div className="flex gap-6 min-w-max">
+            {/* Original transformations */}
             {transformations.map((transformation, idx) => (
               <motion.div
-                key={idx}
+                key={`original-${idx}`}
+                initial={{ opacity: 0, x: 20 }}
+                whileInView={{ opacity: 1, x: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="w-64 flex-shrink-0">
+                {/* Image */}
+                <div className="w-full h-64 rounded-xl overflow-hidden mb-3">
+                  <img 
+                    src={transformation.image} 
+                    alt={`Transformation ${idx + 1}`}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                
+                {/* Text */}
+                <p className="text-xs text-gray-800 text-center leading-relaxed italic px-2">
+                  "{transformation.text}"
+                </p>
+              </motion.div>
+            ))}
+            {/* Duplicate transformations for seamless loop */}
+            {transformations.map((transformation, idx) => (
+              <motion.div
+                key={`duplicate-${idx}`}
                 initial={{ opacity: 0, x: 20 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true }}
