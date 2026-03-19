@@ -157,7 +157,7 @@ export const MeetYourMentorSection = ({ scrollToRegistration }: MeetYourMentorSe
             <div className="flex justify-center">
               <Button 
                 onClick={scrollToRegistration}
-                className="bg-gradient-to-r from-green-600 to-lime-400 hover:from-green-700 hover:to-lime-500 text-white font-bold text-xl px-12 md:px-10 py-6 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
+                className="bg-gradient-to-r from-green-600 to-lime-400 hover:from-green-700 hover:to-lime-500 text-white font-bold text-lg px-8 py-5 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
                 Register Now - Learn from Sumit
               </Button>
             </div>
