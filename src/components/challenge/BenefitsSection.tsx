@@ -67,8 +67,13 @@ export const BenefitsSection = () => {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.05 }}
-              className="bg-green-50 rounded-3xl p-6 md:p-8 shadow-sm border-2 border-gray-300">
-              <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6">
+              className="bg-green-50 rounded-3xl p-6 md:p-8 shadow-sm border-2 border-gray-300 relative">
+              {/* Number Badge */}
+              <div className="absolute top-4 left-4 w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg">
+                {idx + 1}
+              </div>
+              
+              <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6 mt-2">
                 {/* Image */}
                 <div className="w-32 h-32 md:w-40 md:h-40 bg-white rounded-3xl flex-shrink-0 shadow-md overflow-hidden">
                   <img 

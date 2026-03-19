@@ -16,7 +16,7 @@ export const HeroSection = ({ scrollToRegistration }: HeroSectionProps) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-6">
-          <div className="inline-block bg-gradient-to-r from-emerald-500 via-teal-500 to-purple-500 text-white px-8 py-2 rounded-full text-xl md:text-xl font-bold tracking-wide">
+          <div className="inline-block bg-gradient-to-r from-emerald-500 via-teal-500 to-purple-500 text-white px-8 py-2 rounded-full text-base md:text-lg font-bold tracking-wide">
             SVASTHA.FIT
           </div>
         </motion.div>
@@ -28,16 +28,16 @@ export const HeroSection = ({ scrollToRegistration }: HeroSectionProps) => {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-center mb-20">
           <div className="flex items-center justify-center gap-2 mb-2">
-            <span className="text-emerald-500 text-2xl md:text-3xl">✦</span>
-            <h1 className="text-2xl md:text-3xl text-emerald-600 tracking-wider">
+            <span className="text-emerald-500 text-3xl md:text-4xl">✦</span>
+            <h1 className="text-3xl md:text-4xl text-emerald-600 tracking-wider">
               ULTIMATE
             </h1>
-            <span className="text-emerald-500 text-2xl md:text-3xl">✦</span>
+            <span className="text-emerald-500 text-3xl md:text-4xl">✦</span>
           </div>
-          <h2 className="text-3xl md:text-5xl font-bold text-emerald-600 mb-2">
+          <h2 className="text-4xl md:text-6xl font-bold text-emerald-600 mb-2">
             21 Day
           </h2>
-          <h3 className="text-2xl md:text-4xl font-bold text-emerald-600">
+          <h3 className="text-4xl md:text-6xl font-bold text-emerald-600">
             Weight Loss Challenge
           </h3>
         </motion.div>
