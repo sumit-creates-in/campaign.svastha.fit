@@ -1,11 +1,13 @@
 import { motion } from "framer-motion";
-import { useRef, useState } from "react";
+import { useEffect, useRef } from "react";
 import venikaImage from "@/assets/venika agarwal.jpeg";
 import muskanImage from "@/assets/muskan lalwani.jpeg";
 import ankitImage from "@/assets/ankit sharma.webp";
 import anishaImage from "@/assets/Anisha.jpeg";
 
 export const MoreMentorsSection = () => {
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
+
   const mentors = [
     {
       name: "Venika Agarwal",
@@ -29,12 +31,41 @@ export const MoreMentorsSection = () => {
     }
   ];
 
-  const [isPaused, setIsPaused] = useState(false);
-  const scrollRef = useRef<HTMLDivElement>(null);
+  // Duplicate mentors array multiple times for infinite scroll effect
+  const infiniteMentors = [...mentors, ...mentors, ...mentors, ...mentors];
+
+  // Auto-scroll horizontally with infinite loop
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    let scrollAmount = 0;
+    const scrollStep = 1; // pixels per frame
+    const scrollDelay = 30; // milliseconds between frames
+    const cardWidth = 220; // card width + gap
+    const resetPoint = cardWidth * mentors.length; // Reset after one full cycle
+
+    const autoScroll = () => {
+      if (!container) return;
+      
+      scrollAmount += scrollStep;
+      container.scrollLeft = scrollAmount;
+
+      // Reset to beginning seamlessly when one cycle completes
+      if (scrollAmount >= resetPoint) {
+        scrollAmount = 0;
+        container.scrollLeft = 0;
+      }
+    };
+
+    const interval = setInterval(autoScroll, scrollDelay);
+
+    return () => clearInterval(interval);
+  }, [mentors.length]);
 
   return (
     <section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-gray-100">
-      <div className="container mx-auto max-w-6xl">
+      <div className="container mx-auto max-w-5xl">
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -46,50 +77,40 @@ export const MoreMentorsSection = () => {
           </h2>
         </motion.div>
 
-        {/* Mentors Carousel */}
-        <div 
-          className="relative overflow-hidden"
-          onMouseEnter={() => setIsPaused(true)}
-          onMouseLeave={() => setIsPaused(false)}>
-          <div className="flex gap-6">
-            {/* Duplicate mentors for infinite scroll effect */}
-            <div 
-              className={`flex gap-6 ${isPaused ? '' : 'animate-scroll-rtl'}`}
-              style={{ animationPlayState: isPaused ? 'paused' : 'running' }}>
-              {[...mentors, ...mentors, ...mentors].map((mentor, idx) => (
-                <motion.div
-                  key={`mentor-${idx}`}
-                  initial={{ opacity: 0, y: 30 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.5, delay: (idx % mentors.length) * 0.1 }}
-                  className="flex-shrink-0 w-[200px] md:w-[240px] flex flex-col items-center">
-                  {/* Mentor Image */}
-                  <div className="w-full aspect-[3/4] mb-4 overflow-hidden rounded-lg shadow-lg">
-                    <img
-                      src={mentor.image}
-                      alt={mentor.name}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                  {/* Mentor Info */}
-                  <div className="text-center">
-                    <p className="text-sm font-normal text-gray-700 italic">
-                      {mentor.name}
-                    </p>
-                    <p className="text-sm font-normal text-gray-600 italic">
-                      {mentor.title}
-                    </p>
-                  </div>
-                </motion.div>
-              ))}
-            </div>
+        {/* Horizontal Scrolling Container - Shows 3 cards at a time */}
+        <div className="overflow-hidden max-w-4xl mx-auto">
+          <div 
+            ref={scrollContainerRef}
+            className="flex gap-6 overflow-x-auto scrollbar-hide pb-4"
+            style={{ 
+              scrollbarWidth: 'none', 
+              msOverflowStyle: 'none',
+              WebkitOverflowScrolling: 'touch'
+            }}>
+            {infiniteMentors.map((mentor, idx) => (
+              <div
+                key={`${mentor.name}-${idx}`}
+                className="flex flex-col items-center flex-shrink-0 w-[calc(33.333%-16px)] min-w-[240px]">
+                {/* Mentor Image */}
+                <div className="w-full aspect-[3/4] mb-3 overflow-hidden rounded-lg shadow-lg">
+                  <img
+                    src={mentor.image}
+                    alt={mentor.name}
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+                {/* Mentor Info */}
+                <div className="text-center">
+                  <p className="text-sm font-normal text-gray-700 italic">
+                    {mentor.name}
+                  </p>
+                  <p className="text-xs font-normal text-gray-600 italic">
+                    {mentor.title}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
-        </div>
-
-        {/* Info Text */}
-        <div className="text-center mt-8">
-          <p className="text-sm text-gray-600 italic">Hover to pause scrolling</p>
         </div>
       </div>
     </section>

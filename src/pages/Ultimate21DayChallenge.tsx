@@ -1,8 +1,5 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMeta } from "@/hooks/useMeta";
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { toast } from "sonner";
 
 // Import all sections
@@ -13,25 +10,21 @@ import {
   HowItWorksSection,
   AanchalTestimonialSection,
   WhatYouGetSection,
+  MeetYourMentorSection,
   MoreMentorsSection,
   BenefitsSection,
   TransformationsSection,
   WhoIsThisForSection,
   YogaTeachersSection,
-  VideoTestimonialsSection,
-  RegistrationFormSection,
+  RegisterHereSection,
   FAQSection,
-  type RegistrationFormData,
+  UpgradeModal,
+  ScrollPopupModal,
 } from "@/components/challenge";
 
-// Form validation schema
-const registrationSchema = z.object({
-  name: z.string().min(2, "Name must be at least 2 characters"),
-  phone: z.string().regex(/^\d{10}$/, "Phone number must be exactly 10 digits"),
-  countryCode: z.string().min(1, "Country code is required"),
-}).required();
-
 const Ultimate21DayChallenge = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
@@ -44,32 +37,21 @@ const Ultimate21DayChallenge = () => {
     ogImage: "/src/assets/hero-yoga.jpg",
   });
 
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    setValue,
-    watch,
-  } = useForm<RegistrationFormData>({
-    resolver: zodResolver(registrationSchema),
-    defaultValues: {
-      countryCode: "+91",
-    },
-  });
-
   const scrollToRegistration = () => {
-    document.getElementById("registration")?.scrollIntoView({ behavior: "smooth" });
+    setIsModalOpen(true);
   };
 
-  const onSubmit = async (data: RegistrationFormData) => {
-    try {
-      const paymentUrl = `https://pages.razorpay.com/pl_CHALLENGE21DAY/view?name=${encodeURIComponent(data.name)}&phone=${data.phone}&contact=${data.phone}`;
-      toast.success("Redirecting to payment...");
-      window.open(paymentUrl, "_blank");
-    } catch (error) {
-      toast.error("Something went wrong. Please try again.");
-      console.error(error);
-    }
+  const handleUpgrade = () => {
+    setIsModalOpen(false);
+    toast.success("Redirecting to upgrade payment...");
+    window.open("https://pages.razorpay.com/pl_PERSONALIZED21DAY/view", "_blank");
+  };
+
+  const handleJoinGroup = () => {
+    setIsModalOpen(false);
+    const paymentUrl = `https://pages.razorpay.com/pl_CHALLENGE21DAY/view`;
+    toast.success("Redirecting to payment...");
+    window.open(paymentUrl, "_blank");
   };
 
   return (
@@ -80,20 +62,24 @@ const Ultimate21DayChallenge = () => {
       <HowItWorksSection />
       <AanchalTestimonialSection />
       <WhatYouGetSection scrollToRegistration={scrollToRegistration} />
+      <MeetYourMentorSection />
       <MoreMentorsSection />
       <BenefitsSection />
       <TransformationsSection />
       <WhoIsThisForSection />
       <YogaTeachersSection />
-      <VideoTestimonialsSection />
-      <RegistrationFormSection
-        register={register}
-        errors={errors}
-        setValue={setValue}
-        watch={watch}
-        onSubmit={handleSubmit(onSubmit)}
-      />
+      <RegisterHereSection onRegister={handleJoinGroup} />
       <FAQSection />
+      <UpgradeModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        onUpgrade={handleUpgrade}
+        onJoinGroup={handleJoinGroup}
+      />
+      <ScrollPopupModal
+        onUpgrade={handleUpgrade}
+        onJoinGroup={handleJoinGroup}
+      />
     </div>
   );
 };

@@ -60,7 +60,7 @@ export const BenefitsSection = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: idx * 0.05 }}
               className="bg-gradient-to-r from-green-50/80 via-emerald-50/80 to-teal-50/80 rounded-3xl p-6 md:p-8 shadow-sm border border-gray-200/50">
-              <div className="flex items-center gap-6">
+              <div className="flex flex-col md:flex-row items-center md:items-center gap-4 md:gap-6">
                 {/* Image */}
                 <div className="w-32 h-32 md:w-40 md:h-40 bg-white rounded-3xl flex-shrink-0 shadow-md overflow-hidden">
                   <img 
@@ -71,8 +71,8 @@ export const BenefitsSection = () => {
                 </div>
 
                 {/* Text */}
-                <div className="flex-1 flex items-center">
-                  <h3 className="text-lg md:text-xl font-normal text-gray-900 leading-relaxed">
+                <div className="flex-1 flex items-center text-center md:text-left">
+                  <h3 className="text-base md:text-lg font-normal text-gray-900 leading-relaxed">
                     {benefit.title}
                   </h3>
                 </div>
