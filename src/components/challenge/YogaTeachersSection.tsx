@@ -1,6 +1,6 @@
 import { motion } from "framer-motion";
-import muditImage from "@/assets/mudit.jpeg";
-import karishmaImage from "@/assets/Karishma.jpg";
+import muditImage from "@/assets/mudit m.jpeg";
+import karishmaImage from "@/assets/karishma Kaintura.jpeg";
 import saumyaImage from "@/assets/Saumya.jpg";
 
 export const YogaTeachersSection = () => {
@@ -9,16 +9,19 @@ export const YogaTeachersSection = () => {
       name: "Mudit Malviya",
       title: "Yoga Instructor",
       image: muditImage,
+      objectPosition: "center",
     },
     {
       name: "Karishma Kaintura",
       title: "Restorative Yoga",
       image: karishmaImage,
+      objectPosition: "center 30%",
     },
     {
       name: "Saumya Gangwar",
       title: "Yoga & Workout Expert",
       image: saumyaImage,
+      objectPosition: "center",
     },
   ];
 
@@ -57,6 +60,7 @@ export const YogaTeachersSection = () => {
                   src={teacher.image}
                   alt={teacher.name}
                   className="w-full h-full object-cover"
+                  style={{ objectPosition: teacher.objectPosition }}
                 />
               </div>
               {/* Teacher Info */}
