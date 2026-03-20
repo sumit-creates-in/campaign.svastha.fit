@@ -91,7 +91,8 @@ const Ultimate21DayChallenge = () => {
           animation: heartbeat 1s ease-in-out infinite;
         }
         
-        .ultimate-challenge-page button[aria-expanded] {
+        .ultimate-challenge-page button[aria-expanded],
+        .ultimate-challenge-page button.no-heartbeat {
           animation: none;
         }
       `}</style>

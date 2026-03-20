@@ -38,13 +38,13 @@ export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalPro
         {/* Close Button */}
         <button
           onClick={handleClose}
-          className="sticky top-2 left-full -ml-20 text-gray-700 hover:text-gray-900 transition-colors z-10 bg-gray-100 rounded-lg p-1"
+          className="absolute top-3 right-3 text-gray-700 hover:text-gray-900 transition-colors z-10"
           aria-label="Close modal">
-          <X className="w-4 h-4" strokeWidth={2} />
+          <X className="w-5 h-5" strokeWidth={2} />
         </button>
 
         {/* Modal Content */}
-        <div className="px-4 py-3 pt-0">
+        <div className="px-6 py-6 pt-10">
           {/* Alert Icon */}
           <div className="flex justify-center mb-2">
             <span className="text-3xl animate-bounce">🚨</span>
