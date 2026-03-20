@@ -90,6 +90,10 @@ const Ultimate21DayChallenge = () => {
         .ultimate-challenge-page button {
           animation: heartbeat 1s ease-in-out infinite;
         }
+        
+        .ultimate-challenge-page button[aria-expanded] {
+          animation: none;
+        }
       `}</style>
       <div className="ultimate-challenge-page min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">
         <HeroSection scrollToRegistration={scrollToRegistration} />
@@ -98,7 +102,7 @@ const Ultimate21DayChallenge = () => {
         <HowItWorksSection />
         <AanchalTestimonialSection />
         <WhatYouGetSection scrollToRegistration={scrollToRegistration} />
-        <MeetYourMentorSection />
+        <MeetYourMentorSection scrollToRegistration={scrollToRegistration} />
         <MoreMentorsSection />
         <BenefitsSection />
         <TransformationsSection />
