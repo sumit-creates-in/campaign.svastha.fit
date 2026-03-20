@@ -56,10 +56,10 @@ export const HowItWorksSection = () => {
               transition={{ duration: 0.5, delay: idx * 0.1 }}>
               <Card className="h-full bg-gradient-to-br from-green-50 to-emerald-50 border-2 border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 rounded-2xl relative">
                 {/* Number Badge */}
-                <div className="absolute top-4 left-4 w-8 h-8 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-sm shadow-lg z-10">
+                <div className="absolute top-4 left-4 w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-base shadow-lg z-10">
                   {idx + 1}
                 </div>
-                
+
                 <CardContent className="p-6 text-center flex flex-col items-center pt-8">
                   {/* Icon */}
                   <div className="w-16 h-16 bg-white rounded-2xl flex items-center justify-center mb-4 shadow-sm">

@@ -7,7 +7,7 @@ interface StickyBottomBarProps {
 
 export const StickyBottomBar = ({ onRegisterClick }: StickyBottomBarProps) => {
   return (
-    <div className="fixed bottom-0 left-0 right-0 z-40 bg-gray-200 shadow-lg border-t-2 border-gray-200 md:hidden">
+    <div className="fixed bottom-0 left-0 right-0 z-40 bg-gray-200 shadow-[0_-4px_16px_rgba(0,0,0,0.15)] border-t-2 border-gray-200 md:hidden">
       <div className="flex items-start justify-between px-4 py-3">
         {/* Left Side - Challenge Info */}
         <div className="flex-1">
@@ -20,10 +20,10 @@ export const StickyBottomBar = ({ onRegisterClick }: StickyBottomBarProps) => {
         </div>
 
         {/* Right Side - Register Button and People Count */}
-        <div className="flex flex-col items-end ml-3">
+        <div className="flex flex-col items-end ">
           <Button
             onClick={onRegisterClick}
-            className="bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm px-4 py-2 rounded-full shadow-md hover:shadow-lg transition-all duration-300 mb-1">
+            className="bg-gradient-to-r w-full from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm !px-12 py-2 rounded-full shadow-md hover:shadow-lg transition-all duration-300 mb-1">
             Register Now
           </Button>
           <div className="flex items-center gap-1 text-xs text-gray-600">
