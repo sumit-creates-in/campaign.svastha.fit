@@ -59,7 +59,7 @@ export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalPro
 
           {/* Discount Badge */}
           <div className="text-center mb-3">
-            <p className="text-base font-bold text-gray-900">
+            <p className="text-xl font-bold text-gray-900">
               🎉 <span className="text-gray-800">Discount Unlocked</span> 🥳
             </p>
           </div>
@@ -67,22 +67,15 @@ export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalPro
           {/* Upgrade Section */}
           <div className="mb-3">
             <div className="flex items-center gap-2 mb-2 justify-center">
-              <div className="w-6 h-6 rounded-md bg-emerald-500 flex items-center justify-center flex-shrink-0">
-                <Check className="w-4 h-4 text-white" strokeWidth={3} />
-              </div>
               <div className="text-center">
-                <h3 className="text-base font-bold text-gray-900 leading-tight">
-                  Upgrade to Personalized
-                </h3>
-                <h3 className="text-base font-bold text-gray-900 leading-tight">
-                  21 Day Plan to Get:
+                <h3 className="text-base font-bold text-gray-900 leading-tight text-center">
+                  Upgrade to Personalized 21 Day Plan to Get:
                 </h3>
               </div>
             </div>
 
             {/* Benefits */}
-            <div className="mb-2">
-              <p className="text-xs text-gray-600 mb-1 italic text-center">Upgrade to Get:</p>
+            <div className="mb-2 mt-2">
               <div className="space-y-1 flex flex-col items-start pl-6">
                 {[
                   "Start Anyday (Priority Onboarding)",
