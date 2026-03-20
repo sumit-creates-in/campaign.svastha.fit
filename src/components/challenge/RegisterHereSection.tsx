@@ -62,8 +62,8 @@ export const RegisterHereSection = ({ onRegister }: RegisterHereSectionProps) =>
 
             {/* Register Button */}
             <Button
-              onClick={onRegister}
-              className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-base py-6 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 mb-4">
+              onClick={() => window.open('https://pages.razorpay.com/pl_QHMrm9qAqyqcdA/view', '_blank')}
+              className="w-full bg-gradient-to-r from-green-600 to-lime-400 hover:from-green-700 hover:to-lime-500 text-white font-bold text-xl px-12 md:px-10 py-6 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300 mb-4">
               Register Now
             </Button>
 

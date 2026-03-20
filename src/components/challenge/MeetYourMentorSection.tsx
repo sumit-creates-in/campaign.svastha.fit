@@ -3,7 +3,11 @@ import { Button } from "@/components/ui/button";
 import { Instagram } from "lucide-react";
 import sumitImage from "@/assets/image.png";
 
-export const MeetYourMentorSection = () => {
+interface MeetYourMentorSectionProps {
+  scrollToRegistration: () => void;
+}
+
+export const MeetYourMentorSection = ({ scrollToRegistration }: MeetYourMentorSectionProps) => {
   return (
     <section className="py-16 px-4 bg-gradient-to-br from-teal-50 via-emerald-50 to-green-50">
       <div className="container mx-auto max-w-6xl">
@@ -151,7 +155,9 @@ export const MeetYourMentorSection = () => {
             </div>
 
             <div className="flex justify-center">
-              <Button className="bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold px-8 py-6 rounded-lg text-base shadow-lg hover:shadow-xl transition-all duration-300">
+              <Button 
+                onClick={scrollToRegistration}
+                className="bg-gradient-to-r from-green-600 to-lime-400 hover:from-green-700 hover:to-lime-500 text-white font-bold text-lg px-8 py-5 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
                 Register Now - Learn from Sumit
               </Button>
             </div>
