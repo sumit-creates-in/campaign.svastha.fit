@@ -67,15 +67,15 @@ export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalPro
           {/* Upgrade Section */}
           <div className="mb-3">
             <div className="flex items-center gap-2 mb-2 justify-center">
-              <div className="w-4 h-4 rounded-md bg-emerald-500 flex items-center justify-center flex-shrink-0">
-                <Check className="w-3 h-3 text-white" strokeWidth={3} />
+              <div className="w-6 h-6 rounded-md bg-emerald-500 flex items-center justify-center flex-shrink-0">
+                <Check className="w-4 h-4 text-white" strokeWidth={3} />
               </div>
               <div className="text-center">
                 <h3 className="text-base font-bold text-gray-900 leading-tight">
-                  Want to Upgrade to
+                  Upgrade to Personalized
                 </h3>
                 <h3 className="text-base font-bold text-gray-900 leading-tight">
-                  Personalized 21 Day Plan?
+                  21 Day Plan to Get:
                 </h3>
               </div>
             </div>
@@ -97,7 +97,7 @@ export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalPro
                     <div className="w-3 h-3 rounded-full bg-cyan-400 flex items-center justify-center flex-shrink-0 mt-0.5">
                       <Check className="w-2 h-2 text-white" strokeWidth={3} />
                     </div>
-                    <p className="text-xs text-gray-800 leading-tight">{benefit}</p>
+                    <p className="text-sm text-gray-800 leading-tight">{benefit}</p>
                   </div>
                 ))}
               </div>
