@@ -16,7 +16,7 @@ export const HeroSection = ({ scrollToRegistration }: HeroSectionProps) => {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
           className="text-center mb-8">
-          <div className="inline-block bg-gradient-to-r from-emerald-500 via-teal-500 to-purple-500 text-white px-8 py-2 rounded-full text-base md:text-lg font-bold tracking-wide">
+          <div className="inline-block bg-gradient-to-r from-emerald-500 via-teal-500 to-purple-500 text-white px-16 py-0 my-2 rounded-full text-base md:text-sm font-bold tracking-wide">
             SVASTHA.FIT
           </div>
         </motion.div>

@@ -12,7 +12,7 @@ const VideoTestimonialSection2 = () => {
                     className="text-center mb-12"
                 >
                     <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
-                        Aanchal Shed 6.5 Kg in Just 9 Days!
+                        Aanchal Lost 6.5 Kg in Just 9 Days!
                     </h2>
                     <p className="text-xl md:text-2xl text-gray-700 mb-8">
                         Watch her unbelievable journey!
@@ -30,7 +30,7 @@ const VideoTestimonialSection2 = () => {
                         <iframe
                             className="absolute top-0 left-0 w-full h-full rounded-2xl shadow-2xl"
                             src="https://www.youtube.com/embed/is5v451Bw18"
-                            title="Aanchal Shed 6.5 Kg in Just 9 Days"
+                            title="Aanchal Lost 6.5 Kg in Just 9 Days"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowFullScreen
                         ></iframe>
