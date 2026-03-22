@@ -98,10 +98,6 @@ export const TransformationsSection = () => {
       text: "95 kg se 60 kg tak ka safar mere liye sirf weight loss nahi, ek complete life change tha."
     },
     {
-      image: transformation7,
-      text: "Har doctor ek hi cheez bolte the — 'weight kam karo', par kaise koi nahi batata tha. Mujhe intermiitent fassting seekhne ko mili, fasting ka sahi tareeka seekha, kya khaana h, kab khana h ye sab seekha. Ab bas healthy weight maintain karna hai. Thank you Sumit sir and team."
-    },
-    {
       image: transformation8,
       text: "Sir ki guidance me maine ab tak 20 kg vazan kam kar liya or pichle 6 maheene se ise maintain bhi kar raha hu. Thank you Sumit Sir. - Sumit"
     },
