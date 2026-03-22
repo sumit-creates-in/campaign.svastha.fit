@@ -91,10 +91,10 @@ const FourteenDayHero = () => {
                 Most Popular
               </div>
               <Button
-                onClick={() => navigate('/14-Day-Yoga-Fat-Loss-Camp')}
+                onClick={() => navigate('/Ultimate-21-day-weight-loss-challenge')}
                 className="w-full bg-gradient-to-r from-blue-800 to-blue-900 hover:from-blue-900 hover:to-blue-950 text-white py-3 md:py-4 text-sm md:text-base font-semibold rounded-full shadow-lg"
               >
-                🔥 14 Day Weight Loss Challenge
+                🔥 Ultimate 21 Day Weight Loss Challenge
               </Button>
             </div>
 

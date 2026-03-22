@@ -109,7 +109,7 @@ const Ultimate21DayChallenge = () => {
         <TransformationsSection />
         <WhoIsThisForSection />
         <YogaTeachersSection />
-        <RegisterHereSection onRegister={handleJoinGroup} />
+        <RegisterHereSection onRegister={scrollToRegistration} />
         <FAQSection />
         <UpgradeModal
           isOpen={isModalOpen}
