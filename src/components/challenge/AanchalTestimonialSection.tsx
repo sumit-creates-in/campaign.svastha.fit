@@ -12,7 +12,7 @@ export const AanchalTestimonialSection = () => {
           {/* Heading */}
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-2">
             <span>✨</span>
-            <span>Aanchal Shed 6.5 Kg in Just 9 Days!</span>
+            <span>Aanchal Lost 6.5 Kg in Just 9 Days!</span>
             <span>💪</span>
           </h2>
 
