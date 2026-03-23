@@ -11,6 +11,7 @@ import FourteenDayCampaign from "./pages/FourteenDayCampaign";
 import TransformationProgram from "./pages/TransformationProgram";
 import RegistrationConfirm14WLYC from "./pages/RegistrationConfirm14WLYC";
 import RegistrationConfirm14WLYCInt from "./pages/RegistrationConfirm14WLYCInt";
+import RegistrationConfirm21WLYC from "./pages/RegistrationConfirm21WLYC";
 import Ultimate21DayChallenge from "./pages/Ultimate21DayChallenge";
 import NotFound from "./pages/NotFound";
 
@@ -33,6 +34,7 @@ const App = () => (
           <Route path="/registration-confirm-14-day-yoga-fat-loss-camp" element={<RegistrationConfirm14WLYC />} />
           <Route path="/reg-confirm-14wlyc-int" element={<RegistrationConfirm14WLYCInt />} />
           <Route path="/registration-confirm-14-day-yoga-fat-loss-camp-int" element={<RegistrationConfirm14WLYCInt />} />
+          <Route path="/reg-confirm-21wlyc" element={<RegistrationConfirm21WLYC />} />
           <Route path="/12-week-Total-Body-Transformation-Program" element={<TransformationProgram />} />
           <Route path="/Ultimate-21-day-weight-loss-challenge" element={<Ultimate21DayChallenge />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}

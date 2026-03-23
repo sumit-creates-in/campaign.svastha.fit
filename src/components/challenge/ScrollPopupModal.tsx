@@ -13,10 +13,23 @@ export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalPro
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show popup after scrolling 50% of the page
-      const scrollPercentage = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
-
-      if (scrollPercentage > 50 && !hasShown) {
+      // Find the TransformationsSection by looking for the heading text
+      const transformationsHeading = Array.from(document.querySelectorAll('h2')).find(
+        h2 => h2.textContent?.includes('We Deliver The Best Transformations')
+      );
+      
+      if (!transformationsHeading || hasShown) return;
+      
+      // Get the section element (parent of the heading)
+      const section = transformationsHeading.closest('section');
+      if (!section) return;
+      
+      // Check if user has scrolled past the section
+      const sectionBottom = section.getBoundingClientRect().bottom;
+      const windowHeight = window.innerHeight;
+      
+      // Show popup when the section bottom is above the viewport (user scrolled past it)
+      if (sectionBottom < windowHeight * 0.5 && !hasShown) {
         setIsVisible(true);
         setHasShown(true);
       }
