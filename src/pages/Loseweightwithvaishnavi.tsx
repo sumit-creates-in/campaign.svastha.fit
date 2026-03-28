@@ -146,24 +146,24 @@ const LandingPage: React.FC = () => {
       {/* PAIN SECTION */}
       <section className="pain-section">
         <div className="pain-header">
-          <div className="pain-subtitle">YOU'RE NOT ALONE</div>
-          <h2 className="pain-title">Sound Familiar?</h2>
-          <p className="pain-description">
+          <div className="section-label">YOU'RE NOT ALONE</div>
+          <h2 className="section-title">Sound Familiar?</h2>
+          <p className="section-sub">
             Millions of Indians are trying hard to lose weight but getting nowhere —
             because their health conditions are working against them. Here's what we
             hear every day:
           </p>
-        </div>
 
-        <div className="specialization-badges">
-          <div className="spec-label">VAISHNAVI SPECIALISES IN WEIGHT LOSS FOR PEOPLE WITH:</div>
-          <div className="badges-row">
-            <span className="badge badge-blue">🔵 PCOS / PCOD</span>
-            <span className="badge badge-purple">🟣 Thyroid (Hypo & Hyper)</span>
-            <span className="badge badge-red">🔴 Type 2 Diabetes</span>
-            <span className="badge badge-orange">🟠 High Blood Pressure</span>
-            <span className="badge badge-yellow">🟡 Fatty Liver</span>
-            <span className="badge badge-green">🟢 Hormonal Imbalance</span>
+          <div className="conditions-banner">
+            <div className="conditions-label">VAISHNAVI SPECIALISES IN WEIGHT LOSS FOR PEOPLE WITH:</div>
+            <div className="conditions-pills">
+              <span className="cond-pill">🔵 PCOS / PCOD</span>
+              <span className="cond-pill">🟣 Thyroid (Hypo & Hyper)</span>
+              <span className="cond-pill">🔴 Type 2 Diabetes</span>
+              <span className="cond-pill">🟠 High Blood Pressure</span>
+              <span className="cond-pill">🟡 Fatty Liver</span>
+              <span className="cond-pill">🟢 Hormonal Imbalance</span>
+            </div>
           </div>
         </div>
 

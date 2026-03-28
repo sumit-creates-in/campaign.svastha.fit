@@ -437,8 +437,9 @@ nav {
 }
 
 .pain-header {
-  text-align: center;
+  text-align: left;
   margin-bottom: 48px;
+  max-width: 100%;
 }
 
 .conditions-banner {
@@ -1376,7 +1377,8 @@ footer strong {
   }
 
   .hero h1 {
-    font-size: 1.75rem;
+    font-size: 2.2rem;
+    font-weight: 900;
   }
 
   .hero-sub {
