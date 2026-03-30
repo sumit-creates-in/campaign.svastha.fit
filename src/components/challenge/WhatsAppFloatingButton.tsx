@@ -7,8 +7,8 @@ const WhatsAppFloatingButton = () => {
 
   useEffect(() => {
     const handleScroll = () => {
-      // Show button after scrolling 800px (approximately after leaderboard section)
-      if (window.scrollY > 800) {
+      // Show button after scrolling 6500px (approximately after Meet Your Mentor section)
+      if (window.scrollY > 6500) {
         setIsVisible(true);
       } else {
         setIsVisible(false);
