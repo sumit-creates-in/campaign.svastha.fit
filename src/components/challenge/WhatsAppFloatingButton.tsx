@@ -1,8 +1,23 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { MessageCircle, X, ChevronDown } from "lucide-react";
 
 const WhatsAppFloatingButton = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      // Show button after scrolling 800px (approximately after leaderboard section)
+      if (window.scrollY > 800) {
+        setIsVisible(true);
+      } else {
+        setIsVisible(false);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const handleChatClick = () => {
     const phoneNumber = "15557533653";
@@ -14,12 +29,12 @@ const WhatsAppFloatingButton = () => {
   return (
     <>
       {/* Popup Widget */}
-      {isOpen && (
-        <div className="fixed bottom-44 md:bottom-36 right-4 md:right-6 z-[9999] animate-slideUp">
+      {isVisible && isOpen && (
+        <div className="fixed bottom-44 md:bottom-36 left-4 md:left-6 z-[9999] animate-slideUp">
           <div className="bg-white rounded-[32px] w-[300px] md:w-[340px] border-2 border-green-500 p-6 relative" style={{ boxShadow: '-2px -2px 0px rgba(0, 0, 0, 0.15), 5px 5px 0px rgba(22, 163, 74, 0.35), 0 4px 12px rgba(0, 0, 0, 0.08)' }}>
             {/* Speech bubble tail - pointing to button */}
             <div 
-              className="absolute -bottom-4 right-6 w-8 h-8 bg-white border-r-2 border-b-2 border-green-500 transform rotate-45"
+              className="absolute -bottom-4 left-6 w-8 h-8 bg-white border-r-2 border-b-2 border-green-500 transform rotate-45"
               style={{ boxShadow: '3px 3px 0px rgba(22, 163, 74, 0.35)' }}
             ></div>
             
@@ -32,7 +47,7 @@ const WhatsAppFloatingButton = () => {
             </button>
 
             {/* Content */}
-            <div className="pr-6">
+            <div className="pr-6 pl-2">
               <div className="flex items-start gap-3 mb-5">
                 <div className="w-12 h-12 bg-green-500 rounded-full flex items-center justify-center flex-shrink-0">
                   <MessageCircle className="w-6 h-6 text-white" />
@@ -71,12 +86,13 @@ const WhatsAppFloatingButton = () => {
       )}
 
       {/* Floating Button */}
-      <button
-        onClick={() => setIsOpen(!isOpen)}
-        className="fixed bottom-24 md:bottom-6 right-4 md:right-6 z-[9999] w-14 h-14 bg-green-500/90 hover:bg-green-500 text-white rounded-full transition-all duration-300 hover:scale-110 group flex items-center justify-center"
-        style={{ boxShadow: '0 4px 12px rgba(22, 163, 74, 0.4), 0 2px 6px rgba(0, 0, 0, 0.12)' }}
-        aria-label="WhatsApp Chat"
-      >
+      {isVisible && (
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          className="fixed bottom-24 md:bottom-6 left-4 md:left-6 z-[9999] w-14 h-14 bg-green-500/90 hover:bg-green-500 text-white rounded-full transition-all duration-300 hover:scale-110 group flex items-center justify-center"
+          style={{ boxShadow: '0 4px 12px rgba(22, 163, 74, 0.4), 0 2px 6px rgba(0, 0, 0, 0.12)' }}
+          aria-label="WhatsApp Chat"
+        >
         <svg
           viewBox="0 0 24 24"
           className="w-7 h-7 fill-current group-hover:rotate-12 transition-transform"
@@ -89,6 +105,7 @@ const WhatsAppFloatingButton = () => {
           <span className="absolute inset-0 rounded-full bg-green-400 animate-ping opacity-50"></span>
         )}
       </button>
+      )}
 
       <style>{`
         @keyframes slideUp {
