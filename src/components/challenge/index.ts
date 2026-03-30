@@ -19,3 +19,4 @@ export { RegisterHereSection } from './RegisterHereSection';
 export { RegistrationFormSection, type RegistrationFormData } from './RegistrationFormSection';
 export { FAQSection } from './FAQSection';
 export { FinalCTASection } from './FinalCTASection';
+export { default as WhatsAppFloatingButton } from './WhatsAppFloatingButton';
