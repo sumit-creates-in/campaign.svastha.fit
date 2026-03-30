@@ -21,6 +21,7 @@ import {
   UpgradeModal,
   ScrollPopupModal,
   StickyBottomBar,
+  WhatsAppFloatingButton,
 } from "@/components/challenge";
 
 const Ultimate21DayChallenge = () => {
@@ -122,6 +123,7 @@ const Ultimate21DayChallenge = () => {
           onJoinGroup={handleJoinGroup}
         />
         <StickyBottomBar onRegisterClick={scrollToRegistration} />
+        <WhatsAppFloatingButton />
       </div>
     </>
   );
