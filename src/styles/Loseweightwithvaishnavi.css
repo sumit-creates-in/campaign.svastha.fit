@@ -1361,6 +1361,7 @@ footer strong {
   nav {
     padding: 0 20px;
     height: 56px;
+    gap: 12px;
   }
 
   .nav-logo {
@@ -1373,7 +1374,7 @@ footer strong {
   }
 
   .hero {
-    padding: 80px 20px 50px;
+    padding: 64px 20px 50px;
   }
 
   .hero h1 {
