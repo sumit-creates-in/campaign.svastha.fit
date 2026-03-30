@@ -14,7 +14,7 @@ const Navigation = () => {
   }, []);
 
   return (
-    <nav className="py-5 bg-transparent">
+    <nav className="py-0 bg-transparent">
       {/* <div className="container mx-auto px-4">
         <div className="flex items-center justify-between gap-4">
           <motion.div

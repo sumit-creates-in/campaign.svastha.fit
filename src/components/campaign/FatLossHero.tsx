@@ -25,7 +25,7 @@ const FatLossHero = ({ badgeText = "Guaranteed Weight Loss", showGuarantees = tr
 
 
 
-      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pb-16 px-4 bg-gradient-to-br from-green-100 via-emerald-50 to-teal-100">
+      <section className="relative min-h-screen flex items-center justify-center overflow-hidden pb-16 px-4 pt-4 bg-gradient-to-br from-green-100 via-emerald-50 to-teal-100">
         {/* Background with gradient overlay */}
         <div className="absolute inset-0 bg-gradient-to-br from-green-100 via-emerald-50 to-teal-100">
           <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=1200')] bg-cover bg-center opacity-10"></div>
@@ -184,12 +184,12 @@ const FatLossHero = ({ badgeText = "Guaranteed Weight Loss", showGuarantees = tr
         </div>
       </section>
 
-      <RegistrationModal 
-        isOpen={isModalOpen} 
-        onOpenChange={setIsModalOpen} 
-        hideNameEmail={intlModal} 
-        defaultCountryCode={intlModal ? "+1" : "+91"} 
-        phoneLabel={intlModal ? "Whatsapp Number" : "Phone Number"} 
+      <RegistrationModal
+        isOpen={isModalOpen}
+        onOpenChange={setIsModalOpen}
+        hideNameEmail={intlModal}
+        defaultCountryCode={intlModal ? "+1" : "+91"}
+        phoneLabel={intlModal ? "Whatsapp Number" : "Phone Number"}
         buttonText={intlModal ? "Get Instructions on Whatsapp" : "Proceed to Payment - ₹99"}
         modalTitle={intlModal ? "Free Weight Loss&Yoga Camp" : "Registration Details"}
         isInternational={intlModal}

@@ -15,10 +15,10 @@ export const HeroSection = ({ scrollToRegistration }: HeroSectionProps) => {
     startDate: '2026-03-30T18:00:00Z',
   });
   return (
-    <section className="relative py-4 md:py-6 px-4 bg-white overflow-hidden">
+    <section className="relative py-0 px-4 bg-white overflow-hidden" style={{ paddingTop: '2rem' }}>
       <div className="container mx-auto max-w-7xl">
-        {/* Brand Logo */}
-        <motion.div
+        {/* Brand Logo - Hidden */}
+        {/* <motion.div
           initial={{ opacity: 0, y: -20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
@@ -26,7 +26,7 @@ export const HeroSection = ({ scrollToRegistration }: HeroSectionProps) => {
           <div className="inline-block bg-gradient-to-r from-emerald-500 via-teal-500 to-purple-500 text-white px-16 py-0 my-2 rounded-full text-base md:text-sm font-bold tracking-wide">
             SVASTHA.FIT
           </div>
-        </motion.div>
+        </motion.div> */}
 
         {/* Main Heading */}
         <motion.div

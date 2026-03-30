@@ -59,23 +59,6 @@ const Ultimate21DayChallenge = () => {
   return (
     <>
       <style>{`
-        .ultimate-challenge-page section {
-          padding-left: 8px !important;
-          padding-right: 8px !important;
-        }
-        .ultimate-challenge-page .fixed {
-          padding-left: 8px !important;
-          padding-right: 8px !important;
-        }
-        .ultimate-challenge-page .container {
-          padding-left: 8px !important;
-          padding-right: 8px !important;
-        }
-        .ultimate-challenge-page [class*="px-"] {
-          padding-left: 8px !important;
-          padding-right: 8px !important;
-        }
-        
         @keyframes heartbeat {
           0%, 100% {
             transform: scale(1);

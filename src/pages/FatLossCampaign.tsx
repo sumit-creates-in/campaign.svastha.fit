@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useMeta } from "@/hooks/useMeta";
-import Navigation from "@/components/Navigation";
 import FatLossHero from "@/components/campaign/FatLossHero";
 import VideoTestimonialSection from "@/components/campaign/VideoTestimonialSection";
 import VideoTestimonialSection2 from "@/components/campaign/VideoTestimonialSection2";
