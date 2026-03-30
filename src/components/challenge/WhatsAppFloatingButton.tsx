@@ -65,15 +65,6 @@ const WhatsAppFloatingButton = () => {
                 <ChevronDown className="w-4 h-4 -rotate-90 group-hover:translate-x-1 transition-transform" />
               </button>
 
-              {/* Footer */}
-              <div className="text-center">
-                <p className="text-gray-400 text-xs flex items-center justify-center gap-1">
-                  <svg className="w-3 h-3" viewBox="0 0 24 24" fill="currentColor">
-                    <path d="M13 2L3 14h8l-1 8 10-12h-8l1-8z" />
-                  </svg>
-                  Powered by Wati
-                </p>
-              </div>
             </div>
           </div>
         </div>
