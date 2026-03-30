@@ -1,6 +1,5 @@
 import { useEffect } from "react";
 import { useMeta } from "@/hooks/useMeta";
-import Navigation from "@/components/Navigation";
 import TransformationHero from "@/components/transformation/TransformationHero";
 import BigRealizationSection from "@/components/transformation/BigRealizationSection";
 import AchievementsSection from "@/components/transformation/AchievementsSection";
@@ -33,7 +32,6 @@ const TransformationProgram = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      <Navigation />
       <TransformationHero />
       <BigRealizationSection />
       <AchievementsSection />

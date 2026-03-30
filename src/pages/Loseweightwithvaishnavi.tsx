@@ -44,7 +44,7 @@ const LandingPage: React.FC = () => {
   }, []);
 
   return (
-    <>
+    <div className="vaishnavi-page">
       {/* NAV */}
       <nav>
         <div className="nav-logo">
@@ -663,7 +663,7 @@ const LandingPage: React.FC = () => {
           </div>
         </div>
       )}
-    </>
+    </div>
   );
 };
 

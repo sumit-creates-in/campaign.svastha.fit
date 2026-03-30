@@ -106,17 +106,175 @@ All colors MUST be HSL.
     @apply border-border;
   }
 
+  html,
+  body {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
   body {
     @apply text-foreground font-['Poppins',sans-serif];
-    margin: 0;
-    padding: 0;
     background: transparent;
   }
 
   html {
     scroll-behavior: smooth;
-    margin: 0;
-    padding: 0;
+  }
+
+  /* Completely hide any navbar elements except on Vaishnavi page */
+  body:not(.vaishnavi-page) nav {
+    display: none !important;
+    visibility: hidden !important;
+    height: 0 !important;
+    overflow: hidden !important;
+  }
+
+  /* Remove ALL top spacing from everything */
+  #root {
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  #root > * {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* Remove any top spacing from first section */
+  section:first-child,
+  section:first-of-type {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+
+  /* Remove top spacing from all direct children of body */
+  body > * {
+    margin-top: 0 !important;
+  }
+
+  /* Remove top spacing from page containers */
+  .min-h-screen:first-child {
+    margin-top: 0 !important;
+    padding-top: 0 !important;
+  }
+}
+
+/* Fix excessive spacing across all pages - Minimal top, some bottom */
+@layer utilities {
+  /* Minimal top padding, moderate bottom padding */
+  section {
+    padding-top: 1rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+
+  /* Responsive section padding */
+  @media (min-width: 768px) {
+    section {
+      padding-top: 1.5rem !important;
+      padding-bottom: 2rem !important;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    section {
+      padding-top: 2rem !important;
+      padding-bottom: 2.5rem !important;
+    }
+  }
+
+  /* Container padding */
+  .container {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+
+  /* Reduce excessive margins between elements */
+  section .mb-12 {
+    margin-bottom: 1.5rem !important;
+  }
+
+  section .mb-16 {
+    margin-bottom: 2rem !important;
+  }
+
+  section .mt-16 {
+    margin-top: 1.5rem !important;
+  }
+
+  section .mb-10 {
+    margin-bottom: 1.25rem !important;
+  }
+
+  section .mt-10 {
+    margin-top: 1.25rem !important;
+  }
+
+  section .mb-8 {
+    margin-bottom: 1rem !important;
+  }
+
+  section .mt-8 {
+    margin-top: 1rem !important;
+  }
+
+  /* Override excessive py utilities within sections */
+  section.py-20 {
+    padding-top: 1rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+
+  section.py-16 {
+    padding-top: 1rem !important;
+    padding-bottom: 1.5rem !important;
+  }
+
+  section.py-12 {
+    padding-top: 0.75rem !important;
+    padding-bottom: 1.25rem !important;
+  }
+
+  section.py-10 {
+    padding-top: 0.75rem !important;
+    padding-bottom: 1.25rem !important;
+  }
+
+  @media (min-width: 768px) {
+    section.py-20,
+    section.py-16 {
+      padding-top: 1.5rem !important;
+      padding-bottom: 2rem !important;
+    }
+
+    section.py-12,
+    section.py-10 {
+      padding-top: 1.25rem !important;
+      padding-bottom: 1.75rem !important;
+    }
+  }
+
+  @media (min-width: 1024px) {
+    section.py-20,
+    section.py-16 {
+      padding-top: 2rem !important;
+      padding-bottom: 2.5rem !important;
+    }
+
+    section.py-12,
+    section.py-10 {
+      padding-top: 1.5rem !important;
+      padding-bottom: 2rem !important;
+    }
+  }
+
+  /* Remove gap between sections */
+  section + section {
+    margin-top: 0 !important;
+  }
+
+  /* Remove padding from nav elements */
+  nav {
+    padding-top: 0 !important;
+    padding-bottom: 0 !important;
   }
 }
 
@@ -171,4 +329,21 @@ All colors MUST be HSL.
 
 .animate-scroll-rtl {
   animation: scroll-rtl 20s linear infinite;
+}
+
+/* HIDE Toaster/Sonner notifications completely */
+[aria-label*="Notifications"],
+[aria-label*="notifications"],
+[role="region"][aria-live="polite"],
+[data-sonner-toaster],
+[data-radix-toast-viewport],
+.sonner,
+.toaster {
+  display: none !important;
+  visibility: hidden !important;
+  height: 0 !important;
+  width: 0 !important;
+  overflow: hidden !important;
+  position: absolute !important;
+  top: -9999px !important;
 }

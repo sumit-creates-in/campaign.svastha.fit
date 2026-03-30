@@ -1,32 +1,34 @@
-:root {
-  --sage: #5C7A5A;
-  --sage-light: #8BA888;
-  --sage-pale: #EBF0E8;
-  --terracotta: #C4714A;
-  --terracotta-light: #E8977A;
-  --cream: #FAF6F0;
-  --warm-white: #FFFDF9;
-  --charcoal: #1E1E1E;
-  --mid: #5A5A5A;
-  --light: #9A9A9A;
-  --border: #E0D9CF;
-  --gold: #C9A84C;
+/* Scoped styles for Lose Weight with Vaishnavi page only */
+.vaishnavi-page {
+  --sage: #5c7a5a;
+  --sage-light: #8ba888;
+  --sage-pale: #ebf0e8;
+  --terracotta: #c4714a;
+  --terracotta-light: #e8977a;
+  --cream: #faf6f0;
+  --warm-white: #fffdf9;
+  --charcoal: #1e1e1e;
+  --mid: #5a5a5a;
+  --light: #9a9a9a;
+  --border: #e0d9cf;
+  --gold: #c9a84c;
 }
 
-/* Reset & Base */
-* {
+/* Reset & Base - SCOPED to vaishnavi page only */
+.vaishnavi-page * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-  overflow-x: hidden;
-}
-
-body {
-  font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+.vaishnavi-page {
+  font-family:
+    "DM Sans",
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
   line-height: 1.6;
   color: var(--charcoal);
   background: var(--warm-white);
@@ -35,12 +37,14 @@ body {
   max-width: 100vw;
 }
 
-h1, h2, h3 {
-  font-family: 'Playfair Display', serif;
+.vaishnavi-page h1,
+.vaishnavi-page h2,
+.vaishnavi-page h3 {
+  font-family: "Playfair Display", serif;
 }
 
 /* Navigation */
-nav {
+.vaishnavi-page nav {
   position: fixed;
   top: 0;
   left: 0;
@@ -57,7 +61,7 @@ nav {
 }
 
 .nav-logo {
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 1.5rem;
   font-weight: 900;
   color: var(--sage);
@@ -74,7 +78,7 @@ nav {
   border: none;
   padding: 10px 22px;
   border-radius: 100px;
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
   font-size: 0.85rem;
   font-weight: 600;
   cursor: pointer;
@@ -83,7 +87,7 @@ nav {
 }
 
 .nav-cta:hover {
-  background: #B5603A;
+  background: #b5603a;
   transform: translateY(-1px);
 }
 
@@ -103,24 +107,32 @@ nav {
 }
 
 .hero::before {
-  content: '';
+  content: "";
   position: absolute;
   top: -200px;
   right: -200px;
   width: 700px;
   height: 700px;
-  background: radial-gradient(circle, rgba(92, 122, 90, 0.10) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(92, 122, 90, 0.1) 0%,
+    transparent 70%
+  );
   border-radius: 50%;
 }
 
 .hero::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: -100px;
   left: -100px;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(196, 113, 74, 0.08) 0%, transparent 70%);
+  background: radial-gradient(
+    circle,
+    rgba(196, 113, 74, 0.08) 0%,
+    transparent 70%
+  );
   border-radius: 50%;
 }
 
@@ -147,7 +159,7 @@ nav {
 }
 
 .hero-tag::before {
-  content: '';
+  content: "";
   width: 8px;
   height: 8px;
   background: var(--sage);
@@ -156,7 +168,8 @@ nav {
 }
 
 @keyframes pulse {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
     transform: scale(1);
   }
@@ -167,7 +180,7 @@ nav {
 }
 
 .hero h1 {
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: clamp(2.4rem, 4vw, 3.6rem);
   font-weight: 900;
   line-height: 1.12;
@@ -207,7 +220,7 @@ nav {
 }
 
 .hero-checks li::before {
-  content: '✓';
+  content: "✓";
   width: 24px;
   height: 24px;
   background: var(--sage);
@@ -245,7 +258,7 @@ nav {
 }
 
 .btn-primary:hover {
-  background: #B5603A;
+  background: #b5603a;
   transform: translateY(-2px);
   box-shadow: 0 8px 30px rgba(196, 113, 74, 0.4);
 }
@@ -305,7 +318,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 2.5rem;
   color: white;
   margin: 0 auto 20px;
@@ -314,7 +327,7 @@ nav {
 }
 
 .dietitian-name {
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 1.6rem;
   font-weight: 700;
   text-align: center;
@@ -347,7 +360,7 @@ nav {
 }
 
 .stat-box .num {
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 1.8rem;
   font-weight: 900;
   color: var(--sage);
@@ -363,7 +376,7 @@ nav {
 }
 
 .story-badge {
-  background: linear-gradient(135deg, var(--terracotta), #E8977A);
+  background: linear-gradient(135deg, var(--terracotta), #e8977a);
   color: white;
   border-radius: 14px;
   padding: 16px 18px;
@@ -374,7 +387,7 @@ nav {
 }
 
 .story-badge::before {
-  content: '💪';
+  content: "💪";
   font-size: 1.2rem;
   display: block;
   margin-bottom: 6px;
@@ -420,7 +433,7 @@ nav {
 }
 
 .section-title {
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: clamp(2rem, 3.5vw, 2.8rem);
   font-weight: 900;
   line-height: 1.2;
@@ -497,7 +510,9 @@ nav {
   padding: 1.5rem 1.5rem;
   border-radius: 12px;
   text-align: left;
-  transition: transform 0.3s, box-shadow 0.3s;
+  transition:
+    transform 0.3s,
+    box-shadow 0.3s;
   box-shadow: 0 1px 3px rgba(0, 0, 0, 0.06);
   border: 1px solid #f0f0f0;
   display: flex;
@@ -526,7 +541,7 @@ nav {
   color: #1a1a1a;
   margin-bottom: 0.5rem;
   line-height: 1.4;
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
 }
 
 .pain-card p {
@@ -597,7 +612,7 @@ nav {
 }
 
 .feature-card::after {
-  content: '';
+  content: "";
   position: absolute;
   bottom: 0;
   left: 0;
@@ -651,7 +666,7 @@ nav {
 }
 
 .reversal-card {
-  border: 2px solid #E0D9CF;
+  border: 2px solid #e0d9cf;
   border-radius: 20px;
   padding: 28px 24px;
   transition: all 0.25s;
@@ -794,7 +809,7 @@ nav {
 }
 
 .step-num {
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 3rem;
   font-weight: 900;
   color: var(--sage-pale);
@@ -862,7 +877,7 @@ nav {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 4rem;
   color: white;
   font-weight: 700;
@@ -870,7 +885,7 @@ nav {
 }
 
 .about-quote {
-  font-family: 'Playfair Display', serif;
+  font-family: "Playfair Display", serif;
   font-size: 1.2rem;
   font-style: italic;
   color: var(--sage);
@@ -907,7 +922,7 @@ nav {
 }
 
 .timeline::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 15px;
   top: 0;
@@ -923,7 +938,7 @@ nav {
 }
 
 .timeline li::before {
-  content: '';
+  content: "";
   position: absolute;
   left: 8px;
   top: 4px;
@@ -979,7 +994,7 @@ nav {
 }
 
 .faq-q::after {
-  content: '+';
+  content: "+";
   font-size: 1.2rem;
   color: var(--sage);
   flex-shrink: 0;
@@ -997,7 +1012,9 @@ nav {
   line-height: 1.7;
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.3s ease, padding 0.3s;
+  transition:
+    max-height 0.3s ease,
+    padding 0.3s;
 }
 
 .faq-item.open .faq-a {
@@ -1127,7 +1144,7 @@ nav {
   font-size: 0.9375rem;
   color: #333;
   transition: border-color 0.3s;
-  font-family: 'DM Sans', sans-serif;
+  font-family: "DM Sans", sans-serif;
 }
 
 .form-group input:focus,
