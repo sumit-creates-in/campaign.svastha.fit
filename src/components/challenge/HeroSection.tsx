@@ -1,12 +1,19 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Users } from "lucide-react";
+import { useAutoIncrementCounter } from "@/hooks/useAutoIncrementCounter";
 
 interface HeroSectionProps {
   scrollToRegistration: () => void;
 }
 
 export const HeroSection = ({ scrollToRegistration }: HeroSectionProps) => {
+  const peopleCount = useAutoIncrementCounter({
+    initialCount: 67833,
+    incrementAmount: 8,
+    intervalHours: 1, // 1 hour
+    startDate: '2026-03-30T18:00:00Z',
+  });
   return (
     <section className="relative py-4 md:py-6 px-4 bg-white overflow-hidden">
       <div className="container mx-auto max-w-7xl">
@@ -107,7 +114,7 @@ export const HeroSection = ({ scrollToRegistration }: HeroSectionProps) => {
               </p>
               <p className="text-center md:text-left mt-1 text-sm text-emerald-600 font-medium flex items-center justify-center md:justify-start gap-2 md:pl-2">
                 <Users className="w-4 h-4" />
-                6733 people joined
+                {peopleCount.toLocaleString()} people joined
               </p>
             </div>
           </motion.div>

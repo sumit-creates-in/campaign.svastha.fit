@@ -1,11 +1,18 @@
 import { Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useAutoIncrementCounter } from "@/hooks/useAutoIncrementCounter";
 
 interface StickyBottomBarProps {
   onRegisterClick: () => void;
 }
 
 export const StickyBottomBar = ({ onRegisterClick }: StickyBottomBarProps) => {
+  const peopleCount = useAutoIncrementCounter({
+    initialCount: 67833,
+    incrementAmount: 8,
+    intervalHours: 1, // 1 hour
+    startDate: '2026-03-30T18:00:00Z',
+  });
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 bg-gray-200 shadow-[0_-4px_16px_rgba(0,0,0,0.15)] border-t-2 border-gray-200 md:hidden">
       <div className="flex items-start justify-between px-4 py-3">
@@ -28,7 +35,7 @@ export const StickyBottomBar = ({ onRegisterClick }: StickyBottomBarProps) => {
           </Button>
           <div className="flex items-center gap-1 text-xs text-gray-600">
             <Users className="w-3 h-3" />
-            <span>6733 people joined</span>
+            <span>{peopleCount.toLocaleString()} people joined</span>
           </div>
         </div>
       </div>
