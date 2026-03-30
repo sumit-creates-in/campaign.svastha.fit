@@ -14,6 +14,7 @@ import RegistrationConfirm14WLYCInt from "./pages/RegistrationConfirm14WLYCInt";
 import RegistrationConfirm21WLYC from "./pages/RegistrationConfirm21WLYC";
 import Ultimate21DayChallenge from "./pages/Ultimate21DayChallenge";
 import TwentyOneDayTotalBodyTransformationProgram from "./pages/TwentyOneDayTotalBodyTransformationProgram";
+import Loseweightwithvaishnavi from "./pages/Loseweightwithvaishnavi";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -40,6 +41,7 @@ const App = () => (
           <Route path="/Ultimate-21-day-weight-loss-challenge" element={<Ultimate21DayChallenge />} />
           <Route path="/21-day-total-body-transformation-program" element={<TwentyOneDayTotalBodyTransformationProgram />} />
           <Route path="/yoga-with-sumit" element={<YogaWithSumit />} />
+          <Route path="/Lose-weight-with-vaishnavi" element={<Loseweightwithvaishnavi />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
         </Routes>
