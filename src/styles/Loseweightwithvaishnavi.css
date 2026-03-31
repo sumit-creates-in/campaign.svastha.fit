@@ -1153,6 +1153,12 @@
   border-color: #6b8e7d;
 }
 
+.form-group select option:checked,
+.form-group select option:hover {
+  background-color: #d4896b;
+  color: white;
+}
+
 .form-group input::placeholder {
   color: #aaa;
 }
@@ -1161,10 +1167,14 @@
   font-size: 0.6875rem;
   color: #888;
   line-height: 1.5;
-  text-align: center;
-  margin-top: 0.5rem;
 }
 
+.form-error {
+  display: block;
+  font-size: 0.75rem;
+  color: #e05c3a;
+  margin-top: 4px;
+}
 .submit-btn {
   background: #d4896b;
   color: white;
@@ -1176,6 +1186,8 @@
   cursor: pointer;
   transition: all 0.3s;
   box-shadow: 0 4px 12px rgba(212, 137, 107, 0.25);
+  white-space: nowrap;
+  width: 100%;
 }
 
 .submit-btn:hover {
@@ -1303,11 +1315,32 @@ footer strong {
   background: white;
   padding: 2rem;
   border-radius: 12px;
-  max-width: 500px;
+  max-width: 520px;
   width: 90%;
+  max-height: 90vh;
+  overflow-y: auto;
   position: relative;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
-  text-align: center;
+  text-align: left;
+}
+
+.modal-close {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 1.1rem;
+  color: #888;
+  cursor: pointer;
+  line-height: 1;
+  padding: 4px 8px;
+  border-radius: 4px;
+  transition: color 0.2s;
+}
+
+.modal-close:hover {
+  color: #333;
 }
 
 .modal h2 {

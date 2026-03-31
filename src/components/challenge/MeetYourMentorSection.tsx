@@ -9,8 +9,8 @@ interface MeetYourMentorSectionProps {
 
 export const MeetYourMentorSection = ({ scrollToRegistration }: MeetYourMentorSectionProps) => {
   return (
-    <section className="py-16 px-4 bg-gradient-to-br from-teal-50 via-emerald-50 to-green-50">
-      <div className="container mx-auto max-w-6xl">
+    <section className="py-16 px-4 bg-gradient-to-br from-teal-50 via-emerald-50 to-green-50 overflow-hidden">
+      <div className="container mx-auto max-w-6xl px-2 md:px-6">
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -32,8 +32,8 @@ export const MeetYourMentorSection = ({ scrollToRegistration }: MeetYourMentorSe
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="flex justify-center">
-            <div className="bg-white rounded-2xl shadow-xl p-6 max-w-sm w-full relative">
+            className="flex justify-start pl-0">
+            <div className="bg-white rounded-2xl shadow-xl p-5 w-full relative" style={{ maxWidth: "calc(100vw - 2rem)" }}>
               {/* Instagram Header */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
@@ -135,7 +135,7 @@ export const MeetYourMentorSection = ({ scrollToRegistration }: MeetYourMentorSe
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-6">
+            className="space-y-6 px-1 md:pr-0">
             <div>
               <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
                 Sumit Sharma

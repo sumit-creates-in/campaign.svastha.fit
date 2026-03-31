@@ -82,18 +82,31 @@ const Ultimate21DayChallenge = () => {
       `}</style>
       <div className="ultimate-challenge-page min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">
         <HeroSection scrollToRegistration={scrollToRegistration} />
+        <div className="py-6" />
         <LeaderboardSection />
+        <div className="py-6" />
         <JyotiTestimonialSection />
+        <div className="py-6" />
         <HowItWorksSection />
+        <div className="py-6" />
         <AanchalTestimonialSection />
+        <div className="py-6" />
         <WhatYouGetSection scrollToRegistration={scrollToRegistration} />
+        <div className="py-6" />
         <MeetYourMentorSection scrollToRegistration={scrollToRegistration} />
+        <div className="py-6" />
         <MoreMentorsSection />
+        <div className="py-6" />
         <BenefitsSection />
+        <div className="py-6" />
         <TransformationsSection />
+        <div className="py-6" />
         <WhoIsThisForSection />
+        <div className="py-6" />
         <YogaTeachersSection />
+        <div className="py-6" />
         <RegisterHereSection onRegister={scrollToRegistration} />
+        <div className="py-6" />
         <FAQSection />
         <UpgradeModal
           isOpen={isModalOpen}

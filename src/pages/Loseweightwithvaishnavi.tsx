@@ -1,10 +1,44 @@
 import React, { useEffect, useState } from "react";
 import "../styles/Loseweightwithvaishnavi.css";
+import vaishnaviImg from "../assets/vaishnavi.jpeg";
 
 const LandingPage: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [formSuccess, setFormSuccess] = useState(false);
   const [modalSuccess, setModalSuccess] = useState(false);
+
+  const [formData, setFormData] = useState({
+    name: "", age: "", phone: "", city: "", goal: "", duration: "",
+  });
+  const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+
+  const handleFormChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData((prev) => ({ ...prev, [name]: value }));
+    if (formErrors[name]) setFormErrors((prev) => ({ ...prev, [name]: "" }));
+  };
+
+  const validateForm = () => {
+    const errors: Record<string, string> = {};
+    if (!formData.name.trim()) errors.name = "Name is required";
+    if (!formData.age.trim() || Number.isNaN(Number(formData.age)) || Number(formData.age) <= 0)
+      errors.age = "Enter a valid age";
+    if (!/^[6-9]\d{9}$/.test(formData.phone.replace(/\s|\+91/g, "")))
+      errors.phone = "Enter a valid 10-digit WhatsApp number";
+    if (!formData.city.trim()) errors.city = "City is required";
+    if (!formData.goal || formData.goal === "Select your goal") errors.goal = "Select a goal";
+    if (!formData.duration || formData.duration === "Choose one") errors.duration = "Select an option";
+    return errors;
+  };
+
+  const handleFormSubmit = () => {
+    const errors = validateForm();
+    if (Object.keys(errors).length > 0) {
+      setFormErrors(errors);
+      return;
+    }
+    setFormSuccess(true);
+  };
 
   // FAQ toggle
   const toggleFAQ = (index: number) => {
@@ -231,7 +265,7 @@ const LandingPage: React.FC = () => {
         <div className="about-grid">
           <div className="about-image-wrap">
             <div className="about-main-card">
-              <div className="about-avatar-large">V</div>
+              <img src={vaishnaviImg} alt="Vaishnavi" className="about-avatar-large" style={{ borderRadius: '50%', objectFit: 'cover', width: '120px', height: '120px', marginTop: '24px' }} />
               <div className="dietitian-name">Vaishnavi</div>
               <div className="dietitian-title">Certified Dietitian · Weight Loss & Metabolic Health Coach</div>
               <div className="about-quote">
@@ -550,51 +584,54 @@ const LandingPage: React.FC = () => {
                   <div className="form-row">
                     <div className="form-group">
                       <label>YOUR NAME *</label>
-                      <input type="text" placeholder="Priya Sharma" />
+                      <input type="text" name="name" placeholder="Priya Sharma" value={formData.name} onChange={handleFormChange} />
+                      {formErrors.name && <span className="form-error">{formErrors.name}</span>}
                     </div>
                     <div className="form-group">
                       <label>AGE *</label>
-                      <input type="text" placeholder="28" />
+                      <input type="text" name="age" placeholder="28" value={formData.age} onChange={handleFormChange} />
+                      {formErrors.age && <span className="form-error">{formErrors.age}</span>}
                     </div>
                   </div>
 
                   <div className="form-group">
                     <label>WHATSAPP NUMBER *</label>
-                    <input type="tel" placeholder="+91 98765 43210" />
+                    <input type="tel" name="phone" placeholder="+91 98765 43210" value={formData.phone} onChange={handleFormChange} />
+                    {formErrors.phone && <span className="form-error">{formErrors.phone}</span>}
                   </div>
 
                   <div className="form-group">
                     <label>CITY *</label>
-                    <input type="text" placeholder="Jaipur, Delhi, Mumbai..." />
+                    <input type="text" name="city" placeholder="Jaipur, Delhi, Mumbai..." value={formData.city} onChange={handleFormChange} />
+                    {formErrors.city && <span className="form-error">{formErrors.city}</span>}
                   </div>
 
                   <div className="form-group">
                     <label>PRIMARY GOAL *</label>
-                    <select>
-                      <option>Select your goal</option>
+                    <select name="goal" value={formData.goal} onChange={handleFormChange}>
+                      <option value="">Select your goal</option>
                       <option>Weight Loss</option>
                       <option>PCOS Management</option>
                       <option>Thyroid Management</option>
                       <option>Diabetes Control</option>
                       <option>General Health</option>
                     </select>
+                    {formErrors.goal && <span className="form-error">{formErrors.goal}</span>}
                   </div>
 
                   <div className="form-group">
                     <label>HOW LONG HAVE YOU BEEN STRUGGLING WITH THIS?</label>
-                    <select>
-                      <option>Choose one</option>
+                    <select name="duration" value={formData.duration} onChange={handleFormChange}>
+                      <option value="">Choose one</option>
                       <option>Less than 6 months</option>
                       <option>6 months - 1 year</option>
                       <option>1-3 years</option>
                       <option>3+ years</option>
                     </select>
+                    {formErrors.duration && <span className="form-error">{formErrors.duration}</span>}
                   </div>
 
-                  <button
-                    className="submit-btn"
-                    onClick={() => setFormSuccess(true)}
-                  >
+                  <button className="submit-btn" onClick={handleFormSubmit}>
                     Book My Free Consultation →
                   </button>
 
@@ -632,33 +669,93 @@ const LandingPage: React.FC = () => {
 
       {/* MODAL */}
       {modalOpen && (
-        <div
-          className="modal-overlay active"
-          onClick={() => setModalOpen(false)}
-        >
-          <div
-            className="modal"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {!modalSuccess ? (
-              <>
-                <h2>Book Free Consultation</h2>
+        <div className="modal-overlay active" onClick={() => { setModalOpen(false); setModalSuccess(false); }}>
+          <div className="modal" onClick={(e) => e.stopPropagation()}>
+            <button
+              className="modal-close"
+              onClick={() => { setModalOpen(false); setModalSuccess(false); }}
+              aria-label="Close"
+            >
+              ✕
+            </button>
 
-                <button
-                  className="submit-btn"
-                  onClick={() => {
+            {!modalSuccess ? (
+              <div className="lead-form">
+                <h3 className="form-title">Book Your Free Call</h3>
+                <p className="form-subtitle">Vaishnavi will personally reach out within 24 hours.</p>
+
+                <div className="form-fields">
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label>YOUR NAME *</label>
+                      <input type="text" name="name" placeholder="Priya Sharma" value={formData.name} onChange={handleFormChange} />
+                      {formErrors.name && <span className="form-error">{formErrors.name}</span>}
+                    </div>
+                    <div className="form-group">
+                      <label>AGE *</label>
+                      <input type="text" name="age" placeholder="28" value={formData.age} onChange={handleFormChange} />
+                      {formErrors.age && <span className="form-error">{formErrors.age}</span>}
+                    </div>
+                  </div>
+
+                  <div className="form-group">
+                    <label>WHATSAPP NUMBER *</label>
+                    <input type="tel" name="phone" placeholder="+91 98765 43210" value={formData.phone} onChange={handleFormChange} />
+                    {formErrors.phone && <span className="form-error">{formErrors.phone}</span>}
+                  </div>
+
+                  <div className="form-group">
+                    <label>CITY *</label>
+                    <input type="text" name="city" placeholder="Jaipur, Delhi, Mumbai..." value={formData.city} onChange={handleFormChange} />
+                    {formErrors.city && <span className="form-error">{formErrors.city}</span>}
+                  </div>
+
+                  <div className="form-group">
+                    <label>PRIMARY GOAL *</label>
+                    <select name="goal" value={formData.goal} onChange={handleFormChange}>
+                      <option value="">Select your goal</option>
+                      <option>Weight Loss</option>
+                      <option>PCOS Management</option>
+                      <option>Thyroid Management</option>
+                      <option>Diabetes Control</option>
+                      <option>General Health</option>
+                    </select>
+                    {formErrors.goal && <span className="form-error">{formErrors.goal}</span>}
+                  </div>
+
+                  <div className="form-group">
+                    <label>HOW LONG HAVE YOU BEEN STRUGGLING WITH THIS?</label>
+                    <select name="duration" value={formData.duration} onChange={handleFormChange}>
+                      <option value="">Choose one</option>
+                      <option>Less than 6 months</option>
+                      <option>6 months - 1 year</option>
+                      <option>1-3 years</option>
+                      <option>3+ years</option>
+                    </select>
+                    {formErrors.duration && <span className="form-error">{formErrors.duration}</span>}
+                  </div>
+
+                  <button className="submit-btn" onClick={() => {
+                    const errors = validateForm();
+                    if (Object.keys(errors).length > 0) { setFormErrors(errors); return; }
                     setModalSuccess(true);
-                    setTimeout(() => {
-                      setModalOpen(false);
-                      setModalSuccess(false);
-                    }, 3000);
-                  }}
-                >
-                  Submit
-                </button>
-              </>
+                  }}>
+                    Book My Free Consultation →
+                  </button>
+
+                  <p className="form-disclaimer">
+                    By submitting, you agree to be contacted on WhatsApp. We respect your privacy and never share your information.
+                  </p>
+                </div>
+              </div>
             ) : (
-              <div className="success-box">Booked 🎉</div>
+              <div className="success-box">
+                <div className="success-icon">🌿</div>
+                <h3 className="success-title">You're in! Vaishnavi will call you soon.</h3>
+                <p className="success-message">
+                  Check your WhatsApp. Vaishnavi personally reviews every submission and will reach out within 24 hours to schedule your free consultation.
+                </p>
+              </div>
             )}
           </div>
         </div>
