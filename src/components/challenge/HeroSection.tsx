@@ -34,7 +34,7 @@ export const HeroSection = ({ scrollToRegistration }: HeroSectionProps) => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-center mb-8">
+            className="text-center" style={{ marginBottom: "48px" }}>
             <div className="flex items-center justify-center gap-2 mb-2">
               <span className="text-emerald-500 text-3xl md:text-4xl">✦</span>
               <h1 className="text-3xl md:text-4xl text-emerald-600 tracking-wider">
@@ -113,7 +113,7 @@ export const HeroSection = ({ scrollToRegistration }: HeroSectionProps) => {
                 <p className="text-center md:text-left mt-3 text-lg font-semibold text-gray-700 md:pl-2">
                   Fee: Rs. 990/- only
                 </p>
-                <p className="text-center md:text-left mt-1 text-sm text-emerald-600 font-medium flex items-center justify-center md:justify-start gap-2 md:pl-2">
+                <p className="text-center md:text-left text-sm text-emerald-600 font-medium flex items-center justify-center md:justify-start gap-2 md:pl-2" style={{ marginTop: "15px" }}>
                   <Users className="w-4 h-4" />
                   {peopleCount.toLocaleString()} people joined
                 </p>
