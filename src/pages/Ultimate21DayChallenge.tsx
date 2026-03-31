@@ -82,31 +82,31 @@ const Ultimate21DayChallenge = () => {
       `}</style>
       <div className="ultimate-challenge-page min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">
         <HeroSection scrollToRegistration={scrollToRegistration} />
-        <div className="py-6" />
+        <div style={{ height: "150px" }} />
         <LeaderboardSection />
-        <div className="py-6" />
+        <div style={{ height: "150px" }} />
         <JyotiTestimonialSection />
-        <div className="py-6" />
+        <div style={{ height: "150px" }} />
         <HowItWorksSection />
-        <div className="py-6" />
+        <div style={{ height: "150px" }} />
         <AanchalTestimonialSection />
-        <div className="py-6" />
+        <div style={{ height: "150px" }} />
         <WhatYouGetSection scrollToRegistration={scrollToRegistration} />
-        <div className="py-6" />
+        <div style={{ height: "150px" }} />
         <MeetYourMentorSection scrollToRegistration={scrollToRegistration} />
-        <div className="py-6" />
+        <div style={{ height: "150px" }} />
         <MoreMentorsSection />
-        <div className="py-6" />
+        <div style={{ height: "150px" }} />
         <BenefitsSection />
-        <div className="py-6" />
+        <div style={{ height: "150px" }} />
         <TransformationsSection />
-        <div className="py-6" />
+        <div style={{ height: "150px" }} />
         <WhoIsThisForSection />
-        <div className="py-6" />
+        <div style={{ height: "150px" }} />
         <YogaTeachersSection />
-        <div className="py-6" />
+        <div style={{ height: "150px" }} />
         <RegisterHereSection onRegister={scrollToRegistration} />
-        <div className="py-6" />
+        <div style={{ height: "150px" }} />
         <FAQSection />
         <UpgradeModal
           isOpen={isModalOpen}
