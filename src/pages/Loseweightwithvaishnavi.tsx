@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../styles/Loseweightwithvaishnavi.css";
 import vaishnaviImg from "../assets/vaishnavi.jpeg";
+import vaishnaviPoster from "../assets/vaishnaviposter.jpeg";
 
 const LandingPage: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
@@ -31,12 +32,35 @@ const LandingPage: React.FC = () => {
     return errors;
   };
 
-  const handleFormSubmit = () => {
+  const WEBHOOK_URL = "https://campaigns.svastha.fit/wp-json/uap/v2/uap-203-204";
+
+  const submitToWebhook = async (data: typeof formData) => {
+    const payload = {
+      name: data.name,
+      phone: data.phone,
+      age: data.age,
+      city: data.city,
+      goal: data.goal,
+      duration: data.duration,
+    };
+    try {
+      await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+    } catch (err) {
+      console.error("Webhook error:", err);
+    }
+  };
+
+  const handleFormSubmit = async () => {
     const errors = validateForm();
     if (Object.keys(errors).length > 0) {
       setFormErrors(errors);
       return;
     }
+    await submitToWebhook(formData);
     setFormSuccess(true);
   };
 
@@ -101,6 +125,10 @@ const LandingPage: React.FC = () => {
             Starving
           </h1>
 
+          <div className="hero-poster">
+            <img src={vaishnaviPoster} alt="Vaishnavi Poster" style={{ width: "100%", maxHeight: "500px", objectFit: "cover", display: "block", borderRadius: "12px", margin: "16px 0" }} />
+          </div>
+
           <p className="hero-sub">
             Vaishnavi lost 20 kg with home-cooked Indian food alone. Now she
             helps people with PCOS, thyroid, diabetes, high BP & more shed weight
@@ -137,7 +165,9 @@ const LandingPage: React.FC = () => {
           </div>
 
           <div className="dietitian-card">
-            <div className="dietitian-avatar">V</div>
+            <div className="dietitian-avatar">
+              <img src={vaishnaviImg} alt="Vaishnavi" style={{ width: "100%", height: "100%", objectFit: "cover", borderRadius: "50%" }} />
+            </div>
             <div className="dietitian-name">Vaishnavi</div>
             <div className="dietitian-title">
               Certified Dietitian · Weight Loss & Metabolic Health
@@ -735,9 +765,10 @@ const LandingPage: React.FC = () => {
                     {formErrors.duration && <span className="form-error">{formErrors.duration}</span>}
                   </div>
 
-                  <button className="submit-btn" onClick={() => {
+                  <button className="submit-btn" onClick={async () => {
                     const errors = validateForm();
                     if (Object.keys(errors).length > 0) { setFormErrors(errors); return; }
+                    await submitToWebhook(formData);
                     setModalSuccess(true);
                   }}>
                     Book My Free Consultation →

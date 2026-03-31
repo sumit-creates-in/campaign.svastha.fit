@@ -15,8 +15,8 @@ export const HeroSection = ({ scrollToRegistration }: HeroSectionProps) => {
     startDate: '2026-03-30T18:00:00Z',
   });
   return (
-    <section className="relative py-0 px-4 bg-white overflow-hidden" style={{ paddingTop: '2rem' }}>
-      <div style={{ paddingTop: '2rem' }}>
+    <section className="relative px-4 bg-white" style={{ paddingTop: '2rem' }}>
+      <div style={{ paddingTop: '2rem', paddingBottom: '75px' }}>
         <div className="container mx-auto max-w-7xl">
           {/* Brand Logo - Hidden */}
           {/* <motion.div
