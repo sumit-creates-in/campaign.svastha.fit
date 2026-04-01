@@ -58,6 +58,7 @@ const LandingPage: React.FC = () => {
   const [modalSuccess, setModalSuccess] = useState(false);
   const [formStep, setFormStep] = useState(1);
   const [modalStep, setModalStep] = useState(1);
+  const [showStickyBar, setShowStickyBar] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "", age: "", phone: "", city: "", email: "", gender: "", weight: "",
@@ -328,6 +329,22 @@ const LandingPage: React.FC = () => {
       });
 
     return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    // Show sticky bar when pain section is visible
+    const handleScroll = () => {
+      const painSection = document.querySelector('.pain-section');
+      if (painSection) {
+        const rect = painSection.getBoundingClientRect();
+        setShowStickyBar(rect.top < window.innerHeight);
+      }
+    };
+
+    window.addEventListener('scroll', handleScroll);
+    handleScroll(); // Check on mount
+
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   return (
@@ -1268,6 +1285,15 @@ const LandingPage: React.FC = () => {
               </div>
             )}
           </div>
+        </div>
+      )}
+
+      {/* STICKY BOTTOM BAR */}
+      {showStickyBar && (
+        <div className="sticky-bottom-bar">
+          <button className="sticky-cta-btn" onClick={() => setModalOpen(true)}>
+            Book Your Free Consultation →
+          </button>
         </div>
       )}
     </div>
