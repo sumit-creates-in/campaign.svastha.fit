@@ -94,7 +94,7 @@
 /* Hero Section */
 .hero {
   min-height: 100vh;
-  padding: 160px 5% 80px;
+  padding: 160px 5% 160px;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
@@ -153,7 +153,7 @@
   font-size: 0.78rem;
   font-weight: 500;
   color: var(--sage);
-  margin-bottom: 24px;
+  margin-bottom: 50px;
   margin-top: 20px;
   letter-spacing: 0.05em;
   text-transform: uppercase;
@@ -420,7 +420,7 @@
 
 /* Pain Section */
 .pain-section {
-  padding: 80px 5%;
+  padding: 160px 5%;
   background: var(--cream);
 }
 
@@ -591,7 +591,7 @@
 
 /* What You Get Section */
 .what-you-get {
-  padding: 80px 5%;
+  padding: 160px 5%;
   background: var(--cream);
 }
 
@@ -655,7 +655,7 @@
 
 /* Reversal Section */
 .reversal-section {
-  padding: 80px 5%;
+  padding: 160px 5%;
   background: white;
 }
 
@@ -710,7 +710,7 @@
 
 /* Compare Section */
 .compare-section {
-  padding: 80px 5%;
+  padding: 160px 5%;
   background: var(--charcoal);
   color: white;
 }
@@ -789,7 +789,7 @@
 
 /* Process Section */
 .process-section {
-  padding: 80px 5%;
+  padding: 160px 5%;
   background: white;
 }
 
@@ -839,13 +839,13 @@
 /* FAQ Section */
 /* FAQ Section */
 .faq-section {
-  padding: 80px 5%;
+  padding: 160px 5%;
   background: var(--cream);
 }
 
 /* About Vaishnavi Section */
 .about-section {
-  padding: 80px 5%;
+  padding: 160px 5%;
   background: white;
 }
 
@@ -1025,7 +1025,7 @@
 
 /* Form Section */
 .form-section {
-  padding: 0;
+  padding: 160px 5%;
   background: linear-gradient(135deg, #5f7a6e, #6b8e7d);
 }
 
@@ -1231,7 +1231,347 @@
   margin-bottom: 1rem;
 }
 
-/* Footer */
+/* Selected language tags */
+.selected-langs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.lang-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: #e8f7f3;
+  border: 1px solid #5ecfb1;
+  border-radius: 100px;
+  padding: 4px 12px;
+  font-size: 0.85rem;
+  color: #1a1a1a;
+  font-weight: 500;
+}
+
+.lang-tag button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #5ecfb1;
+  font-size: 1rem;
+  line-height: 1;
+  padding: 0;
+  font-weight: 700;
+}
+
+.lang-tag button:hover {
+  color: #e05c3a;
+}
+
+/* Language checkbox panel */
+.lang-dropdown-trigger {
+  cursor: default;
+  display: block;
+}
+
+.lang-checkbox-panel {
+  background: #f5f5f5;
+  border-radius: 8px;
+  padding: 8px 0;
+  margin-top: 8px;
+}
+
+.lang-checkbox-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 12px 20px;
+  cursor: pointer;
+  font-size: 0.95rem;
+  color: #333;
+  transition: background 0.15s;
+}
+
+.lang-checkbox-row:hover {
+  background: #ececec;
+}
+
+.lang-checkbox-row input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #5ecfb1;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.lang-checkbox-row input[type="checkbox"]:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.lang-checkbox-row input[type="checkbox"]:disabled + span {
+  opacity: 0.4;
+}
+
+/* Custom ScrollSelect dropdown */
+.scroll-select-wrap {
+  position: relative;
+  width: 100%;
+}
+
+.scroll-select-trigger {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  user-select: none;
+  padding-right: 4px;
+}
+
+.scroll-select-arrow {
+  font-size: 0.65rem;
+  color: #aaa;
+  flex-shrink: 0;
+  margin-left: 8px;
+}
+
+.scroll-select-list {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: white;
+  border: 1px solid #e0e0e0;
+  border-radius: 10px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
+  z-index: 10000;
+  max-height: 180px;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+.scroll-select-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scroll-select-list::-webkit-scrollbar-track {
+  background: #f5f5f5;
+  border-radius: 4px;
+}
+
+.scroll-select-list::-webkit-scrollbar-thumb {
+  background: #5ecfb1;
+  border-radius: 4px;
+}
+
+.scroll-select-option {
+  padding: 13px 16px;
+  font-size: 0.95rem;
+  color: #555;
+  cursor: pointer;
+  border-bottom: 1px solid #f5f5f5;
+  transition: background 0.15s;
+}
+
+.scroll-select-option:last-child {
+  border-bottom: none;
+}
+
+.scroll-select-option:hover {
+  background: #f0faf7;
+  color: #1a1a1a;
+}
+
+.scroll-select-option.selected {
+  background: #e0f7f1;
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+/* Step 2 - Underline style fields */
+.step2-fields {
+  gap: 1.75rem;
+}
+
+.underline-field {
+  border-bottom: none;
+}
+
+.step2-label {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1a1a1a;
+  margin-bottom: 10px;
+  display: block;
+  text-transform: none;
+  letter-spacing: 0;
+}
+
+.step2-label .req {
+  color: #e05c3a;
+  font-size: 0.85rem;
+  margin-left: 2px;
+}
+
+.underline-input {
+  border: none !important;
+  border-bottom: 2px solid #5ecfb1 !important;
+  border-radius: 0 !important;
+  padding: 10px 0 !important;
+  font-size: 1rem !important;
+  color: #aaa;
+  background: transparent !important;
+  width: 100%;
+  outline: none !important;
+  appearance: auto;
+}
+
+.underline-input:focus {
+  border-bottom-color: #3ab89a !important;
+  color: #333;
+}
+
+.underline-input option {
+  color: #333;
+  background: #fff;
+}
+
+select.underline-input {
+  background-color: #fff !important;
+  color: #333;
+}
+
+.step2-btn-row {
+  display: flex;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.step2-btn {
+  flex: 1;
+  padding: 14px 20px;
+  border: none;
+  border-radius: 50px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: opacity 0.2s, transform 0.2s;
+}
+
+.step2-btn:hover {
+  opacity: 0.9;
+  transform: translateY(-1px);
+}
+
+.step2-btn.prev {
+  background: #f07c3e;
+  color: white;
+}
+
+.step2-btn.next {
+  background: #5ecfb1;
+  color: #1a1a1a;
+}
+
+/* Progress Bar */
+.progress-bar-container {
+  margin-bottom: 1.5rem;
+}
+
+.progress-bar-bg {
+  width: 100%;
+  height: 8px;
+  background: #e5e5e5;
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.progress-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #5ecfb1 0%, #4ab89a 100%);
+  border-radius: 100px;
+  transition: width 0.4s ease;
+}
+
+/* Step Indicator - OLD (keeping for reference, can be removed) */
+.step-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin-bottom: 1.5rem;
+}
+
+.step-dot {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #e5e5e5;
+  color: #999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.8rem;
+  font-weight: 700;
+  flex-shrink: 0;
+}
+
+.step-dot.active {
+  background: #6b8e7d;
+  color: white;
+}
+
+.step-dot.done {
+  background: #5c7a5a;
+  color: white;
+}
+
+.step-line {
+  flex: 1;
+  height: 2px;
+  background: #e5e5e5;
+  margin: 0 8px;
+}
+
+/* Checkbox Group */
+.checkbox-group {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  color: #333;
+  padding: 10px 14px;
+  border: 1.5px solid #e5e5e5;
+  border-radius: 8px;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.checkbox-label:hover {
+  border-color: #6b8e7d;
+  background: #f5faf7;
+}
+
+.checkbox-label input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  accent-color: #6b8e7d;
+  flex-shrink: 0;
+  cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"]:checked + span {
+  color: #1a1a1a;
+  font-weight: 600;
+}
+
+
 footer {
   background: #111;
   color: rgba(255, 255, 255, 0.5);
@@ -1320,6 +1660,7 @@ footer strong {
   width: 90%;
   max-height: 90vh;
   overflow-y: auto;
+  overflow-x: visible;
   position: relative;
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
   text-align: left;
