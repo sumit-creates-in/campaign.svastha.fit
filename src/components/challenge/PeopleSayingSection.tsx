@@ -51,8 +51,11 @@ export const PeopleSayingSection = () => {
           viewport={{ once: true }}
           className="text-center mb-12">
           <h2 className="text-2xl md:text-3xl font-bold text-gray-900 mb-2">
-            ❤️ See What People Are Saying About Us ❤️
+            What People Are Saying About Us❤️
           </h2>
+          <p className="text-lg md:text-xl text-gray-800 mb-4">
+            Real transformations, real results!💪✨
+          </p>
         </motion.div>
 
         {/* Desktop View - 3 cards */}
