@@ -1,10 +1,11 @@
 import { motion } from "framer-motion";
-import { Play, ChevronLeft, ChevronRight } from "lucide-react";
+import { Play, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 
 export const JyotiTestimonialSection = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
+  const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
 
   const videos = [
     {
@@ -247,16 +248,14 @@ export const JyotiTestimonialSection = () => {
               }}>
               <div className="flex gap-6" style={{ width: 'max-content' }}>
                 {duplicatedVideos.map((video, index) => (
-                  <motion.a
+                  <motion.div
                     key={`${video.id}-${index}`}
-                    href={`https://www.youtube.com/watch?v=${video.id}`}
-                    target="_blank"
-                    rel="noopener noreferrer"
                     initial={{ opacity: 0, x: 20 }}
                     whileInView={{ opacity: 1, x: 0 }}
                     viewport={{ once: true }}
                     transition={{ duration: 0.3, delay: (index % videos.length) * 0.05 }}
-                    className="flex-shrink-0 w-[90vw] md:w-[700px] group cursor-pointer snap-center">
+                    className="flex-shrink-0 w-[90vw] md:w-[700px] group cursor-pointer snap-center"
+                    onClick={() => setSelectedVideo(video.id)}>
                     <div className="relative w-full rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:scale-105">
                       <div className="relative" style={{ paddingBottom: '56.25%' }}>
                         <img
@@ -277,7 +276,7 @@ export const JyotiTestimonialSection = () => {
                         <p className="text-white font-semibold text-lg">{video.title}</p>
                       </div>
                     </div>
-                  </motion.a>
+                  </motion.div>
                 ))}
               </div>
             </div>
@@ -303,6 +302,31 @@ export const JyotiTestimonialSection = () => {
           scrollbar-width: none;
         }
       `}</style>
+
+      {/* Video Modal */}
+      {selectedVideo && (
+        <div 
+          className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
+          onClick={() => setSelectedVideo(null)}>
+          <div className="relative w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
+            <button
+              onClick={() => setSelectedVideo(null)}
+              className="absolute -top-12 right-0 text-white hover:text-gray-300 transition-colors"
+              aria-label="Close video">
+              <X className="w-8 h-8" />
+            </button>
+            <div className="relative w-full rounded-xl overflow-hidden shadow-2xl" style={{ paddingBottom: '56.25%' }}>
+              <iframe
+                className="absolute top-0 left-0 w-full h-full"
+                src={`https://www.youtube.com/embed/${selectedVideo}?autoplay=1`}
+                title="Video Testimonial"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                allowFullScreen
+              ></iframe>
+            </div>
+          </div>
+        </div>
+      )}
     </section>
   );
 };

@@ -137,7 +137,7 @@ export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalPro
             </div>
             <div className="text-center mb-2">
               <p className="text-red-500 font-semibold text-sm">Rs. 100 off</p>
-              <p className="text-gray-700 font-medium text-xs">Starts 5th April 2026</p>
+              <p className="text-gray-700 font-medium text-xs">Starts 3rd May 2026</p>
             </div>
           </div>
 

@@ -9,7 +9,7 @@ const RegistrationConfirm21WLYC = () => {
     }, []);
 
     const handleJoinWhatsApp = () => {
-        window.open("https://chat.whatsapp.com/DKfghVPDgaRLfn9bJeWIqM", "_blank");
+        window.open("https://chat.whatsapp.com/LxBOa1tAQVq3EiawGmqdDA", "_blank");
     };
 
     const steps = [
@@ -26,7 +26,7 @@ const RegistrationConfirm21WLYC = () => {
         {
             number: "3️⃣",
             title: "Attend the orientation session on time",
-            description: "Join the Zoom call at 9:30 AM on 5 April"
+            description: "Join the Zoom call at 9:30 AM on 3rd May"
         }
     ];
 
@@ -107,7 +107,7 @@ const RegistrationConfirm21WLYC = () => {
                                 <Calendar className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                                 <div>
                                     <p className="text-sm text-gray-600 font-semibold">Date</p>
-                                    <p className="text-lg text-gray-900 font-bold">5 April (Sunday)</p>
+                                    <p className="text-lg text-gray-900 font-bold">3rd May (Sunday)</p>
                                 </div>
                             </div>
 

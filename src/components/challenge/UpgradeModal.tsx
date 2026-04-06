@@ -81,7 +81,7 @@ export const UpgradeModal = ({ isOpen, onClose, onUpgrade, onJoinGroup }: Upgrad
               </h3>
             </div>
             <p className="text-center text-gray-700 font-medium text-xs mb-3">
-              Starts 5th April 2026
+              Starts 3rd May 2026
             </p>
           </div>
 
