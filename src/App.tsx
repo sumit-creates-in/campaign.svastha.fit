@@ -15,6 +15,7 @@ import RegistrationConfirm21WLYC from "./pages/RegistrationConfirm21WLYC";
 import Ultimate21DayChallenge from "./pages/Ultimate21DayChallenge";
 import TwentyOneDayTotalBodyTransformationProgram from "./pages/TwentyOneDayTotalBodyTransformationProgram";
 import Loseweightwithvaishnavi from "./pages/Loseweightwithvaishnavi";
+import U21DWLCPaymentConfirmation from "./pages/U21DWLCPaymentConfirmation";
 import NotFound from "./pages/NotFound";
 import { CounterTest } from "./components/test/CounterTest";
 
@@ -43,6 +44,7 @@ const App = () => (
           <Route path="/21-day-total-body-transformation-program" element={<TwentyOneDayTotalBodyTransformationProgram />} />
           <Route path="/yoga-with-sumit" element={<YogaWithSumit />} />
           <Route path="/Lose-weight-with-vaishnavi" element={<Loseweightwithvaishnavi />} />
+          <Route path="/u21dwlc-paymentconfirmation-2" element={<U21DWLCPaymentConfirmation />} />
           <Route path="/test-counter" element={<CounterTest />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />

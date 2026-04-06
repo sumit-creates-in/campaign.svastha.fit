@@ -281,14 +281,7 @@ export const JyotiTestimonialSection = () => {
               </div>
             </div>
             
-            {/* Scroll Indicator */}
-            <div className="text-center mt-6 text-gray-600 text-sm flex items-center justify-center gap-2 flex-wrap">
-              <span>{isPaused ? "⏸️ Paused" : "🔄 Auto-scrolling"}</span>
-              <span>•</span>
-              <span>Card {(currentIndex % videos.length) + 1} of {videos.length}</span>
-              <span>•</span>
-              <span>Use arrows or hover to pause</span>
-            </div>
+         
           </motion.div>
         </motion.div>
       </div>
