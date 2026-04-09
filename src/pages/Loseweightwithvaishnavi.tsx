@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import "../styles/Loseweightwithvaishnavi.css";
 import vaishnaviImg from "../assets/vaishnavi.jpeg";
 import vaishnaviPoster from "../assets/vaishnaviposter.jpeg";
+import svasthaLogo from "../assets/svastha.png";
 
 // Custom scrollable dropdown for step forms
 const ScrollSelect: React.FC<{
@@ -54,6 +55,7 @@ const ScrollSelect: React.FC<{
 
 const LandingPage: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
+  const [modalClosing, setModalClosing] = useState(false);
   const [formSuccess, setFormSuccess] = useState(false);
   const [modalSuccess, setModalSuccess] = useState(false);
   const [formStep, setFormStep] = useState(1);
@@ -61,7 +63,7 @@ const LandingPage: React.FC = () => {
   const [showStickyBar, setShowStickyBar] = useState(false);
 
   const [formData, setFormData] = useState({
-    name: "", age: "", phone: "", city: "", email: "", gender: "", weight: "",
+    name: "", age: "", phone: "", city: "", gender: "", weight: "",
     weightLossReason: "",
     healthCondition: "",
     healthConditionOther: "",
@@ -178,8 +180,6 @@ const LandingPage: React.FC = () => {
     if (!formData.age.trim() || Number.isNaN(Number(formData.age)) || Number(formData.age) <= 0)
       errors.age = "Enter a valid age";
     if (!formData.gender) errors.gender = "Please select gender";
-    if (formData.email && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email))
-      errors.email = "Enter a valid email";
     return errors;
   };
 
@@ -226,7 +226,6 @@ const LandingPage: React.FC = () => {
       phone: data.phone,
       age: data.age,
       city: data.city,
-      email: data.email,
       gender: data.gender,
       weight: data.weight,
       weightLossReason: data.weightLossReason,
@@ -295,6 +294,16 @@ const LandingPage: React.FC = () => {
   };
 
   // FAQ toggle
+  const closeModal = () => {
+    setModalClosing(true);
+    setTimeout(() => {
+      setModalOpen(false);
+      setModalClosing(false);
+      setModalSuccess(false);
+      setModalStep(1);
+    }, 350);
+  };
+
   const toggleFAQ = (index: number) => {
     const items = document.querySelectorAll(".faq-item");
     items.forEach((item, i) => {
@@ -362,6 +371,10 @@ const LandingPage: React.FC = () => {
       {/* HERO */}
       <section className="hero">
         <div className="hero-content">
+          <div className="hero-logo-wrap">
+            <img src={svasthaLogo} alt="Svastha" className="hero-logo" />
+            <span className="hero-logo-text">Svastha</span>
+          </div>
           <div className="hero-tag">
             Weight Loss & Metabolic Health Expert
           </div>
@@ -838,225 +851,22 @@ const LandingPage: React.FC = () => {
         <div style={{ marginBottom: "100px" }} />
       </section>
 
-      {/* FORM */}
+      {/* CTA SECTION */}
       <section className="form-section">
         <div className="form-container">
-          <div className="form-left">
+          <div className="form-left" style={{ maxWidth: "600px", margin: "0 auto", textAlign: "center" }}>
             <div className="form-label">FREE CONSULTATION</div>
             <h2 className="form-heading">Ready to Start Your Healing Journey?</h2>
             <p className="form-description">
               Book a free 20-minute call with Vaishnavi. Tell her your story. See if this is
               right for you — zero pressure.
             </p>
-
             <ul className="form-benefits">
               <li>100% free — no credit card, no commitment</li>
               <li>You'll speak directly with Vaishnavi</li>
               <li>Personalized advice even in the free call</li>
               <li>Only 8 April spots remaining</li>
             </ul>
-          </div>
-
-          <div className="form-right">
-            {!formSuccess ? (
-              <div className="lead-form">
-                <h3 className="form-title">Book Your Free Call</h3>
-                <p className="form-subtitle">Vaishnavi will personally reach out within 24 hours.</p>
-
-                {/* Step indicator */}
-                <div className="progress-bar-container">
-                  <div className="progress-bar-bg">
-                    <div className="progress-bar-fill" style={{ width: `${(formStep / 6) * 100}%` }}></div>
-                  </div>
-                </div>
-
-                {formStep === 1 && (
-                  <div className="form-fields">
-                    <div className="form-row">
-                      <div className="form-group">
-                        <label>YOUR NAME *</label>
-                        <input type="text" name="name" placeholder="Priya Sharma" value={formData.name} onChange={handleFormChange} />
-                        {formErrors.name && <span className="form-error">{formErrors.name}</span>}
-                      </div>
-                      <div className="form-group">
-                        <label>AGE *</label>
-                        <input type="number" name="age" placeholder="28" value={formData.age} onChange={handleFormChange} />
-                        {formErrors.age && <span className="form-error">{formErrors.age}</span>}
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <label>CITY *</label>
-                      <input type="text" name="city" placeholder="Jaipur, Delhi, Mumbai..." value={formData.city} onChange={handleFormChange} />
-                      {formErrors.city && <span className="form-error">{formErrors.city}</span>}
-                    </div>
-                    <div className="form-group">
-                      <label>WHATSAPP NUMBER *</label>
-                      <input type="tel" name="phone" placeholder="+91 98765 43210" value={formData.phone} onChange={handleFormChange} />
-                      {formErrors.phone && <span className="form-error">{formErrors.phone}</span>}
-                    </div>
-                    <div className="form-group">
-                      <label>EMAIL (OPTIONAL)</label>
-                      <input type="email" name="email" placeholder="priya@example.com" value={formData.email} onChange={handleFormChange} />
-                      {formErrors.email && <span className="form-error">{formErrors.email}</span>}
-                    </div>
-                    <div className="form-group">
-                      <label>GENDER *</label>
-                      <select name="gender" value={formData.gender} onChange={handleFormChange}>
-                        <option value="">Select gender</option>
-                        <option>Female</option>
-                        <option>Male</option>
-                        <option>Other</option>
-                        <option>Prefer not to say</option>
-                      </select>
-                      {formErrors.gender && <span className="form-error">{formErrors.gender}</span>}
-                    </div>
-                    <button className="submit-btn" onClick={() => handleStep1Next(() => setFormStep(2))}>
-                      Next →
-                    </button>
-                  </div>
-                )}
-
-                {formStep === 2 && (
-                  <div className="form-fields step2-fields">
-                    <div className="form-group underline-field">
-                      <label className="step2-label">Why do you want to lose weight? <span className="req">*</span></label>
-                      <ScrollSelect name="weightLossReason" value={formData.weightLossReason} placeholder="Choose an option" options={WEIGHT_LOSS_REASONS} onChange={handleSelectChange} error={formErrors.weightLossReason} />
-                    </div>
-
-                    <div className="form-group underline-field">
-                      <label className="step2-label">Do you have any of the following health conditions? <span className="req">*</span></label>
-                      <ScrollSelect name="healthCondition" value={formData.healthCondition} placeholder="Choose an option" options={HEALTH_CONDITIONS} onChange={handleSelectChange} error={formErrors.healthCondition} />
-                      {formData.healthCondition === "Other" && (
-                        <input type="text" name="healthConditionOther" placeholder="Please specify..." value={formData.healthConditionOther} onChange={handleFormChange} className="underline-input" style={{ marginTop: "12px" }} />
-                      )}
-                    </div>
-
-                    <div className="step2-btn-row">
-                      <button className="step2-btn prev" onClick={() => setFormStep(1)}>Prev</button>
-                      <button className="step2-btn next" onClick={() => handleStep2Next(() => setFormStep(3))}>Next</button>
-                    </div>
-                  </div>
-                )}
-
-                {formStep === 3 && (
-                  <div className="form-fields step2-fields">
-                    <div className="form-group underline-field">
-                      <label className="step2-label">Have you attempted any of the following in the past to lose weight? <span className="req">*</span></label>
-                      <ScrollSelect name="pastAttempts" value={formData.pastAttempts} placeholder="Choose an option" options={PAST_ATTEMPTS} onChange={handleSelectChange} error={formErrors.pastAttempts} />
-                    </div>
-
-                    <div className="form-group underline-field">
-                      <label className="step2-label">What led to your weight gain? <span className="req">*</span></label>
-                      <ScrollSelect name="weightGainCause" value={formData.weightGainCause} placeholder="Choose an option" options={WEIGHT_GAIN_CAUSES} onChange={handleSelectChange} error={formErrors.weightGainCause} />
-                    </div>
-
-                    <div className="step2-btn-row">
-                      <button className="step2-btn prev" onClick={() => setFormStep(2)}>Prev</button>
-                      <button className="step2-btn next" onClick={() => handleStep3Next(() => setFormStep(4))}>Next</button>
-                    </div>
-                  </div>
-                )}
-
-                {formStep === 4 && (
-                  <div className="form-fields step2-fields">
-                    <div className="form-group underline-field">
-                      <label className="step2-label">What is your current profession? <span className="req">*</span></label>
-                      <ScrollSelect name="profession" value={formData.profession} placeholder="Choose an option" options={PROFESSIONS} onChange={handleSelectChange} error={formErrors.profession} />
-                    </div>
-
-                    <div className="form-group underline-field">
-                      <label className="step2-label">How busy are you on an average day? <span className="req">*</span></label>
-                      <ScrollSelect name="busyness" value={formData.busyness} placeholder="Choose an Option" options={BUSYNESS_OPTIONS} onChange={handleSelectChange} error={formErrors.busyness} />
-                    </div>
-
-                    <div className="step2-btn-row">
-                      <button className="step2-btn prev" onClick={() => setFormStep(3)}>Prev</button>
-                      <button className="step2-btn next" onClick={() => handleStep4Next(() => setFormStep(5))}>Next</button>
-                    </div>
-                  </div>
-                )}
-
-                {formStep === 5 && (
-                  <div className="form-fields step2-fields">
-                    <div className="form-group underline-field">
-                      <label className="step2-label">Are you ok with paid plans? <span className="req">*</span></label>
-                      <ScrollSelect name="paidPlans" value={formData.paidPlans} placeholder="Choose an Option" options={["Yes", "No"]} onChange={handleSelectChange} error={formErrors.paidPlans} />
-                    </div>
-
-                    <div className="step2-btn-row">
-                      <button className="step2-btn prev" onClick={() => setFormStep(4)}>Prev</button>
-                      <button className="step2-btn next" onClick={() => handleStep5Next(() => setFormStep(6))}>Next</button>
-                    </div>
-                  </div>
-                )}
-
-                {formStep === 6 && (
-                  <div className="form-fields step2-fields">
-                    <div className="form-group underline-field">
-                      <label className="step2-label">Preferred Date for Call <span className="req">*</span></label>
-                      <input
-                        type="date"
-                        name="preferredDate"
-                        value={formData.preferredDate}
-                        onChange={handleFormChange}
-                        className="underline-input"
-                        min={new Date().toISOString().split("T")[0]}
-                      />
-                      {formErrors.preferredDate && <span className="form-error">{formErrors.preferredDate}</span>}
-                    </div>
-
-                    <div className="form-group underline-field">
-                      <label className="step2-label">Preferred Time for Call <span className="req">*</span></label>
-                      <ScrollSelect name="preferredTime" value={formData.preferredTime} placeholder="Select date and time" options={TIME_SLOTS} onChange={handleSelectChange} error={formErrors.preferredTime} />
-                    </div>
-
-                    <div className="form-group underline-field">
-                      <label className="step2-label">
-                        Please select the languages in which you would like to speak to your counsellor (minimum 1 language and maximum 2 languages) <span className="req">*</span>
-                      </label>
-                      <select
-                        className="underline-input"
-                        value=""
-                        onChange={(e) => { if (e.target.value) toggleLanguage(e.target.value); }}
-                      >
-                        <option value="">Choose your Preferred Languages</option>
-                        {LANGUAGES.map((lang) => (
-                          <option
-                            key={lang}
-                            value={lang}
-                            disabled={!formData.languages.includes(lang) && formData.languages.length >= 2}
-                          >
-                            {formData.languages.includes(lang) ? `✓ ${lang}` : lang}
-                          </option>
-                        ))}
-                      </select>
-                      {formData.languages.length > 0 && (
-                        <div className="selected-langs">
-                          {formData.languages.map((l) => (
-                            <span key={l} className="lang-tag">
-                              {l} <button type="button" onClick={() => toggleLanguage(l)}>×</button>
-                            </span>
-                          ))}
-                        </div>
-                      )}
-                      {formErrors.languages && <span className="form-error">{formErrors.languages}</span>}
-                    </div>
-
-                    <button className="step2-btn next" style={{ width: "100%", padding: "16px" }} onClick={() => handleStep2Submit(() => setFormSuccess(true))}>
-                      Book your consultation
-                    </button>
-                  </div>
-                )}
-              </div>
-            ) : (
-              <div className="success-box">
-                <div className="success-icon">🌿</div>
-                <h3 className="success-title">You're in! Vaishnavi will call you soon.</h3>
-                <p className="success-message">
-                  Check your WhatsApp. Vaishnavi personally reviews every submission and will reach out within 24 hours to schedule your free consultation.
-                </p>
-              </div>
-            )}
           </div>
         </div>
       </section>
@@ -1076,11 +886,11 @@ const LandingPage: React.FC = () => {
 
       {/* MODAL */}
       {modalOpen && (
-        <div className="modal-overlay active" onClick={() => { setModalOpen(false); setModalSuccess(false); setModalStep(1); }}>
+        <div className={`modal-overlay active${modalClosing ? " closing" : ""}`} onClick={closeModal}>
           <div className="modal" onClick={(e) => e.stopPropagation()}>
             <button
               className="modal-close"
-              onClick={() => { setModalOpen(false); setModalSuccess(false); setModalStep(1); }}
+              onClick={closeModal}
               aria-label="Close"
             >
               ✕
@@ -1088,8 +898,7 @@ const LandingPage: React.FC = () => {
 
             {!modalSuccess ? (
               <div className="lead-form">
-                <h3 className="form-title">Book Your Free Call</h3>
-                <p className="form-subtitle">Vaishnavi will personally reach out within 24 hours.</p>
+                <h3 className="form-title">Let's Get Started!</h3>
 
                 <div className="progress-bar-container">
                   <div className="progress-bar-bg">
@@ -1122,11 +931,6 @@ const LandingPage: React.FC = () => {
                       {formErrors.phone && <span className="form-error">{formErrors.phone}</span>}
                     </div>
                     <div className="form-group">
-                      <label>EMAIL (OPTIONAL)</label>
-                      <input type="email" name="email" placeholder="priya@example.com" value={formData.email} onChange={handleFormChange} />
-                      {formErrors.email && <span className="form-error">{formErrors.email}</span>}
-                    </div>
-                    <div className="form-group">
                       <label>GENDER *</label>
                       <select name="gender" value={formData.gender} onChange={handleFormChange}>
                         <option value="">Select gender</option>
@@ -1145,6 +949,11 @@ const LandingPage: React.FC = () => {
 
                 {modalStep === 2 && (
                   <div className="form-fields step2-fields">
+                    <div className="form-group underline-field">
+                      <label className="step2-label">What is your current weight? (kg)</label>
+                      <input type="number" name="weight" placeholder="e.g. 72" value={formData.weight} onChange={handleFormChange} className="underline-input" />
+                    </div>
+
                     <div className="form-group underline-field">
                       <label className="step2-label">Why do you want to lose weight? <span className="req">*</span></label>
                       <ScrollSelect name="weightLossReason" value={formData.weightLossReason} placeholder="Choose an option" options={WEIGHT_LOSS_REASONS} onChange={handleSelectChange} error={formErrors.weightLossReason} />
