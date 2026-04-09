@@ -63,18 +63,21 @@ const FourteenDayHero = () => {
             <BeforeAfterDashboardCard />
           </div>
 
-          {/* YouTube Video */}
+          <div style={{ height: '20px' }} />
+
+              {/* Review Video Section */}
           <div className="max-w-2xl mx-auto mb-8">
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               <iframe
                 className="absolute top-0 left-0 w-full h-full rounded-2xl shadow-lg"
-                src="https://www.youtube.com/embed/0zkAOy4AP38"
-                title="Inspiring Transformations"
+                src="https://www.youtube.com/embed/fpMH8JTzD6s"
+                title="Client Review"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               ></iframe>
             </div>
           </div>
+        </div>
 
           {/* Text */}
           <div className="text-center mb-8">
@@ -110,7 +113,7 @@ const FourteenDayHero = () => {
             </div>
 
             {/* Instagram Button */}
-            <div className="text-center">
+            <div className="text-center pb-20">
               <p className="text-xs md:text-sm text-gray-600 mb-3">Follow Sumit Sharma on Instagram</p>
               <Button
                 onClick={() => window.open('https://www.instagram.com/sumit_sharma_coach?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==', '_blank')}
@@ -120,28 +123,6 @@ const FourteenDayHero = () => {
               </Button>
             </div>
           </div>
-
-          {/* Review Video Section */}
-          <div className="max-w-2xl mx-auto mb-8">
-            <div className="text-center mb-6">
-              <h3 className="text-2xl md:text-3xl font-bold text-gray-800 mb-2">
-                Success Stories
-              </h3>
-              <p className="text-sm md:text-base text-gray-600">
-                Real journeys. Real results. Real impact.
-              </p>
-            </div>
-            <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
-              <iframe
-                className="absolute top-0 left-0 w-full h-full rounded-2xl shadow-lg"
-                src="https://www.youtube.com/embed/fpMH8JTzD6s"
-                title="Client Review"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                allowFullScreen
-              ></iframe>
-            </div>
-          </div>
-        </div>
 
         {/* Fixed Chat Button */}
         <div className="fixed bottom-0 left-0 right-0 bg-green-500 text-white py-3 z-50">
