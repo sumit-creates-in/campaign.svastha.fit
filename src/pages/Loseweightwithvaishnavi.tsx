@@ -1087,9 +1087,9 @@ const LandingPage: React.FC = () => {
             ) : (
               <div className="success-box">
                 <div className="success-icon">🌿</div>
-                <h3 className="success-title">You're in! Vaishnavi will call you soon.</h3>
+                <h3 className="success-title">You're in! Our team  will call you soon.</h3>
                 <p className="success-message">
-                  Check your WhatsApp. Vaishnavi personally reviews every submission and will reach out within 24 hours to schedule your free consultation.
+                  Check your WhatsApp. Our team member personally reviews every submission and will reach out within 24 hours to schedule your free consultation.
                 </p>
               </div>
             )}
