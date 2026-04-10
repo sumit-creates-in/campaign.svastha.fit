@@ -1129,11 +1129,12 @@
 }
 
 .form-title {
-  font-size: 7.5rem;
+  font-size: 1.75rem;
   font-weight: 700;
   margin-bottom: 0.5rem;
   color: #1a1a1a;
   text-align: center;
+  white-space: nowrap;
 }
 
 .form-subtitle {
@@ -1453,7 +1454,7 @@
   border-radius: 0 !important;
   padding: 10px 0 !important;
   font-size: 1rem !important;
-  color: #aaa;
+  color: #333;
   background: transparent !important;
   width: 100%;
   outline: none !important;
@@ -1505,6 +1506,33 @@ select.underline-input {
 .step2-btn.next {
   background: #5ecfb1;
   color: #1a1a1a;
+}
+
+.step2-btn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-spinner {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+.spinner {
+  display: inline-block;
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(0,0,0,0.2);
+  border-top-color: #1a1a1a;
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+  flex-shrink: 0;
 }
 
 /* Progress Bar */
@@ -2013,6 +2041,7 @@ footer strong {
 
   .form-title {
     font-size: 1.375rem;
+    white-space: nowrap;
   }
 
   .form-group input,
