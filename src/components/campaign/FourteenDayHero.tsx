@@ -102,26 +102,17 @@ const FourteenDayHero = () => {
             </div>
 
             {/* Consultation Button */}
-            <div className="text-center">
+            <div className="text-center pb-20">
               <p className="text-xs md:text-sm text-gray-600 mb-3">For Exclusive, Faster Weight Loss</p>
               <Button
-                onClick={() => window.location.href = 'https://strongbyyoga.com/weight-loss-consultation-with-expert/'}
+                onClick={() => window.location.href = 'https://svastha.fit/'}
                 className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-3 md:py-4 text-sm md:text-base font-semibold rounded-full shadow-lg"
               >
                 ✓ Weight Loss Consultation with Expert
               </Button>
             </div>
 
-            {/* Instagram Button */}
-            <div className="text-center pb-20">
-              <p className="text-xs md:text-sm text-gray-600 mb-3">Follow Sumit Sharma on Instagram</p>
-              <Button
-                onClick={() => window.open('https://www.instagram.com/sumit_sharma_coach?utm_source=ig_web_button_share_sheet&igsh=ZDNlZDc0MzIxNw==', '_blank')}
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-3 md:py-4 text-sm md:text-base font-semibold rounded-full shadow-lg"
-              >
-                Follow Sumit on Instagram
-              </Button>
-            </div>
+
           </div>
 
         {/* Fixed Chat Button */}
