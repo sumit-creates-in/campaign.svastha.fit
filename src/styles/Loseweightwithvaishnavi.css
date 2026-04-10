@@ -1199,6 +1199,43 @@
   font-size: 1rem;
 }
 
+.phone-input-wrap {
+  display: flex;
+  align-items: center;
+  border-bottom: 1.5px solid #ccc;
+}
+
+.phone-country-select {
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #333;
+  padding: 0.6rem 0.25rem 0.6rem 0;
+  cursor: pointer;
+  border-right: 1.5px solid #ccc;
+  margin-right: 0.5rem;
+  min-width: 80px;
+  appearance: auto;
+}
+
+.phone-input-wrap input {
+  border: none !important;
+  border-bottom: none !important;
+  flex: 1;
+  padding: 0.6rem 0.25rem;
+  font-size: 1rem;
+  outline: none;
+  background: transparent;
+}
+
+.phone-input-wrap input::placeholder {
+  color: #bbb;
+  font-size: 1rem;
+}
+
+
 .form-disclaimer {
   font-size: 0.6875rem;
   color: #888;

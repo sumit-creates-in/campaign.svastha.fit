@@ -64,7 +64,7 @@ const LandingPage: React.FC = () => {
   const [showStickyBar, setShowStickyBar] = useState(false);
 
   const [formData, setFormData] = useState({
-    name: "", age: "", phone: "", city: "", gender: "", weight: "",
+    name: "", age: "", phone: "", countryCode: "+91", city: "", gender: "", weight: "",
     weightLossReason: "",
     healthCondition: "",
     healthConditionOther: "",
@@ -135,7 +135,7 @@ const LandingPage: React.FC = () => {
     "My schedule is fairly open & flexible",
   ];
 
-  const LANGUAGES = ["Hindi", "English", "Telugu", "Tamil", "Kannada", "Malayalam", "Marathi", "Bengali", "Gujarati", "Punjabi"];
+  const LANGUAGES = ["Hindi", "English"];
 
   const TIME_SLOTS = (() => {
     const slots: string[] = [];
@@ -176,8 +176,13 @@ const LandingPage: React.FC = () => {
     const errors: Record<string, string> = {};
     if (!formData.name.trim()) errors.name = "Name is required";
     if (!formData.city.trim()) errors.city = "City is required";
-    if (!/^[6-9]\d{9}$/.test(formData.phone.replace(/\s|\+91/g, "")))
-      errors.phone = "Enter a valid 10-digit WhatsApp number";
+    if (formData.countryCode === "+91") {
+      if (!/^[6-9]\d{9}$/.test(formData.phone.replace(/\s/g, "")))
+        errors.phone = "Enter a valid 10-digit Indian WhatsApp number";
+    } else {
+      if (!/^\d{5,15}$/.test(formData.phone.replace(/\s/g, "")))
+        errors.phone = "Enter a valid WhatsApp number";
+    }
     if (!formData.age.trim() || Number.isNaN(Number(formData.age)) || Number(formData.age) <= 0)
       errors.age = "Enter a valid age";
     if (!formData.gender) errors.gender = "Please select gender";
@@ -224,21 +229,21 @@ const LandingPage: React.FC = () => {
   const submitToWebhook = async (data: typeof formData) => {
     const payload = {
       name: data.name,
-      phone: data.phone,
+      phone: `${data.countryCode.replace("+", "")}${data.phone}`,
+      whatsapp: `${data.countryCode}${data.phone}`,
       age: data.age,
       city: data.city,
       gender: data.gender,
       weight: data.weight,
       weightLossReason: data.weightLossReason,
-      healthCondition: data.healthCondition === "Other"
-        ? `Other: ${data.healthConditionOther}`
-        : data.healthCondition,
+      healthCondition: data.healthCondition === "Other" ? `Other: ${data.healthConditionOther}` : data.healthCondition,
       pastAttempts: data.pastAttempts,
       weightGainCause: data.weightGainCause,
       profession: data.profession,
       busyness: data.busyness,
       paidPlans: data.paidPlans,
-      preferredDateTime: `${data.preferredDate} ${data.preferredTime}`,
+      preferredDate: data.preferredDate ? (() => { const [y, m, d] = data.preferredDate.split("-"); return `${d}-${m}-${y}`; })() : "",
+      preferredTime: data.preferredTime,
       languages: data.languages.join(", "),
     };
     try {
@@ -930,7 +935,45 @@ const LandingPage: React.FC = () => {
                     </div>
                     <div className="form-group">
                       <label>WHATSAPP NUMBER *</label>
-                      <input type="tel" name="phone" placeholder="+91 98765 43210" value={formData.phone} onChange={handleFormChange} />
+                      <div className="phone-input-wrap">
+                        <select
+                          className="phone-country-select"
+                          value={formData.countryCode}
+                          onChange={(e) => setFormData((prev) => ({ ...prev, countryCode: e.target.value, phone: "" }))}
+                        >
+                          <option value="+91">🇮🇳 +91</option>
+                          <option value="+1">🇺🇸 +1</option>
+                          <option value="+44">🇬🇧 +44</option>
+                          <option value="+61">🇦🇺 +61</option>
+                          <option value="+971">🇦🇪 +971</option>
+                          <option value="+65">🇸🇬 +65</option>
+                          <option value="+60">🇲🇾 +60</option>
+                          <option value="+64">🇳🇿 +64</option>
+                          <option value="+27">🇿🇦 +27</option>
+                          <option value="+49">🇩🇪 +49</option>
+                          <option value="+33">🇫🇷 +33</option>
+                          <option value="+81">🇯🇵 +81</option>
+                          <option value="+82">🇰🇷 +82</option>
+                          <option value="+86">🇨🇳 +86</option>
+                          <option value="+92">🇵🇰 +92</option>
+                          <option value="+880">🇧🇩 +880</option>
+                          <option value="+94">🇱🇰 +94</option>
+                          <option value="+977">🇳🇵 +977</option>
+                        </select>
+                        <input
+                          type="tel"
+                          name="phone"
+                          placeholder={formData.countryCode === "+91" ? "98765 43210" : "Enter number"}
+                          value={formData.phone}
+                          maxLength={formData.countryCode === "+91" ? 10 : 15}
+                          onChange={(e) => {
+                            const limit = formData.countryCode === "+91" ? 10 : 15;
+                            const digits = e.target.value.replace(/\D/g, "").slice(0, limit);
+                            setFormData((prev) => ({ ...prev, phone: digits }));
+                            if (formErrors.phone) setFormErrors((prev) => ({ ...prev, phone: "" }));
+                          }}
+                        />
+                      </div>
                       {formErrors.phone && <span className="form-error">{formErrors.phone}</span>}
                     </div>
                     <div className="form-group">
