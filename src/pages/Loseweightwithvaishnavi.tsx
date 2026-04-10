@@ -58,6 +58,7 @@ const LandingPage: React.FC = () => {
   const [modalClosing, setModalClosing] = useState(false);
   const [formSuccess, setFormSuccess] = useState(false);
   const [modalSuccess, setModalSuccess] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
   const [formStep, setFormStep] = useState(1);
   const [modalStep, setModalStep] = useState(1);
   const [showStickyBar, setShowStickyBar] = useState(false);
@@ -289,7 +290,9 @@ const LandingPage: React.FC = () => {
   const handleStep2Submit = async (onSuccess: () => void) => {
     const errors = validateStep6();
     if (Object.keys(errors).length > 0) { setFormErrors(errors); return; }
+    setIsSubmitting(true);
     await submitToWebhook(formData);
+    setIsSubmitting(false);
     onSuccess();
   };
 
@@ -1078,8 +1081,12 @@ const LandingPage: React.FC = () => {
                       {formErrors.languages && <span className="form-error">{formErrors.languages}</span>}
                     </div>
 
-                    <button className="step2-btn next" style={{ width: "100%", padding: "16px" }} onClick={() => handleStep2Submit(() => setModalSuccess(true))}>
-                      Book your consultation
+                    <button className="step2-btn next" style={{ width: "100%", padding: "16px" }} disabled={isSubmitting} onClick={() => handleStep2Submit(() => setModalSuccess(true))}>
+                      {isSubmitting ? (
+                        <span className="btn-spinner">
+                          <span className="spinner" /> Submitting...
+                        </span>
+                      ) : "Book your consultation"}
                     </button>
                   </div>
                 )}
