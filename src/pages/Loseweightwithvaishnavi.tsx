@@ -3,6 +3,7 @@ import "../styles/Loseweightwithvaishnavi.css";
 import vaishnaviImg from "../assets/vaishnavi.jpeg";
 import vaishnaviPoster from "../assets/vaishnaviposter.jpeg";
 import svasthaLogo from "../assets/svastha.png";
+import svasthaImage from "../assets/svasthaimage.png";
 
 // Custom scrollable dropdown for step forms
 const ScrollSelect: React.FC<{
@@ -57,14 +58,14 @@ const LandingPage: React.FC = () => {
   const [modalOpen, setModalOpen] = useState(false);
   const [modalClosing, setModalClosing] = useState(false);
   const [formSuccess, setFormSuccess] = useState(false);
-  const [modalSuccess, setModalSuccess] = useState(false);
+  const [modalSuccess, setModalSuccess] = useState<false | "no-plan" | "booked">(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formStep, setFormStep] = useState(1);
   const [modalStep, setModalStep] = useState(1);
   const [showStickyBar, setShowStickyBar] = useState(false);
 
   const [formData, setFormData] = useState({
-    name: "", age: "", phone: "", city: "", gender: "", weight: "",
+    name: "", age: "", phone: "", countryCode: "+91", city: "", gender: "", weight: "",
     weightLossReason: "",
     healthCondition: "",
     healthConditionOther: "",
@@ -135,7 +136,7 @@ const LandingPage: React.FC = () => {
     "My schedule is fairly open & flexible",
   ];
 
-  const LANGUAGES = ["Hindi", "English", "Telugu", "Tamil", "Kannada", "Malayalam", "Marathi", "Bengali", "Gujarati", "Punjabi"];
+  const LANGUAGES = ["Hindi", "English"];
 
   const TIME_SLOTS = (() => {
     const slots: string[] = [];
@@ -176,8 +177,13 @@ const LandingPage: React.FC = () => {
     const errors: Record<string, string> = {};
     if (!formData.name.trim()) errors.name = "Name is required";
     if (!formData.city.trim()) errors.city = "City is required";
-    if (!/^[6-9]\d{9}$/.test(formData.phone.replace(/\s|\+91/g, "")))
-      errors.phone = "Enter a valid 10-digit WhatsApp number";
+    if (formData.countryCode === "+91") {
+      if (!/^[6-9]\d{9}$/.test(formData.phone.replace(/\s/g, "")))
+        errors.phone = "Enter a valid 10-digit Indian WhatsApp number";
+    } else {
+      if (!/^\d{5,15}$/.test(formData.phone.replace(/\s/g, "")))
+        errors.phone = "Enter a valid WhatsApp number";
+    }
     if (!formData.age.trim() || Number.isNaN(Number(formData.age)) || Number(formData.age) <= 0)
       errors.age = "Enter a valid age";
     if (!formData.gender) errors.gender = "Please select gender";
@@ -224,21 +230,21 @@ const LandingPage: React.FC = () => {
   const submitToWebhook = async (data: typeof formData) => {
     const payload = {
       name: data.name,
-      phone: data.phone,
+      phone: `${data.countryCode.replace("+", "")}${data.phone}`,
+      whatsapp: `${data.countryCode}${data.phone}`,
       age: data.age,
       city: data.city,
       gender: data.gender,
       weight: data.weight,
       weightLossReason: data.weightLossReason,
-      healthCondition: data.healthCondition === "Other"
-        ? `Other: ${data.healthConditionOther}`
-        : data.healthCondition,
+      healthCondition: data.healthCondition === "Other" ? `Other: ${data.healthConditionOther}` : data.healthCondition,
       pastAttempts: data.pastAttempts,
       weightGainCause: data.weightGainCause,
       profession: data.profession,
       busyness: data.busyness,
       paidPlans: data.paidPlans,
-      preferredDateTime: `${data.preferredDate} ${data.preferredTime}`,
+      preferredDate: data.preferredDate ? (() => { const [y, m, d] = data.preferredDate.split("-"); return `${d}-${m}-${y}`; })() : "",
+      preferredTime: data.preferredTime.replace(/AM/g, "am").replace(/PM/g, "pm"),
       languages: data.languages.join(", "),
     };
     try {
@@ -280,11 +286,18 @@ const LandingPage: React.FC = () => {
     onNext();
   };
 
-  const handleStep5Next = (onNext: () => void) => {
+  const handleStep5Next = async (onYes: () => void, onNo: () => void) => {
     const errors = validateStep5();
     if (Object.keys(errors).length > 0) { setFormErrors(errors); return; }
     setFormErrors({});
-    onNext();
+    if (formData.paidPlans === "No") {
+      setIsSubmitting(true);
+      await submitToWebhook(formData);
+      setIsSubmitting(false);
+      onNo();
+    } else {
+      onYes();
+    }
   };
 
   const handleStep2Submit = async (onSuccess: () => void) => {
@@ -930,7 +943,45 @@ const LandingPage: React.FC = () => {
                     </div>
                     <div className="form-group">
                       <label>WHATSAPP NUMBER *</label>
-                      <input type="tel" name="phone" placeholder="+91 98765 43210" value={formData.phone} onChange={handleFormChange} />
+                      <div className="phone-input-wrap">
+                        <select
+                          className="phone-country-select"
+                          value={formData.countryCode}
+                          onChange={(e) => setFormData((prev) => ({ ...prev, countryCode: e.target.value, phone: "" }))}
+                        >
+                          <option value="+91">🇮🇳 +91</option>
+                          <option value="+1">🇺🇸 +1</option>
+                          <option value="+44">🇬🇧 +44</option>
+                          <option value="+61">🇦🇺 +61</option>
+                          <option value="+971">🇦🇪 +971</option>
+                          <option value="+65">🇸🇬 +65</option>
+                          <option value="+60">🇲🇾 +60</option>
+                          <option value="+64">🇳🇿 +64</option>
+                          <option value="+27">🇿🇦 +27</option>
+                          <option value="+49">🇩🇪 +49</option>
+                          <option value="+33">🇫🇷 +33</option>
+                          <option value="+81">🇯🇵 +81</option>
+                          <option value="+82">🇰🇷 +82</option>
+                          <option value="+86">🇨🇳 +86</option>
+                          <option value="+92">🇵🇰 +92</option>
+                          <option value="+880">🇧🇩 +880</option>
+                          <option value="+94">🇱🇰 +94</option>
+                          <option value="+977">🇳🇵 +977</option>
+                        </select>
+                        <input
+                          type="tel"
+                          name="phone"
+                          placeholder={formData.countryCode === "+91" ? "98765 43210" : "Enter number"}
+                          value={formData.phone}
+                          maxLength={formData.countryCode === "+91" ? 10 : 15}
+                          onChange={(e) => {
+                            const limit = formData.countryCode === "+91" ? 10 : 15;
+                            const digits = e.target.value.replace(/\D/g, "").slice(0, limit);
+                            setFormData((prev) => ({ ...prev, phone: digits }));
+                            if (formErrors.phone) setFormErrors((prev) => ({ ...prev, phone: "" }));
+                          }}
+                        />
+                      </div>
                       {formErrors.phone && <span className="form-error">{formErrors.phone}</span>}
                     </div>
                     <div className="form-group">
@@ -1024,7 +1075,9 @@ const LandingPage: React.FC = () => {
 
                     <div className="step2-btn-row">
                       <button className="step2-btn prev" onClick={() => setModalStep(4)}>Prev</button>
-                      <button className="step2-btn next" onClick={() => handleStep5Next(() => setModalStep(6))}>Next</button>
+                      <button className="step2-btn next" onClick={() => handleStep5Next(() => setModalStep(6), () => setModalSuccess("no-plan"))}>
+                        {isSubmitting ? <span><span className="spinner" /> Submitting...</span> : "Next"}
+                      </button>
                     </div>
                   </div>
                 )}
@@ -1081,7 +1134,7 @@ const LandingPage: React.FC = () => {
                       {formErrors.languages && <span className="form-error">{formErrors.languages}</span>}
                     </div>
 
-                    <button className="step2-btn next" style={{ width: "100%", padding: "16px" }} disabled={isSubmitting} onClick={() => handleStep2Submit(() => setModalSuccess(true))}>
+                    <button className="step2-btn next" style={{ width: "100%", padding: "16px" }} disabled={isSubmitting} onClick={() => handleStep2Submit(() => setModalSuccess("booked"))}>
                       {isSubmitting ? (
                         <span className="btn-spinner">
                           <span className="spinner" /> Submitting...
@@ -1091,13 +1144,33 @@ const LandingPage: React.FC = () => {
                   </div>
                 )}
               </div>
-            ) : (
+            ) : modalSuccess === "booked" ? (
               <div className="success-box">
                 <div className="success-icon">🌿</div>
-                <h3 className="success-title">You're in! Our team  will call you soon.</h3>
+                <h3 className="success-title">You're in! Our team will call you soon.</h3>
                 <p className="success-message">
                   Check your WhatsApp. Our team member personally reviews every submission and will reach out within 24 hours to schedule your free consultation.
                 </p>
+              </div>
+            ) : (
+              <div className="success-box success-box-nplan">
+                <div className="success-nplan-content">
+                  <div className="success-title-row">
+                    <div className="success-icon-circle">✅</div>
+                    <h3 className="success-title">Submission Successful.</h3>
+                  </div>
+                  <h2 style={{ fontSize: "2rem", fontWeight: 700, margin: "12px 0", lineHeight: 1.4 }}>
+                    Thanks! You are about to transform yourself for good.
+                  </h2>
+                  <p style={{ fontWeight: 600, fontSize: "1.1rem", color: "#333" }}>We will contact you shortly.</p>
+                </div>
+                <div className="success-nplan-image">
+                  <img src={svasthaImage} alt="Svastha App" />
+                  <div className="success-image-caption">
+                    <p>Till then, check out our content,</p>
+                    <p>which is loved by many people.</p>
+                  </div>
+                </div>
               </div>
             )}
           </div>
