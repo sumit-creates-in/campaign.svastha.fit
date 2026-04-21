@@ -1,6 +1,9 @@
 import { motion } from "framer-motion";
 import { Play, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
+import successStory7 from "../../assets/success story 7.png";
+import successStory9 from "../../assets/success story 9.png";
+import successStory10 from "../../assets/success story 10.png";
 
 export const JyotiTestimonialSection = () => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -15,107 +18,107 @@ export const JyotiTestimonialSection = () => {
     },
     {
       id: "Jr3SLUysAQA",
-      thumbnail: "https://strongbyyoga.com/wp-content/uploads/2025/02/Testimonial-1.png",
+      thumbnail: "https://img.youtube.com/vi/Jr3SLUysAQA/hqdefault.jpg",
       title: "Success Story 1"
     },
     {
       id: "4Bn9pORVFVM",
-      thumbnail: "https://strongbyyoga.com/wp-content/uploads/2025/02/4.png",
+      thumbnail: "https://img.youtube.com/vi/4Bn9pORVFVM/hqdefault.jpg",
       title: "Success Story 2"
     },
     {
       id: "SZy_hjB6vHo",
-      thumbnail: "https://strongbyyoga.com/wp-content/uploads/2025/02/3.png",
+      thumbnail: "https://img.youtube.com/vi/SZy_hjB6vHo/hqdefault.jpg",
       title: "Success Story 3"
     },
     {
       id: "4ezH5ZklCLE",
-      thumbnail: "https://strongbyyoga.com/wp-content/uploads/2025/02/IMG-20250215-WA0015.jpg",
+      thumbnail: "https://img.youtube.com/vi/4ezH5ZklCLE/hqdefault.jpg",
       title: "Success Story 4"
     },
     {
       id: "oHvn8jAuon8",
-      thumbnail: "https://strongbyyoga.com/wp-content/uploads/2025/02/12.png",
+      thumbnail: "https://img.youtube.com/vi/oHvn8jAuon8/hqdefault.jpg",
       title: "Success Story 5"
     },
     {
       id: "4DHzrggWCH0",
-      thumbnail: "https://strongbyyoga.com/wp-content/uploads/2025/02/5.png",
+      thumbnail: "https://img.youtube.com/vi/4DHzrggWCH0/hqdefault.jpg",
       title: "Success Story 6"
     },
     {
       id: "7e48bnEhIpI",
-      thumbnail: "https://strongbyyoga.com/wp-content/uploads/2025/02/10.png",
+      thumbnail: successStory7,
       title: "Success Story 7"
     },
     {
       id: "n5EJQVvDRYc",
-      thumbnail: "https://strongbyyoga.com/wp-content/uploads/2025/02/2.png",
+      thumbnail: "https://img.youtube.com/vi/n5EJQVvDRYc/hqdefault.jpg",
       title: "Success Story 8"
     },
     {
       id: "Ts4huVChfZw",
-      thumbnail: "https://strongbyyoga.com/wp-content/uploads/2025/02/15.png",
+      thumbnail: successStory9,
       title: "Success Story 9"
     },
     {
       id: "GVR15f366qg",
-      thumbnail: "https://strongbyyoga.com/wp-content/uploads/2025/02/11.png",
+      thumbnail: successStory10,
       title: "Success Story 10"
     },
     {
       id: "v41N_bq0XZ4",
-      thumbnail: "https://strongbyyoga.com/wp-content/uploads/2025/02/9.png",
+      thumbnail: "https://img.youtube.com/vi/v41N_bq0XZ4/hqdefault.jpg",
       title: "Success Story 11"
     },
     {
       id: "ue0L2_-r8DQ",
-      thumbnail: "https://strongbyyoga.com/wp-content/uploads/2025/02/6.png",
+      thumbnail: "https://img.youtube.com/vi/ue0L2_-r8DQ/hqdefault.jpg",
       title: "Success Story 12"
     },
     {
       id: "4PMP8mkV3vM",
-      thumbnail: "https://strongbyyoga.com/wp-content/uploads/2025/02/7.png",
+      thumbnail: "https://img.youtube.com/vi/4PMP8mkV3vM/hqdefault.jpg",
       title: "Success Story 13"
     },
     {
       id: "yHzVBGI6qik",
-      thumbnail: "https://strongbyyoga.com/wp-content/uploads/2025/02/8.png",
+      thumbnail: "https://img.youtube.com/vi/yHzVBGI6qik/hqdefault.jpg",
       title: "Success Story 14"
     },
     {
       id: "0S0oV3V1yjk",
-      thumbnail: "https://strongbyyoga.com/wp-content/uploads/2025/02/13.png",
+      thumbnail: "https://img.youtube.com/vi/0S0oV3V1yjk/hqdefault.jpg",
       title: "Success Story 15"
     },
     {
       id: "YGFOF891dv0",
-      thumbnail: "https://strongbyyoga.com/wp-content/uploads/2025/02/1.jpg",
+      thumbnail: "https://img.youtube.com/vi/YGFOF891dv0/hqdefault.jpg",
       title: "Success Story 16"
     },
     {
       id: "fa_0HjnLyuo",
-      thumbnail: "https://strongbyyoga.com/wp-content/uploads/2025/02/3rd.jpg",
+      thumbnail: "https://img.youtube.com/vi/fa_0HjnLyuo/hqdefault.jpg",
       title: "Success Story 17"
     },
     {
       id: "aNk3QGniBN4",
-      thumbnail: "https://strongbyyoga.com/wp-content/uploads/2025/02/4th.jpg",
+      thumbnail: "https://img.youtube.com/vi/aNk3QGniBN4/hqdefault.jpg",
       title: "Success Story 18"
     },
     {
       id: "BmJy--U8xBQ",
-      thumbnail: "https://strongbyyoga.com/wp-content/uploads/2025/02/4.jpg",
+      thumbnail: "https://img.youtube.com/vi/BmJy--U8xBQ/hqdefault.jpg",
       title: "Success Story 19"
     },
     {
       id: "HBOUUUWD3LM",
-      thumbnail: "https://strongbyyoga.com/wp-content/uploads/2025/02/5.jpg",
+      thumbnail: "https://img.youtube.com/vi/HBOUUUWD3LM/hqdefault.jpg",
       title: "Success Story 20"
     },
     {
       id: "OV_AT9gtREw",
-      thumbnail: "https://strongbyyoga.com/wp-content/uploads/2025/02/6-1.jpg",
+      thumbnail: "https://img.youtube.com/vi/OV_AT9gtREw/hqdefault.jpg",
       title: "Success Story 21"
     }
   ];
