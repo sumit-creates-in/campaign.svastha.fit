@@ -226,7 +226,7 @@ const LandingPage: React.FC = () => {
   };
 
   const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwYjH-L7MrhHcv1WpsdD0tviAA6CqopwLXLcvZJEacKzXeZFob8wmADsxsk0mWyEced/exec?gid=1455575979";
-  const BOTBIZ_URL = "https://dash.botbiz.io/webhook/whatsapp-workflow/106644.353253.350018.1775804156";
+  const BOTBIZ_URL = "https://dash.botbiz.io/webhook/whatsapp-workflow/106644.375783.358876.1776863417";
 
   const submitToGoogleSheet = async (data: typeof formData) => {
     const sheetPayload = {
@@ -272,6 +272,8 @@ const LandingPage: React.FC = () => {
         body: JSON.stringify({
           Name: data.name,
           Mobile_No_: `${data.countryCode.replace("+", "")}${data.phone}`,
+          Call_Date: data.preferredDate ? (() => { const date = new Date(data.preferredDate); return date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }); })() : "",
+          Call_Time: `'${data.preferredTime.replace(/AM/g, "am").replace(/PM/g, "pm")}`,
         }),
         mode: "no-cors",
       });
