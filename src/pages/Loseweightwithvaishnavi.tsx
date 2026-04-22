@@ -225,36 +225,58 @@ const LandingPage: React.FC = () => {
     return errors;
   };
 
-  const WEBHOOK_URL = "https://campaigns.svastha.fit/wp-json/uap/v2/uap-203-204";
+  const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwYjH-L7MrhHcv1WpsdD0tviAA6CqopwLXLcvZJEacKzXeZFob8wmADsxsk0mWyEced/exec?gid=1455575979";
+  const BOTBIZ_URL = "https://dash.botbiz.io/webhook/whatsapp-workflow/106644.353253.350018.1775804156";
 
-  const submitToWebhook = async (data: typeof formData) => {
-    const payload = {
-      name: data.name,
-      phone: `${data.countryCode.replace("+", "")}${data.phone}`,
-      whatsapp: `${data.countryCode}${data.phone}`,
-      age: data.age,
-      city: data.city,
-      gender: data.gender,
-      weight: data.weight,
-      weightLossReason: data.weightLossReason,
-      healthCondition: data.healthCondition === "Other" ? `Other: ${data.healthConditionOther}` : data.healthCondition,
-      pastAttempts: data.pastAttempts,
-      weightGainCause: data.weightGainCause,
-      profession: data.profession,
-      busyness: data.busyness,
-      paidPlans: data.paidPlans,
-      preferredDate: data.preferredDate ? (() => { const [y, m, d] = data.preferredDate.split("-"); return `${d}-${m}-${y}`; })() : "",
-      preferredTime: `'${data.preferredTime.replace(/AM/g, "am").replace(/PM/g, "pm")}`,
-      languages: data.languages.join(", "),
+  const submitToGoogleSheet = async (data: typeof formData) => {
+    const sheetPayload = {
+      Name: data.name,
+      "Contact No.": `${data.countryCode.replace("+", "")}${data.phone}`,
+      "Call Date": data.preferredDate ? (() => { const date = new Date(data.preferredDate); return date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }); })() : "",
+      Source: "Lose-weight-with-vaishnavi",
+      Details: [
+        `Age: ${data.age}`,
+        `City: ${data.city}`,
+        `Gender: ${data.gender}`,
+        `Weight: ${data.weight}`,
+        `Weight Loss Reason: ${data.weightLossReason}`,
+        `Health Condition: ${data.healthCondition === "Other" ? `Other: ${data.healthConditionOther}` : data.healthCondition}`,
+        `Past Attempts: ${data.pastAttempts}`,
+        `Weight Gain Cause: ${data.weightGainCause}`,
+        `Busyness: ${data.busyness}`,
+        `Paid Plans: ${data.paidPlans}`,
+        `Languages: ${data.languages.join(", ")}`,
+      ].join(" | "),
+      "Call Time": `'${data.preferredTime.replace(/AM/g, "am").replace(/PM/g, "pm")}`,
     };
+    const formBody = new URLSearchParams(
+      Object.entries(sheetPayload).map(([k, v]) => [k, String(v)])
+    ).toString();
     try {
-      await fetch(WEBHOOK_URL, {
+      await fetch(GOOGLE_SHEET_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: formBody,
+        mode: "no-cors",
       });
     } catch (err) {
-      console.error("Webhook error:", err);
+      console.error("Google Sheet error:", err);
+    }
+  };
+
+  const submitToBotBiz = async (data: typeof formData) => {
+    try {
+      await fetch(BOTBIZ_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          Name: data.name,
+          Mobile_No_: `${data.countryCode.replace("+", "")}${data.phone}`,
+        }),
+        mode: "no-cors",
+      });
+    } catch (err) {
+      console.error("BotBiz error:", err);
     }
   };
 
@@ -292,7 +314,7 @@ const LandingPage: React.FC = () => {
     setFormErrors({});
     if (formData.paidPlans === "No") {
       setIsSubmitting(true);
-      await submitToWebhook(formData);
+      await Promise.all([submitToGoogleSheet(formData), submitToBotBiz(formData)]);
       setIsSubmitting(false);
       onNo();
     } else {
@@ -304,7 +326,7 @@ const LandingPage: React.FC = () => {
     const errors = validateStep6();
     if (Object.keys(errors).length > 0) { setFormErrors(errors); return; }
     setIsSubmitting(true);
-    await submitToWebhook(formData);
+    await Promise.all([submitToGoogleSheet(formData), submitToBotBiz(formData)]);
     setIsSubmitting(false);
     onSuccess();
   };
