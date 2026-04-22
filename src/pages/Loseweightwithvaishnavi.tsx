@@ -244,7 +244,7 @@ const LandingPage: React.FC = () => {
       busyness: data.busyness,
       paidPlans: data.paidPlans,
       preferredDate: data.preferredDate ? (() => { const [y, m, d] = data.preferredDate.split("-"); return `${d}-${m}-${y}`; })() : "",
-      preferredTime: `'${data.preferredTime.replace(/AM/g, "am").replace(/PM/g, "pm")}'`,
+      preferredTime: `'${data.preferredTime.replace(/AM/g, "am").replace(/PM/g, "pm")}`,
       languages: data.languages.join(", "),
     };
     try {
