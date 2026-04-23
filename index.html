@@ -58,7 +58,10 @@
         "script",
         "https://connect.facebook.net/en_US/fbevents.js",
       );
-      fbq("init", "4183888118531938");
+      fbq("init", "4183888118531938", {
+        em: "email@email.com", // Will be hashed automatically by the pixel using SHA-256
+        ph: "1234567890",
+      });
       fbq("track", "PageView");
     </script>
     <!-- End Meta Pixel Code -->
