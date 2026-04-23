@@ -2,7 +2,8 @@ import express from "express";
 import cors from "cors";
 import dotenv from "dotenv";
 import { supabase } from "./supabase.js";
-// Firebase admin import removed - not currently used
+import { waitUntil } from "@vercel/functions";
+import rateLimit from "express-rate-limit";
 
 dotenv.config();
 
@@ -28,6 +29,15 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+
+// Rate limiting — max 5 submissions per IP per hour
+const leadLimiter = rateLimit({
+  windowMs: 60 * 60 * 1000, // 1 hour
+  max: 5,
+  message: { error: "Too many submissions. Please try again later." },
+  standardHeaders: true,
+  legacyHeaders: false,
+});
 
 // ✅ Base route for health check
 app.get("/", (req, res) => {
@@ -92,6 +102,89 @@ app.post("/api/register", async (req, res) => {
   } catch (err) {
     console.error("❌ Registration error:", err);
     res.status(500).json({ error: "Server error" });
+  }
+});
+
+// 📋 Submit lead - save to Supabase + fire-and-forget to Google Sheet + BotBiz
+app.post("/api/submit-lead", leadLimiter, async (req, res) => {
+  const data = req.body;
+
+  if (!data?.name || !data?.phone) {
+    return res.status(400).json({ error: "Name and phone are required" });
+  }
+
+  // 1. Save to Supabase first (fast, same infra)
+  const { error: dbError } = await supabase.from("vaishnavi_leads").insert({
+    name: data.name,
+    phone: data.phone,
+    age: data.age || null,
+    city: data.city || null,
+    gender: data.gender || null,
+    weight: data.weight || null,
+    weight_loss_reason: data.weightLossReason || null,
+    health_condition: data.healthCondition || null,
+    past_attempts: data.pastAttempts || null,
+    weight_gain_cause: data.weightGainCause || null,
+    profession: data.profession || null,
+    busyness: data.busyness || null,
+    paid_plans: data.paidPlans || null,
+    languages: data.languages || null,
+    preferred_date: data.callDate || null,
+    preferred_time: data.callTime || null,
+  });
+
+  if (dbError) {
+    console.error("❌ Supabase insert error:", dbError);
+    // Don't block — still respond success and fire webhooks
+  } else {
+    console.log("✅ Lead saved to Supabase");
+  }
+
+  // 2. Respond immediately — user ko success mil gaya
+  res.json({ success: true });
+
+  const GOOGLE_SHEET_URL =
+    "https://script.google.com/macros/s/AKfycbwYjH-L7MrhHcv1WpsdD0tviAA6CqopwLXLcvZJEacKzXeZFob8wmADsxsk0mWyEced/exec?gid=1455575979";
+  const BOTBIZ_URL =
+    "https://dash.botbiz.io/webhook/whatsapp-workflow/106644.375783.358876.1776863417";
+
+  const sheetPayload = new URLSearchParams({
+    Name: data.name,
+    "Contact No.": data.phone,
+    "Call Date": data.callDate || "",
+    Source: "Lose-weight-with-vaishnavi",
+    Details: data.details || "",
+    "Call Time": data.callTime || "",
+  }).toString();
+
+  const fireWebhooks = Promise.all([
+    fetch(GOOGLE_SHEET_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
+      body: sheetPayload,
+    })
+      .then(() => console.log("✅ Google Sheet submitted"))
+      .catch((err) => console.error("❌ Google Sheet error:", err)),
+
+    fetch(BOTBIZ_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        Name: data.name,
+        Mobile_No_: data.phone,
+        Call_Date: data.callDate || "",
+        Call_Time: data.callTime || "",
+      }),
+    })
+      .then(() => console.log("✅ BotBiz submitted"))
+      .catch((err) => console.error("❌ BotBiz error:", err)),
+  ]);
+
+  // 3. Vercel pe waitUntil, locally direct await
+  if (process.env.VERCEL) {
+    waitUntil(fireWebhooks);
+  } else {
+    await fireWebhooks;
   }
 });
 
