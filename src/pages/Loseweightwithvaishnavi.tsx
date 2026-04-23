@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import "../styles/Loseweightwithvaishnavi.css";
 import vaishnaviImg from "../assets/vaishnavi.jpeg";
 import vaishnaviPoster from "../assets/vaishnaviposter.jpeg";
@@ -55,10 +56,9 @@ const ScrollSelect: React.FC<{
 };
 
 const LandingPage: React.FC = () => {
+  const navigate = useNavigate();
   const [modalOpen, setModalOpen] = useState(false);
   const [modalClosing, setModalClosing] = useState(false);
-  const [formSuccess, setFormSuccess] = useState(false);
-  const [modalSuccess, setModalSuccess] = useState<false | "no-plan" | "booked">(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [formStep, setFormStep] = useState(1);
   const [modalStep, setModalStep] = useState(1);
@@ -339,7 +339,6 @@ const LandingPage: React.FC = () => {
     setTimeout(() => {
       setModalOpen(false);
       setModalClosing(false);
-      setModalSuccess(false);
       setModalStep(1);
     }, 350);
   };
@@ -936,8 +935,7 @@ const LandingPage: React.FC = () => {
               ✕
             </button>
 
-            {!modalSuccess ? (
-              <div className="lead-form">
+            <div className="lead-form">
                 <h3 className="form-title">Let's Get Started!</h3>
 
                 <div className="progress-bar-container">
@@ -1099,7 +1097,7 @@ const LandingPage: React.FC = () => {
 
                     <div className="step2-btn-row">
                       <button className="step2-btn prev" onClick={() => setModalStep(4)}>Prev</button>
-                      <button className="step2-btn next" onClick={() => handleStep5Next(() => setModalStep(6), () => setModalSuccess("no-plan"))}>
+                      <button className="step2-btn next" onClick={() => handleStep5Next(() => setModalStep(6), () => navigate("/Thank-You-lose-weight-with-vaishnavi"))}>
                         {isSubmitting ? <span><span className="spinner" /> Submitting...</span> : "Next"}
                       </button>
                     </div>
@@ -1158,7 +1156,7 @@ const LandingPage: React.FC = () => {
                       {formErrors.languages && <span className="form-error">{formErrors.languages}</span>}
                     </div>
 
-                    <button className="step2-btn next" style={{ width: "100%", padding: "16px" }} disabled={isSubmitting} onClick={() => handleStep2Submit(() => setModalSuccess("booked"))}>
+                    <button className="step2-btn next" style={{ width: "100%", padding: "16px" }} disabled={isSubmitting} onClick={() => handleStep2Submit(() => navigate("/Thank-You-lose-weight-with-vaishnavi"))}>
                       {isSubmitting ? (
                         <span className="btn-spinner">
                           <span className="spinner" /> Submitting...
@@ -1168,35 +1166,6 @@ const LandingPage: React.FC = () => {
                   </div>
                 )}
               </div>
-            ) : modalSuccess === "booked" ? (
-              <div className="success-box">
-                <div className="success-icon">🌿</div>
-                <h3 className="success-title">You're in! Our team will call you soon.</h3>
-                <p className="success-message">
-                  Check your WhatsApp. Our team member personally reviews every submission and will reach out within 24 hours to schedule your free consultation.
-                </p>
-              </div>
-            ) : (
-              <div className="success-box success-box-nplan">
-                <div className="success-nplan-content">
-                  <div className="success-title-row">
-                    <div className="success-icon-circle">✅</div>
-                    <h3 className="success-title">Submission Successful.</h3>
-                  </div>
-                  <h2 style={{ fontSize: "2rem", fontWeight: 700, margin: "12px 0", lineHeight: 1.4 }}>
-                    Thanks! You are about to transform yourself for good.
-                  </h2>
-                  <p style={{ fontWeight: 600, fontSize: "1.1rem", color: "#333" }}>We will contact you shortly.</p>
-                </div>
-                <div className="success-nplan-image">
-                  <img src={svasthaImage} alt="Svastha App" />
-                  <div className="success-image-caption">
-                    <p>Till then, check out our content,</p>
-                    <p>which is loved by many people.</p>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
         </div>
       )}
