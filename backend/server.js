@@ -188,6 +188,35 @@ app.post("/api/submit-lead", leadLimiter, async (req, res) => {
   }
 });
 
+// � Get boeoked time slots for a specific date
+app.get("/api/booked-slots", async (req, res) => {
+  const { date } = req.query;
+  if (!date) return res.status(400).json({ error: "date is required" });
+
+  // date comes as "April 25, 2025" format from frontend
+  const { data, error } = await supabase
+    .from("vaishnavi_leads")
+    .select("preferred_time")
+    .eq("preferred_date", date)
+    .not("preferred_time", "is", null);
+
+  if (error) {
+    console.error("❌ Booked slots error:", error);
+    return res.status(500).json({ error: "Failed to fetch booked slots" });
+  }
+
+  // Normalize stored time to match TIME_SLOTS format e.g. "10:00 AM"
+  // DB stores as "'10:00 am" or "10:00 am" — strip apostrophe, trim, uppercase
+  const booked = data.map((r) => {
+    const raw = r.preferred_time.replace(/^'+/, "").trim().toUpperCase();
+    console.log("📅 Raw stored time:", r.preferred_time, "→ normalized:", raw);
+    return raw;
+  });
+
+  console.log("📋 Booked slots for", date, ":", booked);
+  res.json({ booked });
+});
+
 // 🔍 Debug endpoint
 app.get("/api/debug", (req, res) => {
   res.json({

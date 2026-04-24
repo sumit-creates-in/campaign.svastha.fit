@@ -15,7 +15,8 @@ const ScrollSelect: React.FC<{
   onChange: (name: string, value: string) => void;
   error?: string;
   disabled?: boolean;
-}> = ({ name, value, placeholder, options, onChange, error }) => {
+  disabledOptions?: string[];
+}> = ({ name, value, placeholder, options, onChange, error, disabledOptions = [] }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -39,15 +40,21 @@ const ScrollSelect: React.FC<{
       </div>
       {open && (
         <div className="scroll-select-list">
-          {options.map((opt) => (
-            <div
-              key={opt}
-              className={`scroll-select-option${value === opt ? " selected" : ""}`}
-              onClick={() => { onChange(name, opt); setOpen(false); }}
-            >
-              {opt}
-            </div>
-          ))}
+          {options.map((opt) => {
+            const isDisabled = disabledOptions.some(
+              (d) => d.trim().toUpperCase() === opt.trim().toUpperCase()
+            );
+            return (
+              <div
+                key={opt}
+                className={`scroll-select-option${value === opt ? " selected" : ""}${isDisabled ? " disabled" : ""}`}
+                onClick={() => { if (!isDisabled) { onChange(name, opt); setOpen(false); } }}
+                style={isDisabled ? { opacity: 0.4, cursor: "not-allowed", textDecoration: "line-through" } : {}}
+              >
+                {opt}{isDisabled ? " (Booked)" : ""}
+              </div>
+            );
+          })}
         </div>
       )}
       {error && <span className="form-error">{error}</span>}
@@ -79,6 +86,8 @@ const LandingPage: React.FC = () => {
     preferredTime: "",
   });
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  const [bookedSlots, setBookedSlots] = useState<string[]>([]);
+  const [loadingSlots, setLoadingSlots] = useState(false);
 
   const WEIGHT_LOSS_REASONS = [
     "Improve physical appearance",
@@ -227,6 +236,23 @@ const LandingPage: React.FC = () => {
 
   const BACKEND_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
+  // Fetch booked slots whenever date changes (on step 6)
+  useEffect(() => {
+    if (!formData.preferredDate) { setBookedSlots([]); return; }
+    const formatted = new Date(formData.preferredDate).toLocaleDateString("en-US", {
+      month: "long", day: "numeric", year: "numeric",
+    });
+    setLoadingSlots(true);
+    fetch(`${BACKEND_URL}/api/booked-slots?date=${encodeURIComponent(formatted)}`)
+      .then((r) => r.json())
+      .then((d) => {
+        console.log("🕐 Booked slots received:", d.booked);
+        setBookedSlots(d.booked || []);
+      })
+      .catch(() => setBookedSlots([]))
+      .finally(() => setLoadingSlots(false));
+  }, [formData.preferredDate]);
+
   const submitLead = async (data: typeof formData) => {
     const formatDate = (d: string) =>
       d ? new Date(d).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) : "";
@@ -306,9 +332,7 @@ const LandingPage: React.FC = () => {
     if (Object.keys(errors).length > 0) { setFormErrors(errors); return; }
     setFormErrors({});
     if (formData.paidPlans === "No") {
-      setIsSubmitting(true);
-      await submitLead(formData);
-      setIsSubmitting(false);
+      // Skip saving — just redirect to thank you
       onNo();
     } else {
       onYes();
@@ -1095,7 +1119,25 @@ const LandingPage: React.FC = () => {
                   </div>
                 )}
 
-                {modalStep === 6 && (
+                {modalStep === 6 && (() => {
+                  // Filter out past time slots if today is selected
+                  const todayStr = new Date().toISOString().split("T")[0];
+                  const isToday = formData.preferredDate === todayStr;
+                  const now = new Date();
+                  const availableSlots = TIME_SLOTS.filter((slot) => {
+                    if (!isToday) return true;
+                    // Parse slot like "10:00 AM"
+                    const [timePart, ampm] = slot.split(" ");
+                    const [h, m] = timePart.split(":").map(Number);
+                    let hour = h;
+                    if (ampm === "PM" && h !== 12) hour += 12;
+                    if (ampm === "AM" && h === 12) hour = 0;
+                    const slotDate = new Date();
+                    slotDate.setHours(hour, m, 0, 0);
+                    return slotDate > now;
+                  });
+
+                  return (
                   <div className="form-fields step2-fields">
                     <div className="form-group underline-field">
                       <label className="step2-label">Preferred Date for Call <span className="req">*</span></label>
@@ -1112,7 +1154,19 @@ const LandingPage: React.FC = () => {
 
                     <div className="form-group underline-field">
                       <label className="step2-label">Preferred Time for Call <span className="req">*</span></label>
-                      <ScrollSelect name="preferredTime" value={formData.preferredTime} placeholder="Select date and time" options={TIME_SLOTS} onChange={handleSelectChange} error={formErrors.preferredTime} />
+                      {loadingSlots ? (
+                        <div style={{ padding: "10px 0", color: "#888", fontSize: "14px" }}>Loading available slots...</div>
+                      ) : (
+                        <ScrollSelect
+                          name="preferredTime"
+                          value={formData.preferredTime}
+                          placeholder={formData.preferredDate ? "Select a time" : "Select a date first"}
+                          options={availableSlots}
+                          onChange={handleSelectChange}
+                          error={formErrors.preferredTime}
+                          disabledOptions={bookedSlots}
+                        />
+                      )}
                     </div>
 
                     <div className="form-group underline-field">
@@ -1155,7 +1209,8 @@ const LandingPage: React.FC = () => {
                       ) : "Book your consultation"}
                     </button>
                   </div>
-                )}
+                  );
+                })()}
               </div>
           </div>
         </div>
