@@ -87,10 +87,7 @@ export default async function handler(req, res) {
     console.log("✅ Lead saved to Supabase");
   }
 
-  // Respond immediately
-  res.json({ success: true });
-
-  // Fire webhooks in background
+  // Fire webhooks before responding (to ensure they complete)
   const GOOGLE_SHEET_URL =
     "https://script.google.com/macros/s/AKfycbwYjH-L7MrhHcv1WpsdD0tviAA6CqopwLXLcvZJEacKzXeZFob8wmADsxsk0mWyEced/exec?gid=1455575979";
   const BOTBIZ_URL =
@@ -105,12 +102,14 @@ export default async function handler(req, res) {
     "Call Time": data.callTime || "",
   }).toString();
 
-  Promise.all([
+  await Promise.all([
     fetch(GOOGLE_SHEET_URL, {
       method: "POST",
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: sheetPayload,
-    }).catch((err) => console.error("❌ Google Sheet error:", err)),
+    })
+      .then(() => console.log("✅ Google Sheet submitted"))
+      .catch((err) => console.error("❌ Google Sheet error:", err)),
 
     fetch(BOTBIZ_URL, {
       method: "POST",
@@ -121,6 +120,11 @@ export default async function handler(req, res) {
         Call_Date: data.callDate || "",
         Call_Time: data.callTime || "",
       }),
-    }).catch((err) => console.error("❌ BotBiz error:", err)),
+    })
+      .then(() => console.log("✅ BotBiz submitted"))
+      .catch((err) => console.error("❌ BotBiz error:", err)),
   ]);
+
+  // Respond after webhooks complete
+  res.json({ success: true });
 }
