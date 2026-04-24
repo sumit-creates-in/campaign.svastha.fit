@@ -83,48 +83,11 @@ export default async function handler(req, res) {
 
   if (dbError) {
     console.error("❌ Supabase insert error:", dbError);
-  } else {
-    console.log("✅ Lead saved to Supabase");
+    return res.status(500).json({ error: "Failed to save lead" });
   }
 
-  // Fire webhooks before responding (to ensure they complete)
-  const GOOGLE_SHEET_URL =
-    "https://script.google.com/macros/s/AKfycbwYjH-L7MrhHcv1WpsdD0tviAA6CqopwLXLcvZJEacKzXeZFob8wmADsxsk0mWyEced/exec?gid=1455575979";
-  const BOTBIZ_URL =
-    "https://dash.botbiz.io/webhook/whatsapp-workflow/106644.375783.358876.1776863417";
+  console.log("✅ Lead saved to Supabase");
 
-  const sheetPayload = new URLSearchParams({
-    Name: data.name,
-    "Contact No.": data.phone,
-    "Call Date": data.callDate || "",
-    Source: "Lose-weight-with-vaishnavi",
-    Details: data.details || "",
-    "Call Time": data.callTime || "",
-  }).toString();
-
-  await Promise.all([
-    fetch(GOOGLE_SHEET_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/x-www-form-urlencoded" },
-      body: sheetPayload,
-    })
-      .then(() => console.log("✅ Google Sheet submitted"))
-      .catch((err) => console.error("❌ Google Sheet error:", err)),
-
-    fetch(BOTBIZ_URL, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        Name: data.name,
-        Mobile_No_: data.phone,
-        Call_Date: data.callDate || "",
-        Call_Time: data.callTime || "",
-      }),
-    })
-      .then(() => console.log("✅ BotBiz submitted"))
-      .catch((err) => console.error("❌ BotBiz error:", err)),
-  ]);
-
-  // Respond after webhooks complete
+  // Respond immediately - webhooks will be triggered by Supabase Database Webhook
   res.json({ success: true });
 }
