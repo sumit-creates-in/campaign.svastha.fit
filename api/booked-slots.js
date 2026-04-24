@@ -36,11 +36,24 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Failed to fetch booked slots" });
   }
 
-  // Normalize stored time to match TIME_SLOTS format
+  // Normalize stored time to match TIME_SLOTS format (e.g., "10:00 AM")
   const booked = data.map((r) => {
-    const raw = r.preferred_time.replace(/^'+/, "").trim().toUpperCase();
-    console.log("📅 Raw stored time:", r.preferred_time, "→ normalized:", raw);
-    return raw;
+    // Remove leading apostrophe, trim, and convert to uppercase
+    let normalized = r.preferred_time.replace(/^'+/, "").trim();
+
+    // Ensure AM/PM is uppercase
+    normalized = normalized.replace(/\s*am$/i, " AM").replace(/\s*pm$/i, " PM");
+
+    // Ensure proper spacing before AM/PM
+    normalized = normalized.replace(/(\d+:\d+)\s*(AM|PM)/, "$1 $2");
+
+    console.log(
+      "📅 Raw stored time:",
+      r.preferred_time,
+      "→ normalized:",
+      normalized,
+    );
+    return normalized;
   });
 
   console.log("📋 Booked slots for", date, ":", booked);
