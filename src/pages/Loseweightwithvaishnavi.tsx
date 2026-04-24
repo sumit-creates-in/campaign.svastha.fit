@@ -70,6 +70,7 @@ const LandingPage: React.FC = () => {
   const [formStep, setFormStep] = useState(1);
   const [modalStep, setModalStep] = useState(1);
   const [showStickyBar, setShowStickyBar] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "", age: "", phone: "", countryCode: "+91", city: "", gender: "", weight: "",
@@ -327,13 +328,13 @@ const LandingPage: React.FC = () => {
     onNext();
   };
 
-  const handleStep5Next = async (onYes: () => void, onNo: () => void) => {
+  const handleStep5Next = async (onYes: () => void) => {
     const errors = validateStep5();
     if (Object.keys(errors).length > 0) { setFormErrors(errors); return; }
     setFormErrors({});
     if (formData.paidPlans === "No") {
-      // Skip saving — just redirect to thank you
-      onNo();
+      closeModal();
+      setShowThankYou(true);
     } else {
       onYes();
     }
@@ -1112,7 +1113,7 @@ const LandingPage: React.FC = () => {
 
                     <div className="step2-btn-row">
                       <button className="step2-btn prev" onClick={() => setModalStep(4)}>Prev</button>
-                      <button className="step2-btn next" onClick={() => handleStep5Next(() => setModalStep(6), () => navigate("/Thank-You-lose-weight-with-vaishnavi"))}>
+                      <button className="step2-btn next" onClick={() => handleStep5Next(() => setModalStep(6))}>
                         {isSubmitting ? <span><span className="spinner" /> Submitting...</span> : "Next"}
                       </button>
                     </div>
@@ -1212,6 +1213,18 @@ const LandingPage: React.FC = () => {
                   );
                 })()}
               </div>
+          </div>
+        </div>
+      )}
+
+      {/* THANK YOU MODAL */}
+      {showThankYou && (
+        <div className="modal-overlay active" onClick={() => setShowThankYou(false)}>
+          <div className="modal" style={{ textAlign: "center", padding: "48px 32px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "260px" }} onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setShowThankYou(false)} aria-label="Close">✕</button>
+            <div style={{ fontSize: "48px", marginBottom: "16px" }}>🙏</div>
+            <h3 style={{ fontSize: "24px", marginBottom: "12px", color: "var(--dark)" }}>Thank You for filling the form.</h3>
+            <p style={{ color: "var(--mid)", fontSize: "16px" }}>We will be in touch!</p>
           </div>
         </div>
       )}
