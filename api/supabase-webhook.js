@@ -23,12 +23,27 @@ export default async function handler(req, res) {
   const BOTBIZ_URL =
     "https://dash.botbiz.io/webhook/whatsapp-workflow/106644.375783.358876.1776863417";
 
+  // Build complete details string matching old backend format
+  const detailsParts = [
+    `Age: ${record.age || "N/A"}`,
+    `City: ${record.city || "N/A"}`,
+    `Gender: ${record.gender || "N/A"}`,
+    `Weight: ${record.weight || "N/A"}`,
+    `Weight Loss Reason: ${record.weight_loss_reason || "N/A"}`,
+    `Health Condition: ${record.health_condition || "N/A"}`,
+    `Past Attempts: ${record.past_attempts || "N/A"}`,
+    `Weight Gain Cause: ${record.weight_gain_cause || "N/A"}`,
+    `Busyness: ${record.busyness || "N/A"}`,
+    `Paid Plans: ${record.paid_plans || "N/A"}`,
+    `Languages: ${record.languages || "N/A"}`,
+  ];
+
   const sheetPayload = new URLSearchParams({
     Name: record.name,
     "Contact No.": record.phone,
     "Call Date": record.preferred_date || "",
     Source: record.source || "Lose-weight-with-vaishnavi",
-    Details: `Age: ${record.age || "N/A"} | City: ${record.city || "N/A"} | Gender: ${record.gender || "N/A"} | Weight: ${record.weight || "N/A"}`,
+    Details: detailsParts.join(" | "),
     "Call Time": record.preferred_time || "",
   }).toString();
 
