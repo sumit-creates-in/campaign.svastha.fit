@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { CheckCircle2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Loseweightwithvaishnavi.css";
 import vaishnaviImg from "../assets/vaishnavi.jpeg";
@@ -1219,12 +1220,43 @@ const LandingPage: React.FC = () => {
 
       {/* THANK YOU MODAL */}
       {showThankYou && (
-        <div className="modal-overlay active" onClick={() => setShowThankYou(false)}>
-          <div className="modal" style={{ textAlign: "center", padding: "48px 32px", display: "flex", flexDirection: "column", alignItems: "center", justifyContent: "center", minHeight: "260px" }} onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setShowThankYou(false)} aria-label="Close">✕</button>
-            <div style={{ fontSize: "48px", marginBottom: "16px" }}>🙏</div>
-            <h3 style={{ fontSize: "24px", marginBottom: "12px", color: "var(--dark)" }}>Thank You for filling the form.</h3>
-            <p style={{ color: "var(--mid)", fontSize: "16px" }}>We will be in touch!</p>
+        <div
+          className="modal-overlay active"
+          onClick={() => setShowThankYou(false)}
+          style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: "#fff",
+              borderRadius: "20px",
+              width: "min(320px, 92vw)",
+              height: "min(320px, 92vw)",
+              padding: "0 32px",
+              textAlign: "center",
+              position: "relative",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "12px",
+              boxShadow: "0 8px 40px rgba(0,0,0,0.18)",
+            }}
+          >
+            <button
+              onClick={() => setShowThankYou(false)}
+              aria-label="Close"
+              style={{
+                position: "absolute", top: "14px", right: "16px",
+                background: "none", border: "none", fontSize: "18px",
+                cursor: "pointer", color: "#999", lineHeight: 1,
+              }}
+            >✕</button>
+            <CheckCircle2 size={56} color="#4caf7d" strokeWidth={1.5} />
+            <h3 style={{ fontSize: "18px", fontWeight: 700, color: "#1a1a1a", margin: "4px 0 0", whiteSpace: "nowrap" }}>
+              Thank You for filling the form.
+            </h3>
+            <p style={{ color: "#777", fontSize: "14px", margin: 0 }}>We will be in touch!</p>
           </div>
         </div>
       )}
