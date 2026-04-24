@@ -15,7 +15,8 @@ const ScrollSelect: React.FC<{
   onChange: (name: string, value: string) => void;
   error?: string;
   disabled?: boolean;
-}> = ({ name, value, placeholder, options, onChange, error }) => {
+  disabledOptions?: string[];
+}> = ({ name, value, placeholder, options, onChange, error, disabledOptions = [] }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
@@ -39,15 +40,21 @@ const ScrollSelect: React.FC<{
       </div>
       {open && (
         <div className="scroll-select-list">
-          {options.map((opt) => (
-            <div
-              key={opt}
-              className={`scroll-select-option${value === opt ? " selected" : ""}`}
-              onClick={() => { onChange(name, opt); setOpen(false); }}
-            >
-              {opt}
-            </div>
-          ))}
+          {options.map((opt) => {
+            const isDisabled = disabledOptions.some(
+              (d) => d.trim().toUpperCase() === opt.trim().toUpperCase()
+            );
+            return (
+              <div
+                key={opt}
+                className={`scroll-select-option${value === opt ? " selected" : ""}${isDisabled ? " disabled" : ""}`}
+                onClick={() => { if (!isDisabled) { onChange(name, opt); setOpen(false); } }}
+                style={isDisabled ? { opacity: 0.4, cursor: "not-allowed", textDecoration: "line-through" } : {}}
+              >
+                {opt}{isDisabled ? " (Booked)" : ""}
+              </div>
+            );
+          })}
         </div>
       )}
       {error && <span className="form-error">{error}</span>}
@@ -79,6 +86,8 @@ const LandingPage: React.FC = () => {
     preferredTime: "",
   });
   const [formErrors, setFormErrors] = useState<Record<string, string>>({});
+  const [bookedSlots, setBookedSlots] = useState<string[]>([]);
+  const [loadingSlots, setLoadingSlots] = useState(false);
 
   const WEIGHT_LOSS_REASONS = [
     "Improve physical appearance",
@@ -225,60 +234,68 @@ const LandingPage: React.FC = () => {
     return errors;
   };
 
-  const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwYjH-L7MrhHcv1WpsdD0tviAA6CqopwLXLcvZJEacKzXeZFob8wmADsxsk0mWyEced/exec?gid=1455575979";
-  const BOTBIZ_URL = "https://dash.botbiz.io/webhook/whatsapp-workflow/106644.375783.358876.1776863417";
+  const BACKEND_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
 
-  const submitToGoogleSheet = async (data: typeof formData) => {
-    const sheetPayload = {
-      Name: data.name,
-      "Contact No.": `${data.countryCode.replace("+", "")}${data.phone}`,
-      "Call Date": data.preferredDate ? (() => { const date = new Date(data.preferredDate); return date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }); })() : "",
-      Source: "Lose-weight-with-vaishnavi",
-      Details: [
-        `Age: ${data.age}`,
-        `City: ${data.city}`,
-        `Gender: ${data.gender}`,
-        `Weight: ${data.weight}`,
-        `Weight Loss Reason: ${data.weightLossReason}`,
-        `Health Condition: ${data.healthCondition === "Other" ? `Other: ${data.healthConditionOther}` : data.healthCondition}`,
-        `Past Attempts: ${data.pastAttempts}`,
-        `Weight Gain Cause: ${data.weightGainCause}`,
-        `Busyness: ${data.busyness}`,
-        `Paid Plans: ${data.paidPlans}`,
-        `Languages: ${data.languages.join(", ")}`,
-      ].join(" | "),
-      "Call Time": `'${data.preferredTime.replace(/AM/g, "am").replace(/PM/g, "pm")}`,
-    };
-    const formBody = new URLSearchParams(
-      Object.entries(sheetPayload).map(([k, v]) => [k, String(v)])
-    ).toString();
-    try {
-      await fetch(GOOGLE_SHEET_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/x-www-form-urlencoded" },
-        body: formBody,
-        mode: "no-cors",
-      });
-    } catch (err) {
-      console.error("Google Sheet error:", err);
-    }
-  };
+  // Fetch booked slots whenever date changes (on step 6)
+  useEffect(() => {
+    if (!formData.preferredDate) { setBookedSlots([]); return; }
+    const formatted = new Date(formData.preferredDate).toLocaleDateString("en-US", {
+      month: "long", day: "numeric", year: "numeric",
+    });
+    setLoadingSlots(true);
+    fetch(`${BACKEND_URL}/api/booked-slots?date=${encodeURIComponent(formatted)}`)
+      .then((r) => r.json())
+      .then((d) => {
+        console.log("🕐 Booked slots received:", d.booked);
+        setBookedSlots(d.booked || []);
+      })
+      .catch(() => setBookedSlots([]))
+      .finally(() => setLoadingSlots(false));
+  }, [formData.preferredDate]);
 
-  const submitToBotBiz = async (data: typeof formData) => {
+  const submitLead = async (data: typeof formData) => {
+    const formatDate = (d: string) =>
+      d ? new Date(d).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) : "";
+    const formatTime = (t: string) => `'${t.replace(/AM/g, "am").replace(/PM/g, "pm")}`;
+
     try {
-      await fetch(BOTBIZ_URL, {
+      await fetch(`${BACKEND_URL}/api/submit-lead`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          Name: data.name,
-          Mobile_No_: `${data.countryCode.replace("+", "")}${data.phone}`,
-          Call_Date: data.preferredDate ? (() => { const date = new Date(data.preferredDate); return date.toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }); })() : "",
-          Call_Time: `'${data.preferredTime.replace(/AM/g, "am").replace(/PM/g, "pm")}`,
+          name: data.name,
+          phone: `${data.countryCode.replace("+", "")}${data.phone}`,
+          age: data.age,
+          city: data.city,
+          gender: data.gender,
+          weight: data.weight,
+          weightLossReason: data.weightLossReason,
+          healthCondition: data.healthCondition === "Other" ? `Other: ${data.healthConditionOther}` : data.healthCondition,
+          pastAttempts: data.pastAttempts,
+          weightGainCause: data.weightGainCause,
+          profession: data.profession,
+          busyness: data.busyness,
+          paidPlans: data.paidPlans,
+          languages: data.languages.join(", "),
+          callDate: formatDate(data.preferredDate),
+          callTime: formatTime(data.preferredTime),
+          details: [
+            `Age: ${data.age}`,
+            `City: ${data.city}`,
+            `Gender: ${data.gender}`,
+            `Weight: ${data.weight}`,
+            `Weight Loss Reason: ${data.weightLossReason}`,
+            `Health Condition: ${data.healthCondition === "Other" ? `Other: ${data.healthConditionOther}` : data.healthCondition}`,
+            `Past Attempts: ${data.pastAttempts}`,
+            `Weight Gain Cause: ${data.weightGainCause}`,
+            `Busyness: ${data.busyness}`,
+            `Paid Plans: ${data.paidPlans}`,
+            `Languages: ${data.languages.join(", ")}`,
+          ].join(" | "),
         }),
-        mode: "no-cors",
       });
     } catch (err) {
-      console.error("BotBiz error:", err);
+      console.error("Submit lead error:", err);
     }
   };
 
@@ -315,9 +332,7 @@ const LandingPage: React.FC = () => {
     if (Object.keys(errors).length > 0) { setFormErrors(errors); return; }
     setFormErrors({});
     if (formData.paidPlans === "No") {
-      setIsSubmitting(true);
-      await Promise.all([submitToGoogleSheet(formData), submitToBotBiz(formData)]);
-      setIsSubmitting(false);
+      // Skip saving — just redirect to thank you
       onNo();
     } else {
       onYes();
@@ -328,7 +343,7 @@ const LandingPage: React.FC = () => {
     const errors = validateStep6();
     if (Object.keys(errors).length > 0) { setFormErrors(errors); return; }
     setIsSubmitting(true);
-    await Promise.all([submitToGoogleSheet(formData), submitToBotBiz(formData)]);
+    await submitLead(formData);
     setIsSubmitting(false);
     onSuccess();
   };
@@ -1104,7 +1119,25 @@ const LandingPage: React.FC = () => {
                   </div>
                 )}
 
-                {modalStep === 6 && (
+                {modalStep === 6 && (() => {
+                  // Filter out past time slots if today is selected
+                  const todayStr = new Date().toISOString().split("T")[0];
+                  const isToday = formData.preferredDate === todayStr;
+                  const now = new Date();
+                  const availableSlots = TIME_SLOTS.filter((slot) => {
+                    if (!isToday) return true;
+                    // Parse slot like "10:00 AM"
+                    const [timePart, ampm] = slot.split(" ");
+                    const [h, m] = timePart.split(":").map(Number);
+                    let hour = h;
+                    if (ampm === "PM" && h !== 12) hour += 12;
+                    if (ampm === "AM" && h === 12) hour = 0;
+                    const slotDate = new Date();
+                    slotDate.setHours(hour, m, 0, 0);
+                    return slotDate > now;
+                  });
+
+                  return (
                   <div className="form-fields step2-fields">
                     <div className="form-group underline-field">
                       <label className="step2-label">Preferred Date for Call <span className="req">*</span></label>
@@ -1121,7 +1154,19 @@ const LandingPage: React.FC = () => {
 
                     <div className="form-group underline-field">
                       <label className="step2-label">Preferred Time for Call <span className="req">*</span></label>
-                      <ScrollSelect name="preferredTime" value={formData.preferredTime} placeholder="Select date and time" options={TIME_SLOTS} onChange={handleSelectChange} error={formErrors.preferredTime} />
+                      {loadingSlots ? (
+                        <div style={{ padding: "10px 0", color: "#888", fontSize: "14px" }}>Loading available slots...</div>
+                      ) : (
+                        <ScrollSelect
+                          name="preferredTime"
+                          value={formData.preferredTime}
+                          placeholder={formData.preferredDate ? "Select a time" : "Select a date first"}
+                          options={availableSlots}
+                          onChange={handleSelectChange}
+                          error={formErrors.preferredTime}
+                          disabledOptions={bookedSlots}
+                        />
+                      )}
                     </div>
 
                     <div className="form-group underline-field">
@@ -1164,7 +1209,8 @@ const LandingPage: React.FC = () => {
                       ) : "Book your consultation"}
                     </button>
                   </div>
-                )}
+                  );
+                })()}
               </div>
           </div>
         </div>
