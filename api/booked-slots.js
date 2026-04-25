@@ -47,15 +47,8 @@ export default async function handler(req, res) {
     // Ensure proper spacing before AM/PM
     normalized = normalized.replace(/(\d+:\d+)\s*(AM|PM)/, "$1 $2");
 
-    console.log(
-      "📅 Raw stored time:",
-      r.preferred_time,
-      "→ normalized:",
-      normalized,
-    );
     return normalized;
   });
 
-  console.log("📋 Booked slots for", date, ":", booked);
   res.json({ booked });
 }
