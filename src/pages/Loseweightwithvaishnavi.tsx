@@ -5,7 +5,7 @@ import "../styles/Loseweightwithvaishnavi.css";
 import vaishnaviImg from "../assets/vaishnavi.jpeg";
 import vaishnaviPoster from "../assets/vaishnaviposter.jpeg";
 import svasthaLogo from "../assets/svastha.png";
-import svasthaImage from "../assets/svasthaimage.png";
+
 
 // Custom scrollable dropdown for step forms
 const ScrollSelect: React.FC<{
