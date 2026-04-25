@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import { CheckCircle2 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import "../styles/Loseweightwithvaishnavi.css";
 import vaishnaviImg from "../assets/vaishnavi.jpeg";
@@ -70,6 +71,7 @@ const LandingPage: React.FC = () => {
   const [formStep, setFormStep] = useState(1);
   const [modalStep, setModalStep] = useState(1);
   const [showStickyBar, setShowStickyBar] = useState(false);
+  const [showThankYou, setShowThankYou] = useState(false);
 
   const [formData, setFormData] = useState({
     name: "", age: "", phone: "", countryCode: "+91", city: "", gender: "", weight: "",
@@ -327,13 +329,13 @@ const LandingPage: React.FC = () => {
     onNext();
   };
 
-  const handleStep5Next = async (onYes: () => void, onNo: () => void) => {
+  const handleStep5Next = async (onYes: () => void) => {
     const errors = validateStep5();
     if (Object.keys(errors).length > 0) { setFormErrors(errors); return; }
     setFormErrors({});
     if (formData.paidPlans === "No") {
-      // Skip saving — just redirect to thank you
-      onNo();
+      closeModal();
+      setShowThankYou(true);
     } else {
       onYes();
     }
@@ -1212,6 +1214,49 @@ const LandingPage: React.FC = () => {
                 );
               })()}
             </div>
+          </div>
+        </div>
+      )}
+
+      {/* THANK YOU MODAL */}
+      {showThankYou && (
+        <div
+          className="modal-overlay active"
+          onClick={() => setShowThankYou(false)}
+          style={{ display: "flex", alignItems: "center", justifyContent: "center" }}
+        >
+          <div
+            onClick={(e) => e.stopPropagation()}
+            style={{
+              background: "#fff",
+              borderRadius: "20px",
+              width: "min(320px, 92vw)",
+              height: "min(320px, 92vw)",
+              padding: "0 32px",
+              textAlign: "center",
+              position: "relative",
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: "12px",
+              boxShadow: "0 8px 40px rgba(0,0,0,0.18)",
+            }}
+          >
+            <button
+              onClick={() => setShowThankYou(false)}
+              aria-label="Close"
+              style={{
+                position: "absolute", top: "14px", right: "16px",
+                background: "none", border: "none", fontSize: "18px",
+                cursor: "pointer", color: "#999", lineHeight: 1,
+              }}
+            >✕</button>
+            <CheckCircle2 size={56} color="#4caf7d" strokeWidth={1.5} />
+            <h3 style={{ fontSize: "18px", fontWeight: 700, color: "#1a1a1a", margin: "4px 0 0", whiteSpace: "nowrap" }}>
+              Thank You for filling the form.
+            </h3>
+            <p style={{ color: "#777", fontSize: "14px", margin: 0 }}>We will be in touch!</p>
           </div>
         </div>
       )}
