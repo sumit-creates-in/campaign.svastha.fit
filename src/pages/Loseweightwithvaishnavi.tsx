@@ -6,6 +6,7 @@ import vaishnaviImg from "../assets/vaishnavi.jpeg";
 import vaishnaviPoster from "../assets/vaishnaviposter.jpeg";
 import svasthaLogo from "../assets/svastha.png";
 import svasthaImage from "../assets/svasthaimage.png";
+import { supabase } from "../lib/supabase";
 
 // Custom scrollable dropdown for step forms
 const ScrollSelect: React.FC<{
@@ -236,7 +237,7 @@ const LandingPage: React.FC = () => {
     return errors;
   };
 
-  const BACKEND_URL = import.meta.env.VITE_API_URL || "http://localhost:5000";
+  const BACKEND_URL = "";
 
   // Fetch booked slots whenever date changes (on step 6)
   useEffect(() => {
@@ -245,11 +246,17 @@ const LandingPage: React.FC = () => {
       month: "long", day: "numeric", year: "numeric",
     });
     setLoadingSlots(true);
-    fetch(`${BACKEND_URL}/api/booked-slots?date=${encodeURIComponent(formatted)}`)
-      .then((r) => r.json())
-      .then((d) => {
-        console.log("🕐 Booked slots received:", d.booked);
-        setBookedSlots(d.booked || []);
+    supabase
+      .from("vaishnavi_leads")
+      .select("preferred_time")
+      .eq("preferred_date", formatted)
+      .not("preferred_time", "is", null)
+      .then(({ data, error }) => {
+        if (error || !data) { setBookedSlots([]); return; }
+        const booked = data.map((r) =>
+          r.preferred_time.replace(/^'+/, "").trim().replace(/\s*am$/i, " AM").replace(/\s*pm$/i, " PM")
+        );
+        setBookedSlots(booked);
       })
       .catch(() => setBookedSlots([]))
       .finally(() => setLoadingSlots(false));
@@ -260,42 +267,62 @@ const LandingPage: React.FC = () => {
       d ? new Date(d).toLocaleDateString("en-US", { month: "long", day: "numeric", year: "numeric" }) : "";
     const formatTime = (t: string) => `'${t.replace(/AM/g, "am").replace(/PM/g, "pm")}`;
 
+    const callDate = formatDate(data.preferredDate);
+    const callTime = formatTime(data.preferredTime);
+
     try {
-      await fetch(`${BACKEND_URL}/api/submit-lead`, {
+      // Save directly to Supabase
+      const { error: dbError } = await supabase.from("vaishnavi_leads").insert({
+        name: data.name,
+        phone: `${data.countryCode.replace("+", "")}${data.phone}`,
+        age: data.age || null,
+        city: data.city || null,
+        gender: data.gender || null,
+        weight: data.weight || null,
+        weight_loss_reason: data.weightLossReason || null,
+        health_condition: data.healthCondition === "Other" ? `Other: ${data.healthConditionOther}` : data.healthCondition || null,
+        past_attempts: data.pastAttempts || null,
+        weight_gain_cause: data.weightGainCause || null,
+        profession: data.profession || null,
+        busyness: data.busyness || null,
+        paid_plans: data.paidPlans || null,
+        languages: data.languages.join(", ") || null,
+        preferred_date: callDate || null,
+        preferred_time: callTime || null,
+      });
+
+      if (dbError) console.error("Supabase insert error:", dbError);
+
+      // Fire webhooks (best-effort, don't block UI)
+      const phone = `${data.countryCode.replace("+", "")}${data.phone}`;
+      const GOOGLE_SHEET_URL = "https://script.google.com/macros/s/AKfycbwYjH-L7MrhHcv1WpsdD0tviAA6CqopwLXLcvZJEacKzXeZFob8wmADsxsk0mWyEced/exec?gid=1455575979";
+      const BOTBIZ_URL = "https://dash.botbiz.io/webhook/whatsapp-workflow/106644.375783.358876.1776863417";
+      const CAMPAIGN_WEBHOOK_URL = "https://campaigns.svastha.fit/wp-json/uap/v2/uap-250-251";
+
+      fetch(GOOGLE_SHEET_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: new URLSearchParams({
+          Name: data.name,
+          "Contact No.": phone,
+          "Call Date": callDate,
+          Source: "Lose-weight-with-vaishnavi",
+          "Call Time": callTime,
+        }).toString(),
+      }).catch(() => {});
+
+      fetch(BOTBIZ_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          name: data.name,
-          phone: `${data.countryCode.replace("+", "")}${data.phone}`,
-          age: data.age,
-          city: data.city,
-          gender: data.gender,
-          weight: data.weight,
-          weightLossReason: data.weightLossReason,
-          healthCondition: data.healthCondition === "Other" ? `Other: ${data.healthConditionOther}` : data.healthCondition,
-          pastAttempts: data.pastAttempts,
-          weightGainCause: data.weightGainCause,
-          profession: data.profession,
-          busyness: data.busyness,
-          paidPlans: data.paidPlans,
-          languages: data.languages.join(", "),
-          callDate: formatDate(data.preferredDate),
-          callTime: formatTime(data.preferredTime),
-          details: [
-            `Age: ${data.age}`,
-            `City: ${data.city}`,
-            `Gender: ${data.gender}`,
-            `Weight: ${data.weight}`,
-            `Weight Loss Reason: ${data.weightLossReason}`,
-            `Health Condition: ${data.healthCondition === "Other" ? `Other: ${data.healthConditionOther}` : data.healthCondition}`,
-            `Past Attempts: ${data.pastAttempts}`,
-            `Weight Gain Cause: ${data.weightGainCause}`,
-            `Busyness: ${data.busyness}`,
-            `Paid Plans: ${data.paidPlans}`,
-            `Languages: ${data.languages.join(", ")}`,
-          ].join(" | "),
-        }),
-      });
+        body: JSON.stringify({ Name: data.name, Mobile_No_: phone, Call_Date: callDate, Call_Time: callTime }),
+      }).catch(() => {});
+
+      fetch(CAMPAIGN_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: data.name, phone, call_date: callDate, call_time: callTime, source: "Lose-weight-with-vaishnavi" }),
+      }).catch(() => {});
+
     } catch (err) {
       console.error("Submit lead error:", err);
     }
