@@ -147,6 +147,8 @@ app.post("/api/submit-lead", leadLimiter, async (req, res) => {
     "https://script.google.com/macros/s/AKfycbwYjH-L7MrhHcv1WpsdD0tviAA6CqopwLXLcvZJEacKzXeZFob8wmADsxsk0mWyEced/exec?gid=1455575979";
   const BOTBIZ_URL =
     "https://dash.botbiz.io/webhook/whatsapp-workflow/106644.375783.358876.1776863417";
+  const CAMPAIGN_WEBHOOK_URL =
+    "https://campaigns.svastha.fit/wp-json/uap/v2/uap-250-251";
 
   const sheetPayload = new URLSearchParams({
     Name: data.name,
@@ -178,6 +180,23 @@ app.post("/api/submit-lead", leadLimiter, async (req, res) => {
     })
       .then(() => console.log("✅ BotBiz submitted"))
       .catch((err) => console.error("❌ BotBiz error:", err)),
+
+    fetch(CAMPAIGN_WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name: data.name,
+        phone: data.phone,
+        call_date: data.callDate || "",
+        call_time: data.callTime || "",
+        source: "Lose-weight-with-vaishnavi",
+      }),
+    })
+      .then(async (res) => {
+        const text = await res.text();
+        console.log("✅ Campaign webhook response:", res.status, text);
+      })
+      .catch((err) => console.error("❌ Campaign webhook error:", err)),
   ]);
 
   // 3. Vercel pe waitUntil, locally direct await
@@ -215,6 +234,41 @@ app.get("/api/booked-slots", async (req, res) => {
 
   console.log("📋 Booked slots for", date, ":", booked);
   res.json({ booked });
+});
+
+// 🧪 Test campaign webhook directly
+app.get("/api/test-campaign-webhook", async (req, res) => {
+  const CAMPAIGN_WEBHOOK_URL =
+    "https://campaigns.svastha.fit/wp-json/uap/v2/uap-250-251";
+
+  const payload = {
+    name: "Test User",
+    phone: "9999999999",
+    call_date: "April 25, 2026",
+    call_time: "10:00 AM",
+    source: "Lose-weight-with-vaishnavi",
+  };
+
+  try {
+    const response = await fetch(CAMPAIGN_WEBHOOK_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+
+    const text = await response.text();
+    console.log("🧪 Campaign webhook test:", response.status, text);
+
+    res.json({
+      status: response.status,
+      statusText: response.statusText,
+      response: text,
+      payloadSent: payload,
+    });
+  } catch (err) {
+    console.error("❌ Campaign webhook test error:", err);
+    res.status(500).json({ error: err.message });
+  }
 });
 
 // 🔍 Debug endpoint
