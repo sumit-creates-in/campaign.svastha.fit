@@ -1157,7 +1157,7 @@ const LandingPage: React.FC = () => {
 
                   <div className="step2-btn-row">
                     <button className="step2-btn prev" onClick={() => setModalStep(4)}>Prev</button>
-                    <button className="step2-btn next" onClick={() => handleStep5Next(() => setModalStep(6), () => navigate("/Thank-You-lose-weight-with-vaishnavi"))}>
+                    <button className="step2-btn next" onClick={() => handleStep5Next(() => setModalStep(6))}>
                       {isSubmitting ? <span><span className="spinner" /> Submitting...</span> : "Next"}
                     </button>
                   </div>
