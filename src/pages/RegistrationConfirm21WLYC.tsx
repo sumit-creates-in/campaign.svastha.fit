@@ -9,7 +9,7 @@ const RegistrationConfirm21WLYC = () => {
     }, []);
 
     const handleJoinWhatsApp = () => {
-        window.open("https://chat.whatsapp.com/LxBOa1tAQVq3EiawGmqdDA", "_blank");
+        window.open("https://chat.whatsapp.com/FpFO6eFyIvTBkgtYI7UDYP", "_blank");
     };
 
     const steps = [
@@ -107,7 +107,7 @@ const RegistrationConfirm21WLYC = () => {
                                 <Calendar className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                                 <div>
                                     <p className="text-sm text-gray-600 font-semibold">Date</p>
-                                    <p className="text-lg text-gray-900 font-bold">3rd May (Sunday)</p>
+                                    <p className="text-lg text-gray-900 font-bold">31st May (Sunday)</p>
                                 </div>
                             </div>
 
