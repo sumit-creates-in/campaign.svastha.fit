@@ -86,8 +86,6 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Failed to save lead" });
   }
 
-  console.log("✅ Lead saved to Supabase");
-
   // Respond immediately - webhooks will be triggered by Supabase Database Webhook
   res.json({ success: true });
 }

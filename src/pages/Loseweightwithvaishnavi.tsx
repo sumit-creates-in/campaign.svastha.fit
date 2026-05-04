@@ -996,193 +996,193 @@ const LandingPage: React.FC = () => {
             </button>
 
             <div className="lead-form">
-                <h3 className="form-title">Let's Get Started!</h3>
+              <h3 className="form-title">Let's Get Started!</h3>
 
-                <div className="progress-bar-container">
-                  <div className="progress-bar-bg">
-                    <div className="progress-bar-fill" style={{ width: `${(modalStep / 6) * 100}%` }}></div>
+              <div className="progress-bar-container">
+                <div className="progress-bar-bg">
+                  <div className="progress-bar-fill" style={{ width: `${(modalStep / 6) * 100}%` }}></div>
+                </div>
+              </div>
+
+              {modalStep === 1 && (
+                <div className="form-fields">
+                  <div className="form-row">
+                    <div className="form-group">
+                      <label>YOUR NAME *</label>
+                      <input type="text" name="name" placeholder="Priya Sharma" value={formData.name} onChange={handleFormChange} />
+                      {formErrors.name && <span className="form-error">{formErrors.name}</span>}
+                    </div>
+                    <div className="form-group">
+                      <label>AGE *</label>
+                      <input type="number" name="age" placeholder="28" value={formData.age} onChange={handleFormChange} />
+                      {formErrors.age && <span className="form-error">{formErrors.age}</span>}
+                    </div>
+                  </div>
+                  <div className="form-group">
+                    <label>CITY *</label>
+                    <input type="text" name="city" placeholder="Jaipur, Delhi, Mumbai..." value={formData.city} onChange={handleFormChange} />
+                    {formErrors.city && <span className="form-error">{formErrors.city}</span>}
+                  </div>
+                  <div className="form-group">
+                    <label>WHATSAPP NUMBER *</label>
+                    <div className="phone-input-wrap">
+                      <select
+                        className="phone-country-select"
+                        value={formData.countryCode}
+                        onChange={(e) => setFormData((prev) => ({ ...prev, countryCode: e.target.value, phone: "" }))}
+                      >
+                        <option value="+91">🇮🇳 +91</option>
+                        <option value="+1">🇺🇸 +1</option>
+                        <option value="+44">🇬🇧 +44</option>
+                        <option value="+61">🇦🇺 +61</option>
+                        <option value="+971">🇦🇪 +971</option>
+                        <option value="+65">🇸🇬 +65</option>
+                        <option value="+60">🇲🇾 +60</option>
+                        <option value="+64">🇳🇿 +64</option>
+                        <option value="+27">🇿🇦 +27</option>
+                        <option value="+49">🇩🇪 +49</option>
+                        <option value="+33">🇫🇷 +33</option>
+                        <option value="+81">🇯🇵 +81</option>
+                        <option value="+82">🇰🇷 +82</option>
+                        <option value="+86">🇨🇳 +86</option>
+                        <option value="+92">🇵🇰 +92</option>
+                        <option value="+880">🇧🇩 +880</option>
+                        <option value="+94">🇱🇰 +94</option>
+                        <option value="+977">🇳🇵 +977</option>
+                      </select>
+                      <input
+                        type="tel"
+                        name="phone"
+                        placeholder={formData.countryCode === "+91" ? "98765 43210" : "Enter number"}
+                        value={formData.phone}
+                        maxLength={formData.countryCode === "+91" ? 10 : 15}
+                        onChange={(e) => {
+                          const limit = formData.countryCode === "+91" ? 10 : 15;
+                          const digits = e.target.value.replace(/\D/g, "").slice(0, limit);
+                          setFormData((prev) => ({ ...prev, phone: digits }));
+                          if (formErrors.phone) setFormErrors((prev) => ({ ...prev, phone: "" }));
+                        }}
+                      />
+                    </div>
+                    {formErrors.phone && <span className="form-error">{formErrors.phone}</span>}
+                  </div>
+                  <div className="form-group">
+                    <label>GENDER *</label>
+                    <select name="gender" value={formData.gender} onChange={handleFormChange}>
+                      <option value="">Select gender</option>
+                      <option>Female</option>
+                      <option>Male</option>
+                      <option>Other</option>
+                      <option>Prefer not to say</option>
+                    </select>
+                    {formErrors.gender && <span className="form-error">{formErrors.gender}</span>}
+                  </div>
+                  <button className="submit-btn" onClick={() => handleStep1Next(() => setModalStep(2))}>
+                    Next →
+                  </button>
+                </div>
+              )}
+
+              {modalStep === 2 && (
+                <div className="form-fields step2-fields">
+                  <div className="form-group underline-field">
+                    <label className="step2-label">What is your current weight? (kg)</label>
+                    <input type="number" name="weight" placeholder="e.g. 72" value={formData.weight} onChange={handleFormChange} className="underline-input" />
+                  </div>
+
+                  <div className="form-group underline-field">
+                    <label className="step2-label">Why do you want to lose weight? <span className="req">*</span></label>
+                    <ScrollSelect name="weightLossReason" value={formData.weightLossReason} placeholder="Choose an option" options={WEIGHT_LOSS_REASONS} onChange={handleSelectChange} error={formErrors.weightLossReason} />
+                  </div>
+
+                  <div className="form-group underline-field">
+                    <label className="step2-label">Do you have any of the following health conditions? <span className="req">*</span></label>
+                    <ScrollSelect name="healthCondition" value={formData.healthCondition} placeholder="Choose an option" options={HEALTH_CONDITIONS} onChange={handleSelectChange} error={formErrors.healthCondition} />
+                    {formData.healthCondition === "Other" && (
+                      <input type="text" name="healthConditionOther" placeholder="Please specify..." value={formData.healthConditionOther} onChange={handleFormChange} className="underline-input" style={{ marginTop: "12px" }} />
+                    )}
+                  </div>
+
+                  <div className="step2-btn-row">
+                    <button className="step2-btn prev" onClick={() => setModalStep(1)}>Prev</button>
+                    <button className="step2-btn next" onClick={() => handleStep2Next(() => setModalStep(3))}>Next</button>
                   </div>
                 </div>
+              )}
 
-                {modalStep === 1 && (
-                  <div className="form-fields">
-                    <div className="form-row">
-                      <div className="form-group">
-                        <label>YOUR NAME *</label>
-                        <input type="text" name="name" placeholder="Priya Sharma" value={formData.name} onChange={handleFormChange} />
-                        {formErrors.name && <span className="form-error">{formErrors.name}</span>}
-                      </div>
-                      <div className="form-group">
-                        <label>AGE *</label>
-                        <input type="number" name="age" placeholder="28" value={formData.age} onChange={handleFormChange} />
-                        {formErrors.age && <span className="form-error">{formErrors.age}</span>}
-                      </div>
-                    </div>
-                    <div className="form-group">
-                      <label>CITY *</label>
-                      <input type="text" name="city" placeholder="Jaipur, Delhi, Mumbai..." value={formData.city} onChange={handleFormChange} />
-                      {formErrors.city && <span className="form-error">{formErrors.city}</span>}
-                    </div>
-                    <div className="form-group">
-                      <label>WHATSAPP NUMBER *</label>
-                      <div className="phone-input-wrap">
-                        <select
-                          className="phone-country-select"
-                          value={formData.countryCode}
-                          onChange={(e) => setFormData((prev) => ({ ...prev, countryCode: e.target.value, phone: "" }))}
-                        >
-                          <option value="+91">🇮🇳 +91</option>
-                          <option value="+1">🇺🇸 +1</option>
-                          <option value="+44">🇬🇧 +44</option>
-                          <option value="+61">🇦🇺 +61</option>
-                          <option value="+971">🇦🇪 +971</option>
-                          <option value="+65">🇸🇬 +65</option>
-                          <option value="+60">🇲🇾 +60</option>
-                          <option value="+64">🇳🇿 +64</option>
-                          <option value="+27">🇿🇦 +27</option>
-                          <option value="+49">🇩🇪 +49</option>
-                          <option value="+33">🇫🇷 +33</option>
-                          <option value="+81">🇯🇵 +81</option>
-                          <option value="+82">🇰🇷 +82</option>
-                          <option value="+86">🇨🇳 +86</option>
-                          <option value="+92">🇵🇰 +92</option>
-                          <option value="+880">🇧🇩 +880</option>
-                          <option value="+94">🇱🇰 +94</option>
-                          <option value="+977">🇳🇵 +977</option>
-                        </select>
-                        <input
-                          type="tel"
-                          name="phone"
-                          placeholder={formData.countryCode === "+91" ? "98765 43210" : "Enter number"}
-                          value={formData.phone}
-                          maxLength={formData.countryCode === "+91" ? 10 : 15}
-                          onChange={(e) => {
-                            const limit = formData.countryCode === "+91" ? 10 : 15;
-                            const digits = e.target.value.replace(/\D/g, "").slice(0, limit);
-                            setFormData((prev) => ({ ...prev, phone: digits }));
-                            if (formErrors.phone) setFormErrors((prev) => ({ ...prev, phone: "" }));
-                          }}
-                        />
-                      </div>
-                      {formErrors.phone && <span className="form-error">{formErrors.phone}</span>}
-                    </div>
-                    <div className="form-group">
-                      <label>GENDER *</label>
-                      <select name="gender" value={formData.gender} onChange={handleFormChange}>
-                        <option value="">Select gender</option>
-                        <option>Female</option>
-                        <option>Male</option>
-                        <option>Other</option>
-                        <option>Prefer not to say</option>
-                      </select>
-                      {formErrors.gender && <span className="form-error">{formErrors.gender}</span>}
-                    </div>
-                    <button className="submit-btn" onClick={() => handleStep1Next(() => setModalStep(2))}>
-                      Next →
+              {modalStep === 3 && (
+                <div className="form-fields step2-fields">
+                  <div className="form-group underline-field">
+                    <label className="step2-label">Have you attempted any of the following in the past to lose weight? <span className="req">*</span></label>
+                    <ScrollSelect name="pastAttempts" value={formData.pastAttempts} placeholder="Choose an option" options={PAST_ATTEMPTS} onChange={handleSelectChange} error={formErrors.pastAttempts} />
+                  </div>
+
+                  <div className="form-group underline-field">
+                    <label className="step2-label">What led to your weight gain? <span className="req">*</span></label>
+                    <ScrollSelect name="weightGainCause" value={formData.weightGainCause} placeholder="Choose an option" options={WEIGHT_GAIN_CAUSES} onChange={handleSelectChange} error={formErrors.weightGainCause} />
+                  </div>
+
+                  <div className="step2-btn-row">
+                    <button className="step2-btn prev" onClick={() => setModalStep(2)}>Prev</button>
+                    <button className="step2-btn next" onClick={() => handleStep3Next(() => setModalStep(4))}>Next</button>
+                  </div>
+                </div>
+              )}
+
+              {modalStep === 4 && (
+                <div className="form-fields step2-fields">
+                  <div className="form-group underline-field">
+                    <label className="step2-label">What is your current profession? <span className="req">*</span></label>
+                    <ScrollSelect name="profession" value={formData.profession} placeholder="Choose an option" options={PROFESSIONS} onChange={handleSelectChange} error={formErrors.profession} />
+                  </div>
+
+                  <div className="form-group underline-field">
+                    <label className="step2-label">How busy are you on an average day? <span className="req">*</span></label>
+                    <ScrollSelect name="busyness" value={formData.busyness} placeholder="Choose an Option" options={BUSYNESS_OPTIONS} onChange={handleSelectChange} error={formErrors.busyness} />
+                  </div>
+
+                  <div className="step2-btn-row">
+                    <button className="step2-btn prev" onClick={() => setModalStep(3)}>Prev</button>
+                    <button className="step2-btn next" onClick={() => handleStep4Next(() => setModalStep(5))}>Next</button>
+                  </div>
+                </div>
+              )}
+
+              {modalStep === 5 && (
+                <div className="form-fields step2-fields">
+                  <div className="form-group underline-field">
+                    <label className="step2-label">Are you ok with paid plans? <span className="req">*</span></label>
+                    <ScrollSelect name="paidPlans" value={formData.paidPlans} placeholder="Choose an Option" options={["Yes", "No"]} onChange={handleSelectChange} error={formErrors.paidPlans} />
+                  </div>
+
+                  <div className="step2-btn-row">
+                    <button className="step2-btn prev" onClick={() => setModalStep(4)}>Prev</button>
+                    <button className="step2-btn next" onClick={() => handleStep5Next(() => setModalStep(6), () => navigate("/Thank-You-lose-weight-with-vaishnavi"))}>
+                      {isSubmitting ? <span><span className="spinner" /> Submitting...</span> : "Next"}
                     </button>
                   </div>
-                )}
+                </div>
+              )}
 
-                {modalStep === 2 && (
-                  <div className="form-fields step2-fields">
-                    <div className="form-group underline-field">
-                      <label className="step2-label">What is your current weight? (kg)</label>
-                      <input type="number" name="weight" placeholder="e.g. 72" value={formData.weight} onChange={handleFormChange} className="underline-input" />
-                    </div>
+              {modalStep === 6 && (() => {
+                // Filter out past time slots if today is selected
+                const todayStr = new Date().toISOString().split("T")[0];
+                const isToday = formData.preferredDate === todayStr;
+                const now = new Date();
+                const availableSlots = TIME_SLOTS.filter((slot) => {
+                  if (!isToday) return true;
+                  // Parse slot like "10:00 AM"
+                  const [timePart, ampm] = slot.split(" ");
+                  const [h, m] = timePart.split(":").map(Number);
+                  let hour = h;
+                  if (ampm === "PM" && h !== 12) hour += 12;
+                  if (ampm === "AM" && h === 12) hour = 0;
+                  const slotDate = new Date();
+                  slotDate.setHours(hour, m, 0, 0);
+                  return slotDate > now;
+                });
 
-                    <div className="form-group underline-field">
-                      <label className="step2-label">Why do you want to lose weight? <span className="req">*</span></label>
-                      <ScrollSelect name="weightLossReason" value={formData.weightLossReason} placeholder="Choose an option" options={WEIGHT_LOSS_REASONS} onChange={handleSelectChange} error={formErrors.weightLossReason} />
-                    </div>
-
-                    <div className="form-group underline-field">
-                      <label className="step2-label">Do you have any of the following health conditions? <span className="req">*</span></label>
-                      <ScrollSelect name="healthCondition" value={formData.healthCondition} placeholder="Choose an option" options={HEALTH_CONDITIONS} onChange={handleSelectChange} error={formErrors.healthCondition} />
-                      {formData.healthCondition === "Other" && (
-                        <input type="text" name="healthConditionOther" placeholder="Please specify..." value={formData.healthConditionOther} onChange={handleFormChange} className="underline-input" style={{ marginTop: "12px" }} />
-                      )}
-                    </div>
-
-                    <div className="step2-btn-row">
-                      <button className="step2-btn prev" onClick={() => setModalStep(1)}>Prev</button>
-                      <button className="step2-btn next" onClick={() => handleStep2Next(() => setModalStep(3))}>Next</button>
-                    </div>
-                  </div>
-                )}
-
-                {modalStep === 3 && (
-                  <div className="form-fields step2-fields">
-                    <div className="form-group underline-field">
-                      <label className="step2-label">Have you attempted any of the following in the past to lose weight? <span className="req">*</span></label>
-                      <ScrollSelect name="pastAttempts" value={formData.pastAttempts} placeholder="Choose an option" options={PAST_ATTEMPTS} onChange={handleSelectChange} error={formErrors.pastAttempts} />
-                    </div>
-
-                    <div className="form-group underline-field">
-                      <label className="step2-label">What led to your weight gain? <span className="req">*</span></label>
-                      <ScrollSelect name="weightGainCause" value={formData.weightGainCause} placeholder="Choose an option" options={WEIGHT_GAIN_CAUSES} onChange={handleSelectChange} error={formErrors.weightGainCause} />
-                    </div>
-
-                    <div className="step2-btn-row">
-                      <button className="step2-btn prev" onClick={() => setModalStep(2)}>Prev</button>
-                      <button className="step2-btn next" onClick={() => handleStep3Next(() => setModalStep(4))}>Next</button>
-                    </div>
-                  </div>
-                )}
-
-                {modalStep === 4 && (
-                  <div className="form-fields step2-fields">
-                    <div className="form-group underline-field">
-                      <label className="step2-label">What is your current profession? <span className="req">*</span></label>
-                      <ScrollSelect name="profession" value={formData.profession} placeholder="Choose an option" options={PROFESSIONS} onChange={handleSelectChange} error={formErrors.profession} />
-                    </div>
-
-                    <div className="form-group underline-field">
-                      <label className="step2-label">How busy are you on an average day? <span className="req">*</span></label>
-                      <ScrollSelect name="busyness" value={formData.busyness} placeholder="Choose an Option" options={BUSYNESS_OPTIONS} onChange={handleSelectChange} error={formErrors.busyness} />
-                    </div>
-
-                    <div className="step2-btn-row">
-                      <button className="step2-btn prev" onClick={() => setModalStep(3)}>Prev</button>
-                      <button className="step2-btn next" onClick={() => handleStep4Next(() => setModalStep(5))}>Next</button>
-                    </div>
-                  </div>
-                )}
-
-                {modalStep === 5 && (
-                  <div className="form-fields step2-fields">
-                    <div className="form-group underline-field">
-                      <label className="step2-label">Are you ok with paid plans? <span className="req">*</span></label>
-                      <ScrollSelect name="paidPlans" value={formData.paidPlans} placeholder="Choose an Option" options={["Yes", "No"]} onChange={handleSelectChange} error={formErrors.paidPlans} />
-                    </div>
-
-                    <div className="step2-btn-row">
-                      <button className="step2-btn prev" onClick={() => setModalStep(4)}>Prev</button>
-                      <button className="step2-btn next" onClick={() => handleStep5Next(() => setModalStep(6))}>
-                        {isSubmitting ? <span><span className="spinner" /> Submitting...</span> : "Next"}
-                      </button>
-                    </div>
-                  </div>
-                )}
-
-                {modalStep === 6 && (() => {
-                  // Filter out past time slots if today is selected
-                  const todayStr = new Date().toISOString().split("T")[0];
-                  const isToday = formData.preferredDate === todayStr;
-                  const now = new Date();
-                  const availableSlots = TIME_SLOTS.filter((slot) => {
-                    if (!isToday) return true;
-                    // Parse slot like "10:00 AM"
-                    const [timePart, ampm] = slot.split(" ");
-                    const [h, m] = timePart.split(":").map(Number);
-                    let hour = h;
-                    if (ampm === "PM" && h !== 12) hour += 12;
-                    if (ampm === "AM" && h === 12) hour = 0;
-                    const slotDate = new Date();
-                    slotDate.setHours(hour, m, 0, 0);
-                    return slotDate > now;
-                  });
-
-                  return (
+                return (
                   <div className="form-fields step2-fields">
                     <div className="form-group underline-field">
                       <label className="step2-label">Preferred Date for Call <span className="req">*</span></label>
@@ -1254,9 +1254,9 @@ const LandingPage: React.FC = () => {
                       ) : "Book your consultation"}
                     </button>
                   </div>
-                  );
-                })()}
-              </div>
+                );
+              })()}
+            </div>
           </div>
         </div>
       )}
