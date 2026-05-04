@@ -299,6 +299,21 @@ const LandingPage: React.FC = () => {
       const BOTBIZ_URL = "https://dash.botbiz.io/webhook/whatsapp-workflow/106644.375783.358876.1776863417";
       const CAMPAIGN_WEBHOOK_URL = "https://campaigns.svastha.fit/wp-json/uap/v2/uap-250-251";
 
+      const details = [
+        `Age: ${data.age || "-"}`,
+        `City: ${data.city || "-"}`,
+        `Gender: ${data.gender || "-"}`,
+        `Weight: ${data.weight || "-"}`,
+        `Weight Loss Reason: ${data.weightLossReason || "-"}`,
+        `Health Condition: ${data.healthCondition === "Other" ? `Other: ${data.healthConditionOther}` : data.healthCondition || "-"}`,
+        `Past Attempts: ${data.pastAttempts || "-"}`,
+        `Weight Gain Cause: ${data.weightGainCause || "-"}`,
+        `Profession: ${data.profession || "-"}`,
+        `Busyness: ${data.busyness || "-"}`,
+        `Paid Plans: ${data.paidPlans || "-"}`,
+        `Languages: ${data.languages.join(", ") || "-"}`,
+      ].join(" | ");
+
       fetch(GOOGLE_SHEET_URL, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -308,6 +323,7 @@ const LandingPage: React.FC = () => {
           "Call Date": callDate,
           Source: "Lose-weight-with-vaishnavi",
           "Call Time": callTime,
+          Details: details,
         }).toString(),
       }).catch(() => {});
 
@@ -1141,7 +1157,7 @@ const LandingPage: React.FC = () => {
 
                   <div className="step2-btn-row">
                     <button className="step2-btn prev" onClick={() => setModalStep(4)}>Prev</button>
-                    <button className="step2-btn next" onClick={() => handleStep5Next(() => setModalStep(6), () => navigate("/Thank-You-lose-weight-with-vaishnavi"))}>
+                    <button className="step2-btn next" onClick={() => handleStep5Next(() => setModalStep(6))}>
                       {isSubmitting ? <span><span className="spinner" /> Submitting...</span> : "Next"}
                     </button>
                   </div>
