@@ -174,7 +174,4 @@ Object.entries(routes).forEach(([route, meta]) => {
 
   // Write the HTML file
   fs.writeFileSync(path.join(routeDir, "index.html"), html);
-  console.log(`Generated: ${route}/index.html`);
 });
-
-console.log("Static pages generated successfully!");

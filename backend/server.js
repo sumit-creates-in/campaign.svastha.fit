@@ -61,8 +61,6 @@ app.post("/api/register", async (req, res) => {
         .json({ error: "Please enter a valid email address" });
     }
 
-    console.log("📝 Registering user:", { name, email });
-
     // Check if already registered
     const { data: existingRegistration } = await supabase
       .from("yoga_registrations")
@@ -71,7 +69,6 @@ app.post("/api/register", async (req, res) => {
       .single();
 
     if (existingRegistration) {
-      console.log("✅ User already registered");
       return res.json({
         success: true,
         message: `${existingRegistration.name} is already registered for yoga camp`,
@@ -94,7 +91,6 @@ app.post("/api/register", async (req, res) => {
       return res.status(500).json({ error: "Failed to register" });
     }
 
-    console.log("✅ Registration successful");
     res.json({
       success: true,
       message: `${name} successfully registered for yoga camp!`,
@@ -136,8 +132,6 @@ app.post("/api/submit-lead", leadLimiter, async (req, res) => {
   if (dbError) {
     console.error("❌ Supabase insert error:", dbError);
     // Don't block — still respond success and fire webhooks
-  } else {
-    console.log("✅ Lead saved to Supabase");
   }
 
   // 2. Respond immediately — user ko success mil gaya
@@ -165,7 +159,7 @@ app.post("/api/submit-lead", leadLimiter, async (req, res) => {
       headers: { "Content-Type": "application/x-www-form-urlencoded" },
       body: sheetPayload,
     })
-      .then(() => console.log("✅ Google Sheet submitted"))
+      .then()
       .catch((err) => console.error("❌ Google Sheet error:", err)),
 
     fetch(BOTBIZ_URL, {
@@ -178,7 +172,7 @@ app.post("/api/submit-lead", leadLimiter, async (req, res) => {
         Call_Time: data.callTime || "",
       }),
     })
-      .then(() => console.log("✅ BotBiz submitted"))
+      .then()
       .catch((err) => console.error("❌ BotBiz error:", err)),
 
     fetch(CAMPAIGN_WEBHOOK_URL, {
@@ -228,11 +222,10 @@ app.get("/api/booked-slots", async (req, res) => {
   // DB stores as "'10:00 am" or "10:00 am" — strip apostrophe, trim, uppercase
   const booked = data.map((r) => {
     const raw = r.preferred_time.replace(/^'+/, "").trim().toUpperCase();
-    console.log("📅 Raw stored time:", r.preferred_time, "→ normalized:", raw);
+
     return raw;
   });
 
-  console.log("📋 Booked slots for", date, ":", booked);
   res.json({ booked });
 });
 
@@ -281,11 +274,4 @@ app.get("/api/debug", (req, res) => {
   });
 });
 
-app.listen(PORT, () => {
-  console.log(`🚀 Server running on port ${PORT}`);
-  console.log(
-    `🔗 Supabase URL: ${
-      process.env.SUPABASE_URL ? "Connected" : "Not configured"
-    }`
-  );
-});
+app.listen(PORT, () => {});

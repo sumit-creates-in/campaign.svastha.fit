@@ -12,6 +12,3 @@ export const config = {
   // Webhook URL
   webhookUrl: "https://strongbyyoga.com/wp-json/uap/v2/uap-76485-76486",
 };
-
-console.log(`🚀 App running in ${config.mode} mode`);
-console.log(`📡 Using webhook: ${config.webhookUrl}`);

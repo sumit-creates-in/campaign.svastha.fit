@@ -34,8 +34,6 @@ export default async function handler(req, res) {
       .json({ error: "Please enter a valid email address" });
   }
 
-  console.log("📝 Registering user:", { name, email });
-
   // Check if already registered
   const { data: existingRegistration } = await supabase
     .from("yoga_registrations")
@@ -44,7 +42,6 @@ export default async function handler(req, res) {
     .single();
 
   if (existingRegistration) {
-    console.log("✅ User already registered");
     return res.json({
       success: true,
       message: `${existingRegistration.name} is already registered for yoga camp`,
@@ -66,8 +63,6 @@ export default async function handler(req, res) {
     console.error("❌ Registration error:", error);
     return res.status(500).json({ error: "Failed to register" });
   }
-
-  console.log("✅ Registration successful");
   res.json({
     success: true,
     message: `${name} successfully registered for yoga camp!`,

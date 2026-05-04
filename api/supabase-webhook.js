@@ -16,12 +16,12 @@ export default async function handler(req, res) {
     return res.json({ success: true, message: "Ignored non-INSERT event" });
   }
 
-  console.log("📥 New lead received from Supabase:", record.name);
-
   const GOOGLE_SHEET_URL =
     "https://script.google.com/macros/s/AKfycbwYjH-L7MrhHcv1WpsdD0tviAA6CqopwLXLcvZJEacKzXeZFob8wmADsxsk0mWyEced/exec?gid=1455575979";
   const BOTBIZ_URL =
     "https://dash.botbiz.io/webhook/whatsapp-workflow/106644.375783.358876.1776863417";
+  const SVASTHA_WEBHOOK_URL =
+    "https://campaigns.svastha.fit/wp-json/uap/v2/uap-250-251";
 
   // Build complete details string matching old backend format
   const detailsParts = [
@@ -53,7 +53,7 @@ export default async function handler(req, res) {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
         body: sheetPayload,
-      }).then(() => console.log("✅ Google Sheet submitted")),
+      }).then(),
 
       fetch(BOTBIZ_URL, {
         method: "POST",
@@ -64,7 +64,13 @@ export default async function handler(req, res) {
           Call_Date: record.preferred_date || "",
           Call_Time: record.preferred_time || "",
         }),
-      }).then(() => console.log("✅ BotBiz submitted")),
+      }).then(),
+
+      fetch(SVASTHA_WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: sheetPayload,
+      }).then(),
     ]);
 
     res.json({ success: true, message: "Webhooks fired successfully" });
