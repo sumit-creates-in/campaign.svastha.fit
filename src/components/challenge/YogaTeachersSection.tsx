@@ -1,14 +1,14 @@
 import { motion } from "framer-motion";
-import muditImage from "@/assets/mudit m.jpeg";
+import TanviImage from "@/assets/TanviPanvar.jpeg";
 import karishmaImage from "@/assets/karishma Kaintura.jpeg";
 import saumyaImage from "@/assets/Saumya.jpg";
 
 export const YogaTeachersSection = () => {
   const teachers = [
     {
-      name: "Mudit Malviya",
+      name: "Tanvi Panvar",
       title: "Yoga Instructor",
-      image: muditImage,
+      image: TanviImage,
       objectPosition: "center",
     },
     {
