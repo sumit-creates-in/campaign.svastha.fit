@@ -10,6 +10,31 @@ interface ScrollPopupModalProps {
 export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [hasShown, setHasShown] = useState(false);
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0 });
+
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      const now = new Date();
+      const endDate = new Date('2026-06-15T12:00:00');
+      
+      const difference = endDate.getTime() - now.getTime();
+      
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((difference / 1000 / 60) % 60);
+        
+        setTimeLeft({ days, hours, minutes });
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0 });
+      }
+    };
+
+    calculateTimeLeft();
+    const timer = setInterval(calculateTimeLeft, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -84,6 +109,12 @@ export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalPro
                 <h3 className="text-base font-bold text-gray-900 leading-tight text-center">
                   Upgrade to Personalized 21 Day Plan to Get:
                 </h3>
+                <p className="text-xs text-red-600 font-semibold flex items-center justify-center gap-2 mt-1">
+                  Limited Time Offer :
+                  <span className="font-bold text-red-600">
+                    {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m
+                  </span>
+                </p>
               </div>
             </div>
 
@@ -123,7 +154,7 @@ export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalPro
               }}
               className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 mb-3 mt-2 flex flex-col items-center leading-tight gap-0.5">
               <span>Upgrade to Personalized Plan</span>
-              <span>Rs. 2790</span>
+              <span>Rs. 1790</span>
             </Button>
           </div>
 
@@ -137,7 +168,7 @@ export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalPro
             </div>
             <div className="text-center mb-2">
               <p className="text-red-500 font-semibold text-sm">Rs. 100 off</p>
-              <p className="text-gray-700 font-medium text-xs">Starts 31st May 2026</p>
+              <p className="text-gray-700 font-medium text-xs">Starts 28st June 2026</p>
             </div>
           </div>
 
@@ -148,7 +179,7 @@ export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalPro
               window.open("https://pages.razorpay.com/pl_QHg0K5EhmJMBP8/view", "_blank");
             }}
             className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
-            Join Group Plan - Rs. 890
+            Join Group Plan - Rs. 490
           </Button>
         </div>
       </div>

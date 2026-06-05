@@ -1,5 +1,6 @@
 import { X, Check } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useState, useEffect } from "react";
 
 interface UpgradeModalProps {
   isOpen: boolean;
@@ -9,6 +10,32 @@ interface UpgradeModalProps {
 }
 
 export const UpgradeModal = ({ isOpen, onClose, onUpgrade, onJoinGroup }: UpgradeModalProps) => {
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0 });
+
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      const now = new Date();
+      const endDate = new Date('2026-06-15T12:00:00');
+      
+      const difference = endDate.getTime() - now.getTime();
+      
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((difference / 1000 / 60) % 60);
+        
+        setTimeLeft({ days, hours, minutes });
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0 });
+      }
+    };
+
+    calculateTimeLeft();
+    const timer = setInterval(calculateTimeLeft, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
+
   if (!isOpen) return null;
 
   return (
@@ -34,9 +61,15 @@ export const UpgradeModal = ({ isOpen, onClose, onUpgrade, onJoinGroup }: Upgrad
                 Want to Upgrade to 21 Day
               </h2>
             </div>
-            <h2 className="text-base font-bold text-gray-900 leading-tight">
+            <h2 className="text-base font-bold text-gray-900 leading-tight mb-2">
               Personalized Plan?
             </h2>
+            <p className="text-xs text-red-600 font-semibold flex items-center justify-center gap-2">
+              Limited Time Offer :
+              <span className="font-bold text-red-600">
+                {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m
+              </span>
+            </p>
           </div>
 
           {/* Upgrade Benefits */}
@@ -69,7 +102,7 @@ export const UpgradeModal = ({ isOpen, onClose, onUpgrade, onJoinGroup }: Upgrad
           <Button
             onClick={() => window.open('https://pages.razorpay.com/pl_QHMy1AvL4XDeqQ/view', '_blank')}
             className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 mb-5">
-            Upgrade & Pay Rs. 2990
+            Upgrade & Pay Rs. 1990
           </Button>
 
           {/* No Upgrade Section */}
@@ -81,7 +114,7 @@ export const UpgradeModal = ({ isOpen, onClose, onUpgrade, onJoinGroup }: Upgrad
               </h3>
             </div>
             <p className="text-center text-gray-700 font-medium text-xs mb-3">
-              Starts 31st May 2026
+              Starts 28st June 2026
             </p>
           </div>
 
@@ -89,7 +122,7 @@ export const UpgradeModal = ({ isOpen, onClose, onUpgrade, onJoinGroup }: Upgrad
           <Button
             onClick={() => window.open('https://pages.razorpay.com/pl_QHMrm9qAqyqcdA/view', '_blank')}
             className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
-            Join Group Plan - Rs. 990
+            Join Group Plan - Rs. 590
           </Button>
         </div>
       </div>

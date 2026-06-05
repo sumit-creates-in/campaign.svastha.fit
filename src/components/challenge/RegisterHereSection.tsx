@@ -39,7 +39,7 @@ export const RegisterHereSection = ({ onRegister }: RegisterHereSectionProps) =>
             <div className="text-center mb-6">
               <div className="flex items-center justify-center gap-2 mb-2">
                 <span className="text-lg text-red-400 line-through font-medium">₹ 2900/-</span>
-                <span className="text-2xl font-bold text-gray-900">₹ 990/-</span>
+                <span className="text-2xl font-bold text-gray-900">₹ 590/-</span>
                 <span className="text-gray-600 font-medium">only</span>
               </div>
               <p className="text-xs text-gray-600">All Inclusive</p>
