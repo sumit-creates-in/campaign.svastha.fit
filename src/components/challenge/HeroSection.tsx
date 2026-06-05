@@ -16,7 +16,7 @@ export const HeroSection = ({ scrollToRegistration }: HeroSectionProps) => {
     startDate: '2026-03-30T18:00:00Z',
   });
 
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+  const [timeLeft, setTimeLeft] = useState({ days: 0 });
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -26,14 +26,11 @@ export const HeroSection = ({ scrollToRegistration }: HeroSectionProps) => {
       const difference = endDate.getTime() - now.getTime();
       
       if (difference > 0) {
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((difference / 1000 / 60) % 60);
-        const seconds = Math.floor((difference / 1000) % 60);
-        
-        setTimeLeft({ days, hours, minutes, seconds });
+        // Calculate total days and round up if there are remaining hours
+        const totalDays = Math.ceil(difference / (1000 * 60 * 60 * 24));
+        setTimeLeft({ days: totalDays });
       } else {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+        setTimeLeft({ days: 0 });
       }
     };
 
@@ -141,7 +138,7 @@ export const HeroSection = ({ scrollToRegistration }: HeroSectionProps) => {
                 <p className="text-center md:text-left text-sm text-red-600 font-medium flex items-center justify-center md:justify-start gap-2 md:pl-2" style={{ marginTop: "15px" }}>
                   Limited Time Offer:
                   <span className="ml-2 font-bold text-red-600">
-                  {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m
+                  {timeLeft.days} Days Left
                   </span>
                 </p>
                 <p className="text-center md:text-left mt-3 text-lg font-semibold text-gray-700 md:pl-2">
