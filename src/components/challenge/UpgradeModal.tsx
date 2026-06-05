@@ -10,7 +10,7 @@ interface UpgradeModalProps {
 }
 
 export const UpgradeModal = ({ isOpen, onClose, onUpgrade, onJoinGroup }: UpgradeModalProps) => {
-  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0 });
+  const [timeLeft, setTimeLeft] = useState({ days: 0 });
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -20,13 +20,11 @@ export const UpgradeModal = ({ isOpen, onClose, onUpgrade, onJoinGroup }: Upgrad
       const difference = endDate.getTime() - now.getTime();
       
       if (difference > 0) {
-        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
-        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
-        const minutes = Math.floor((difference / 1000 / 60) % 60);
-        
-        setTimeLeft({ days, hours, minutes });
+        // Calculate total days and round up if there are remaining hours
+        const totalDays = Math.ceil(difference / (1000 * 60 * 60 * 24));
+        setTimeLeft({ days: totalDays });
       } else {
-        setTimeLeft({ days: 0, hours: 0, minutes: 0 });
+        setTimeLeft({ days: 0 });
       }
     };
 
@@ -67,7 +65,7 @@ export const UpgradeModal = ({ isOpen, onClose, onUpgrade, onJoinGroup }: Upgrad
             <p className="text-xs text-red-600 font-semibold flex items-center justify-center gap-2">
               Limited Time Offer :
               <span className="font-bold text-red-600">
-                {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m
+                {timeLeft.days} Days Left
               </span>
             </p>
           </div>
