@@ -17,6 +17,7 @@ import TwentyOneDayTotalBodyTransformationProgram from "./pages/TwentyOneDayTota
 import Loseweightwithvaishnavi from "./pages/Loseweightwithvaishnavi";
 import ThankYouLoseWeightVaishnavi from "./pages/ThankYouLoseWeightVaishnavi";
 import U21DWLCPaymentConfirmation from "./pages/U21DWLCPaymentConfirmation";
+import JoinSvasthaCommunity from "./pages/JoinSvasthaCommunity";
 import NotFound from "./pages/NotFound";
 import { CounterTest } from "./components/test/CounterTest";
 
@@ -47,6 +48,7 @@ const App = () => (
           <Route path="/Lose-weight-with-vaishnavi" element={<Loseweightwithvaishnavi />} />
           <Route path="/Thank-You-lose-weight-with-vaishnavi" element={<ThankYouLoseWeightVaishnavi />} />
           <Route path="/u21dwlc-paymentconfirmation-2" element={<U21DWLCPaymentConfirmation />} />
+          <Route path="/join-svastha-community" element={<JoinSvasthaCommunity />} />
           <Route path="/test-counter" element={<CounterTest />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
           <Route path="*" element={<NotFound />} />
