@@ -9,7 +9,7 @@ const PLAN_DATA = {
       base: 10800, 
       perMonth: 575, 
       link: "https://rzp.io/rzp/7vgo0f2W",
-      badge: "Save ₹2k+",
+      badge: "Save ₹3.9k",
       features: [
         "� Communitiy Diet Plan",
         "📺 Weekly Live with Sumit",
@@ -365,7 +365,7 @@ function PlanCard({ planKey, planData, duration }) {
         transform: visible ? "none" : "translateY(24px)",
         transition: "opacity 0.5s ease, transform 0.5s ease",
         minWidth: 280,
-        width: "85vw",
+        width: "60vw",
         maxWidth: 380,
         flexShrink: 0,
         scrollSnapAlign: "start",
@@ -443,34 +443,36 @@ function CompareTable() {
       style={{
         background: "white",
         borderRadius: 20,
-        padding: "24px 16px",
+        padding: "20px 14px",
         boxShadow: "0 8px 32px rgba(26,122,74,0.12)",
         opacity: visible ? 1 : 0,
         transform: visible ? "none" : "translateY(24px)",
         transition: "opacity 0.5s ease, transform 0.5s ease",
         overflowX: "auto",
+        maxWidth: "90%",
+        margin: "0 auto",
       }}
     >
-      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12 }}>
+      <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 12, minWidth: 420 }}>
         <thead>
           <tr>
-            <th style={{ padding: "8px 4px", fontWeight: 800, fontSize: 11, textAlign: "left", minWidth: 120 }}></th>
-            <th style={{ padding: "8px 4px", fontWeight: 800, fontSize: 11, textAlign: "center", color: "#1565c0" }}>Group</th>
-            <th style={{ padding: "8px 4px", fontWeight: 800, fontSize: 11, textAlign: "center", color: "#d97706" }}>Silver</th>
-            <th style={{ padding: "8px 4px", fontWeight: 800, fontSize: 11, textAlign: "center", color: "#e65100" }}>Gold</th>
+            <th style={{ padding: "8px 6px", fontWeight: 800, fontSize: 11, textAlign: "left", minWidth: 120 }}></th>
+            <th style={{ padding: "8px 6px", fontWeight: 800, fontSize: 11, textAlign: "center", color: "#1565c0", minWidth: 75 }}>Group</th>
+            <th style={{ padding: "8px 6px", fontWeight: 800, fontSize: 11, textAlign: "center", color: "#d97706", minWidth: 75 }}>Silver</th>
+            <th style={{ padding: "8px 6px", fontWeight: 800, fontSize: 11, textAlign: "center", color: "#e65100", minWidth: 75 }}>Gold</th>
           </tr>
         </thead>
         <tbody>
           {COMPARE_ROWS.map(({ feature, group, silver, gold }, i) => (
             <tr key={feature} style={{ background: i % 2 === 0 ? "#f9fdf9" : "white" }}>
-              <td style={{ padding: "11px 4px", fontWeight: 700, fontSize: 12, color: "#1a1a2e", borderBottom: "1px solid #f0f0f0" }}>{feature}</td>
-              <td style={{ padding: "11px 4px", textAlign: "center", borderBottom: "1px solid #f0f0f0" }}>
+              <td style={{ padding: "10px 6px", fontWeight: 700, fontSize: 12, color: "#1a1a2e", borderBottom: "1px solid #f0f0f0" }}>{feature}</td>
+              <td style={{ padding: "10px 6px", textAlign: "center", borderBottom: "1px solid #f0f0f0" }}>
                 <span style={{ color: group ? "#1a7a4a" : "#ddd", fontSize: 18 }}>{group ? "✓" : "✗"}</span>
               </td>
-              <td style={{ padding: "11px 4px", textAlign: "center", borderBottom: "1px solid #f0f0f0" }}>
+              <td style={{ padding: "10px 6px", textAlign: "center", borderBottom: "1px solid #f0f0f0" }}>
                 <span style={{ color: silver ? "#1a7a4a" : "#ddd", fontSize: 18 }}>{silver ? "✓" : "✗"}</span>
               </td>
-              <td style={{ padding: "11px 4px", textAlign: "center", borderBottom: "1px solid #f0f0f0" }}>
+              <td style={{ padding: "10px 6px", textAlign: "center", borderBottom: "1px solid #f0f0f0" }}>
                 <span style={{ color: gold ? "#1a7a4a" : "#ddd", fontSize: 18 }}>{gold ? "✓" : "✗"}</span>
               </td>
             </tr>
@@ -605,6 +607,8 @@ export default function WeightLossOffer() {
   const [timeLeft, setTimeLeft] = useState(getTimeUntilSunday());
   const [expired, setExpired] = useState(false);
   const [currentDuration, setCurrentDuration] = useState(12);
+  const [activeCardIndex, setActiveCardIndex] = useState(0);
+  const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // Countdown timer
   useEffect(() => {
@@ -612,6 +616,22 @@ export default function WeightLossOffer() {
     const id = setInterval(() => setTimeLeft((t) => { if (t <= 1) { setExpired(true); return 0; } return t - 1; }), 1000);
     return () => clearInterval(id);
   }, [timeLeft]);
+
+  // Track scroll position for dots indicator
+  useEffect(() => {
+    const container = scrollContainerRef.current;
+    if (!container) return;
+
+    const handleScroll = () => {
+      const scrollLeft = container.scrollLeft;
+      const cardWidth = container.scrollWidth / 3;
+      const newIndex = Math.round(scrollLeft / cardWidth);
+      setActiveCardIndex(newIndex);
+    };
+
+    container.addEventListener('scroll', handleScroll);
+    return () => container.removeEventListener('scroll', handleScroll);
+  }, []);
 
   const urgent = timeLeft <= 300;
   const plans = PLAN_DATA[currentDuration];
@@ -633,23 +653,44 @@ export default function WeightLossOffer() {
           0%,100% { opacity:1; }
           50% { opacity:0.3; }
         }
+        @keyframes slideHint {
+          0%, 100% { transform: translateX(0); }
+          50% { transform: translateX(10px); }
+        }
         * { box-sizing: border-box; margin: 0; padding: 0; }
         body { font-family: 'Nunito', sans-serif; background: #c8ddd0; color: #1a1a2e; font-size: 16px; line-height: 1.5; }
         
-        /* Hide scrollbar for horizontal scroll */
-        *::-webkit-scrollbar {
-          height: 0px;
-          width: 0px;
+        /* Smooth horizontal scrolling */
+        .plan-cards-container {
+          scroll-behavior: smooth;
+          scroll-snap-type: x mandatory;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          -ms-overflow-style: none;
         }
-        *::-webkit-scrollbar-track {
-          background: transparent;
+        .plan-cards-container::-webkit-scrollbar {
+          display: none;
         }
-        *::-webkit-scrollbar-thumb {
-          background: transparent;
+        
+        /* Scroll indicator dots */
+        .scroll-dots {
+          display: flex;
+          justify-content: center;
+          gap: 8px;
+          margin-top: 16px;
+          padding-bottom: 4px;
         }
-        * {
-          scrollbar-width: none; /* Firefox */
-          -ms-overflow-style: none; /* IE and Edge */
+        .scroll-dot {
+          width: 8px;
+          height: 8px;
+          border-radius: 50%;
+          background: #d0d0d0;
+          transition: all 0.3s ease;
+        }
+        .scroll-dot.active {
+          width: 24px;
+          border-radius: 4px;
+          background: #1a7a4a;
         }
       `}</style>
 
@@ -666,18 +707,31 @@ export default function WeightLossOffer() {
           </div>
           
           {/* Plan Cards */}
-          <div style={{ 
-            display: "flex", 
-            flexDirection: "row", 
-            gap: 14, 
-            overflowX: "auto", 
-            paddingBottom: 10,
-            scrollSnapType: "x mandatory",
-            WebkitOverflowScrolling: "touch"
-          }}>
+          <div 
+            ref={scrollContainerRef}
+            className="plan-cards-container"
+            style={{ 
+              display: "flex", 
+              flexDirection: "row", 
+              gap: 14, 
+              overflowX: "auto", 
+              paddingBottom: 10,
+              scrollSnapType: "x mandatory",
+              WebkitOverflowScrolling: "touch",
+              paddingLeft: 16,
+              paddingRight: 16
+            }}
+          >
             <PlanCard planKey="group" planData={plans.group} duration={currentDuration} />
             <PlanCard planKey="personalSilver" planData={plans.personalSilver} duration={currentDuration} />
             <PlanCard planKey="personalGold" planData={plans.personalGold} duration={currentDuration} />
+          </div>
+          
+          {/* Scroll indicator dots */}
+          <div className="scroll-dots">
+            <div className={`scroll-dot ${activeCardIndex === 0 ? 'active' : ''}`} />
+            <div className={`scroll-dot ${activeCardIndex === 1 ? 'active' : ''}`} />
+            <div className={`scroll-dot ${activeCardIndex === 2 ? 'active' : ''}`} />
           </div>
         </section>
 
