@@ -15,7 +15,7 @@ export const UpgradeModal = ({ isOpen, onClose, onUpgrade, onJoinGroup }: Upgrad
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date();
-      const endDate = new Date('2026-06-15T12:00:00');
+      const endDate = new Date('2026-06-08T12:00:00');
       
       const difference = endDate.getTime() - now.getTime();
       
