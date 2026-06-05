@@ -2,6 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Users } from "lucide-react";
 import { useAutoIncrementCounter } from "@/hooks/useAutoIncrementCounter";
+import { useState, useEffect } from "react";
 
 interface HeroSectionProps {
   scrollToRegistration: () => void;
@@ -11,9 +12,36 @@ export const HeroSection = ({ scrollToRegistration }: HeroSectionProps) => {
   const peopleCount = useAutoIncrementCounter({
     initialCount: 67833,
     incrementAmount: 8,
-    intervalHours: 1, // 1 hour
+    intervalHours: 1,
     startDate: '2026-03-30T18:00:00Z',
   });
+
+  const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+
+  useEffect(() => {
+    const calculateTimeLeft = () => {
+      const now = new Date();
+      const endDate = new Date('2026-06-15T12:00:00');
+      
+      const difference = endDate.getTime() - now.getTime();
+      
+      if (difference > 0) {
+        const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((difference / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((difference / 1000 / 60) % 60);
+        const seconds = Math.floor((difference / 1000) % 60);
+        
+        setTimeLeft({ days, hours, minutes, seconds });
+      } else {
+        setTimeLeft({ days: 0, hours: 0, minutes: 0, seconds: 0 });
+      }
+    };
+
+    calculateTimeLeft();
+    const timer = setInterval(calculateTimeLeft, 1000);
+
+    return () => clearInterval(timer);
+  }, []);
   return (
     <section className="relative px-4 bg-white" style={{ paddingTop: '2rem' }}>
       <div style={{ paddingTop: '2rem', paddingBottom: '75px' }}>
@@ -110,8 +138,14 @@ export const HeroSection = ({ scrollToRegistration }: HeroSectionProps) => {
                   className="w-full md:w-auto bg-gradient-to-r from-green-600 to-lime-400 hover:from-green-700 hover:to-lime-500 text-white font-bold text-xl px-12 md:px-10 py-6 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
                   Register Now
                 </Button>
+                <p className="text-center md:text-left text-sm text-red-600 font-medium flex items-center justify-center md:justify-start gap-2 md:pl-2" style={{ marginTop: "15px" }}>
+                  Limited Time Offer:
+                  <span className="ml-2 font-bold text-red-600">
+                  {timeLeft.days}d {timeLeft.hours}h {timeLeft.minutes}m
+                  </span>
+                </p>
                 <p className="text-center md:text-left mt-3 text-lg font-semibold text-gray-700 md:pl-2">
-                  Fee: Rs. 990/- only
+                  Fee: Rs. 590/- only
                 </p>
                 <p className="text-center md:text-left text-sm text-emerald-600 font-medium flex items-center justify-center md:justify-start gap-2 md:pl-2" style={{ marginTop: "15px" }}>
                   <Users className="w-4 h-4" />
