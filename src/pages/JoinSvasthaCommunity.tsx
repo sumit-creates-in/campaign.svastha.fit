@@ -36,7 +36,8 @@ const PLAN_DATA = {
         "🎙️ Voice Notes",
         "🧘 Live Yoga Classes",
         "🎬 Class Recordings",
-        "⚖️ Weight Tracker"
+        "⚖️ Weight Tracker",
+        "📞 1 weekly follow-up"
       ]
     },
     personalGold: {
@@ -57,7 +58,8 @@ const PLAN_DATA = {
         "🧘 Live Yoga Classes",
         "🎬 Class Recordings",
         "⚖️ Weight Tracker",
-        "✅ Habit Tracker"
+        "✅ Habit Tracker",
+        "📞 2 weekly follow-up"
       ]
     }
   },
@@ -95,7 +97,8 @@ const PLAN_DATA = {
         "🎙️ Voice Notes",
         "🧘 Live Yoga Classes",
         "🎬 Class Recordings",
-        "⚖️ Weight Tracker"
+        "⚖️ Weight Tracker",
+        "📞 1 weekly follow-up"
       ]
     },
     personalGold: {
@@ -116,7 +119,8 @@ const PLAN_DATA = {
         "🧘 Live Yoga Classes",
         "🎬 Class Recordings",
         "⚖️ Weight Tracker",
-        "✅ Habit Tracker"
+        "✅ Habit Tracker",
+        "📞 3 weekly follow-up"
       ]
     }
   }
@@ -327,6 +331,7 @@ function DurationToggle({ currentDuration, onSelect }) {
 
 function PlanCard({ planKey, planData, duration }) {
   const { ref, visible } = useFadeUp();
+  const [showAll, setShowAll] = useState(false);
   const saving = planData.base - planData.sell;
 
   return (
@@ -342,9 +347,12 @@ function PlanCard({ planKey, planData, duration }) {
         opacity: visible ? 1 : 0,
         transform: visible ? "none" : "translateY(24px)",
         transition: "opacity 0.5s ease, transform 0.5s ease",
-        width: "100%",
+        width: "78vw",
+        maxWidth: 300,
+        minWidth: 240,
         boxSizing: "border-box" as const,
         flexShrink: 0,
+        scrollSnapAlign: "start",
       }}
     >
       {planData.badge && (
@@ -371,14 +379,19 @@ function PlanCard({ planKey, planData, duration }) {
       </div>
 
       <div style={{ marginBottom: 12 }}>
-        {planData.features.slice(0, 5).map((feature) => (
+        {(showAll ? planData.features : planData.features.slice(0, 5)).map((feature) => (
           <div key={feature} style={{ fontSize: 12, color: "#333", marginBottom: 5, display: "flex", alignItems: "center", gap: 6 }}>
             <span style={{ color: "#1a7a4a", fontSize: 13 }}>✓</span>
             <span>{feature}</span>
           </div>
         ))}
         {planData.features.length > 5 && (
-          <div style={{ fontSize: 11, color: "#666", marginTop: 4 }}>+ {planData.features.length - 5} more features</div>
+          <div
+            onClick={() => setShowAll(!showAll)}
+            style={{ fontSize: 12, color: "#1a7a4a", marginTop: 6, cursor: "pointer", fontWeight: 700 }}
+          >
+            {showAll ? "▲ Show less" : `+ ${planData.features.length - 5} more features ▼`}
+          </div>
         )}
       </div>
 
@@ -582,6 +595,8 @@ export default function WeightLossOffer() {
   const [timeLeft, setTimeLeft] = useState(getTimeUntilSunday());
   const [expired, setExpired] = useState(false);
   const [currentDuration, setCurrentDuration] = useState(12);
+  const [activeCard, setActiveCard] = useState(0);
+  const cardsScrollRef = useRef<HTMLDivElement>(null);
 
   // Countdown timer
   useEffect(() => {
@@ -643,15 +658,106 @@ export default function WeightLossOffer() {
           </div>
 
           {/* Plan Cards */}
-          <div style={{
-            display: "flex",
-            flexDirection: "column",
-            gap: 14,
-            paddingBottom: 10,
-          }}>
-            <PlanCard planKey="group" planData={plans.group} duration={currentDuration} />
-            <PlanCard planKey="personalSilver" planData={plans.personalSilver} duration={currentDuration} />
-            <PlanCard planKey="personalGold" planData={plans.personalGold} duration={currentDuration} />
+          <div style={{ position: "relative", marginTop: 8 }}>
+            <div
+              ref={cardsScrollRef}
+              onScroll={(e) => {
+                const el = e.currentTarget;
+                const cardWidth = el.scrollWidth / 3;
+                setActiveCard(Math.round(el.scrollLeft / cardWidth));
+              }}
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                gap: 12,
+                overflowX: "auto",
+                paddingBottom: 6,
+                paddingLeft: 4,
+                paddingRight: 4,
+                scrollSnapType: "x mandatory",
+                WebkitOverflowScrolling: "touch",
+                scrollbarWidth: "none",
+              }}
+            >
+              <PlanCard planKey="group" planData={plans.group} duration={currentDuration} />
+              <PlanCard planKey="personalSilver" planData={plans.personalSilver} duration={currentDuration} />
+              <PlanCard planKey="personalGold" planData={plans.personalGold} duration={currentDuration} />
+            </div>
+
+            {/* Scroll hint label */}
+            <div style={{ textAlign: "center", fontSize: 11, color: "#999", marginTop: 6 }}>← swipe to see more plans →</div>
+
+            {/* Dot indicators */}
+            <div style={{ display: "flex", justifyContent: "center", gap: 8, marginTop: 10 }}>
+              {[0, 1, 2].map((i) => (
+                <div
+                  key={i}
+                  onClick={() => {
+                    const el = cardsScrollRef.current;
+                    if (!el) return;
+                    const cardWidth = el.scrollWidth / 3;
+                    el.scrollTo({ left: cardWidth * i, behavior: "smooth" });
+                    setActiveCard(i);
+                  }}
+                  style={{
+                    width: activeCard === i ? 20 : 8,
+                    height: 8,
+                    borderRadius: 4,
+                    background: activeCard === i ? "#1a7a4a" : "#ccc",
+                    transition: "all 0.3s ease",
+                    cursor: "pointer",
+                  }}
+                />
+              ))}
+            </div>
+
+            {/* Prev / Next buttons */}
+            <div style={{ display: "flex", justifyContent: "center", gap: 12, marginTop: 12 }}>
+              <button
+                onClick={() => {
+                  const el = cardsScrollRef.current;
+                  if (!el) return;
+                  const cardWidth = el.scrollWidth / 3;
+                  const next = Math.max(0, activeCard - 1);
+                  el.scrollTo({ left: cardWidth * next, behavior: "smooth" });
+                  setActiveCard(next);
+                }}
+                disabled={activeCard === 0}
+                style={{
+                  background: activeCard === 0 ? "#eee" : "#1a7a4a",
+                  color: activeCard === 0 ? "#aaa" : "white",
+                  border: "none",
+                  borderRadius: 50,
+                  width: 40,
+                  height: 40,
+                  fontSize: 18,
+                  cursor: activeCard === 0 ? "default" : "pointer",
+                  fontWeight: 700,
+                }}
+              >‹</button>
+              <button
+                onClick={() => {
+                  const el = cardsScrollRef.current;
+                  if (!el) return;
+                  const cardWidth = el.scrollWidth / 3;
+                  const next = Math.min(2, activeCard + 1);
+                  el.scrollTo({ left: cardWidth * next, behavior: "smooth" });
+                  setActiveCard(next);
+                }}
+                disabled={activeCard === 2}
+                style={{
+                  background: activeCard === 2 ? "#eee" : "#1a7a4a",
+                  color: activeCard === 2 ? "#aaa" : "white",
+                  border: "none",
+                  borderRadius: 50,
+                  width: 40,
+                  height: 40,
+                  fontSize: 18,
+                  cursor: activeCard === 2 ? "default" : "pointer",
+                  fontWeight: 700,
+                }}
+              >›</button>
+            </div>
           </div>
         </section>
 
