@@ -3,12 +3,12 @@ import { useState, useEffect, useRef } from "react";
 // ── DATA ──────────────────────────────────────────────────────────────────────
 const PLAN_DATA = {
   12: {
-    group: { 
-      name: "⭐ Group Plan", 
-      sell: 6900, 
-      base: 10800, 
-      perMonth: 575, 
-      link: "https://rzp.io/rzp/7vgo0f2W",
+    group: {
+      name: "⭐ Group Plan",
+      sell: 6900,
+      base: 10800,
+      perMonth: 575,
+      link: "https://rzp.io/rzp/FmzKCdx",
       badge: "Save ₹2k+",
       features: [
         "� Communitiy Diet Plan",
@@ -21,12 +21,12 @@ const PLAN_DATA = {
         "🔔 Daily Reminders"
       ]
     },
-    personalSilver: { 
-      name: "👑 Personalized Silver", 
-      sell: 23900, 
-      base: 35640, 
-      perMonth: 1992, 
-      link: "https://rzp.io/rzp/cFDSipdo",
+    personalSilver: {
+      name: "👑 Personalized Silver",
+      sell: 23900,
+      base: 35640,
+      perMonth: 1992,
+      link: "https://rzp.io/rzp/P3u4HHm7",
       badge: "Save ₹11.7k",
       features: [
         "👩‍⚕️ Personal Dietitian",
@@ -39,12 +39,12 @@ const PLAN_DATA = {
         "⚖️ Weight Tracker"
       ]
     },
-    personalGold: { 
-      name: "💎 Personalized Gold", 
-      sell: 29900, 
-      base: 46800, 
-      perMonth: 2492, 
-      link: "https://rzp.io/rzp/dAjZcUT",
+    personalGold: {
+      name: "💎 Personalized Gold",
+      sell: 29900,
+      base: 46800,
+      perMonth: 2492,
+      link: "https://rzp.io/rzp/UaNRicm",
       badge: "🏆 Save ₹16.9k",
       featured: true,
       features: [
@@ -62,12 +62,12 @@ const PLAN_DATA = {
     }
   },
   6: {
-    group: { 
-      name: "⭐ Group Plan", 
-      sell: 3900, 
-      base: 5400, 
-      perMonth: 650, 
-      link: "https://rzp.io/rzp/Cp3y3of",
+    group: {
+      name: "⭐ Group Plan",
+      sell: 3900,
+      base: 5400,
+      perMonth: 650,
+      link: "https://rzp.io/rzp/rwAlm54",
       badge: "Save ₹1.5k",
       features: [
         "🥗 Community Diet Plan",
@@ -80,12 +80,12 @@ const PLAN_DATA = {
         "🔔 Daily Reminders"
       ]
     },
-    personalSilver: { 
-      name: "👑 Personalized Silver", 
-      sell: 13900, 
-      base: 17820, 
-      perMonth: 2317, 
-      link: "https://rzp.io/rzp/cFDSipdo",
+    personalSilver: {
+      name: "👑 Personalized Silver",
+      sell: 13900,
+      base: 17820,
+      perMonth: 2317,
+      link: "https://rzp.io/rzp/euYWM5k",
       badge: "Save ₹3.9k",
       features: [
         "👩‍⚕️ Personal Dietitian",
@@ -98,12 +98,12 @@ const PLAN_DATA = {
         "⚖️ Weight Tracker"
       ]
     },
-    personalGold: { 
-      name: "💎 Personalized Gold", 
-      sell: 16900, 
-      base: 23400, 
-      perMonth: 2817, 
-      link: "https://rzp.io/rzp/cFDSipdo",
+    personalGold: {
+      name: "💎 Personalized Gold",
+      sell: 16900,
+      base: 23400,
+      perMonth: 2817,
+      link: "https://rzp.io/rzp/eZ6OOmoH",
       badge: "🏆 Save ₹6.5k",
       featured: true,
       features: [
@@ -133,32 +133,10 @@ const COMPARE_ROWS = [
   { feature: "Sumit's Voice Notes", group: true, silver: true, gold: true },
   { feature: "Personal Dietitian", group: false, silver: true, gold: true },
   { feature: "Personalized Diet Plan", group: false, silver: true, gold: true },
-  { feature: "Call & Chat Support", group: false, silver: false, gold: true },
+  { feature: "Call & Chat Support", group: false, silver: true, gold: true },
+  { feature: "Weekly Follow-ups", group: false, silver: 1, gold: 3 },
 ];
 
-const TESTIMONIALS = [
-  {
-    avatar: "👩",
-    stars: 5,
-    text: "I lost 8 kgs in 3 months! The personal dietitian changed everything for me. I never felt hungry and still ate food I loved.",
-    name: "Sunita Mehta",
-    detail: "Personal Plan · Lost 8 kg",
-  },
-  {
-    avatar: "👨",
-    stars: 5,
-    text: "The group plan is amazing value. Sumit's weekly lives keep me motivated every single week. Down 5 kgs and still going!",
-    name: "Rajesh Sharma",
-    detail: "Group Plan · Lost 5 kg",
-  },
-  {
-    avatar: "👵",
-    stars: 5,
-    text: "At my age I thought losing weight was impossible. This program proved me wrong. Best investment of my life!",
-    name: "Kamla Devi, 58",
-    detail: "Group Plan · Lost 6 kg",
-  },
-];
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
 function pad(n) { return String(n).padStart(2, "0"); }
@@ -188,7 +166,7 @@ function TimerStrip({ timeLeft, urgent }) {
   const hours = Math.floor((timeLeft % 86400) / 3600);
   const minutes = Math.floor((timeLeft % 3600) / 60);
   const seconds = timeLeft % 60;
-  
+
   return (
     <div
       style={{
@@ -305,10 +283,10 @@ function FomoBar({ html }) {
 
 function DurationToggle({ currentDuration, onSelect }) {
   return (
-    <div style={{ 
-      display: "inline-flex", 
-      background: "#f0f0f0", 
-      borderRadius: 50, 
+    <div style={{
+      display: "inline-flex",
+      background: "#f0f0f0",
+      borderRadius: 50,
       padding: 4,
       marginBottom: 20,
     }}>
@@ -376,7 +354,7 @@ function PlanCard({ planKey, planData, duration }) {
           {planData.badge}
         </div>
       )}
-      
+
       <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 20, fontWeight: 800, color: "#1a1a2e", marginBottom: 12 }}>
         {planData.name}
       </div>
@@ -468,10 +446,10 @@ function CompareTable() {
                 <span style={{ color: group ? "#1a7a4a" : "#ddd", fontSize: 18 }}>{group ? "✓" : "✗"}</span>
               </td>
               <td style={{ padding: "11px 4px", textAlign: "center", borderBottom: "1px solid #f0f0f0" }}>
-                <span style={{ color: silver ? "#1a7a4a" : "#ddd", fontSize: 18 }}>{silver ? "✓" : "✗"}</span>
+                <span style={{ color: silver ? "#1a7a4a" : "#ddd", fontSize: typeof silver === "number" ? 13 : 18 }}>{typeof silver === "number" ? `${silver}x` : silver ? "✓" : "✗"}</span>
               </td>
               <td style={{ padding: "11px 4px", textAlign: "center", borderBottom: "1px solid #f0f0f0" }}>
-                <span style={{ color: gold ? "#1a7a4a" : "#ddd", fontSize: 18 }}>{gold ? "✓" : "✗"}</span>
+                <span style={{ color: gold ? "#1a7a4a" : "#ddd", fontSize: typeof gold === "number" ? 13 : 18 }}>{typeof gold === "number" ? `${gold}x` : gold ? "✓" : "✗"}</span>
               </td>
             </tr>
           ))}
@@ -588,17 +566,17 @@ export default function WeightLossOffer() {
   const getTimeUntilSunday = () => {
     const now = new Date();
     const targetDate = new Date();
-    
+
     // Set target to next Sunday at 11:30 AM
     const daysUntilSunday = (7 - now.getDay()) % 7; // 0 if today is Sunday
     targetDate.setDate(now.getDate() + daysUntilSunday);
     targetDate.setHours(11, 30, 0, 0);
-    
+
     // If we're past 11:30 AM on Sunday, set to next Sunday
     if (targetDate <= now) {
       targetDate.setDate(targetDate.getDate() + 7);
     }
-    
+
     return Math.floor((targetDate.getTime() - now.getTime()) / 1000);
   };
 
@@ -664,13 +642,13 @@ export default function WeightLossOffer() {
           <div style={{ display: "flex", justifyContent: "center" }}>
             <DurationToggle currentDuration={currentDuration} onSelect={setCurrentDuration} />
           </div>
-          
+
           {/* Plan Cards */}
-          <div style={{ 
-            display: "flex", 
-            flexDirection: "row", 
-            gap: 14, 
-            overflowX: "auto", 
+          <div style={{
+            display: "flex",
+            flexDirection: "row",
+            gap: 14,
+            overflowX: "auto",
             paddingBottom: 10,
             scrollSnapType: "x mandatory",
             WebkitOverflowScrolling: "touch"
