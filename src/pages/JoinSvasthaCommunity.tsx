@@ -335,18 +335,16 @@ function PlanCard({ planKey, planData, duration }) {
       style={{
         background: planData.featured ? "linear-gradient(150deg, #fffdf5 0%, #fff8e6 100%)" : "white",
         borderRadius: 18,
-        padding: "24px 20px",
+        padding: "16px 16px",
         boxShadow: planData.featured ? "0 8px 28px rgba(245,166,35,0.22)" : "0 4px 18px rgba(0,0,0,0.08)",
         border: `2px solid ${planData.featured ? "#f5a623" : "#eee"}`,
         position: "relative",
         opacity: visible ? 1 : 0,
         transform: visible ? "none" : "translateY(24px)",
         transition: "opacity 0.5s ease, transform 0.5s ease",
-        minWidth: 280,
-        width: "85vw",
-        maxWidth: 380,
+        width: "100%",
+        boxSizing: "border-box" as const,
         flexShrink: 0,
-        scrollSnapAlign: "start",
       }}
     >
       {planData.badge && (
@@ -355,32 +353,32 @@ function PlanCard({ planKey, planData, duration }) {
         </div>
       )}
 
-      <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 20, fontWeight: 800, color: "#1a1a2e", marginBottom: 12 }}>
+      <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 18, fontWeight: 800, color: "#1a1a2e", marginBottom: 10 }}>
         {planData.name}
       </div>
 
-      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 14 }}>
+      <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
         <div>
-          <div style={{ fontSize: 12, color: "#666", textDecoration: "line-through" }}>₹{fmt(planData.base)}</div>
-          <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 32, fontWeight: 800, color: planData.featured ? "#c07000" : "#1a7a4a", lineHeight: 1 }}>
+          <div style={{ fontSize: 11, color: "#666", textDecoration: "line-through" }}>₹{fmt(planData.base)}</div>
+          <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 26, fontWeight: 800, color: planData.featured ? "#c07000" : "#1a7a4a", lineHeight: 1 }}>
             ₹{fmt(planData.sell)}
           </div>
-          <div style={{ fontSize: 12, color: "#666", marginTop: 2 }}>₹{fmt(planData.perMonth)}/month</div>
+          <div style={{ fontSize: 11, color: "#666", marginTop: 2 }}>₹{fmt(planData.perMonth)}/month</div>
         </div>
-        <div style={{ background: "#ffeaea", color: "#d93025", fontSize: 11, fontWeight: 800, padding: "6px 12px", borderRadius: 20 }}>
+        <div style={{ background: "#ffeaea", color: "#d93025", fontSize: 11, fontWeight: 800, padding: "5px 10px", borderRadius: 20 }}>
           Save ₹{fmt(saving)}!
         </div>
       </div>
 
-      <div style={{ marginBottom: 14 }}>
+      <div style={{ marginBottom: 12 }}>
         {planData.features.slice(0, 5).map((feature) => (
-          <div key={feature} style={{ fontSize: 13, color: "#333", marginBottom: 6, display: "flex", alignItems: "center", gap: 6 }}>
-            <span style={{ color: "#1a7a4a", fontSize: 14 }}>✓</span>
+          <div key={feature} style={{ fontSize: 12, color: "#333", marginBottom: 5, display: "flex", alignItems: "center", gap: 6 }}>
+            <span style={{ color: "#1a7a4a", fontSize: 13 }}>✓</span>
             <span>{feature}</span>
           </div>
         ))}
         {planData.features.length > 5 && (
-          <div style={{ fontSize: 12, color: "#666", marginTop: 4 }}>+ {planData.features.length - 5} more features</div>
+          <div style={{ fontSize: 11, color: "#666", marginTop: 4 }}>+ {planData.features.length - 5} more features</div>
         )}
       </div>
 
@@ -396,14 +394,15 @@ function PlanCard({ planKey, planData, duration }) {
             : "linear-gradient(135deg, #2d9f63, #1a7a4a)",
           color: "white",
           borderRadius: 50,
-          padding: 15,
+          padding: 13,
           fontFamily: "'Baloo 2', cursive",
-          fontSize: 17,
+          fontSize: 16,
           fontWeight: 700,
           cursor: "pointer",
           boxShadow: planData.featured ? "0 4px 16px rgba(245,166,35,0.45)" : "0 4px 16px rgba(26,122,74,0.35)",
           textDecoration: "none",
           textAlign: "center",
+          boxSizing: "border-box" as const,
         }}
       >
         Get This Plan →
@@ -646,12 +645,9 @@ export default function WeightLossOffer() {
           {/* Plan Cards */}
           <div style={{
             display: "flex",
-            flexDirection: "row",
+            flexDirection: "column",
             gap: 14,
-            overflowX: "auto",
             paddingBottom: 10,
-            scrollSnapType: "x mandatory",
-            WebkitOverflowScrolling: "touch"
           }}>
             <PlanCard planKey="group" planData={plans.group} duration={currentDuration} />
             <PlanCard planKey="personalSilver" planData={plans.personalSilver} duration={currentDuration} />
