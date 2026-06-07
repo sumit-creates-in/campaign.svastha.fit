@@ -15,7 +15,7 @@ export const UpgradeModal = ({ isOpen, onClose, onUpgrade, onJoinGroup }: Upgrad
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date();
-      const endDate = new Date('2026-06-08T12:00:00');
+      const endDate = new Date('2026-06-15T12:00:00');
       
       const difference = endDate.getTime() - now.getTime();
       
@@ -100,7 +100,7 @@ export const UpgradeModal = ({ isOpen, onClose, onUpgrade, onJoinGroup }: Upgrad
           <Button
             onClick={() => window.open('https://pages.razorpay.com/pl_QHMy1AvL4XDeqQ/view', '_blank')}
             className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 mb-5">
-            Upgrade & Pay Rs. 1990
+            Upgrade & Pay Rs. 2790
           </Button>
 
           {/* No Upgrade Section */}
@@ -120,7 +120,7 @@ export const UpgradeModal = ({ isOpen, onClose, onUpgrade, onJoinGroup }: Upgrad
           <Button
             onClick={() => window.open('https://pages.razorpay.com/pl_QHMrm9qAqyqcdA/view', '_blank')}
             className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
-            Join Group Plan - Rs. 590
+            Join Group Plan - Rs. 790
           </Button>
         </div>
       </div>

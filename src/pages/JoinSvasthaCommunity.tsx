@@ -59,7 +59,7 @@ const PLAN_DATA = {
         "🎬 Class Recordings",
         "⚖️ Weight Tracker",
         "✅ Habit Tracker",
-        "📞 2 weekly follow-up"
+        "📞 3 weekly follow-up"
       ]
     }
   },
