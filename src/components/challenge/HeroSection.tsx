@@ -21,7 +21,7 @@ export const HeroSection = ({ scrollToRegistration }: HeroSectionProps) => {
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date();
-      const endDate = new Date('2026-06-08T12:00:00');
+      const endDate = new Date('2026-06-15T12:00:00');
       
       const difference = endDate.getTime() - now.getTime();
       
@@ -142,7 +142,7 @@ export const HeroSection = ({ scrollToRegistration }: HeroSectionProps) => {
                   </span>
                 </p>
                 <p className="text-center md:text-left mt-3 text-lg font-semibold text-gray-700 md:pl-2">
-                  Fee: Rs. 590/- only
+                  Fee: Rs. 790/- only
                 </p>
                 <p className="text-center md:text-left text-sm text-emerald-600 font-medium flex items-center justify-center md:justify-start gap-2 md:pl-2" style={{ marginTop: "15px" }}>
                   <Users className="w-4 h-4" />
