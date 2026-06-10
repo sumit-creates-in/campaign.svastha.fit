@@ -63,7 +63,7 @@ export const FinalCTASection = ({ scrollToRegistration }: FinalCTASectionProps) 
           </Button>
 
           <p className="mt-6 text-emerald-100 text-lg">
-            Limited spots available • Register now for just ₹590
+            Limited spots available • Register now for just ₹790
           </p>
         </motion.div>
       </div>
