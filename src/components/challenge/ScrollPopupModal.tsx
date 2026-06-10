@@ -15,7 +15,7 @@ export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalPro
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date();
-      const endDate = new Date('2026-06-15T12:00:00');
+      const endDate = new Date('2026-06-14T12:00:00');
       
       const difference = endDate.getTime() - now.getTime();
       
@@ -140,7 +140,7 @@ export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalPro
 
             {/* Start Anyday & Discount */}
             <div className="text-center mb-3 mt-3">
-              <p className="text-red-500 font-semibold text-sm">Rs. 100 off</p>
+              <p className="text-red-500 font-semibold text-sm">Rs. 200 off</p>
               <p className="text-gray-700 font-medium text-xs">Start Anyday</p>
             </div>
 
@@ -152,7 +152,7 @@ export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalPro
               }}
               className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 mb-3 mt-2 flex flex-col items-center leading-tight gap-0.5">
               <span>Upgrade to Personalized Plan</span>
-              <span>Rs. 2390</span>
+              <span>Rs. 2290</span>
             </Button>
           </div>
 
