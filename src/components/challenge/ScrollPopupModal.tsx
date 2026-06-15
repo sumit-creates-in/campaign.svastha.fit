@@ -16,9 +16,9 @@ export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalPro
     const calculateTimeLeft = () => {
       const now = new Date();
       const endDate = new Date('2026-06-08T12:00:00');
-      
+
       const difference = endDate.getTime() - now.getTime();
-      
+
       if (difference > 0) {
         // Calculate total days and round up if there are remaining hours
         const totalDays = Math.ceil(difference / (1000 * 60 * 60 * 24));
@@ -40,17 +40,17 @@ export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalPro
       const transformationsHeading = Array.from(document.querySelectorAll('h2')).find(
         h2 => h2.textContent?.includes('We Deliver The Best Transformations')
       );
-      
+
       if (!transformationsHeading || hasShown) return;
-      
+
       // Get the section element (parent of the heading)
       const section = transformationsHeading.closest('section');
       if (!section) return;
-      
+
       // Check if user has scrolled past the section
       const sectionBottom = section.getBoundingClientRect().bottom;
       const windowHeight = window.innerHeight;
-      
+
       // Show popup when the section bottom is above the viewport (user scrolled past it)
       if (sectionBottom < windowHeight * 0.5 && !hasShown) {
         setIsVisible(true);
@@ -107,12 +107,12 @@ export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalPro
                 <h3 className="text-base font-bold text-gray-900 leading-tight text-center">
                   Upgrade to Personalized 21 Day Plan to Get:
                 </h3>
-                <p className="text-xs text-red-600 font-semibold flex items-center justify-center gap-2 mt-1">
+                {/* <p className="text-xs text-red-600 font-semibold flex items-center justify-center gap-2 mt-1">
                   Limited Time Offer :
                   <span className="font-bold text-red-600">
                     {timeLeft.days} Days Left
                   </span>
-                </p>
+                </p> */}
               </div>
             </div>
 
@@ -152,7 +152,7 @@ export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalPro
               }}
               className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 mb-3 mt-2 flex flex-col items-center leading-tight gap-0.5">
               <span>Upgrade to Personalized Plan</span>
-              <span>Rs. 1790</span>
+              <span>Rs. 2790</span>
             </Button>
           </div>
 
@@ -177,7 +177,7 @@ export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalPro
               window.open("https://pages.razorpay.com/pl_QHg0K5EhmJMBP8/view", "_blank");
             }}
             className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
-            Join Group Plan - Rs. 490
+            Join Group Plan - Rs. 890
           </Button>
         </div>
       </div>

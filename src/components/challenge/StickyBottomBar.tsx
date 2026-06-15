@@ -22,7 +22,7 @@ export const StickyBottomBar = ({ onRegisterClick }: StickyBottomBarProps) => {
             Ultimate 21 Day Weight Loss Challenge
           </h3>
           <p className="text-xs text-gray-600 mt-1">
-            Fee: <span className="font-semibold text-gray-900">Rs. 590/-</span> only
+            Fee: <span className="font-semibold text-gray-900">Rs. 890/-</span> only
           </p>
         </div>
 

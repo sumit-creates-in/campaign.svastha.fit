@@ -33,9 +33,9 @@ const Ultimate21DayChallenge = () => {
 
   useMeta({
     title: "Ultimate 21 Day Weight Loss Challenge | Lose up to 10 Kg | Svastha",
-    description: "Join the Ultimate 21 Day Weight Loss Challenge. 4067+ transformations, 7.5 kg average loss, 98% success rate. Expert guidance, diet plans, yoga classes. Register for ₹590.",
+    description: "Join the Ultimate 21 Day Weight Loss Challenge. 4067+ transformations, 7.5 kg average loss, 98% success rate. Expert guidance, diet plans, yoga classes. Register for ₹890.",
     ogTitle: "Ultimate 21 Day Weight Loss Challenge | Svastha",
-    ogDescription: "Transform your body in 21 days. Proven system with 4067+ success stories. Diet plan + Yoga + WhatsApp support. Register now for ₹590.",
+    ogDescription: "Transform your body in 21 days. Proven system with 4067+ success stories. Diet plan + Yoga + WhatsApp support. Register now for ₹890.",
     ogImage: "/src/assets/hero-yoga.jpg",
   });
 

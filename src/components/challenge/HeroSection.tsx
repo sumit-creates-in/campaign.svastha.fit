@@ -22,9 +22,9 @@ export const HeroSection = ({ scrollToRegistration }: HeroSectionProps) => {
     const calculateTimeLeft = () => {
       const now = new Date();
       const endDate = new Date('2026-06-08T12:00:00');
-      
+
       const difference = endDate.getTime() - now.getTime();
-      
+
       if (difference > 0) {
         // Calculate total days and round up if there are remaining hours
         const totalDays = Math.ceil(difference / (1000 * 60 * 60 * 24));
@@ -135,14 +135,14 @@ export const HeroSection = ({ scrollToRegistration }: HeroSectionProps) => {
                   className="w-full md:w-auto bg-gradient-to-r from-green-600 to-lime-400 hover:from-green-700 hover:to-lime-500 text-white font-bold text-xl px-12 md:px-10 py-6 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
                   Register Now
                 </Button>
-                <p className="text-center md:text-left text-sm text-red-600 font-medium flex items-center justify-center md:justify-start gap-2 md:pl-2" style={{ marginTop: "15px" }}>
+                {/* <p className="text-center md:text-left text-sm text-red-600 font-medium flex items-center justify-center md:justify-start gap-2 md:pl-2" style={{ marginTop: "15px" }}>
                   Limited Time Offer:
                   <span className="ml-2 font-bold text-red-600">
                   {timeLeft.days} Days Left
                   </span>
-                </p>
+                </p> */}
                 <p className="text-center md:text-left mt-3 text-lg font-semibold text-gray-700 md:pl-2">
-                  Fee: Rs. 590/- only
+                  Fee: Rs. 990/- only
                 </p>
                 <p className="text-center md:text-left text-sm text-emerald-600 font-medium flex items-center justify-center md:justify-start gap-2 md:pl-2" style={{ marginTop: "15px" }}>
                   <Users className="w-4 h-4" />
