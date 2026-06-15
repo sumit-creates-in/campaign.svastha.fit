@@ -62,12 +62,12 @@ export const UpgradeModal = ({ isOpen, onClose, onUpgrade, onJoinGroup }: Upgrad
             <h2 className="text-base font-bold text-gray-900 leading-tight mb-2">
               Personalized Plan?
             </h2>
-            <p className="text-xs text-red-600 font-semibold flex items-center justify-center gap-2">
+            {/* <p className="text-xs text-red-600 font-semibold flex items-center justify-center gap-2">
               Limited Time Offer :
               <span className="font-bold text-red-600">
                 {timeLeft.days} Days Left
               </span>
-            </p>
+            </p> */}
           </div>
 
           {/* Upgrade Benefits */}
