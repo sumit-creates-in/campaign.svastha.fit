@@ -44,7 +44,7 @@ const App = () => (
           <Route path="/reg-confirm-21wlyc" element={<RegistrationConfirm21WLYC />} />
           <Route path="/12-week-Total-Body-Transformation-Program" element={<TransformationProgram />} />
           <Route path="/Ultimate-21-day-weight-loss-challenge" element={<Ultimate21DayChallenge />} />
-          <Route path="/Ultimate-21-day-weight-loss-challenge-uae" element={<Ultimate21DayChallengeUAE />} />
+          <Route path="/global-21-day-weight-loss-challenge" element={<Ultimate21DayChallengeUAE />} />
           <Route path="/21-day-total-body-transformation-program" element={<TwentyOneDayTotalBodyTransformationProgram />} />
           <Route path="/yoga-with-sumit" element={<YogaWithSumit />} />
           <Route path="/Lose-weight-with-vaishnavi" element={<Loseweightwithvaishnavi />} />
