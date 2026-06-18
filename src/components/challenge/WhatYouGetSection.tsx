@@ -10,9 +10,10 @@ import image7 from "@/assets/7.jpeg";
 
 interface WhatYouGetSectionProps {
   scrollToRegistration: () => void;
+  isUae?: boolean;
 }
 
-export const WhatYouGetSection = ({ scrollToRegistration }: WhatYouGetSectionProps) => {
+export const WhatYouGetSection = ({ scrollToRegistration, isUae = false }: WhatYouGetSectionProps) => {
   const benefits = [
     {
       title: "Live & Interactive Sessions by Sumit Sharma every Sunday",
@@ -35,8 +36,13 @@ export const WhatYouGetSection = ({ scrollToRegistration }: WhatYouGetSectionPro
     },
     {
       title: "🔥 Daily Live Yoga Classes",
-      subtitle: "Timings of the live yoga classes:",
-      details: [
+      subtitle: isUae ? "Timings of the live yoga classes (UAE Time):" : "Timings of the live yoga classes:",
+      details: isUae ? [
+        "Morning Classes: 4:00 am, 5:00 am, 6:00 am, 7:00 am and 8:00 am",
+        "Evening Classes: 4:00 pm, 5:00 pm & 6:00 pm",
+        "(Mon to Fri)",
+        "Recordings of the classes will be provided."
+      ] : [
         "Morning Classes: 5:30 am, 6:30 am, 7:30 am, 8:30 am and 9:30 am",
         "Evening Classes: 5:30 pm, 6:30 pm & 7:30 pm",
         "(Mon to Fri)",

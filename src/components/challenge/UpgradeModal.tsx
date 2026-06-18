@@ -7,9 +7,22 @@ interface UpgradeModalProps {
   onClose: () => void;
   onUpgrade: () => void;
   onJoinGroup: () => void;
+  upgradeUrl?: string;
+  joinGroupUrl?: string;
+  upgradePriceText?: string;
+  groupPriceText?: string;
 }
 
-export const UpgradeModal = ({ isOpen, onClose, onUpgrade, onJoinGroup }: UpgradeModalProps) => {
+export const UpgradeModal = ({
+  isOpen,
+  onClose,
+  onUpgrade,
+  onJoinGroup,
+  upgradeUrl = "https://pages.razorpay.com/pl_QHMy1AvL4XDeqQ/view",
+  joinGroupUrl = "https://pages.razorpay.com/pl_QHMrm9qAqyqcdA/view",
+  upgradePriceText = "Rs. 2990",
+  groupPriceText = "Rs. 990",
+}: UpgradeModalProps) => {
   const [timeLeft, setTimeLeft] = useState({ days: 0 });
 
   useEffect(() => {
@@ -98,9 +111,15 @@ export const UpgradeModal = ({ isOpen, onClose, onUpgrade, onJoinGroup }: Upgrad
 
           {/* Upgrade Button */}
           <Button
-            onClick={() => window.open('https://pages.razorpay.com/pl_QHMy1AvL4XDeqQ/view', '_blank')}
+            onClick={() => {
+              if (upgradeUrl === "") {
+                onUpgrade();
+              } else {
+                window.open(upgradeUrl, '_blank');
+              }
+            }}
             className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 mb-5">
-            Upgrade & Pay Rs. 2990
+            Upgrade & Pay {upgradePriceText}
           </Button>
 
           {/* No Upgrade Section */}
@@ -118,9 +137,15 @@ export const UpgradeModal = ({ isOpen, onClose, onUpgrade, onJoinGroup }: Upgrad
 
           {/* Group Plan Button */}
           <Button
-            onClick={() => window.open('https://pages.razorpay.com/pl_QHMrm9qAqyqcdA/view', '_blank')}
+            onClick={() => {
+              if (joinGroupUrl === "") {
+                onJoinGroup();
+              } else {
+                window.open(joinGroupUrl, '_blank');
+              }
+            }}
             className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
-            Join Group Plan - Rs. 990
+            Join Group Plan - {groupPriceText}
           </Button>
         </div>
       </div>

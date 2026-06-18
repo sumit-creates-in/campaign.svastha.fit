@@ -4,9 +4,15 @@ import { CheckCircle2, Users } from "lucide-react";
 
 interface RegisterHereSectionProps {
   onRegister: () => void;
+  originalPrice?: string;
+  discountedPrice?: string;
 }
 
-export const RegisterHereSection = ({ onRegister }: RegisterHereSectionProps) => {
+export const RegisterHereSection = ({
+  onRegister,
+  originalPrice = "₹ 2900/-",
+  discountedPrice = "₹ 990-"
+}: RegisterHereSectionProps) => {
   return (
     <section id="registration" className="py-20 px-4 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
       <div className="container mx-auto max-w-2xl">
@@ -20,7 +26,7 @@ export const RegisterHereSection = ({ onRegister }: RegisterHereSectionProps) =>
             Register here
           </h2>
         </motion.div>
-
+ 
         {/* Registration Card */}
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -32,14 +38,14 @@ export const RegisterHereSection = ({ onRegister }: RegisterHereSectionProps) =>
             <h3 className="text-lg font-bold">Ultimate 21 Day Weight Loss</h3>
             <p className="text-sm font-semibold">Challenge</p>
           </div>
-
+ 
           {/* Card Content */}
           <div className="p-6 py-8">
             {/* Price */}
             <div className="text-center mb-6">
               <div className="flex items-center justify-center gap-2 mb-2">
-                <span className="text-lg text-red-400 line-through font-medium">₹ 2900/-</span>
-                <span className="text-2xl font-bold text-gray-900">₹ 990-</span>
+                <span className="text-lg text-red-400 line-through font-medium">{originalPrice}</span>
+                <span className="text-2xl font-bold text-gray-900">{discountedPrice}</span>
                 <span className="text-gray-600 font-medium">only</span>
               </div>
               <p className="text-xs text-gray-600">All Inclusive</p>
