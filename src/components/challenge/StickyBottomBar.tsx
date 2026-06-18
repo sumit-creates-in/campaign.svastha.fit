@@ -4,10 +4,10 @@ import { useAutoIncrementCounter } from "@/hooks/useAutoIncrementCounter";
 
 interface StickyBottomBarProps {
   onRegisterClick: () => void;
-  isUae?: boolean;
+  feeText?: string;
 }
 
-export const StickyBottomBar = ({ onRegisterClick, isUae = false }: StickyBottomBarProps) => {
+export const StickyBottomBar = ({ onRegisterClick, feeText = "Rs. 990/-" }: StickyBottomBarProps) => {
   const peopleCount = useAutoIncrementCounter({
     initialCount: 67833,
     incrementAmount: 8,
@@ -23,7 +23,7 @@ export const StickyBottomBar = ({ onRegisterClick, isUae = false }: StickyBottom
             Ultimate 21 Day Weight Loss Challenge
           </h3>
           <p className="text-xs text-gray-600 mt-1">
-            Fee: <span className="font-semibold text-gray-900">{isUae ? "49 AED" : "Rs. 990/-"}</span> only
+            Fee: <span className="font-semibold text-gray-900">{feeText}</span> only
           </p>
         </div>
 

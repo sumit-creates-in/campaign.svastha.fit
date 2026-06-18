@@ -32,9 +32,9 @@ const Global21DayWeightLossChallenge = () => {
   }, []);
 
   useMeta({
-    title: "Ultimate 21 Day Weight Loss Challenge - UAE | Lose up to 10 Kg | Svastha",
-    description: "Join the Ultimate 21 Day Weight Loss Challenge in UAE. 4067+ transformations, 7.5 kg average loss, 98% success rate. Expert guidance, diet plans, yoga classes. Register for 39 AED.",
-    ogTitle: "Ultimate 21 Day Weight Loss Challenge - UAE | Svastha",
+    title: "Global 21 Day Weight Loss Challenge | Lose up to 10 Kg | Svastha",
+    description: "Join the Global 21 Day Weight Loss Challenge in UAE. 4067+ transformations, 7.5 kg average loss, 98% success rate. Expert guidance, diet plans, yoga classes. Register for 39 AED.",
+    ogTitle: "Global 21 Day Weight Loss Challenge | Svastha",
     ogDescription: "Transform your body in 21 days. Proven system with 4067+ success stories. Diet plan + Yoga + WhatsApp support. Register now for 39 AED.",
     ogImage: "/src/assets/hero-yoga.jpg",
   });
@@ -45,12 +45,12 @@ const Global21DayWeightLossChallenge = () => {
 
   const handleUpgrade = () => {
     setIsModalOpen(false);
-    toast.error("Payment link is currently empty for the UAE page.");
+    toast.error("Payment link is currently empty for the Global page.");
   };
 
   const handleJoinGroup = () => {
     setIsModalOpen(false);
-    toast.error("Payment link is currently empty for the UAE page.");
+    toast.error("Payment link is currently empty for the Global page.");
   };
 
   return (
@@ -78,7 +78,7 @@ const Global21DayWeightLossChallenge = () => {
         }
       `}</style>
       <div className="ultimate-challenge-page min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">
-        <HeroSection scrollToRegistration={scrollToRegistration} isUae={true} />
+        <HeroSection scrollToRegistration={scrollToRegistration} feeText="49 AED" />
         <div style={{ height: "150px" }} />
         <LeaderboardSection />
         <div style={{ height: "150px" }} />
@@ -102,7 +102,7 @@ const Global21DayWeightLossChallenge = () => {
         <div style={{ height: "150px" }} />
         <YogaTeachersSection />
         <div style={{ height: "150px" }} />
-        <RegisterHereSection onRegister={scrollToRegistration} isUae={true} />
+        <RegisterHereSection onRegister={scrollToRegistration} originalPrice="149 AED" discountedPrice="49 AED" />
         <div style={{ height: "150px" }} />
         <FAQSection />
         <UpgradeModal
@@ -112,16 +112,20 @@ const Global21DayWeightLossChallenge = () => {
           onJoinGroup={handleJoinGroup}
           upgradeUrl=""
           joinGroupUrl=""
-          isUae={true}
+          upgradePriceText="149 AED"
+          groupPriceText="49 AED"
         />
         <ScrollPopupModal
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
           upgradeUrl=""
           joinGroupUrl=""
-          isUae={true}
+          personalDiscountText="20 AED off"
+          personalPriceText="129 AED"
+          groupDiscountText="10 AED off"
+          groupPriceText="39 AED"
         />
-        <StickyBottomBar onRegisterClick={scrollToRegistration} isUae={true} />
+        <StickyBottomBar onRegisterClick={scrollToRegistration} feeText="49 AED" />
         <WhatsAppFloatingButton />
       </div>
     </>
