@@ -36,7 +36,7 @@ export const WhatYouGetSection = ({ scrollToRegistration, isUae = false }: WhatY
     },
     {
       title: "🔥 Daily Live Yoga Classes",
-      subtitle: isUae ? "Timings of the live yoga classes (UAE Time):" : "Timings of the live yoga classes:",
+      subtitle: isUae ? "Timings of the live yoga classes (Gulf Standard Time (GST)):" : "Timings of the live yoga classes:",
       details: isUae ? [
         "Morning Classes: 4:00 am, 5:00 am, 6:00 am, 7:00 am and 8:00 am",
         "Evening Classes: 4:00 pm, 5:00 pm & 6:00 pm",

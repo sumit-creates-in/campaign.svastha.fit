@@ -7,9 +7,10 @@ import { useState, useEffect } from "react";
 interface HeroSectionProps {
   scrollToRegistration: () => void;
   feeText?: string;
+  isGlobal?: boolean;
 }
 
-export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-" }: HeroSectionProps) => {
+export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlobal = false }: HeroSectionProps) => {
   const peopleCount = useAutoIncrementCounter({
     initialCount: 67833,
     incrementAmount: 8,
@@ -74,6 +75,11 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-" }: Her
             <h3 className="text-4xl md:text-6xl font-bold text-emerald-600">
               Weight Loss Challenge
             </h3>
+            {isGlobal && (
+              <p className="text-red-600 font-semibold text-lg md:text-xl mt-6 mb-2 px-4">
+                🌍 Suitable for Indians living in UAE, Saudi Arabia, Qatar, Oman, Bahrain & Kuwait
+              </p>
+            )}
           </motion.div>
 
           {/* Content Grid */}
@@ -126,6 +132,14 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-" }: Her
                     <span className="font-semibold">Join Live</span> Yoga Classes from Home 🧘
                   </p>
                 </div>
+                {isGlobal && (
+                  <div className="flex items-start gap-3 border-b-2 border-gray-200 pb-2">
+                    <span className="text-emerald-600 text-xl flex-shrink-0">✦</span>
+                    <p className="text-lg text-gray-700">
+                      <span className="font-semibold">Suitable for</span> Indians living abroad 🌍
+                    </p>
+                  </div>
+                )}
               </div>
 
               {/* CTA Button */}
