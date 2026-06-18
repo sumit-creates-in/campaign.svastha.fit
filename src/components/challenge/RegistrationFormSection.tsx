@@ -100,7 +100,7 @@ export const RegistrationFormSection = ({ register, errors, setValue, watch, onS
               <div className="flex items-center justify-between mb-4">
                 <span className="text-2xl font-bold text-gray-900">Total Amount:</span>
                 <span className="text-3xl font-bold text-emerald-600">
-                  {isUae ? "39 AED" : "₹890"}
+                  {isUae ? "AED 39" : "₹890"}
                 </span>
               </div>
               <ul className="space-y-2 text-sm text-gray-700">
@@ -123,7 +123,7 @@ export const RegistrationFormSection = ({ register, errors, setValue, watch, onS
               type="submit"
               size="lg"
               className="w-full bg-gradient-to-r from-green-600 to-lime-400 hover:from-green-700 hover:to-lime-500 text-white font-bold text-xl py-8 rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
-              Register Now - Pay {isUae ? "39 AED" : "₹890"}
+              Register Now - Pay {isUae ? "AED 39" : "₹890"}
               <Zap className="ml-2 w-6 h-6" />
             </Button>
           </form>

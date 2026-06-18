@@ -3,13 +3,39 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Calendar, Clock, Monitor, Users, ArrowBigDown } from "lucide-react";
 import { useEffect } from "react";
 
-const RegistrationConfirm21WLYC = () => {
+const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean }) => {
     useEffect(() => {
         window.scrollTo(0, 0);
+
+        // Meta Pixel Code
+        const w = window as any;
+        if (!w.fbq) {
+            w.fbq = function (...args: any[]) {
+                w.fbq.callMethod
+                    ? w.fbq.callMethod.apply(w.fbq, args)
+                    : w.fbq.queue.push(args);
+            };
+            if (!w._fbq) w._fbq = w.fbq;
+            w.fbq.push = w.fbq;
+            w.fbq.loaded = !0;
+            w.fbq.version = "2.0";
+            w.fbq.queue = [];
+            const script = document.createElement("script");
+            script.async = true;
+            script.src = "https://connect.facebook.net/en_US/fbevents.js";
+            const firstScript = document.getElementsByTagName("script")[0];
+            firstScript.parentNode?.insertBefore(script, firstScript);
+        }
+
+        w.fbq("init", "4183888118531938", {
+            em: "email@email.com",
+            ph: "1234567890",
+        });
+        w.fbq("track", "PageView");
     }, []);
 
     const handleJoinWhatsApp = () => {
-        window.open("https://chat.whatsapp.com/DqFKqwLulEDHpwOUgQkUGx", "_blank");
+        window.open("https://chat.whatsapp.com/FCrXhOBEwmv8v7cX467LYP", "_blank");
     };
 
     const steps = [
@@ -26,7 +52,9 @@ const RegistrationConfirm21WLYC = () => {
         {
             number: "3️⃣",
             title: "Attend the orientation session on time",
-            description: "Join the Zoom call at 9:30 AM on 28st june"
+            description: isGlobal
+                ? "Join the Zoom call at 8:00 AM (GST) on 28st june"
+                : "Join the Zoom call at 9:30 AM on 28st june"
         }
     ];
 
@@ -115,7 +143,9 @@ const RegistrationConfirm21WLYC = () => {
                                 <Clock className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                                 <div>
                                     <p className="text-sm text-gray-600 font-semibold">Time</p>
-                                    <p className="text-lg text-gray-900 font-bold">9:30 AM (India Time)</p>
+                                    <p className="text-lg text-gray-900 font-bold">
+                                        {isGlobal ? "8:00 AM (Gulf Standard Time (GST))" : "9:30 AM (India Time)"}
+                                    </p>
                                 </div>
                             </div>
 

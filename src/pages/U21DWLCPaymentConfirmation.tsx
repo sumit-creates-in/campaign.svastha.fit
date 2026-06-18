@@ -2,9 +2,35 @@ import { motion } from "framer-motion";
 import { CheckCircle, Phone, Mail, MessageCircle } from "lucide-react";
 import { useEffect } from "react";
 
-const U21DWLCPaymentConfirmation = () => {
+const U21DWLCPaymentConfirmation = ({ isGlobal = false }: { isGlobal?: boolean }) => {
     useEffect(() => {
         window.scrollTo(0, 0);
+
+        // Meta Pixel Code
+        const w = window as any;
+        if (!w.fbq) {
+            w.fbq = function (...args: any[]) {
+                w.fbq.callMethod
+                    ? w.fbq.callMethod.apply(w.fbq, args)
+                    : w.fbq.queue.push(args);
+            };
+            if (!w._fbq) w._fbq = w.fbq;
+            w.fbq.push = w.fbq;
+            w.fbq.loaded = !0;
+            w.fbq.version = "2.0";
+            w.fbq.queue = [];
+            const script = document.createElement("script");
+            script.async = true;
+            script.src = "https://connect.facebook.net/en_US/fbevents.js";
+            const firstScript = document.getElementsByTagName("script")[0];
+            firstScript.parentNode?.insertBefore(script, firstScript);
+        }
+
+        w.fbq("init", "4183888118531938", {
+            em: "email@email.com",
+            ph: "1234567890",
+        });
+        w.fbq("track", "PageView");
     }, []);
 
     const handleWhatsApp = () => {
@@ -57,7 +83,7 @@ const U21DWLCPaymentConfirmation = () => {
                                 You don't have to do anything now. We will call you soon to schedule your plan.
                             </p>
                             <p className="text-gray-600">
-                                If you have registered out of office hours (10 am to 7 pm) then we will call you the next working hour slot.
+                                If you have registered out of office hours {isGlobal ? "(8:30 am to 5:30 pm)" : "(10 am to 7 pm)"} then we will call you the next working hour slot.
                             </p>
                         </div>
                     </motion.div>
