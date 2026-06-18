@@ -1,7 +1,15 @@
 import { useState, useEffect } from "react";
 import { MessageCircle, X, ChevronDown } from "lucide-react";
 
-const WhatsAppFloatingButton = () => {
+interface WhatsAppFloatingButtonProps {
+  phoneNumber?: string;
+  message?: string;
+}
+
+const WhatsAppFloatingButton = ({
+  phoneNumber = "15557533653",
+  message = "I want to know more about Ultimate 21 Day Weight Loss Challenge"
+}: WhatsAppFloatingButtonProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
 
@@ -20,8 +28,6 @@ const WhatsAppFloatingButton = () => {
   }, []);
 
   const handleChatClick = () => {
-    const phoneNumber = "15557533653";
-    const message = "I want to know more about Ultimate 21 Day Weight Loss Challenge";
     const whatsappUrl = `https://api.whatsapp.com/send/?phone=${phoneNumber}&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
     window.open(whatsappUrl, "_blank");
   };
