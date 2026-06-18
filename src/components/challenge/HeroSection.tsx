@@ -61,7 +61,7 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-center" style={{ marginBottom: "48px" }}>
+            className="text-center mb-6 md:mb-12">
             <div className="flex items-center justify-center gap-2 mb-2">
               <span className="text-emerald-500 text-3xl md:text-4xl">✦</span>
               <h1 className="text-3xl md:text-4xl text-emerald-600 tracking-wider">
@@ -76,7 +76,7 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
               Weight Loss Challenge
             </h3>
             {isGlobal && (
-              <p className="text-red-600 font-semibold text-lg md:text-xl mt-6 mb-2 px-4">
+              <p className="text-red-600 font-normal text-base md:text-lg mt-4 md:mt-6 mb-2 px-4">
                 🌍 Suitable for Indians living in UAE, Saudi Arabia, Qatar, Oman, Bahrain & Kuwait
               </p>
             )}
