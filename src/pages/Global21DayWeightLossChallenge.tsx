@@ -45,12 +45,14 @@ const Global21DayWeightLossChallenge = () => {
 
   const handleUpgrade = () => {
     setIsModalOpen(false);
-    toast.error("Payment link is currently empty for the Global page.");
+    toast.success("Redirecting to upgrade payment...");
+    window.open("https://buy.stripe.com/3cI4gz74QdDa4pt63C5c40W", "_blank");
   };
 
   const handleJoinGroup = () => {
     setIsModalOpen(false);
-    toast.error("Payment link is currently empty for the Global page.");
+    toast.success("Redirecting to payment...");
+    window.open("https://buy.stripe.com/3cI6oH88U6aIaNR9fO5c40V", "_blank");
   };
 
   return (
@@ -88,7 +90,7 @@ const Global21DayWeightLossChallenge = () => {
         <div style={{ height: "150px" }} />
         <AanchalTestimonialSection />
         <div style={{ height: "150px" }} />
-        <WhatYouGetSection scrollToRegistration={scrollToRegistration} />
+        <WhatYouGetSection scrollToRegistration={scrollToRegistration} isUae={true} />
         <div style={{ height: "150px" }} />
         <MeetYourMentorSection scrollToRegistration={scrollToRegistration} />
         <div style={{ height: "150px" }} />
@@ -110,16 +112,16 @@ const Global21DayWeightLossChallenge = () => {
           onClose={() => setIsModalOpen(false)}
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
-          upgradeUrl=""
-          joinGroupUrl=""
+          upgradeUrl="https://buy.stripe.com/3cI4gz74QdDa4pt63C5c40W"
+          joinGroupUrl="https://buy.stripe.com/3cI6oH88U6aIaNR9fO5c40V"
           upgradePriceText="149 AED"
           groupPriceText="49 AED"
         />
         <ScrollPopupModal
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
-          upgradeUrl=""
-          joinGroupUrl=""
+          upgradeUrl="https://buy.stripe.com/28E00jbl6fLi5txfEc5c40X"
+          joinGroupUrl="https://buy.stripe.com/5kQ6oHah20Qo5txdw45c40U"
           personalDiscountText="20 AED off"
           personalPriceText="129 AED"
           groupDiscountText="10 AED off"
