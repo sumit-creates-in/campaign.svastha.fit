@@ -9,6 +9,7 @@ interface UpgradeModalProps {
   onJoinGroup: () => void;
   upgradeUrl?: string;
   joinGroupUrl?: string;
+  isUae?: boolean;
 }
 
 export const UpgradeModal = ({
@@ -18,6 +19,7 @@ export const UpgradeModal = ({
   onJoinGroup,
   upgradeUrl = "https://pages.razorpay.com/pl_QHMy1AvL4XDeqQ/view",
   joinGroupUrl = "https://pages.razorpay.com/pl_QHMrm9qAqyqcdA/view",
+  isUae = false,
 }: UpgradeModalProps) => {
   const [timeLeft, setTimeLeft] = useState({ days: 0 });
 
@@ -115,7 +117,7 @@ export const UpgradeModal = ({
               }
             }}
             className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 mb-5">
-            Upgrade & Pay Rs. 2990
+            Upgrade & Pay {isUae ? "149 AED" : "Rs. 2990"}
           </Button>
 
           {/* No Upgrade Section */}
@@ -141,7 +143,7 @@ export const UpgradeModal = ({
               }
             }}
             className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
-            Join Group Plan - Rs. 990
+            Join Group Plan - {isUae ? "49 AED" : "Rs. 990"}
           </Button>
         </div>
       </div>

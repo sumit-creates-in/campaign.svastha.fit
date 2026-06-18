@@ -18,6 +18,7 @@ interface RegistrationFormSectionProps {
   setValue: UseFormSetValue<RegistrationFormData>;
   watch: UseFormWatch<RegistrationFormData>;
   onSubmit: (e?: React.BaseSyntheticEvent) => Promise<void>;
+  isUae?: boolean;
 }
 
 const COUNTRY_CODES = [
@@ -25,7 +26,7 @@ const COUNTRY_CODES = [
   { code: "+1", country: "US", flag: "🇺🇸" },
 ];
 
-export const RegistrationFormSection = ({ register, errors, setValue, watch, onSubmit }: RegistrationFormSectionProps) => {
+export const RegistrationFormSection = ({ register, errors, setValue, watch, onSubmit, isUae = false }: RegistrationFormSectionProps) => {
   return (
     <section id="registration" className="py-20 px-4 bg-gradient-to-br from-emerald-600 via-green-600 to-teal-600 text-white">
       <div className="container mx-auto max-w-2xl">
@@ -98,7 +99,9 @@ export const RegistrationFormSection = ({ register, errors, setValue, watch, onS
             <div className="bg-emerald-50 rounded-xl p-6 border-2 border-emerald-200">
               <div className="flex items-center justify-between mb-4">
                 <span className="text-2xl font-bold text-gray-900">Total Amount:</span>
-                <span className="text-3xl font-bold text-emerald-600">₹890</span>
+                <span className="text-3xl font-bold text-emerald-600">
+                  {isUae ? "39 AED" : "₹890"}
+                </span>
               </div>
               <ul className="space-y-2 text-sm text-gray-700">
                 <li className="flex items-center gap-2">
@@ -120,7 +123,7 @@ export const RegistrationFormSection = ({ register, errors, setValue, watch, onS
               type="submit"
               size="lg"
               className="w-full bg-gradient-to-r from-green-600 to-lime-400 hover:from-green-700 hover:to-lime-500 text-white font-bold text-xl py-8 rounded-xl shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
-              Register Now - Pay ₹890
+              Register Now - Pay {isUae ? "39 AED" : "₹890"}
               <Zap className="ml-2 w-6 h-6" />
             </Button>
           </form>

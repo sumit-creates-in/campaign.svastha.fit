@@ -24,7 +24,7 @@ import {
   WhatsAppFloatingButton,
 } from "@/components/challenge";
 
-const Ultimate21DayChallengeUAE = () => {
+const Global21DayWeightLossChallenge = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
@@ -128,4 +128,4 @@ const Ultimate21DayChallengeUAE = () => {
   );
 };
 
-export default Ultimate21DayChallengeUAE;
+export default Global21DayWeightLossChallenge;

@@ -7,6 +7,7 @@ interface ScrollPopupModalProps {
   onJoinGroup: () => void;
   upgradeUrl?: string;
   joinGroupUrl?: string;
+  isUae?: boolean;
 }
 
 export const ScrollPopupModal = ({
@@ -14,6 +15,7 @@ export const ScrollPopupModal = ({
   onJoinGroup,
   upgradeUrl = "https://pages.razorpay.com/pl_QHfwHt0q52MdOJ/view",
   joinGroupUrl = "https://pages.razorpay.com/pl_QHg0K5EhmJMBP8/view",
+  isUae = false,
 }: ScrollPopupModalProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [hasShown, setHasShown] = useState(false);
@@ -147,7 +149,9 @@ export const ScrollPopupModal = ({
 
             {/* Start Anyday & Discount */}
             <div className="text-center mb-3 mt-3">
-              <p className="text-red-500 font-semibold text-sm">Rs. 200 off</p>
+              <p className="text-red-500 font-semibold text-sm">
+                {isUae ? "20 AED off" : "Rs. 200 off"}
+              </p>
               <p className="text-gray-700 font-medium text-xs">Start Anyday</p>
             </div>
 
@@ -163,7 +167,7 @@ export const ScrollPopupModal = ({
               }}
               className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 mb-3 mt-2 flex flex-col items-center leading-tight gap-0.5">
               <span>Upgrade to Personalized Plan</span>
-              <span>Rs. 2790</span>
+              <span>{isUae ? "129 AED" : "Rs. 2790"}</span>
             </Button>
           </div>
 
@@ -176,7 +180,9 @@ export const ScrollPopupModal = ({
               </h3>
             </div>
             <div className="text-center mb-2">
-              <p className="text-red-500 font-semibold text-sm">Rs. 100 off</p>
+              <p className="text-red-500 font-semibold text-sm">
+                {isUae ? "10 AED off" : "Rs. 100 off"}
+              </p>
               <p className="text-gray-700 font-medium text-xs">Starts 28st June 2026</p>
             </div>
           </div>
@@ -192,7 +198,7 @@ export const ScrollPopupModal = ({
               }
             }}
             className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
-            Join Group Plan - Rs. 890
+            Join Group Plan - {isUae ? "39 AED" : "Rs. 890"}
           </Button>
         </div>
       </div>

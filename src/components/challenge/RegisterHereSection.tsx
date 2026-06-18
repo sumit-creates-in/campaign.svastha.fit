@@ -4,9 +4,10 @@ import { CheckCircle2, Users } from "lucide-react";
 
 interface RegisterHereSectionProps {
   onRegister: () => void;
+  isUae?: boolean;
 }
 
-export const RegisterHereSection = ({ onRegister }: RegisterHereSectionProps) => {
+export const RegisterHereSection = ({ onRegister, isUae = false }: RegisterHereSectionProps) => {
   return (
     <section id="registration" className="py-20 px-4 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
       <div className="container mx-auto max-w-2xl">
@@ -38,8 +39,12 @@ export const RegisterHereSection = ({ onRegister }: RegisterHereSectionProps) =>
             {/* Price */}
             <div className="text-center mb-6">
               <div className="flex items-center justify-center gap-2 mb-2">
-                <span className="text-lg text-red-400 line-through font-medium">₹ 2900/-</span>
-                <span className="text-2xl font-bold text-gray-900">₹ 990-</span>
+                <span className="text-lg text-red-400 line-through font-medium">
+                  {isUae ? "149 AED" : "₹ 2900/-"}
+                </span>
+                <span className="text-2xl font-bold text-gray-900">
+                  {isUae ? "49 AED" : "₹ 990-"}
+                </span>
                 <span className="text-gray-600 font-medium">only</span>
               </div>
               <p className="text-xs text-gray-600">All Inclusive</p>
