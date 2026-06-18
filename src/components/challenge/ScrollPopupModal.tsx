@@ -5,9 +5,16 @@ import { useEffect, useState } from "react";
 interface ScrollPopupModalProps {
   onUpgrade: () => void;
   onJoinGroup: () => void;
+  upgradeUrl?: string;
+  joinGroupUrl?: string;
 }
 
-export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalProps) => {
+export const ScrollPopupModal = ({
+  onUpgrade,
+  onJoinGroup,
+  upgradeUrl = "https://pages.razorpay.com/pl_QHfwHt0q52MdOJ/view",
+  joinGroupUrl = "https://pages.razorpay.com/pl_QHg0K5EhmJMBP8/view",
+}: ScrollPopupModalProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [hasShown, setHasShown] = useState(false);
   const [timeLeft, setTimeLeft] = useState({ days: 0 });
@@ -148,7 +155,11 @@ export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalPro
             <Button
               onClick={() => {
                 handleClose();
-                window.open("https://pages.razorpay.com/pl_QHfwHt0q52MdOJ/view", "_blank");
+                if (upgradeUrl === "") {
+                  onUpgrade();
+                } else {
+                  window.open(upgradeUrl, "_blank");
+                }
               }}
               className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 mb-3 mt-2 flex flex-col items-center leading-tight gap-0.5">
               <span>Upgrade to Personalized Plan</span>
@@ -174,7 +185,11 @@ export const ScrollPopupModal = ({ onUpgrade, onJoinGroup }: ScrollPopupModalPro
           <Button
             onClick={() => {
               handleClose();
-              window.open("https://pages.razorpay.com/pl_QHg0K5EhmJMBP8/view", "_blank");
+              if (joinGroupUrl === "") {
+                onJoinGroup();
+              } else {
+                window.open(joinGroupUrl, "_blank");
+              }
             }}
             className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
             Join Group Plan - Rs. 690
