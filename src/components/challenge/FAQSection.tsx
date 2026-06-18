@@ -12,8 +12,8 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export const FAQSection = () => {
-  const faqs = [
+export const FAQSection = ({ faqs }: { faqs?: { question: string; answer: string }[] }) => {
+  const defaultFaqs = [
     {
       question: "What will happen after I register?",
       answer: "After registration, you'll receive a confirmation email with access to our WhatsApp group, course materials, and schedule for the live sessions."
@@ -56,6 +56,8 @@ export const FAQSection = () => {
     }
   ];
 
+  const items = faqs || defaultFaqs;
+
   return (
     <section className="py-20 px-4 bg-[#f5f7f0]">
       <div className="container mx-auto max-w-4xl">
@@ -65,7 +67,7 @@ export const FAQSection = () => {
           </h2>
 
           <Accordion type="single" collapsible className="space-y-0">
-            {faqs.map((faq, idx) => (
+            {items.map((faq, idx) => (
               <AccordionItem
                 key={idx}
                 value={`item-${idx}`}
@@ -76,7 +78,7 @@ export const FAQSection = () => {
                     <span>{faq.question}</span>
                   </span>
                 </AccordionTrigger>
-                <AccordionContent className="text-gray-600 text-sm leading-relaxed pt-2 pl-6">
+                <AccordionContent className="whitespace-pre-line text-gray-600 text-sm leading-relaxed pt-2 pl-6">
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
