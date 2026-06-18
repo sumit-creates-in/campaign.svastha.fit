@@ -203,7 +203,7 @@ const Global21DayWeightLossChallenge = () => {
           groupPriceText="AED 39"
         />
         <StickyBottomBar onRegisterClick={scrollToRegistration} feeText="AED 49" />
-        <WhatsAppFloatingButton />
+        <WhatsAppFloatingButton message="I want to know more about Global 21 Day Weight Loss Challenge" />
       </div>
     </>
   );
