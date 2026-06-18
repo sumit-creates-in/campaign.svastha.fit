@@ -6,9 +6,10 @@ import { useState, useEffect } from "react";
 
 interface HeroSectionProps {
   scrollToRegistration: () => void;
+  feeText?: string;
 }
 
-export const HeroSection = ({ scrollToRegistration }: HeroSectionProps) => {
+export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-" }: HeroSectionProps) => {
   const peopleCount = useAutoIncrementCounter({
     initialCount: 67833,
     incrementAmount: 8,
@@ -142,7 +143,7 @@ export const HeroSection = ({ scrollToRegistration }: HeroSectionProps) => {
                   </span>
                 </p> */}
                 <p className="text-center md:text-left mt-3 text-lg font-semibold text-gray-700 md:pl-2">
-                  Fee: Rs. 990/- only
+                  Fee: {feeText} only
                 </p>
                 <p className="text-center md:text-left text-sm text-emerald-600 font-medium flex items-center justify-center md:justify-start gap-2 md:pl-2" style={{ marginTop: "15px" }}>
                   <Users className="w-4 h-4" />
