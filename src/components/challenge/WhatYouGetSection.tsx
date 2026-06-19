@@ -11,9 +11,74 @@ import image7 from "@/assets/7.jpeg";
 interface WhatYouGetSectionProps {
   scrollToRegistration: () => void;
   isUae?: boolean;
+  isInternational?: boolean;
 }
 
-export const WhatYouGetSection = ({ scrollToRegistration, isUae = false }: WhatYouGetSectionProps) => {
+// IST base times (24h format) for yoga classes
+const IST_MORNING_HOURS = [5.5, 6.5, 7.5, 8.5, 9.5]; // 5:30 AM - 9:30 AM IST
+const IST_EVENING_HOURS = [17.5, 18.5, 19.5]; // 5:30 PM - 7:30 PM IST
+
+function formatTime12h(hour24: number): string {
+  // Normalize to 0-24 range
+  let h = ((hour24 % 24) + 24) % 24;
+  const minutes = Math.round((h % 1) * 60);
+  const hourInt = Math.floor(h);
+  const period = hourInt >= 12 ? "pm" : "am";
+  const hour12 = hourInt === 0 ? 12 : hourInt > 12 ? hourInt - 12 : hourInt;
+  return minutes === 0 ? `${hour12}:00 ${period}` : `${hour12}:${minutes.toString().padStart(2, '0')} ${period}`;
+}
+
+function getUSTimezoneInfo(): { name: string; offsetFromIST: number } {
+  try {
+    const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    // Map common US/Canada timezones
+    if (tz.includes("America/New_York") || tz.includes("America/Detroit") || tz.includes("America/Toronto") || tz.includes("US/Eastern")) {
+      return { name: "Eastern Time (ET)", offsetFromIST: -9.5 };
+    }
+    if (tz.includes("America/Chicago") || tz.includes("America/Winnipeg") || tz.includes("US/Central")) {
+      return { name: "Central Time (CT)", offsetFromIST: -10.5 };
+    }
+    if (tz.includes("America/Denver") || tz.includes("America/Edmonton") || tz.includes("US/Mountain")) {
+      return { name: "Mountain Time (MT)", offsetFromIST: -11.5 };
+    }
+    if (tz.includes("America/Los_Angeles") || tz.includes("America/Vancouver") || tz.includes("US/Pacific")) {
+      return { name: "Pacific Time (PT)", offsetFromIST: -12.5 };
+    }
+    // Fallback: compute offset from browser
+    const offsetMinutes = new Date().getTimezoneOffset();
+    const offsetFromUTC = -offsetMinutes / 60;
+    const offsetFromIST = offsetFromUTC - 5.5;
+    const tzAbbr = new Date().toLocaleTimeString('en-US', { timeZoneName: 'short' }).split(' ').pop();
+    return { name: tzAbbr || "Your Local Time", offsetFromIST };
+  } catch {
+    // Default to ET
+    return { name: "Eastern Time (ET)", offsetFromIST: -9.5 };
+  }
+}
+
+function getInternationalTimings(): { subtitle: string; details: string[] } {
+  const { name, offsetFromIST } = getUSTimezoneInfo();
+
+  const morningLocal = IST_MORNING_HOURS.map(h => formatTime12h(h + offsetFromIST));
+  const eveningLocal = IST_EVENING_HOURS.map(h => formatTime12h(h + offsetFromIST));
+
+  const morningStr = morningLocal.slice(0, -1).join(", ") + " and " + morningLocal[morningLocal.length - 1];
+  const eveningStr = eveningLocal.slice(0, -1).join(", ") + " & " + eveningLocal[eveningLocal.length - 1];
+
+  return {
+    subtitle: `Timings of the live yoga classes (${name}):`,
+    details: [
+      `Morning Classes: ${morningStr}`,
+      `Evening Classes: ${eveningStr}`,
+      "(Mon to Fri)",
+      "Recordings of the classes will be provided."
+    ]
+  };
+}
+
+export const WhatYouGetSection = ({ scrollToRegistration, isUae = false, isInternational = false }: WhatYouGetSectionProps) => {
+  const internationalTimings = isInternational ? getInternationalTimings() : null;
+
   const benefits = [
     {
       title: "Live & Interactive Sessions by Sumit Sharma every Sunday",
@@ -36,8 +101,14 @@ export const WhatYouGetSection = ({ scrollToRegistration, isUae = false }: WhatY
     },
     {
       title: "🔥 Daily Live Yoga Classes",
-      subtitle: isUae ? "Timings of the live yoga classes (Gulf Standard Time (GST)):" : "Timings of the live yoga classes:",
-      details: isUae ? [
+      subtitle: isInternational
+        ? internationalTimings!.subtitle
+        : isUae
+          ? "Timings of the live yoga classes (Gulf Standard Time (GST)):"
+          : "Timings of the live yoga classes:",
+      details: isInternational
+        ? internationalTimings!.details
+        : isUae ? [
         "Morning Classes: 4:00 am, 5:00 am, 6:00 am, 7:00 am and 8:00 am",
         "Evening Classes: 4:00 pm, 5:00 pm & 6:00 pm",
         "(Mon to Fri)",

@@ -159,7 +159,7 @@ const International21DayWeightLossChallenge = () => {
         <div style={{ height: "150px" }} />
         <AanchalTestimonialSection />
         <div style={{ height: "150px" }} />
-        <WhatYouGetSection scrollToRegistration={scrollToRegistration} isUae={true} />
+        <WhatYouGetSection scrollToRegistration={scrollToRegistration} isInternational={true} />
         <div style={{ height: "150px" }} />
         <MeetYourMentorSection scrollToRegistration={scrollToRegistration} />
         <div style={{ height: "150px" }} />
@@ -179,13 +179,14 @@ const International21DayWeightLossChallenge = () => {
         <ScrollPopupModal
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
-          upgradeUrl="https://buy.stripe.com/28E00jbl6fLi5txfEc5c40X"
+          upgradeUrl="https://buy.stripe.com/5kQ4gzfBm2YwaNR63C5c40Z"
           joinGroupUrl="https://buy.stripe.com/5kQ6oHah20Qo5txdw45c40U"
           personalDiscountText="$ 20 off"
-          personalPriceText="$ 129"
+          personalPriceText="$ 39"
           groupDiscountText="$ 10 off"
           groupPriceText="$ 39"
           isGlobal={true}
+          hideGroupPlan={true}
         />
         <StickyBottomBar onRegisterClick={scrollToRegistration} feeText="$ 49" />
         <WhatsAppFloatingButton message="I want to know more about International 21 Day Weight Loss Challenge" />
