@@ -191,7 +191,7 @@ export const ScrollPopupModal = ({
             </div>
             <div className="text-center mb-2">
               <p className="text-red-500 font-semibold text-sm">{groupDiscountText}</p>
-              <p className="text-gray-700 font-medium text-xs">Starts 28st June 2026</p>
+              <p className="text-gray-700 font-medium text-xs">Starts 28th June 2026</p>
             </div>
           </div>
 
