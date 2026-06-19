@@ -12,6 +12,7 @@ interface ScrollPopupModalProps {
   groupDiscountText?: string;
   groupPriceText?: string;
   isGlobal?: boolean;
+  hideGroupPlan?: boolean;
 }
 
 export const ScrollPopupModal = ({
@@ -24,6 +25,7 @@ export const ScrollPopupModal = ({
   groupDiscountText = "Rs. 100 off",
   groupPriceText = "Rs. 890",
   isGlobal = false,
+  hideGroupPlan = false,
 }: ScrollPopupModalProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [hasShown, setHasShown] = useState(false);
@@ -181,33 +183,37 @@ export const ScrollPopupModal = ({
             </Button>
           </div>
 
-          {/* No Upgrade Section */}
-          <div className="mb-2">
-            <div className="flex items-center gap-2 justify-center mb-2">
-              <X className="w-4 h-4 text-red-500 flex-shrink-0" strokeWidth={3} />
-              <h3 className="text-sm font-bold text-gray-900">
-                No, I don't want to Upgrade
-              </h3>
-            </div>
-            <div className="text-center mb-2">
-              <p className="text-red-500 font-semibold text-sm">{groupDiscountText}</p>
-              <p className="text-gray-700 font-medium text-xs">Starts 28th June 2026</p>
-            </div>
-          </div>
+          {!hideGroupPlan && (
+            <>
+              {/* No Upgrade Section */}
+              <div className="mb-2">
+                <div className="flex items-center gap-2 justify-center mb-2">
+                  <X className="w-4 h-4 text-red-500 flex-shrink-0" strokeWidth={3} />
+                  <h3 className="text-sm font-bold text-gray-900">
+                    No, I don't want to Upgrade
+                  </h3>
+                </div>
+                <div className="text-center mb-2">
+                  <p className="text-red-500 font-semibold text-sm">{groupDiscountText}</p>
+                  <p className="text-gray-700 font-medium text-xs">Starts 28th June 2026</p>
+                </div>
+              </div>
 
-          {/* Group Plan Button */}
-          <Button
-            onClick={() => {
-              handleClose();
-              if (joinGroupUrl === "") {
-                onJoinGroup();
-              } else {
-                window.open(joinGroupUrl, "_blank");
-              }
-            }}
-            className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
-            Join Group Plan - {groupPriceText}
-          </Button>
+              {/* Group Plan Button */}
+              <Button
+                onClick={() => {
+                  handleClose();
+                  if (joinGroupUrl === "") {
+                    onJoinGroup();
+                  } else {
+                    window.open(joinGroupUrl, "_blank");
+                  }
+                }}
+                className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
+                Join Group Plan - {groupPriceText}
+              </Button>
+            </>
+          )}
         </div>
       </div>
     </div>

@@ -2,8 +2,23 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Calendar, Clock, Monitor, Users, ArrowBigDown } from "lucide-react";
 import { useEffect } from "react";
+import { useLocation } from "react-router-dom";
+
+
+
+
 
 const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean }) => {
+    const location = useLocation();
+
+    const isInternational =
+        location.pathname === "/reg-confirm-21wlyc-international/";
+
+    const sessionTime = isInternational
+        ? "10:30 PM EDT (USA) / 8:00 AM GST"
+        : isGlobal
+            ? "8:00 AM (Gulf Standard Time (GST))"
+            : "9:30 AM (India Time)";
     useEffect(() => {
         window.scrollTo(0, 0);
 
@@ -52,9 +67,7 @@ const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean })
         {
             number: "3️⃣",
             title: "Attend the orientation session on time",
-            description: isGlobal
-                ? "Join the Zoom call at 8:00 AM (GST) on 28th june"
-                : "Join the Zoom call at 9:30 AM on 28th june"
+            description: `Join the Zoom call at ${sessionTime} on 28th June`
         }
     ];
 
@@ -144,7 +157,7 @@ const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean })
                                 <div>
                                     <p className="text-sm text-gray-600 font-semibold">Time</p>
                                     <p className="text-lg text-gray-900 font-bold">
-                                        {isGlobal ? "8:00 AM (Gulf Standard Time (GST))" : "9:30 AM (India Time)"}
+                                        {sessionTime}
                                     </p>
                                 </div>
                             </div>
