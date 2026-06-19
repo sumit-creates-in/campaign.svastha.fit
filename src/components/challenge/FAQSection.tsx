@@ -87,7 +87,7 @@ export const FAQSection = ({ faqs }: { faqs?: { question: string; answer: string
         </div>
 
         {/* Chat with us section */}
-        <div className="text-center mt-16 mb-12 md:mb-0">
+        <div className="text-center mt-16 pb-24 md:pb-0 mb-12 md:mb-0">
           <p className="text-xl text-gray-600 italic mb-1">
             Still have concerns?
           </p>
