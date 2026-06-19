@@ -23,7 +23,9 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date();
-      const endDate = new Date('2026-06-08T12:00:00');
+      const endDate = isGlobal 
+        ? new Date('2026-06-21T23:59:59') 
+        : new Date('2026-06-08T12:00:00');
 
       const difference = endDate.getTime() - now.getTime();
 
@@ -40,7 +42,7 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
     const timer = setInterval(calculateTimeLeft, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [isGlobal]);
   return (
     <section className="relative px-4 bg-white" style={{ paddingTop: '2rem' }}>
       <div style={{ paddingTop: '2rem', paddingBottom: '75px' }}>
@@ -150,12 +152,14 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
                   className="w-full md:w-auto bg-gradient-to-r from-green-600 to-lime-400 hover:from-green-700 hover:to-lime-500 text-white font-bold text-xl px-12 md:px-10 py-6 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
                   Register Now
                 </Button>
-                {/* <p className="text-center md:text-left text-sm text-red-600 font-medium flex items-center justify-center md:justify-start gap-2 md:pl-2" style={{ marginTop: "15px" }}>
-                  Limited Time Offer:
-                  <span className="ml-2 font-bold text-red-600">
-                  {timeLeft.days} Days Left
-                  </span>
-                </p> */}
+                {timeLeft.days > 0 && (
+                  <p className="text-center md:text-left text-sm text-red-600 font-medium flex items-center justify-center md:justify-start gap-2 md:pl-2" style={{ marginTop: "15px" }}>
+                    Limited Time Offer:
+                    <span className="ml-2 font-bold text-red-600">
+                      {timeLeft.days} {timeLeft.days === 1 ? 'Day' : 'Days'} Left
+                    </span>
+                  </p>
+                )}
                 <p className="text-center md:text-left mt-3 text-lg font-semibold text-gray-700 md:pl-2">
                   Fee: {feeText} only
                 </p>

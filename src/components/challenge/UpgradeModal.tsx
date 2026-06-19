@@ -11,6 +11,7 @@ interface UpgradeModalProps {
   joinGroupUrl?: string;
   upgradePriceText?: string;
   groupPriceText?: string;
+  isGlobal?: boolean;
 }
 
 export const UpgradeModal = ({
@@ -22,13 +23,16 @@ export const UpgradeModal = ({
   joinGroupUrl = "https://pages.razorpay.com/pl_QHMrm9qAqyqcdA/view",
   upgradePriceText = "Rs. 2990",
   groupPriceText = "Rs. 990",
+  isGlobal = false,
 }: UpgradeModalProps) => {
   const [timeLeft, setTimeLeft] = useState({ days: 0 });
 
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date();
-      const endDate = new Date('2026-06-08T12:00:00');
+      const endDate = isGlobal 
+        ? new Date('2026-06-21T23:59:59') 
+        : new Date('2026-06-08T12:00:00');
 
       const difference = endDate.getTime() - now.getTime();
 
@@ -45,7 +49,7 @@ export const UpgradeModal = ({
     const timer = setInterval(calculateTimeLeft, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [isGlobal]);
 
   if (!isOpen) return null;
 
@@ -75,12 +79,14 @@ export const UpgradeModal = ({
             <h2 className="text-base font-bold text-gray-900 leading-tight mb-2">
               Personalized Plan?
             </h2>
-            {/* <p className="text-xs text-red-600 font-semibold flex items-center justify-center gap-2">
-              Limited Time Offer :
-              <span className="font-bold text-red-600">
-                {timeLeft.days} Days Left
-              </span>
-            </p> */}
+            {timeLeft.days > 0 && (
+              <p className="text-xs text-red-600 font-semibold flex items-center justify-center gap-2">
+                Limited Time Offer :
+                <span className="font-bold text-red-600">
+                  {timeLeft.days} {timeLeft.days === 1 ? 'Day' : 'Days'} Left
+                </span>
+              </p>
+            )}
           </div>
 
           {/* Upgrade Benefits */}

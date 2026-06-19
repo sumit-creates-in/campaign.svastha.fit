@@ -11,6 +11,7 @@ interface ScrollPopupModalProps {
   personalPriceText?: string;
   groupDiscountText?: string;
   groupPriceText?: string;
+  isGlobal?: boolean;
 }
 
 export const ScrollPopupModal = ({
@@ -22,6 +23,7 @@ export const ScrollPopupModal = ({
   personalPriceText = "Rs. 2790",
   groupDiscountText = "Rs. 100 off",
   groupPriceText = "Rs. 890",
+  isGlobal = false,
 }: ScrollPopupModalProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [hasShown, setHasShown] = useState(false);
@@ -30,7 +32,9 @@ export const ScrollPopupModal = ({
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date();
-      const endDate = new Date('2026-06-08T12:00:00');
+      const endDate = isGlobal 
+        ? new Date('2026-06-21T23:59:59') 
+        : new Date('2026-06-08T12:00:00');
 
       const difference = endDate.getTime() - now.getTime();
 
@@ -47,7 +51,7 @@ export const ScrollPopupModal = ({
     const timer = setInterval(calculateTimeLeft, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [isGlobal]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -122,12 +126,14 @@ export const ScrollPopupModal = ({
                 <h3 className="text-base font-bold text-gray-900 leading-tight text-center">
                   Upgrade to Personalized 21 Day Plan to Get:
                 </h3>
-                {/* <p className="text-xs text-red-600 font-semibold flex items-center justify-center gap-2 mt-1">
-                  Limited Time Offer :
-                  <span className="font-bold text-red-600">
-                    {timeLeft.days} Days Left
-                  </span>
-                </p> */}
+                {timeLeft.days > 0 && (
+                  <p className="text-xs text-red-600 font-semibold flex items-center justify-center gap-2 mt-1">
+                    Limited Time Offer :
+                    <span className="font-bold text-red-600">
+                      {timeLeft.days} {timeLeft.days === 1 ? 'Day' : 'Days'} Left
+                    </span>
+                  </p>
+                )}
               </div>
             </div>
 
