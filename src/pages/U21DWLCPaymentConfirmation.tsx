@@ -34,7 +34,8 @@ const U21DWLCPaymentConfirmation = ({ isGlobal = false }: { isGlobal?: boolean }
     }, []);
 
     const handleWhatsApp = () => {
-        window.open("https://wa.me/917208683034", "_blank");
+        const whatsappNumber = isGlobal ? "15557533653" : "917208683034";
+        window.open(`https://wa.me/${whatsappNumber}`, "_blank");
     };
 
     return (
@@ -111,7 +112,7 @@ const U21DWLCPaymentConfirmation = ({ isGlobal = false }: { isGlobal?: boolean }
                                 <MessageCircle className="w-7 h-7 md:w-8 md:h-8 text-green-600 flex-shrink-0 mt-1" />
                                 <div>
                                     <p className="font-bold text-gray-900 text-base md:text-lg mb-1">WhatsApp us</p>
-                                    <p className="text-green-600 font-semibold">+91 72086 83034</p>
+                                    <p className="text-green-600 font-semibold">{isGlobal ? "+15557533653" : "+91 72086 83034"}</p>
                                 </div>
                             </motion.div>
 
@@ -128,10 +129,10 @@ const U21DWLCPaymentConfirmation = ({ isGlobal = false }: { isGlobal?: boolean }
                                         Email us for support
                                     </p>
                                     <a 
-                                        href="mailto:support@StrongByYoga.com"
+                                        href="mailto:support@svastha.fit"
                                         className="text-purple-600 font-semibold hover:underline"
                                     >
-                                        support@StrongByYoga<br />.com
+                                        support@svastha.fit
                                     </a>
                                 </div>
                             </motion.div>
