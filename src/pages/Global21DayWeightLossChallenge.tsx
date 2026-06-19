@@ -191,6 +191,7 @@ const Global21DayWeightLossChallenge = () => {
           joinGroupUrl="https://buy.stripe.com/3cI6oH88U6aIaNR9fO5c40V"
           upgradePriceText="AED 149"
           groupPriceText="AED 49"
+          isGlobal={true}
         />
         <ScrollPopupModal
           onUpgrade={handleUpgrade}
@@ -201,6 +202,7 @@ const Global21DayWeightLossChallenge = () => {
           personalPriceText="AED 129"
           groupDiscountText="AED 10 off"
           groupPriceText="AED 39"
+          isGlobal={true}
         />
         <StickyBottomBar onRegisterClick={scrollToRegistration} feeText="AED 49" />
         <WhatsAppFloatingButton message="I want to know more about Global 21 Day Weight Loss Challenge" />
