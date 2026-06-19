@@ -37,7 +37,7 @@ export const MeetYourMentorSection = ({ scrollToRegistration }: MeetYourMentorSe
               {/* Instagram Header */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold text-gray-900">healthylife_by_sumit</span>
+                  <span className="font-semibold text-gray-900">sumit_sharma_coach</span>
                   <span className="text-red-500">❤️</span>
                 </div>
                 <div className="flex items-center gap-3">
@@ -73,23 +73,18 @@ export const MeetYourMentorSection = ({ scrollToRegistration }: MeetYourMentorSe
                 </div>
 
                 <div className="flex-1">
-                  <div className="flex items-center gap-2 mb-1">
-                    <span className="text-xs bg-gray-100 px-2 py-0.5 rounded text-gray-600">
-                      What's new?
-                    </span>
-                  </div>
                   <h3 className="font-bold text-gray-900 mb-3">Sumit Sharma</h3>
                   <div className="flex gap-6 text-center">
                     <div>
-                      <div className="font-bold text-gray-900">476</div>
+                      <div className="font-bold text-gray-900">544</div>
                       <div className="text-xs text-gray-600">posts</div>
                     </div>
                     <div>
-                      <div className="font-bold text-gray-900">111K</div>
+                      <div className="font-bold text-gray-900">131K</div>
                       <div className="text-xs text-gray-600">followers</div>
                     </div>
                     <div>
-                      <div className="font-bold text-gray-900">78</div>
+                      <div className="font-bold text-gray-900">65</div>
                       <div className="text-xs text-gray-600">following</div>
                     </div>
                   </div>
