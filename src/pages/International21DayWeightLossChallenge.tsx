@@ -181,7 +181,7 @@ const International21DayWeightLossChallenge = () => {
           onJoinGroup={handleJoinGroup}
           upgradeUrl="https://buy.stripe.com/5kQ4gzfBm2YwaNR63C5c40Z"
           joinGroupUrl="https://buy.stripe.com/5kQ6oHah20Qo5txdw45c40U"
-          personalDiscountText="$ 20 off"
+          personalDiscountText="$ 10 off"
           personalPriceText="$ 39"
           groupDiscountText="$ 10 off"
           groupPriceText="$ 39"
