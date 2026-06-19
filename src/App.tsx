@@ -42,7 +42,7 @@ const App = () => (
           <Route path="/reg-confirm-14wlyc-int" element={<RegistrationConfirm14WLYCInt />} />
           <Route path="/registration-confirm-14-day-yoga-fat-loss-camp-int" element={<RegistrationConfirm14WLYCInt />} />
           <Route path="/reg-confirm-21wlyc" element={<RegistrationConfirm21WLYC />} />
-          <Route path="/reg-confirm-21wlyc-global" element={<RegistrationConfirm21WLYC isGlobal={true} />} />
+          <Route path="/reg-confirm-21wlyc-global-uae" element={<RegistrationConfirm21WLYC isGlobal={true} />} />
           <Route path="/12-week-Total-Body-Transformation-Program" element={<TransformationProgram />} />
           <Route path="/Ultimate-21-day-weight-loss-challenge" element={<Ultimate21DayChallenge />} />
           <Route path="/global-21-day-weight-loss-challenge" element={<Global21DayWeightLossChallenge />} />
@@ -51,7 +51,7 @@ const App = () => (
           <Route path="/Lose-weight-with-vaishnavi" element={<Loseweightwithvaishnavi />} />
           <Route path="/Thank-You-lose-weight-with-vaishnavi" element={<ThankYouLoseWeightVaishnavi />} />
           <Route path="/u21dwlc-paymentconfirmation-2" element={<U21DWLCPaymentConfirmation />} />
-          <Route path="/u21dwlc-paymentconfirmation-global" element={<U21DWLCPaymentConfirmation isGlobal={true} />} />
+          <Route path="/u21dwlc-paymentconfirmation-global-uae" element={<U21DWLCPaymentConfirmation isGlobal={true} />} />
           <Route path="/join-svastha-community" element={<JoinSvasthaCommunity />} />
           <Route path="/test-counter" element={<CounterTest />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
