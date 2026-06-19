@@ -53,8 +53,8 @@ const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean })
             number: "3️⃣",
             title: "Attend the orientation session on time",
             description: isGlobal
-                ? "Join the Zoom call at 8:00 AM (GST) on 28st june"
-                : "Join the Zoom call at 9:30 AM on 28st june"
+                ? "Join the Zoom call at 8:00 AM (GST) on 28th june"
+                : "Join the Zoom call at 9:30 AM on 28th june"
         }
     ];
 
@@ -135,7 +135,7 @@ const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean })
                                 <Calendar className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                                 <div>
                                     <p className="text-sm text-gray-600 font-semibold">Date</p>
-                                    <p className="text-lg text-gray-900 font-bold">28st June (Sunday)</p>
+                                    <p className="text-lg text-gray-900 font-bold">28th June (Sunday)</p>
                                 </div>
                             </div>
 

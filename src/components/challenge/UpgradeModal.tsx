@@ -137,7 +137,7 @@ export const UpgradeModal = ({
               </h3>
             </div>
             <p className="text-center text-gray-700 font-medium text-xs mb-3">
-              Starts 28st June 2026
+              Starts 28th June 2026
             </p>
           </div>
 
