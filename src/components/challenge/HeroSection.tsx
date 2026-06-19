@@ -8,9 +8,10 @@ interface HeroSectionProps {
   scrollToRegistration: () => void;
   feeText?: string;
   isGlobal?: boolean;
+  locationText?: string;
 }
 
-export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlobal = false }: HeroSectionProps) => {
+export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlobal = false, locationText }: HeroSectionProps) => {
   const peopleCount = useAutoIncrementCounter({
     initialCount: 67833,
     incrementAmount: 8,
@@ -79,7 +80,7 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
             </h3>
             {isGlobal && (
               <p className="text-red-600 font-normal text-base md:text-lg mt-4 md:mt-6 mb-2 px-4">
-                🌍 For Indians living in UAE, Saudi Arabia, Qatar, Oman, Bahrain & Kuwait
+                {locationText || "🌍 For Indians living in UAE, Saudi Arabia, Qatar, Oman, Bahrain & Kuwait"}
               </p>
             )}
           </motion.div>

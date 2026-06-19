@@ -14,6 +14,7 @@ import RegistrationConfirm14WLYCInt from "./pages/RegistrationConfirm14WLYCInt";
 import RegistrationConfirm21WLYC from "./pages/RegistrationConfirm21WLYC";
 import Ultimate21DayChallenge from "./pages/Ultimate21DayChallenge";
 import Global21DayWeightLossChallenge from "./pages/Global21DayWeightLossChallenge";
+import International21DayWeightLossChallenge from "./pages/International21DayWeightLossChallenge";
 import TwentyOneDayTotalBodyTransformationProgram from "./pages/TwentyOneDayTotalBodyTransformationProgram";
 import Loseweightwithvaishnavi from "./pages/Loseweightwithvaishnavi";
 import ThankYouLoseWeightVaishnavi from "./pages/ThankYouLoseWeightVaishnavi";
@@ -46,6 +47,7 @@ const App = () => (
           <Route path="/12-week-Total-Body-Transformation-Program" element={<TransformationProgram />} />
           <Route path="/Ultimate-21-day-weight-loss-challenge" element={<Ultimate21DayChallenge />} />
           <Route path="/global-21-day-weight-loss-challenge" element={<Global21DayWeightLossChallenge />} />
+          <Route path="/international-21-day-weight-loss-challenge" element={<International21DayWeightLossChallenge />} />
           <Route path="/21-day-total-body-transformation-program" element={<TwentyOneDayTotalBodyTransformationProgram />} />
           <Route path="/yoga-with-sumit" element={<YogaWithSumit />} />
           <Route path="/Lose-weight-with-vaishnavi" element={<Loseweightwithvaishnavi />} />
