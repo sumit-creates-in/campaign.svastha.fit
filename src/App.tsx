@@ -55,7 +55,7 @@ const App = () => (
           <Route path="/Thank-You-lose-weight-with-vaishnavi" element={<ThankYouLoseWeightVaishnavi />} />
           <Route path="/u21dwlc-paymentconfirmation-2" element={<U21DWLCPaymentConfirmation />} />
           <Route path="/u21dwlc-paymentconfirmation-global-uae" element={<U21DWLCPaymentConfirmation isGlobal={true} />} />
-          <Route path="/u21dwlc-paymentconfirmation-international" element={<U21DWLCPaymentConfirmation isGlobal={true} />} />
+          <Route path="/u21dwlc-exclusive-registration-success-usa" element={<U21DWLCPaymentConfirmation isGlobal={true} />} />
           <Route path="/join-svastha-community" element={<JoinSvasthaCommunity />} />
           <Route path="/test-counter" element={<CounterTest />} />
           {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
