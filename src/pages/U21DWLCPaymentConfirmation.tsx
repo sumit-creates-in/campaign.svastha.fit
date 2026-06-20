@@ -8,28 +8,25 @@ const U21DWLCPaymentConfirmation = ({ isGlobal = false }: { isGlobal?: boolean }
 
         // Meta Pixel Code
         const w = window as any;
+        const d = document;
         if (!w.fbq) {
-            w.fbq = function (...args: any[]) {
-                w.fbq.callMethod
-                    ? w.fbq.callMethod.apply(w.fbq, args)
-                    : w.fbq.queue.push(args);
+            const n: any = function (...args: any[]) {
+                n.callMethod ? n.callMethod.apply(n, args) : n.queue.push(args);
             };
-            if (!w._fbq) w._fbq = w.fbq;
-            w.fbq.push = w.fbq;
-            w.fbq.loaded = !0;
-            w.fbq.version = "2.0";
-            w.fbq.queue = [];
-            const script = document.createElement("script");
-            script.async = true;
-            script.src = "https://connect.facebook.net/en_US/fbevents.js";
-            const firstScript = document.getElementsByTagName("script")[0];
-            firstScript.parentNode?.insertBefore(script, firstScript);
+            w.fbq = n;
+            if (!w._fbq) w._fbq = n;
+            n.push = n;
+            n.loaded = true;
+            n.version = "2.0";
+            n.queue = [];
+            const t = d.createElement("script");
+            t.async = true;
+            t.src = "https://connect.facebook.net/en_US/fbevents.js";
+            const s = d.getElementsByTagName("script")[0];
+            s.parentNode?.insertBefore(t, s);
         }
 
-        w.fbq("init", "4183888118531938", {
-            em: "email@email.com",
-            ph: "1234567890",
-        });
+        w.fbq("init", "4183888118531938");
         w.fbq("track", "PageView");
     }, []);
 
@@ -40,6 +37,17 @@ const U21DWLCPaymentConfirmation = ({ isGlobal = false }: { isGlobal?: boolean }
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-purple-50 via-white to-pink-50 overflow-x-hidden" style={{ paddingTop: '150px' }}>
+            {/* Meta Pixel noscript fallback */}
+            <noscript>
+                <img
+                    height="1"
+                    width="1"
+                    style={{ display: "none" }}
+                    src="https://www.facebook.com/tr?id=4183888118531938&ev=PageView&noscript=1"
+                    alt=""
+                />
+            </noscript>
+
             {/* Success Header */}
             <section className="py-12 px-3 md:px-4 bg-gradient-to-r from-purple-600 to-pink-600">
                 <div className="container mx-auto max-w-4xl px-2">
@@ -128,7 +136,7 @@ const U21DWLCPaymentConfirmation = ({ isGlobal = false }: { isGlobal?: boolean }
                                     <p className="font-bold text-gray-900 text-base md:text-lg mb-1 whitespace-nowrap">
                                         Email us for support
                                     </p>
-                                    <a 
+                                    <a
                                         href="mailto:support@svastha.fit"
                                         className="text-purple-600 font-semibold hover:underline"
                                     >
