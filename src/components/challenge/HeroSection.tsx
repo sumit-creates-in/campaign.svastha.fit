@@ -105,10 +105,18 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
 
               {/* Benefits List */}
               <div className="space-y-3">
+                {isGlobal && (
+                  <div className="flex items-start gap-3 border-b-2 border-gray-200 pb-2">
+                    <span className="text-emerald-600 text-xl flex-shrink-0">✦</span>
+                    <p className="text-lg text-gray-700">
+                      <span className="font-semibold">Suitable for</span> Indians living abroad 🌍
+                    </p>
+                  </div>
+                )}
                 <div className="flex items-start gap-3 border-b-2 border-gray-200 pb-2">
                   <span className="text-emerald-600 text-xl flex-shrink-0">✦</span>
                   <p className="text-lg text-gray-700">
-                    <span className="font-semibold">With Natural Food Like</span> Daal, Rice, Roti, Sabji 🌾
+                    <span className="font-semibold">{isGlobal ? 'With Natural Food' : 'With Natural Food Like'}</span> {isGlobal ? '🌾' : 'Daal, Rice, Roti, Sabji 🌾'}
                   </p>
                 </div>
                 <div className="flex items-start gap-3 border-b-2 border-gray-200 pb-2">
@@ -135,14 +143,6 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
                     <span className="font-semibold">Join Live</span> Yoga Classes from Home 🧘
                   </p>
                 </div>
-                {isGlobal && (
-                  <div className="flex items-start gap-3 border-b-2 border-gray-200 pb-2">
-                    <span className="text-emerald-600 text-xl flex-shrink-0">✦</span>
-                    <p className="text-lg text-gray-700">
-                      <span className="font-semibold">Suitable for</span> Indians living abroad 🌍
-                    </p>
-                  </div>
-                )}
               </div>
 
               {/* CTA Button */}
