@@ -9,9 +9,10 @@ interface HeroSectionProps {
   feeText?: string;
   isGlobal?: boolean;
   locationText?: string;
+  videoId?: string;
 }
 
-export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlobal = false, locationText }: HeroSectionProps) => {
+export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlobal = false, locationText, videoId = "0zkAOy4AP38" }: HeroSectionProps) => {
   const peopleCount = useAutoIncrementCounter({
     initialCount: 67833,
     incrementAmount: 8,
@@ -180,7 +181,7 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
               <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl border-4 border-emerald-100" style={{ paddingBottom: '56.25%' }}>
                 <iframe
                   className="absolute top-0 left-0 w-full h-full"
-                  src="https://www.youtube.com/embed/0zkAOy4AP38"
+                  src={`https://www.youtube.com/embed/${videoId}`}
                   title="Ultimate 21 Day Weight Loss Challenge"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
