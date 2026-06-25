@@ -75,15 +75,15 @@ export const TransformationsSection = () => {
   const transformations = [
     {
       image: transformation1,
-      text: "Bahut ache se samjhaya or follow karne me bhi madad ki. Pata hi nahi chala k diet bhi kar rahe h. Sab log hairaan h k sab kuch khaate peete bhi weight loss ho gaya. Bahut acha program h."
+      text: "Explained very well and helped me follow through. I didn't even realize I was on a diet. Everyone is amazed that I lost weight while eating everything. This is a great program."
     },
     {
       image: transformation2,
-      text: "15 kilo vazan kam ho gaya or koi strict diet nahi follow karni padi bas jam kar khaya or life ko enjoy kiya. Thank you Sumit Sir. - Vijay"
+      text: "Lost 15 kilos without following any strict diet, just ate well and enjoyed life. Thank you Sumit Sir. - Vijay"
     },
     {
       image: transformation3,
-      text: "Maine sirf golden rules follow karke 25 kg's weight loss kiya vo bhi bina kisi strict diet k. Thank you Sumit Sirrrr!!! - Namrata"
+      text: "I lost 25 kg just by following the golden rules without any strict diet. Thank you Sumit Sir!!! - Namrata"
     },
     {
       image: transformation4,
@@ -91,15 +91,15 @@ export const TransformationsSection = () => {
     },
     {
       image: transformation5,
-      text: "Ab me bina kisi tension k khana kha sakta hu apni life enjoy kar sakta hu. mera fatty liver or hypertension bhi ab theek ho gaya hai. Amazing experience. - Ravikant"
+      text: "Now I can eat without any tension and enjoy my life. My fatty liver and hypertension are also cured now. Amazing experience. - Ravikant"
     },
     {
       image: transformation6,
-      text: "95 kg se 60 kg tak ka safar mere liye sirf weight loss nahi, ek complete life change tha."
+      text: "The journey from 95 kg to 60 kg was not just weight loss for me, it was a complete life change."
     },
     {
       image: transformation8,
-      text: "Sir ki guidance me maine ab tak 20 kg vazan kam kar liya or pichle 6 maheene se ise maintain bhi kar raha hu. Thank you Sumit Sir. - Sumit"
+      text: "With Sir's guidance, I have lost 20 kg so far and have been maintaining it for the last 6 months. Thank you Sumit Sir. - Sumit"
     },
     {
       image: transformation9,

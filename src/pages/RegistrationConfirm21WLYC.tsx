@@ -4,6 +4,48 @@ import { Button } from "@/components/ui/button";
 import { CheckCircle, Calendar, Clock, Monitor, Users, ArrowBigDown } from "lucide-react";
 import { useLocation } from "react-router-dom";
 
+function formatTime12h(hour24: number): string {
+    let h = ((hour24 % 24) + 24) % 24;
+    const minutes = Math.round((h % 1) * 60);
+    const hourInt = Math.floor(h);
+    const period = hourInt >= 12 ? "pm" : "am";
+    const hour12 = hourInt === 0 ? 12 : hourInt > 12 ? hourInt - 12 : hourInt;
+    return minutes === 0 ? `${hour12}:00 ${period}` : `${hour12}:${minutes.toString().padStart(2, '0')} ${period}`;
+}
+
+function getUSTimezoneInfo(): { name: string; offsetFromIST: number } {
+    try {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        if (tz.includes("Asia/Kolkata") || tz.includes("Asia/Calcutta")) {
+            return { name: "Calcutta/Asia", offsetFromIST: 0 };
+        }
+        if (tz.includes("America/New_York") || tz.includes("America/Detroit") || tz.includes("America/Toronto") || tz.includes("US/Eastern")) {
+            return { name: "Eastern Time (ET)", offsetFromIST: -9.5 };
+        }
+        if (tz.includes("America/Chicago") || tz.includes("America/Winnipeg") || tz.includes("US/Central")) {
+            return { name: "Central Time (CT)", offsetFromIST: -10.5 };
+        }
+        if (tz.includes("America/Denver") || tz.includes("America/Edmonton") || tz.includes("US/Mountain")) {
+            return { name: "Mountain Time (MT)", offsetFromIST: -11.5 };
+        }
+        if (tz.includes("America/Los_Angeles") || tz.includes("America/Vancouver") || tz.includes("US/Pacific")) {
+            return { name: "Pacific Time (PT)", offsetFromIST: -12.5 };
+        }
+        const offsetMinutes = new Date().getTimezoneOffset();
+        const offsetFromUTC = -offsetMinutes / 60;
+        const offsetFromIST = offsetFromUTC - 5.5;
+        let tzAbbr = new Date().toLocaleTimeString('en-US', { timeZoneName: 'short' }).split(' ').pop();
+        if (Math.abs(offsetFromIST) < 0.01) {
+            tzAbbr = "Calcutta/Asia";
+        } else if (tzAbbr && (tzAbbr.includes("GMT+5:30") || tzAbbr.includes("GMT+0530") || tzAbbr.includes("GMT+5") || tzAbbr.includes("GMT+05:30") || tzAbbr.includes("IST"))) {
+            tzAbbr = "Calcutta/Asia";
+        }
+        return { name: tzAbbr || "Your Local Time", offsetFromIST };
+    } catch {
+        return { name: "Eastern Time (ET)", offsetFromIST: -9.5 };
+    }
+}
+
 const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean }) => {
     const location = useLocation();
     const [tzInfo, setTzInfo] = useState<{ name: string; offsetFromIST: number }>({
@@ -29,12 +71,6 @@ const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean })
             : isGlobal
                 ? "8:00 AM (Gulf Standard Time (GST))"
                 : "9:30 AM (India Time)";
-
-    const sessionTime = isInternational
-        ? "10:30 PM EDT (USA) / 8:00 AM GST"
-        : isGlobal
-            ? "8:00 AM (Gulf Standard Time (GST))"
-            : "9:30 AM (India Time)";
 
     useEffect(() => {
         window.scrollTo(0, 0);
