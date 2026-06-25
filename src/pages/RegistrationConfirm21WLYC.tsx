@@ -72,34 +72,37 @@ const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean })
                 ? "8:00 AM (Gulf Standard Time (GST))"
                 : "9:30 AM (India Time)";
 
+    const sessionTime = isInternational
+        ? "10:30 PM EDT (USA) / 8:00 AM GST"
+        : isGlobal
+            ? "8:00 AM (Gulf Standard Time (GST))"
+            : "9:30 AM (India Time)";
+
     useEffect(() => {
         window.scrollTo(0, 0);
         setTzInfo(getUSTimezoneInfo());
 
         // Meta Pixel Code
         const w = window as any;
+        const d = document;
         if (!w.fbq) {
-            w.fbq = function (...args: any[]) {
-                w.fbq.callMethod
-                    ? w.fbq.callMethod.apply(w.fbq, args)
-                    : w.fbq.queue.push(args);
+            const n: any = function (...args: any[]) {
+                n.callMethod ? n.callMethod.apply(n, args) : n.queue.push(args);
             };
-            if (!w._fbq) w._fbq = w.fbq;
-            w.fbq.push = w.fbq;
-            w.fbq.loaded = !0;
-            w.fbq.version = "2.0";
-            w.fbq.queue = [];
-            const script = document.createElement("script");
-            script.async = true;
-            script.src = "https://connect.facebook.net/en_US/fbevents.js";
-            const firstScript = document.getElementsByTagName("script")[0];
-            firstScript.parentNode?.insertBefore(script, firstScript);
+            w.fbq = n;
+            if (!w._fbq) w._fbq = n;
+            n.push = n;
+            n.loaded = true;
+            n.version = "2.0";
+            n.queue = [];
+            const t = d.createElement("script");
+            t.async = true;
+            t.src = "https://connect.facebook.net/en_US/fbevents.js";
+            const s = d.getElementsByTagName("script")[0];
+            s.parentNode?.insertBefore(t, s);
         }
 
-        w.fbq("init", "4183888118531938", {
-            em: "email@email.com",
-            ph: "1234567890",
-        });
+        w.fbq("init", "4183888118531938");
         w.fbq("track", "PageView");
     }, []);
 
@@ -130,6 +133,17 @@ const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean })
 
     return (
         <div className="min-h-screen bg-gradient-to-b from-green-50 via-white to-emerald-50">
+            {/* Meta Pixel noscript fallback */}
+            <noscript>
+                <img
+                    height="1"
+                    width="1"
+                    style={{ display: "none" }}
+                    src="https://www.facebook.com/tr?id=4183888118531938&ev=PageView&noscript=1"
+                    alt=""
+                />
+            </noscript>
+
             {/* Success Header */}
             <section className="py-12 px-4 bg-gradient-to-r from-green-600 to-emerald-600">
                 <div className="container mx-auto max-w-4xl">
@@ -153,7 +167,6 @@ const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean })
             </section>
             <div className="flex justify-center py-4">
                 <ArrowBigDown className="w-14 h-14 text-green-600" />
-
             </div>
 
             {/* Main Content */}
@@ -268,7 +281,6 @@ const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean })
                             size="lg"
                             className="w-full bg-green-500 hover:bg-green-600 text-white text-sm py-6 rounded-xl shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 flex items-center justify-center gap-2"
                         >
-                            {/* <Users className="w-6 h-6" /> */}
                             JOIN WHATSAPP GROUP
                         </Button>
                     </motion.div>
