@@ -72,12 +72,6 @@ const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean })
                 ? "8:00 AM (Gulf Standard Time (GST))"
                 : "9:30 AM (India Time)";
 
-    const sessionTime = isInternational
-        ? "10:30 PM EDT (USA) / 8:00 AM GST"
-        : isGlobal
-            ? "8:00 AM (Gulf Standard Time (GST))"
-            : "9:30 AM (India Time)";
-
     useEffect(() => {
         window.scrollTo(0, 0);
         setTzInfo(getUSTimezoneInfo());
