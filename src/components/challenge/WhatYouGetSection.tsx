@@ -19,7 +19,6 @@ const IST_MORNING_HOURS = [5.5, 6.5, 7.5, 8.5, 9.5]; // 5:30 AM - 9:30 AM IST
 const IST_EVENING_HOURS = [17.5, 18.5, 19.5]; // 5:30 PM - 7:30 PM IST
 
 function formatTime12h(hour24: number): string {
-  // Normalize to 0-24 range
   let h = ((hour24 % 24) + 24) % 24;
   const minutes = Math.round((h % 1) * 60);
   const hourInt = Math.floor(h);
@@ -31,7 +30,6 @@ function formatTime12h(hour24: number): string {
 function getUSTimezoneInfo(): { name: string; offsetFromIST: number } {
   try {
     const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-    // Map common US/Canada timezones
     if (tz.includes("America/New_York") || tz.includes("America/Detroit") || tz.includes("America/Toronto") || tz.includes("US/Eastern")) {
       return { name: "Eastern Time (ET)", offsetFromIST: -9.5 };
     }
@@ -44,14 +42,12 @@ function getUSTimezoneInfo(): { name: string; offsetFromIST: number } {
     if (tz.includes("America/Los_Angeles") || tz.includes("America/Vancouver") || tz.includes("US/Pacific")) {
       return { name: "Pacific Time (PT)", offsetFromIST: -12.5 };
     }
-    // Fallback: compute offset from browser
     const offsetMinutes = new Date().getTimezoneOffset();
     const offsetFromUTC = -offsetMinutes / 60;
     const offsetFromIST = offsetFromUTC - 5.5;
     const tzAbbr = new Date().toLocaleTimeString('en-US', { timeZoneName: 'short' }).split(' ').pop();
     return { name: tzAbbr || "Your Local Time", offsetFromIST };
   } catch {
-    // Default to ET
     return { name: "Eastern Time (ET)", offsetFromIST: -9.5 };
   }
 }
@@ -78,6 +74,13 @@ function getInternationalTimings(): { subtitle: string; details: string[] } {
 
 export const WhatYouGetSection = ({ scrollToRegistration, isUae = false, isInternational = false }: WhatYouGetSectionProps) => {
   const internationalTimings = isInternational ? getInternationalTimings() : null;
+  const tzInfo = getUSTimezoneInfo();
+
+  const morningLocal = IST_MORNING_HOURS.map(h => formatTime12h(h + tzInfo.offsetFromIST));
+  const eveningLocal = IST_EVENING_HOURS.map(h => formatTime12h(h + tzInfo.offsetFromIST));
+
+  const morningStr = morningLocal.slice(0, -1).join(", ") + " & " + morningLocal[morningLocal.length - 1];
+  const eveningStr = eveningLocal.slice(0, -1).join(", ") + " & " + eveningLocal[eveningLocal.length - 1];
 
   const benefits = [
     {
@@ -156,64 +159,202 @@ export const WhatYouGetSection = ({ scrollToRegistration, isUae = false, isInter
 
         {/* Benefits Cards */}
         <div className="space-y-6 mb-12">
-          {benefits.map((benefit, idx) => (
-            <motion.div
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: idx * 0.1 }}
-              className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-sm border-2 border-gray-200 relative">
-              {/* Number Badge */}
-              <div className="absolute top-4 left-4 w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-base shadow-lg">
-                {idx + 1}
-              </div>
+          {benefits.map((benefit, idx) => {
+            if (idx === 3 && isInternational) {
+              return (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-sm border-2 border-gray-200 relative"
+                >
+                  {/* Number Badge */}
+                  <div className="absolute top-4 left-4 w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-base shadow-lg z-10">
+                    {idx + 1}
+                  </div>
 
-              <div className="flex flex-col md:flex-row items-center md:items-center gap-6 mt-2">
-                {/* Image */}
-                <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-3xl flex items-center justify-center flex-shrink-0 shadow-sm overflow-hidden mx-auto md:mx-0">
-                  {benefit.imageType === "photo" ? (
-                    <img
-                      src={benefit.image}
-                      alt={benefit.title}
-                      className="w-full h-full object-cover"
-                    />
-                  ) : (
-                    <span className="text-5xl md:text-6xl">{benefit.image}</span>
-                  )}
-                </div>
+                  <div className="grid md:grid-cols-[300px_1fr] gap-8 items-center">
+                    {/* Left Column: Image with badges */}
+                    <div className="relative w-full aspect-[4/3] md:aspect-square rounded-3xl overflow-hidden shadow-md flex-shrink-0">
 
-                {/* Content */}
-                <div className="flex-1 text-center md:text-left w-full">
-                  <h3 className="text-base md:text-lg font-bold text-gray-900 mb-2">
-                    {benefit.title}
-                  </h3>
-                  {benefit.subtitle && (
-                    <p className="text-xs text-gray-600 mb-2">{benefit.subtitle}</p>
-                  )}
-                  {benefit.description && (
-                    <p className="text-xs md:text-sm text-gray-700 leading-relaxed mb-2">
-                      {benefit.description}
-                    </p>
-                  )}
-                  {benefit.link && (
-                    <a href="https://www.instagram.com/sumit_sharma_coach/" target="_blank" rel="noopener noreferrer" className="text-xs text-blue-600 hover:underline">
-                      {benefit.link}
-                    </a>
-                  )}
-                  {benefit.details && (
-                    <div className="text-xs text-gray-700 space-y-1 mt-2">
-                      {benefit.details.map((detail, i) => (
-                        <p key={i} className={i === benefit.details!.length - 1 ? "italic text-gray-600" : ""}>
-                          {detail}
-                        </p>
-                      ))}
+                      <img
+                        src={benefit.image}
+                        alt={benefit.title}
+                        className="w-full h-full object-cover"
+                      />
+
+                      {/* Bottom Play Badge */}
+                      <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm rounded-2xl py-2.5 px-4 shadow-lg border border-gray-100 flex items-center gap-3 z-10">
+                        <div className="w-8 h-8 rounded-full bg-[#E8F5E9] flex items-center justify-center text-emerald-600 flex-shrink-0">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 ml-0.5 text-[#2E7D32]">
+                            <path fillRule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clipRule="evenodd" />
+                          </svg>
+                        </div>
+                        <div className="flex flex-col text-left">
+                          <span className="text-sm font-bold text-gray-900 leading-tight">Live & Interactive</span>
+                          <span className="text-xs text-gray-500 leading-tight">Recordings provided</span>
+                        </div>
+                      </div>
                     </div>
-                  )}
+
+                    {/* Right Column: Timings and Info */}
+                    <div className="flex-1 w-full space-y-4 text-left">
+                      {/* Live & Interactive top badge */}
+                      <div className="inline-flex items-center gap-1.5 bg-[#E8F5E9] text-[#2E7D32] px-3.5 py-1.5 rounded-full text-xs font-semibold">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                          <circle cx="12" cy="12" r="10" />
+                          <path d="M8 12h8" />
+                          <path d="M12 8v8" />
+                        </svg>
+                        <span>LIVE & INTERACTIVE</span>
+                      </div>
+
+                      {/* Main Title & Subtitle */}
+                      <div>
+                        <h3 className="text-2xl md:text-3xl font-extrabold text-gray-900 flex items-center gap-2">
+                          <span className="animate-bounce">🔥</span> Daily Live Yoga Classes
+                        </h3>
+                        <p className="text-gray-600 text-sm md:text-base mt-2">
+                          Join our expert-led yoga sessions from the comfort of your home. Choose a time that fits your schedule!
+                        </p>
+                      </div>
+
+                      {/* morning classes block */}
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-4 bg-[#F1F8E9] border border-[#DCEDC8] rounded-2xl p-4">
+                        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#2E7D32] shadow-sm flex-shrink-0">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="12" cy="12" r="4" />
+                            <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+                          </svg>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <span className="text-sm font-bold text-gray-900 block">Morning Classes</span>
+                        </div>
+                        <div className="text-sm text-gray-700 font-medium sm:text-right">
+                          {morningStr}
+                        </div>
+                      </div>
+
+                      {/* evening classes block */}
+                      <div className="flex flex-col sm:flex-row sm:items-center gap-4 bg-[#F1F8E9] border border-[#DCEDC8] rounded-2xl p-4">
+                        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#2E7D32] shadow-sm flex-shrink-0">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+                          </svg>
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <span className="text-sm font-bold text-gray-900 block">Evening Classes</span>
+                        </div>
+                        <div className="text-sm text-gray-700 font-medium sm:text-right">
+                          {eveningStr}
+                        </div>
+                      </div>
+
+                      {/* info block */}
+                      <div className="grid sm:grid-cols-2 gap-4">
+                        {/* timezone */}
+                        <div className="flex items-center gap-3 bg-[#F5F5F5] border border-gray-200 rounded-2xl p-4">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-gray-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
+                            <path d="M2 12h20" />
+                          </svg>
+                          <span className="text-xs text-gray-600 text-left">
+                            All timings shown in <span className="font-bold text-[#2E7D32]">{tzInfo.name}</span>
+                          </span>
+                        </div>
+
+                        {/* days */}
+                        <div className="flex items-center gap-3 bg-[#F5F5F5] border border-gray-200 rounded-2xl p-4">
+                          <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-gray-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                            <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+                            <line x1="16" x2="16" y1="2" y2="6" />
+                            <line x1="8" x2="8" y1="2" y2="6" />
+                            <line x1="3" x2="21" y1="10" y2="10" />
+                          </svg>
+                          <span className="text-xs text-gray-600 font-bold text-left">
+                            Monday to Friday
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* recordings text */}
+                      <div className="flex items-center gap-3 bg-[#E8F5E9] border border-[#C8E6C9] rounded-2xl p-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-[#2E7D32] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <path d="M23 7a2 2 0 0 0-2.45-1.45L16 7V5a2 2 0 0 0-2-2H2a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2l4.55 1.45A2 2 0 0 0 23 17V7Z" />
+                        </svg>
+                        <span className="text-xs text-gray-700 text-left">
+                          Can't make it live? No worries! <span className="font-bold text-[#2E7D32]">Recordings</span> of all classes will be provided.
+                        </span>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            }
+
+            return (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.1 }}
+                className="bg-gradient-to-r from-green-50 to-emerald-50 rounded-3xl p-6 md:p-8 shadow-sm border-2 border-gray-200 relative"
+              >
+                {/* Number Badge */}
+                <div className="absolute top-4 left-4 w-12 h-12 bg-green-600 text-white rounded-full flex items-center justify-center font-bold text-base shadow-lg">
+                  {idx + 1}
                 </div>
-              </div>
-            </motion.div>
-          ))}
+
+                <div className="flex flex-col md:flex-row items-center md:items-center gap-6 mt-2">
+                  {/* Image */}
+                  <div className="w-24 h-24 md:w-32 md:h-32 bg-white rounded-3xl flex items-center justify-center flex-shrink-0 shadow-sm overflow-hidden mx-auto md:mx-0">
+                    {benefit.imageType === "photo" ? (
+                      <img
+                        src={benefit.image}
+                        alt={benefit.title}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <span className="text-5xl md:text-6xl">{benefit.image}</span>
+                    )}
+                  </div>
+
+                  {/* Content */}
+                  <div className="flex-1 text-center md:text-left w-full">
+                    <h3 className="text-base md:text-lg font-bold text-gray-900 mb-2">
+                      {benefit.title}
+                    </h3>
+                    {benefit.subtitle && (
+                      <p className="text-xs text-gray-600 mb-2">{benefit.subtitle}</p>
+                    )}
+                    {benefit.description && (
+                      <p className="text-xs md:text-sm text-gray-700 leading-relaxed mb-2">
+                        {benefit.description}
+                      </p>
+                    )}
+                    {benefit.link && (
+                      <a href="https://www.instagram.com/sumit_sharma_coach/" target="_blank" rel="noopener noreferrer" className="text-xs text-blue-600 hover:underline">
+                        {benefit.link}
+                      </a>
+                    )}
+                    {benefit.details && (
+                      <div className="text-xs text-gray-700 space-y-1 mt-2">
+                        {benefit.details.map((detail, i) => (
+                          <p key={i} className={i === benefit.details!.length - 1 ? "italic text-gray-600" : ""}>
+                            {detail}
+                          </p>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </motion.div>
+            );
+          })}
         </div>
 
         {/* Register Button */}

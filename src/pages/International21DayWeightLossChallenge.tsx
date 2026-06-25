@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMeta } from "@/hooks/useMeta";
 import { toast } from "sonner";
 
@@ -18,6 +18,7 @@ import {
   YogaTeachersSection,
   RegisterHereSection,
   FAQSection,
+  UpgradeModal,
   ScrollPopupModal,
   StickyBottomBar,
   WhatsAppFloatingButton,
@@ -99,29 +100,34 @@ const internationalFaqs = [
 ];
 
 const International21DayWeightLossChallenge = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
   useMeta({
     title: "International 21 Day Weight Loss Challenge | Lose up to 10 Kg | Svastha",
-    description: "Join the International 21 Day Weight Loss Challenge. 4067+ transformations, 7.5 kg average loss, 98% success rate. Expert guidance, diet plans, yoga classes. Register for $ 49.",
+    description: "Join the International 21 Day Weight Loss Challenge. 4067+ transformations, 7.5 kg average loss, 98% success rate. Expert guidance, diet plans, yoga classes. Register for $ 29.",
     ogTitle: "International 21 Day Weight Loss Challenge | Svastha",
-    ogDescription: "Transform your body in 21 days. Proven system with 4067+ success stories. Diet plan + Yoga + WhatsApp support. Register now for $ 49.",
+    ogDescription: "Transform your body in 21 days. Proven system with 4067+ success stories. Diet plan + Yoga + WhatsApp support. Register now for $ 29.",
     ogImage: "/src/assets/hero-yoga.jpg",
   });
 
   const scrollToRegistration = () => {
-    toast.success("Redirecting to payment...");
-    window.open("https://buy.stripe.com/fZudR93SE6aIaNR2Rq5c40Y", "_blank");
+    setIsModalOpen(true);
   };
 
   const handleUpgrade = () => {
+    setIsModalOpen(false);
     toast.success("Redirecting to upgrade payment...");
+    window.open("https://buy.stripe.com/fZudR93SE6aIaNR2Rq5c40Y", "_blank");
   };
 
   const handleJoinGroup = () => {
+    setIsModalOpen(false);
     toast.success("Redirecting to payment...");
+    window.open("https://buy.stripe.com/28E14ngFqbv2bRV2Rq5c410", "_blank");
   };
 
   return (
@@ -149,7 +155,7 @@ const International21DayWeightLossChallenge = () => {
         }
       `}</style>
       <div className="ultimate-challenge-page min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">
-        <HeroSection scrollToRegistration={scrollToRegistration} feeText="$ 49" isGlobal={true} locationText="🌍 For Indians living in USA & CANADA" videoId="f8-22hN40CY" />
+        <HeroSection scrollToRegistration={scrollToRegistration} feeText="$ 29" isGlobal={true} locationText="🌍 For Indians living in USA & CANADA" videoId="f8-22hN40CY" />
         <div style={{ height: "150px" }} />
         <LeaderboardSection />
         <div style={{ height: "150px" }} />
@@ -173,22 +179,38 @@ const International21DayWeightLossChallenge = () => {
         <div style={{ height: "150px" }} />
         <YogaTeachersSection />
         <div style={{ height: "150px" }} />
-        <RegisterHereSection onRegister={scrollToRegistration} originalPrice="$ 149" discountedPrice="$ 49" />
+        <RegisterHereSection onRegister={scrollToRegistration} originalPrice="$ 89" discountedPrice="$ 29" />
         <div style={{ height: "150px" }} />
         <FAQSection faqs={internationalFaqs} />
+        <UpgradeModal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onUpgrade={handleUpgrade}
+          onJoinGroup={handleJoinGroup}
+          upgradeUrl="https://buy.stripe.com/fZudR93SE6aIaNR2Rq5c40Y"
+          joinGroupUrl="https://buy.stripe.com/28E14ngFqbv2bRV2Rq5c410"
+          upgradePriceText="$ 59"
+          groupPriceText="$ 29"
+          isGlobal={true}
+          startDateText="12th July"
+          timerEndDate="2026-07-12T23:59:59"
+          hideTimer={true}
+        />
         <ScrollPopupModal
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
           upgradeUrl="https://buy.stripe.com/5kQ4gzfBm2YwaNR63C5c40Z"
-          joinGroupUrl="https://buy.stripe.com/5kQ6oHah20Qo5txdw45c40U"
+          joinGroupUrl="https://buy.stripe.com/9B600j0Gs6aI3lpajS5c411"
           personalDiscountText="$ 10 off"
-          personalPriceText="$ 39"
-          groupDiscountText="$ 10 off"
-          groupPriceText="$ 39"
+          personalPriceText="$ 49"
+          groupDiscountText="$ 5 off"
+          groupPriceText="$ 24"
           isGlobal={true}
-          hideGroupPlan={true}
+          startDateText="12th July"
+          timerEndDate="2026-07-12T23:59:59"
+          hideTimer={true}
         />
-        <StickyBottomBar onRegisterClick={scrollToRegistration} feeText="$ 49" />
+        <StickyBottomBar onRegisterClick={scrollToRegistration} feeText="$ 29" />
         <WhatsAppFloatingButton message="I want to know more about International 21 Day Weight Loss Challenge" />
       </div>
     </>

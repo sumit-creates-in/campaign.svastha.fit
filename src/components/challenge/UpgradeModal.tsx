@@ -12,6 +12,9 @@ interface UpgradeModalProps {
   upgradePriceText?: string;
   groupPriceText?: string;
   isGlobal?: boolean;
+  startDateText?: string;
+  timerEndDate?: string;
+  hideTimer?: boolean;
 }
 
 export const UpgradeModal = ({
@@ -24,15 +27,20 @@ export const UpgradeModal = ({
   upgradePriceText = "Rs. 2990",
   groupPriceText = "Rs. 990",
   isGlobal = false,
+  startDateText = "28th June 2026",
+  timerEndDate,
+  hideTimer = false,
 }: UpgradeModalProps) => {
   const [timeLeft, setTimeLeft] = useState({ days: 0 });
 
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date();
-      const endDate = isGlobal 
-        ? new Date('2026-06-21T23:59:59') 
-        : new Date('2026-06-08T12:00:00');
+      const endDate = timerEndDate
+        ? new Date(timerEndDate)
+        : (isGlobal 
+            ? new Date('2026-06-21T23:59:59') 
+            : new Date('2026-06-08T12:00:00'));
 
       const difference = endDate.getTime() - now.getTime();
 
@@ -49,7 +57,7 @@ export const UpgradeModal = ({
     const timer = setInterval(calculateTimeLeft, 1000);
 
     return () => clearInterval(timer);
-  }, [isGlobal]);
+  }, [isGlobal, timerEndDate]);
 
   if (!isOpen) return null;
 
@@ -79,7 +87,7 @@ export const UpgradeModal = ({
             <h2 className="text-base font-bold text-gray-900 leading-tight mb-2">
               Personalized Plan?
             </h2>
-            {timeLeft.days > 0 && (
+            {!hideTimer && timeLeft.days > 0 && (
               <p className="text-xs text-red-600 font-semibold flex items-center justify-center gap-2">
                 Limited Time Offer :
                 <span className="font-bold text-red-600">
@@ -137,7 +145,7 @@ export const UpgradeModal = ({
               </h3>
             </div>
             <p className="text-center text-gray-700 font-medium text-xs mb-3">
-              Starts 28th June 2026
+              Starts {startDateText}
             </p>
           </div>
 

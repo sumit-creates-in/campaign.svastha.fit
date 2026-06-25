@@ -11,9 +11,10 @@ interface HeroSectionProps {
   locationText?: string;
   videoId?: string;
   showLanguageToggle?: boolean;
+  timerEndDate?: string;
 }
 
-export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlobal = false, locationText, videoId = "0zkAOy4AP38", showLanguageToggle = false }: HeroSectionProps) => {
+export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlobal = false, locationText, videoId = "0zkAOy4AP38", showLanguageToggle = false, timerEndDate }: HeroSectionProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalStep, setModalStep] = useState<"select-language" | "play-video">("select-language");
   const [modalVideoId, setModalVideoId] = useState<string | null>(null);
@@ -29,9 +30,11 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date();
-      const endDate = isGlobal 
-        ? new Date('2026-06-21T23:59:59') 
-        : new Date('2026-06-08T12:00:00');
+      const endDate = timerEndDate
+        ? new Date(timerEndDate)
+        : (isGlobal 
+            ? new Date('2026-06-21T23:59:59') 
+            : new Date('2026-06-08T12:00:00'));
 
       const difference = endDate.getTime() - now.getTime();
 
@@ -48,7 +51,7 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
     const timer = setInterval(calculateTimeLeft, 1000);
 
     return () => clearInterval(timer);
-  }, [isGlobal]);
+  }, [isGlobal, timerEndDate]);
 
   return (
     <section className="relative px-4 bg-white" style={{ paddingTop: '2rem' }}>

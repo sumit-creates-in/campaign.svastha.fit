@@ -13,6 +13,9 @@ interface ScrollPopupModalProps {
   groupPriceText?: string;
   isGlobal?: boolean;
   hideGroupPlan?: boolean;
+  startDateText?: string;
+  timerEndDate?: string;
+  hideTimer?: boolean;
 }
 
 export const ScrollPopupModal = ({
@@ -26,6 +29,9 @@ export const ScrollPopupModal = ({
   groupPriceText = "Rs. 890",
   isGlobal = false,
   hideGroupPlan = false,
+  startDateText = "28th June 2026",
+  timerEndDate,
+  hideTimer = false,
 }: ScrollPopupModalProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [hasShown, setHasShown] = useState(false);
@@ -34,9 +40,11 @@ export const ScrollPopupModal = ({
   useEffect(() => {
     const calculateTimeLeft = () => {
       const now = new Date();
-      const endDate = isGlobal 
-        ? new Date('2026-06-21T23:59:59') 
-        : new Date('2026-06-08T12:00:00');
+      const endDate = timerEndDate
+        ? new Date(timerEndDate)
+        : (isGlobal 
+            ? new Date('2026-06-21T23:59:59') 
+            : new Date('2026-06-08T12:00:00'));
 
       const difference = endDate.getTime() - now.getTime();
 
@@ -53,7 +61,7 @@ export const ScrollPopupModal = ({
     const timer = setInterval(calculateTimeLeft, 1000);
 
     return () => clearInterval(timer);
-  }, [isGlobal]);
+  }, [isGlobal, timerEndDate]);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -128,7 +136,7 @@ export const ScrollPopupModal = ({
                 <h3 className="text-base font-bold text-gray-900 leading-tight text-center">
                   Upgrade to Personalized 21 Day Plan to Get:
                 </h3>
-                {timeLeft.days > 0 && (
+                {!hideTimer && timeLeft.days > 0 && (
                   <p className="text-xs text-red-600 font-semibold flex items-center justify-center gap-2 mt-1">
                     Limited Time Offer :
                     <span className="font-bold text-red-600">
@@ -195,7 +203,7 @@ export const ScrollPopupModal = ({
                 </div>
                 <div className="text-center mb-2">
                   <p className="text-red-500 font-semibold text-sm">{groupDiscountText}</p>
-                  <p className="text-gray-700 font-medium text-xs">Starts 28th June 2026</p>
+                  <p className="text-gray-700 font-medium text-xs">Starts {startDateText}</p>
                 </div>
               </div>
 
