@@ -16,6 +16,9 @@ function formatTime12h(hour24: number): string {
 function getUSTimezoneInfo(): { name: string; offsetFromIST: number } {
     try {
         const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        if (tz.includes("Asia/Kolkata") || tz.includes("Asia/Calcutta")) {
+            return { name: "Calcutta/Asia", offsetFromIST: 0 };
+        }
         if (tz.includes("America/New_York") || tz.includes("America/Detroit") || tz.includes("America/Toronto") || tz.includes("US/Eastern")) {
             return { name: "Eastern Time (ET)", offsetFromIST: -9.5 };
         }
@@ -31,7 +34,12 @@ function getUSTimezoneInfo(): { name: string; offsetFromIST: number } {
         const offsetMinutes = new Date().getTimezoneOffset();
         const offsetFromUTC = -offsetMinutes / 60;
         const offsetFromIST = offsetFromUTC - 5.5;
-        const tzAbbr = new Date().toLocaleTimeString('en-US', { timeZoneName: 'short' }).split(' ').pop();
+        let tzAbbr = new Date().toLocaleTimeString('en-US', { timeZoneName: 'short' }).split(' ').pop();
+        if (Math.abs(offsetFromIST) < 0.01) {
+            tzAbbr = "Calcutta/Asia";
+        } else if (tzAbbr && (tzAbbr.includes("GMT+5:30") || tzAbbr.includes("GMT+0530") || tzAbbr.includes("GMT+5") || tzAbbr.includes("GMT+05:30") || tzAbbr.includes("IST"))) {
+            tzAbbr = "Calcutta/Asia";
+        }
         return { name: tzAbbr || "Your Local Time", offsetFromIST };
     } catch {
         return { name: "Eastern Time (ET)", offsetFromIST: -9.5 };

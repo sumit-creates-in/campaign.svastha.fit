@@ -19,107 +19,107 @@ export const JyotiTestimonialSection = () => {
     {
       id: "Jr3SLUysAQA",
       thumbnail: "https://img.youtube.com/vi/Jr3SLUysAQA/hqdefault.jpg",
-      title: "Success Story 1"
+      title: ""
     },
     {
       id: "4Bn9pORVFVM",
       thumbnail: "https://img.youtube.com/vi/4Bn9pORVFVM/hqdefault.jpg",
-      title: "Success Story 2"
+      title: ""
     },
     {
       id: "SZy_hjB6vHo",
       thumbnail: "https://img.youtube.com/vi/SZy_hjB6vHo/hqdefault.jpg",
-      title: "Success Story 3"
+      title: ""
     },
     {
       id: "4ezH5ZklCLE",
       thumbnail: "https://img.youtube.com/vi/4ezH5ZklCLE/hqdefault.jpg",
-      title: "Success Story 4"
+      title: ""
     },
     {
       id: "oHvn8jAuon8",
       thumbnail: "https://img.youtube.com/vi/oHvn8jAuon8/hqdefault.jpg",
-      title: "Success Story 5"
+      title: ""
     },
     {
       id: "4DHzrggWCH0",
       thumbnail: "https://img.youtube.com/vi/4DHzrggWCH0/hqdefault.jpg",
-      title: "Success Story 6"
+      title: ""
     },
     {
       id: "7e48bnEhIpI",
       thumbnail: successStory7,
-      title: "Success Story 7"
+      title: ""
     },
     {
       id: "n5EJQVvDRYc",
       thumbnail: "https://img.youtube.com/vi/n5EJQVvDRYc/hqdefault.jpg",
-      title: "Success Story 8"
+      title: ""
     },
     {
       id: "Ts4huVChfZw",
       thumbnail: successStory9,
-      title: "Success Story 9"
+      title: ""
     },
     {
       id: "GVR15f366qg",
       thumbnail: successStory10,
-      title: "Success Story 10"
+      title: ""
     },
     {
       id: "v41N_bq0XZ4",
       thumbnail: "https://img.youtube.com/vi/v41N_bq0XZ4/hqdefault.jpg",
-      title: "Success Story 11"
+      title: ""
     },
     {
       id: "ue0L2_-r8DQ",
       thumbnail: "https://img.youtube.com/vi/ue0L2_-r8DQ/hqdefault.jpg",
-      title: "Success Story 12"
+      title: ""
     },
     {
       id: "4PMP8mkV3vM",
       thumbnail: "https://img.youtube.com/vi/4PMP8mkV3vM/hqdefault.jpg",
-      title: "Success Story 13"
+      title: ""
     },
     {
       id: "yHzVBGI6qik",
       thumbnail: "https://img.youtube.com/vi/yHzVBGI6qik/hqdefault.jpg",
-      title: "Success Story 14"
+      title: ""
     },
     {
       id: "0S0oV3V1yjk",
       thumbnail: "https://img.youtube.com/vi/0S0oV3V1yjk/hqdefault.jpg",
-      title: "Success Story 15"
+      title: ""
     },
     {
       id: "YGFOF891dv0",
       thumbnail: "https://img.youtube.com/vi/YGFOF891dv0/hqdefault.jpg",
-      title: "Success Story 16"
+      title: ""
     },
     {
       id: "fa_0HjnLyuo",
       thumbnail: "https://img.youtube.com/vi/fa_0HjnLyuo/hqdefault.jpg",
-      title: "Success Story 17"
+      title: ""
     },
     {
       id: "aNk3QGniBN4",
       thumbnail: "https://img.youtube.com/vi/aNk3QGniBN4/hqdefault.jpg",
-      title: "Success Story 18"
+      title: ""
     },
     {
       id: "BmJy--U8xBQ",
       thumbnail: "https://img.youtube.com/vi/BmJy--U8xBQ/hqdefault.jpg",
-      title: "Success Story 19"
+      title: ""
     },
     {
       id: "HBOUUUWD3LM",
       thumbnail: "https://img.youtube.com/vi/HBOUUUWD3LM/hqdefault.jpg",
-      title: "Success Story 20"
+      title: ""
     },
     {
       id: "OV_AT9gtREw",
       thumbnail: "https://img.youtube.com/vi/OV_AT9gtREw/hqdefault.jpg",
-      title: "Success Story 21"
+      title: ""
     }
   ];
 
