@@ -10,9 +10,14 @@ interface HeroSectionProps {
   isGlobal?: boolean;
   locationText?: string;
   videoId?: string;
+  showLanguageToggle?: boolean;
 }
 
-export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlobal = false, locationText, videoId = "0zkAOy4AP38" }: HeroSectionProps) => {
+export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlobal = false, locationText, videoId = "0zkAOy4AP38", showLanguageToggle = false }: HeroSectionProps) => {
+  const [selectedLanguage, setSelectedLanguage] = useState<"hindi" | "english">("hindi");
+  const activeVideoId = showLanguageToggle
+    ? (selectedLanguage === "hindi" ? "0zkAOy4AP38" : "f8-22hN40CY")
+    : videoId;
   const peopleCount = useAutoIncrementCounter({
     initialCount: 67833,
     incrementAmount: 8,
@@ -181,12 +186,38 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
               <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl border-4 border-emerald-100" style={{ paddingBottom: '56.25%' }}>
                 <iframe
                   className="absolute top-0 left-0 w-full h-full"
-                  src={`https://www.youtube.com/embed/${videoId}`}
+                  src={`https://www.youtube.com/embed/${activeVideoId}`}
                   title="Ultimate 21 Day Weight Loss Challenge"
                   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                   allowFullScreen
                 ></iframe>
               </div>
+              {showLanguageToggle && (
+                <div className="flex justify-center mt-4">
+                  <div className="inline-flex rounded-full bg-emerald-50 p-1 border border-emerald-100 shadow-inner">
+                    <button
+                      onClick={() => setSelectedLanguage("hindi")}
+                      className={`no-heartbeat px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2 ${
+                        selectedLanguage === "hindi"
+                          ? "bg-emerald-600 text-white shadow-md scale-105"
+                          : "text-emerald-700 hover:text-emerald-950"
+                      }`}
+                    >
+                      🇮🇳 Hindi
+                    </button>
+                    <button
+                      onClick={() => setSelectedLanguage("english")}
+                      className={`no-heartbeat px-6 py-2 rounded-full text-sm font-semibold transition-all duration-300 flex items-center gap-2 ${
+                        selectedLanguage === "english"
+                          ? "bg-emerald-600 text-white shadow-md scale-105"
+                          : "text-emerald-700 hover:text-emerald-950"
+                      }`}
+                    >
+                      🇬🇧 English
+                    </button>
+                  </div>
+                </div>
+              )}
             </motion.div>
           </div>
         </div>

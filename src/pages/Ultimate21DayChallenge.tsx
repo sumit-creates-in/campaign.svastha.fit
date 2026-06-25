@@ -81,7 +81,7 @@ const Ultimate21DayChallenge = () => {
         }
       `}</style>
       <div className="ultimate-challenge-page min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">
-        <HeroSection scrollToRegistration={scrollToRegistration} />
+        <HeroSection scrollToRegistration={scrollToRegistration} showLanguageToggle={true} />
         <div style={{ height: "150px" }} />
         <LeaderboardSection />
         <div style={{ height: "150px" }} />
