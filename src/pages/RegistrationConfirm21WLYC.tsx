@@ -20,37 +20,33 @@ function getUSTimezoneInfo(): { name: string; offsetFromIST: number } {
             return { name: "Calcutta/Asia", offsetFromIST: 0 };
         }
         if (tz.includes("America/New_York") || tz.includes("America/Detroit") || tz.includes("America/Toronto") || tz.includes("US/Eastern")) {
-            return { name: "Eastern Time (ET)", offsetFromIST: -9.5 };
+            return { name: "New York/America", offsetFromIST: -9.5 };
         }
         if (tz.includes("America/Chicago") || tz.includes("America/Winnipeg") || tz.includes("US/Central")) {
-            return { name: "Central Time (CT)", offsetFromIST: -10.5 };
+            return { name: "Chicago/America", offsetFromIST: -10.5 };
         }
         if (tz.includes("America/Denver") || tz.includes("America/Edmonton") || tz.includes("US/Mountain")) {
-            return { name: "Mountain Time (MT)", offsetFromIST: -11.5 };
+            return { name: "Denver/America", offsetFromIST: -11.5 };
         }
         if (tz.includes("America/Los_Angeles") || tz.includes("America/Vancouver") || tz.includes("US/Pacific")) {
-            return { name: "Pacific Time (PT)", offsetFromIST: -12.5 };
+            return { name: "Los Angeles/America", offsetFromIST: -12.5 };
         }
         const offsetMinutes = new Date().getTimezoneOffset();
         const offsetFromUTC = -offsetMinutes / 60;
         const offsetFromIST = offsetFromUTC - 5.5;
-        let tzAbbr = new Date().toLocaleTimeString('en-US', { timeZoneName: 'short' }).split(' ').pop();
-        if (Math.abs(offsetFromIST) < 0.01) {
-            tzAbbr = "Calcutta/Asia";
-        } else if (tzAbbr && (tzAbbr.includes("GMT+5:30") || tzAbbr.includes("GMT+0530") || tzAbbr.includes("GMT+5") || tzAbbr.includes("GMT+05:30") || tzAbbr.includes("IST"))) {
-            tzAbbr = "Calcutta/Asia";
-        }
-        return { name: tzAbbr || "Your Local Time", offsetFromIST };
+        // Format timezone as City/Continent
+        const tzParts = tz.split('/');
+        const tzFormatted = tzParts.length >= 2 ? `${tzParts[1]}/${tzParts[0]}` : tz;
+        return { name: tzFormatted, offsetFromIST };
     } catch {
-        return { name: "Eastern Time (ET)", offsetFromIST: -9.5 };
+        return { name: "New York/America", offsetFromIST: -9.5 };
     }
 }
 
 const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean }) => {
     const location = useLocation();
-    const [tzInfo, setTzInfo] = useState<{ name: string; offsetFromIST: number }>({
-        name: "Asia/Calcutta",
-        offsetFromIST: 0,
+    const [tzInfo, setTzInfo] = useState<{ name: string; offsetFromIST: number }>(() => {
+        return getUSTimezoneInfo();
     });
 
     const isInternational =
@@ -63,9 +59,7 @@ const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean })
     const formattedLocalTime = formatTime12h(localHour);
 
     const sessionTime = isUsa
-        ? (tzInfo.offsetFromIST === 0 
-            ? "8:30 pm (Calcutta/Asia)"
-            : `${formattedLocalTime} (${tzInfo.name}) / 8:30 pm (Calcutta/Asia)`)
+        ? `${formattedLocalTime} (${tzInfo.name})`
         : isInternational
             ? "10:30 PM EDT (USA) / 8:00 AM GST"
             : isGlobal
