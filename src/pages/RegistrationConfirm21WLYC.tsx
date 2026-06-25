@@ -1,26 +1,72 @@
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { CheckCircle, Calendar, Clock, Monitor, Users, ArrowBigDown } from "lucide-react";
-import { useEffect } from "react";
 import { useLocation } from "react-router-dom";
 
+function formatTime12h(hour24: number): string {
+    let h = ((hour24 % 24) + 24) % 24;
+    const minutes = Math.round((h % 1) * 60);
+    const hourInt = Math.floor(h);
+    const period = hourInt >= 12 ? "pm" : "am";
+    const hour12 = hourInt === 0 ? 12 : hourInt > 12 ? hourInt - 12 : hourInt;
+    return minutes === 0 ? `${hour12}:00 ${period}` : `${hour12}:${minutes.toString().padStart(2, '0')} ${period}`;
+}
 
-
-
+function getUSTimezoneInfo(): { name: string; offsetFromIST: number } {
+    try {
+        const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+        if (tz.includes("America/New_York") || tz.includes("America/Detroit") || tz.includes("America/Toronto") || tz.includes("US/Eastern")) {
+            return { name: "Eastern Time (ET)", offsetFromIST: -9.5 };
+        }
+        if (tz.includes("America/Chicago") || tz.includes("America/Winnipeg") || tz.includes("US/Central")) {
+            return { name: "Central Time (CT)", offsetFromIST: -10.5 };
+        }
+        if (tz.includes("America/Denver") || tz.includes("America/Edmonton") || tz.includes("US/Mountain")) {
+            return { name: "Mountain Time (MT)", offsetFromIST: -11.5 };
+        }
+        if (tz.includes("America/Los_Angeles") || tz.includes("America/Vancouver") || tz.includes("US/Pacific")) {
+            return { name: "Pacific Time (PT)", offsetFromIST: -12.5 };
+        }
+        const offsetMinutes = new Date().getTimezoneOffset();
+        const offsetFromUTC = -offsetMinutes / 60;
+        const offsetFromIST = offsetFromUTC - 5.5;
+        const tzAbbr = new Date().toLocaleTimeString('en-US', { timeZoneName: 'short' }).split(' ').pop();
+        return { name: tzAbbr || "Your Local Time", offsetFromIST };
+    } catch {
+        return { name: "Eastern Time (ET)", offsetFromIST: -9.5 };
+    }
+}
 
 const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean }) => {
     const location = useLocation();
+    const [tzInfo, setTzInfo] = useState<{ name: string; offsetFromIST: number }>({
+        name: "Asia/Calcutta",
+        offsetFromIST: 0,
+    });
 
     const isInternational =
-        location.pathname === "/reg-confirm-21wlyc-international/";
+        location.pathname.replace(/\/$/, "") === "/reg-confirm-21wlyc-international";
 
-    const sessionTime = isInternational
-        ? "10:30 PM EDT (USA) / 8:00 AM GST"
-        : isGlobal
-            ? "8:00 AM (Gulf Standard Time (GST))"
-            : "9:30 AM (India Time)";
+    const isUsa =
+        location.pathname.replace(/\/$/, "") === "/u21dwlc-group-registration-success-usa";
+
+    const localHour = 20.5 + tzInfo.offsetFromIST;
+    const formattedLocalTime = formatTime12h(localHour);
+
+    const sessionTime = isUsa
+        ? (tzInfo.offsetFromIST === 0 
+            ? "8:30 pm (Calcutta/Asia)"
+            : `${formattedLocalTime} (${tzInfo.name}) / 8:30 pm (Calcutta/Asia)`)
+        : isInternational
+            ? "10:30 PM EDT (USA) / 8:00 AM GST"
+            : isGlobal
+                ? "8:00 AM (Gulf Standard Time (GST))"
+                : "9:30 AM (India Time)";
+
     useEffect(() => {
         window.scrollTo(0, 0);
+        setTzInfo(getUSTimezoneInfo());
 
         // Meta Pixel Code
         const w = window as any;
@@ -50,7 +96,10 @@ const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean })
     }, []);
 
     const handleJoinWhatsApp = () => {
-        window.open("https://chat.whatsapp.com/FCrXhOBEwmv8v7cX467LYP", "_blank");
+        const whatsappLink = isUsa
+            ? "https://chat.whatsapp.com/IQFDiBlIYQ2BOPQd0fTO5G"
+            : "https://chat.whatsapp.com/FCrXhOBEwmv8v7cX467LYP";
+        window.open(whatsappLink, "_blank");
     };
 
     const steps = [
@@ -67,7 +116,7 @@ const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean })
         {
             number: "3️⃣",
             title: "Attend the orientation session on time",
-            description: `Join the Zoom call at ${sessionTime} on 28th June`
+            description: `Join the Zoom call at ${sessionTime} on ${isUsa ? "12th July" : "28th June"}`
         }
     ];
 
@@ -148,7 +197,9 @@ const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean })
                                 <Calendar className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
                                 <div>
                                     <p className="text-sm text-gray-600 font-semibold">Date</p>
-                                    <p className="text-lg text-gray-900 font-bold">28th June (Sunday)</p>
+                                    <p className="text-lg text-gray-900 font-bold">
+                                        {isUsa ? "12th July (Sunday)" : "28th June (Sunday)"}
+                                    </p>
                                 </div>
                             </div>
 
