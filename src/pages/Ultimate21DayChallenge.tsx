@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { useMeta } from "@/hooks/useMeta";
 import { toast } from "sonner";
 
@@ -24,12 +25,57 @@ import {
   WhatsAppFloatingButton,
 } from "@/components/challenge";
 
+function detectUserLocation(): Promise<{ country: string }> {
+  return new Promise((resolve) => {
+    // Try to get timezone-based location
+    try {
+      const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+      
+      // Check for India
+      if (tz.includes("Asia/Kolkata") || tz.includes("Asia/Calcutta")) {
+        resolve({ country: "IN" });
+        return;
+      }
+      
+      // Check for UAE
+      if (tz.includes("Asia/Dubai")) {
+        resolve({ country: "AE" });
+        return;
+      }
+      
+      // Default to international
+      resolve({ country: "OTHER" });
+    } catch {
+      resolve({ country: "OTHER" });
+    }
+  });
+}
+
 const Ultimate21DayChallenge = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [shouldRedirect, setShouldRedirect] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
+    // Check if user should be redirected based on location
+    const checkAndRedirect = async () => {
+      const location = await detectUserLocation();
+      
+      if (location.country === "AE") {
+        // Redirect to UAE page
+        navigate("/global-21-day-weight-loss-challenge", { replace: true });
+      } else if (location.country === "OTHER") {
+        // Redirect to international page
+        navigate("/international-21-day-weight-loss-challenge", { replace: true });
+      } else {
+        // Stay on this page for India
+        setShouldRedirect(false);
+      }
+    };
+
+    checkAndRedirect();
     window.scrollTo(0, 0);
-  }, []);
+  }, [navigate]);
 
   useMeta({
     title: "Ultimate 21 Day Weight Loss Challenge | Lose up to 10 Kg | Svastha",
@@ -55,6 +101,18 @@ const Ultimate21DayChallenge = () => {
     toast.success("Redirecting to payment...");
     window.open(paymentUrl, "_blank");
   };
+
+  // Show loading or nothing while redirecting
+  if (shouldRedirect) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-emerald-50 via-white to-teal-50">
+        <div className="text-center">
+          <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
