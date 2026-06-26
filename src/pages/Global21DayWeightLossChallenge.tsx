@@ -155,7 +155,7 @@ const Global21DayWeightLossChallenge = () => {
         }
       `}</style>
       <div className="ultimate-challenge-page min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">
-        <HeroSection scrollToRegistration={scrollToRegistration} feeText="AED 49" isGlobal={true} videoId="f8-22hN40CY" />
+        <HeroSection scrollToRegistration={scrollToRegistration} feeText="AED 49" isGlobal={true} videoId="0NBiGEJodyc" />
         <div style={{ height: "150px" }} />
         <LeaderboardSection />
         <div style={{ height: "150px" }} />
