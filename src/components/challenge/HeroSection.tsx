@@ -256,7 +256,7 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
 
                     <button
                       onClick={() => {
-                        setModalVideoId("f8-22hN40CY");
+                        setModalVideoId("0NBiGEJodyc");
                         setModalStep("play-video");
                       }}
                       className="no-heartbeat p-6 rounded-2xl border-2 border-emerald-100 hover:border-emerald-500 bg-emerald-50/50 hover:bg-emerald-50 text-center transition-all duration-300 group hover:shadow-lg flex flex-col items-center justify-center min-h-[110px]"
