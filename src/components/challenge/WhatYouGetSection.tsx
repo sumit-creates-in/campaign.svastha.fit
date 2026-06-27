@@ -13,6 +13,7 @@ interface WhatYouGetSectionProps {
   scrollToRegistration: () => void;
   isUae?: boolean;
   isInternational?: boolean;
+  registerButtonText?: string;
 }
 
 // IST base times (24h format) for yoga classes
@@ -26,7 +27,9 @@ function formatTime12h(hour24: number): string {
   const hourInt = Math.floor(h);
   const period = hourInt >= 12 ? "pm" : "am";
   const hour12 = hourInt === 0 ? 12 : hourInt > 12 ? hourInt - 12 : hourInt;
-  return minutes === 0 ? `${hour12}:00 ${period}` : `${hour12}:${minutes.toString().padStart(2, '0')} ${period}`;
+  return minutes === 0
+    ? `${hour12}:00 ${period}`
+    : `${hour12}:${minutes.toString().padStart(2, "0")} ${period}`;
 }
 
 function getUSTimezoneInfo(): { name: string; offsetFromIST: number } {
@@ -36,16 +39,33 @@ function getUSTimezoneInfo(): { name: string; offsetFromIST: number } {
       return { name: "Calcutta/Asia", offsetFromIST: 0 };
     }
     // Map common US/Canada timezones
-    if (tz.includes("America/New_York") || tz.includes("America/Detroit") || tz.includes("America/Toronto") || tz.includes("US/Eastern")) {
+    if (
+      tz.includes("America/New_York") ||
+      tz.includes("America/Detroit") ||
+      tz.includes("America/Toronto") ||
+      tz.includes("US/Eastern")
+    ) {
       return { name: "New York/America", offsetFromIST: -9.5 };
     }
-    if (tz.includes("America/Chicago") || tz.includes("America/Winnipeg") || tz.includes("US/Central")) {
+    if (
+      tz.includes("America/Chicago") ||
+      tz.includes("America/Winnipeg") ||
+      tz.includes("US/Central")
+    ) {
       return { name: "Chicago/America", offsetFromIST: -10.5 };
     }
-    if (tz.includes("America/Denver") || tz.includes("America/Edmonton") || tz.includes("US/Mountain")) {
+    if (
+      tz.includes("America/Denver") ||
+      tz.includes("America/Edmonton") ||
+      tz.includes("US/Mountain")
+    ) {
       return { name: "Denver/America", offsetFromIST: -11.5 };
     }
-    if (tz.includes("America/Los_Angeles") || tz.includes("America/Vancouver") || tz.includes("US/Pacific")) {
+    if (
+      tz.includes("America/Los_Angeles") ||
+      tz.includes("America/Vancouver") ||
+      tz.includes("US/Pacific")
+    ) {
       return { name: "Los Angeles/America", offsetFromIST: -12.5 };
     }
     // Fallback: compute offset from browser and format timezone as City/Continent
@@ -53,8 +73,9 @@ function getUSTimezoneInfo(): { name: string; offsetFromIST: number } {
     const offsetFromUTC = -offsetMinutes / 60;
     const offsetFromIST = offsetFromUTC - 5.5;
     // Format timezone as City/Continent
-    const tzParts = tz.split('/');
-    const tzFormatted = tzParts.length >= 2 ? `${tzParts[1]}/${tzParts[0]}` : tz;
+    const tzParts = tz.split("/");
+    const tzFormatted =
+      tzParts.length >= 2 ? `${tzParts[1]}/${tzParts[0]}` : tz;
     return { name: tzFormatted, offsetFromIST };
   } catch {
     // Default to ET
@@ -65,11 +86,21 @@ function getUSTimezoneInfo(): { name: string; offsetFromIST: number } {
 function getInternationalTimings(): { subtitle: string; details: string[] } {
   const { name, offsetFromIST } = getUSTimezoneInfo();
 
-  const morningLocal = IST_MORNING_HOURS.map(h => formatTime12h(h + offsetFromIST));
-  const eveningLocal = IST_EVENING_HOURS.map(h => formatTime12h(h + offsetFromIST));
+  const morningLocal = IST_MORNING_HOURS.map((h) =>
+    formatTime12h(h + offsetFromIST),
+  );
+  const eveningLocal = IST_EVENING_HOURS.map((h) =>
+    formatTime12h(h + offsetFromIST),
+  );
 
-  const morningStr = morningLocal.slice(0, -1).join(", ") + " and " + morningLocal[morningLocal.length - 1];
-  const eveningStr = eveningLocal.slice(0, -1).join(", ") + " & " + eveningLocal[eveningLocal.length - 1];
+  const morningStr =
+    morningLocal.slice(0, -1).join(", ") +
+    " and " +
+    morningLocal[morningLocal.length - 1];
+  const eveningStr =
+    eveningLocal.slice(0, -1).join(", ") +
+    " & " +
+    eveningLocal[eveningLocal.length - 1];
 
   return {
     subtitle: `Timings of the live yoga classes (${name}):`,
@@ -77,16 +108,23 @@ function getInternationalTimings(): { subtitle: string; details: string[] } {
       `Morning Classes: ${morningStr}`,
       `Evening Classes: ${eveningStr}`,
       "(Mon to Fri)",
-      "Recordings of the classes will be provided."
-    ]
+      "Recordings of the classes will be provided.",
+    ],
   };
 }
 
-export const WhatYouGetSection = ({ scrollToRegistration, isUae = false, isInternational = false }: WhatYouGetSectionProps) => {
-  const [tzInfo, setTzInfo] = useState<{ name: string; offsetFromIST: number }>({
-    name: "Eastern Time (ET)",
-    offsetFromIST: -9.5,
-  });
+export const WhatYouGetSection = ({
+  scrollToRegistration,
+  isUae = false,
+  isInternational = false,
+  registerButtonText = "Register Now",
+}: WhatYouGetSectionProps) => {
+  const [tzInfo, setTzInfo] = useState<{ name: string; offsetFromIST: number }>(
+    {
+      name: "Eastern Time (ET)",
+      offsetFromIST: -9.5,
+    },
+  );
 
   useEffect(() => {
     if (isInternational) {
@@ -94,31 +132,42 @@ export const WhatYouGetSection = ({ scrollToRegistration, isUae = false, isInter
     }
   }, [isInternational]);
 
-  const morningLocal = IST_MORNING_HOURS.map(h => formatTime12h(h + tzInfo.offsetFromIST));
-  const eveningLocal = IST_EVENING_HOURS.map(h => formatTime12h(h + tzInfo.offsetFromIST));
+  const morningLocal = IST_MORNING_HOURS.map((h) =>
+    formatTime12h(h + tzInfo.offsetFromIST),
+  );
+  const eveningLocal = IST_EVENING_HOURS.map((h) =>
+    formatTime12h(h + tzInfo.offsetFromIST),
+  );
 
-  const morningStr = morningLocal.slice(0, -1).join(", ") + " & " + morningLocal[morningLocal.length - 1];
-  const eveningStr = eveningLocal.slice(0, -1).join(", ") + " & " + eveningLocal[eveningLocal.length - 1];
+  const morningStr =
+    morningLocal.slice(0, -1).join(", ") +
+    " & " +
+    morningLocal[morningLocal.length - 1];
+  const eveningStr =
+    eveningLocal.slice(0, -1).join(", ") +
+    " & " +
+    eveningLocal[eveningLocal.length - 1];
 
   const benefits = [
     {
       title: "Live & Interactive Sessions by Sumit Sharma every Sunday",
       subtitle: "(Recordings will be provided)",
-      description: "Learn the secrets of intermittent fasting, diet, health and wellness that Bollywood celebrities use to stay fit and look young. Learn it directly from Sumit Sharma, the ultimate intermittent fasting guru who has taught thousands of people to live healthy and fit forever.",
+      description:
+        "Learn the secrets of intermittent fasting, diet, health and wellness that Bollywood celebrities use to stay fit and look young. Learn it directly from Sumit Sharma, the ultimate intermittent fasting guru who has taught thousands of people to live healthy and fit forever.",
       link: "click here to check him out on Instagram",
       image: sumitImage,
-      imageType: "photo"
+      imageType: "photo",
     },
     {
       title: "21 Day Diet Plan (Weekly)",
       description: "Simple Home Cooked Meals like Daal Chawal, Sabji Roti",
       image: image2,
-      imageType: "photo"
+      imageType: "photo",
     },
     {
       title: "⏰ Intermittent Fasting Plan & Daily Guidance",
       image: image6,
-      imageType: "photo"
+      imageType: "photo",
     },
     {
       title: "🔥 Daily Live Yoga Classes",
@@ -132,37 +181,39 @@ export const WhatYouGetSection = ({ scrollToRegistration, isUae = false, isInter
             `Morning Classes: ${morningStr}`,
             `Evening Classes: ${eveningStr}`,
             "(Mon to Fri)",
-            "Recordings of the classes will be provided."
+            "Recordings of the classes will be provided.",
           ]
-        : isUae ? [
-          "Morning Classes: 4:00 pm, 5:00 pm & 6:00 pm",
-          "Evening Classes: 4:00 am, 5:00 am, 6:00 am, 7:00 am and 8:00 am",
-          "(Mon to Fri)",
-          "Recordings of the classes will be provided."
-        ] : [
-          "Morning Classes: 5:30 pm, 6:30 pm & 7:30 pm",
-          "Evening Classes: 5:30 am, 6:30 am, 7:30 am, 8:30 am and 9:30 am",
-          "(Mon to Fri)",
-          "Recordings of the classes will be provided."
-        ],
+        : isUae
+          ? [
+              "Morning Classes: 4:00 pm, 5:00 pm & 6:00 pm",
+              "Evening Classes: 4:00 am, 5:00 am, 6:00 am, 7:00 am and 8:00 am",
+              "(Mon to Fri)",
+              "Recordings of the classes will be provided.",
+            ]
+          : [
+              "Morning Classes: 5:30 pm, 6:30 pm & 7:30 pm",
+              "Evening Classes: 5:30 am, 6:30 am, 7:30 am, 8:30 am and 9:30 am",
+              "(Mon to Fri)",
+              "Recordings of the classes will be provided.",
+            ],
       image: image7,
-      imageType: "photo"
+      imageType: "photo",
     },
     {
       title: "Daily Motivation & Reminders",
       image: image4,
-      imageType: "photo"
+      imageType: "photo",
     },
     {
       title: "🏆 Weight Loss Champ Contest",
       image: image5,
-      imageType: "photo"
+      imageType: "photo",
     },
     {
       title: "Become Part a Group Filled With Highly Motivated People",
       image: image3,
-      imageType: "photo"
-    }
+      imageType: "photo",
+    },
   ];
 
   return (
@@ -173,7 +224,8 @@ export const WhatYouGetSection = ({ scrollToRegistration, isUae = false, isInter
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-12">
+          className="text-center mb-12"
+        >
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 flex items-center justify-center gap-2">
             <span>💪</span>
             <span>What You'll Get</span>
@@ -210,13 +262,26 @@ export const WhatYouGetSection = ({ scrollToRegistration, isUae = false, isInter
                       {/* Bottom Play Badge */}
                       <div className="absolute bottom-4 left-4 right-4 bg-white/95 backdrop-blur-sm rounded-2xl py-2 px-3 shadow-lg border border-gray-100 flex items-center gap-2.5 z-10">
                         <div className="w-8 h-8 rounded-full bg-[#E8F5E9] flex items-center justify-center text-emerald-600 flex-shrink-0">
-                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-4 h-4 ml-0.5 text-[#2E7D32]">
-                            <path fillRule="evenodd" d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z" clipRule="evenodd" />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            viewBox="0 0 24 24"
+                            fill="currentColor"
+                            className="w-4 h-4 ml-0.5 text-[#2E7D32]"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M4.5 5.653c0-1.427 1.529-2.33 2.779-1.643l11.54 6.347c1.295.712 1.295 2.573 0 3.286L7.28 19.99c-1.25.687-2.779-.217-2.779-1.643V5.653Z"
+                              clipRule="evenodd"
+                            />
                           </svg>
                         </div>
                         <div className="flex flex-col text-left">
-                          <span className="text-xs font-bold text-gray-900 leading-tight">Live & Interactive</span>
-                          <span className="text-[10px] text-gray-500 leading-tight">Recordings provided</span>
+                          <span className="text-xs font-bold text-gray-900 leading-tight">
+                            Live & Interactive
+                          </span>
+                          <span className="text-[10px] text-gray-500 leading-tight">
+                            Recordings provided
+                          </span>
                         </div>
                       </div>
                     </div>
@@ -225,7 +290,16 @@ export const WhatYouGetSection = ({ scrollToRegistration, isUae = false, isInter
                     <div className="flex-1 w-full space-y-4 text-left">
                       {/* Live & Interactive top badge */}
                       <div className="inline-flex items-center gap-1.5 bg-[#E8F5E9] text-[#2E7D32] px-3.5 py-1.5 rounded-full text-[10px] font-semibold tracking-wider">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-3.5 h-3.5"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2.5"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
                           <circle cx="12" cy="12" r="10" />
                           <path d="M8 12h8" />
                           <path d="M12 8v8" />
@@ -236,23 +310,36 @@ export const WhatYouGetSection = ({ scrollToRegistration, isUae = false, isInter
                       {/* Main Title & Subtitle */}
                       <div>
                         <h3 className="text-xl md:text-2xl font-extrabold text-gray-900 flex items-center gap-2">
-                          <span className="text-2xl">🔥</span> Daily Live Yoga Classes
+                          <span className="text-2xl">🔥</span> Daily Live Yoga
+                          Classes
                         </h3>
                         <p className="text-gray-600 text-sm mt-1">
-                          Join our expert-led yoga sessions from the comfort of your home. Choose a time that fits your schedule!
+                          Join our expert-led yoga sessions from the comfort of
+                          your home. Choose a time that fits your schedule!
                         </p>
                       </div>
 
                       {/* morning classes block */}
                       <div className="flex flex-col sm:flex-row sm:items-center gap-4 bg-[#F5F7EF]/60 border border-[#E2E6D5] rounded-2xl p-4">
                         <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#2E7D32] shadow-sm flex-shrink-0 border border-gray-100">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-5 h-5"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
                             <circle cx="12" cy="12" r="4" />
                             <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
                           </svg>
                         </div>
                         <div className="flex-1 min-w-0">
-                          <span className="text-sm font-bold text-gray-900 block">Morning Classes</span>
+                          <span className="text-sm font-bold text-gray-900 block">
+                            Morning Classes
+                          </span>
                         </div>
                         <div className="text-sm text-gray-700 font-medium sm:text-right">
                           {morningStr}
@@ -262,12 +349,23 @@ export const WhatYouGetSection = ({ scrollToRegistration, isUae = false, isInter
                       {/* evening classes block */}
                       <div className="flex flex-col sm:flex-row sm:items-center gap-4 bg-[#F5F7EF]/60 border border-[#E2E6D5] rounded-2xl p-4">
                         <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center text-[#2E7D32] shadow-sm flex-shrink-0 border border-gray-100">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-5 h-5"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
                             <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
                           </svg>
                         </div>
                         <div className="flex-1 min-w-0">
-                          <span className="text-sm font-bold text-gray-900 block">Evening Classes</span>
+                          <span className="text-sm font-bold text-gray-900 block">
+                            Evening Classes
+                          </span>
                         </div>
                         <div className="text-sm text-gray-700 font-medium sm:text-right">
                           {eveningStr}
@@ -278,20 +376,48 @@ export const WhatYouGetSection = ({ scrollToRegistration, isUae = false, isInter
                       <div className="grid sm:grid-cols-2 gap-4">
                         {/* timezone */}
                         <div className="flex items-center gap-3 bg-[#F8F9FA] border border-gray-200/60 rounded-2xl p-4">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-gray-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-5 h-5 text-gray-500 flex-shrink-0"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
                             <circle cx="12" cy="12" r="10" />
                             <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20" />
                             <path d="M2 12h20" />
                           </svg>
                           <span className="text-xs text-gray-600 text-left">
-                            All timings shown in <span className="font-bold text-[#2E7D32]">{tzInfo.name}</span>
+                            All timings shown in{" "}
+                            <span className="font-bold text-[#2E7D32]">
+                              {tzInfo.name}
+                            </span>
                           </span>
                         </div>
 
                         {/* days */}
                         <div className="flex items-center gap-3 bg-[#F8F9FA] border border-gray-200/60 rounded-2xl p-4">
-                          <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-gray-500 flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                            <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            className="w-5 h-5 text-gray-500 flex-shrink-0"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          >
+                            <rect
+                              width="18"
+                              height="18"
+                              x="3"
+                              y="4"
+                              rx="2"
+                              ry="2"
+                            />
                             <line x1="16" x2="16" y1="2" y2="6" />
                             <line x1="8" x2="8" y1="2" y2="6" />
                             <line x1="3" x2="21" y1="10" y2="10" />
@@ -304,12 +430,32 @@ export const WhatYouGetSection = ({ scrollToRegistration, isUae = false, isInter
 
                       {/* recordings text */}
                       <div className="flex items-center gap-3 bg-[#EAF5ED]/60 border border-[#D0E7D2] rounded-2xl p-4">
-                        <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5 text-[#2E7D32] flex-shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          className="w-5 h-5 text-[#2E7D32] flex-shrink-0"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="currentColor"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
                           <path d="m22 8-6 4 6 4V8Z" />
-                          <rect width="14" height="12" x="2" y="6" rx="2" ry="2" />
+                          <rect
+                            width="14"
+                            height="12"
+                            x="2"
+                            y="6"
+                            rx="2"
+                            ry="2"
+                          />
                         </svg>
                         <span className="text-xs text-gray-700 text-left">
-                          Can't make it live? No worries! <span className="font-bold text-[#2E7D32]">Recordings</span> of all classes will be provided.
+                          Can't make it live? No worries!{" "}
+                          <span className="font-bold text-[#2E7D32]">
+                            Recordings
+                          </span>{" "}
+                          of all classes will be provided.
                         </span>
                       </div>
                     </div>
@@ -342,7 +488,9 @@ export const WhatYouGetSection = ({ scrollToRegistration, isUae = false, isInter
                         className="w-full h-full object-cover"
                       />
                     ) : (
-                      <span className="text-5xl md:text-6xl">{benefit.image}</span>
+                      <span className="text-5xl md:text-6xl">
+                        {benefit.image}
+                      </span>
                     )}
                   </div>
 
@@ -352,7 +500,9 @@ export const WhatYouGetSection = ({ scrollToRegistration, isUae = false, isInter
                       {benefit.title}
                     </h3>
                     {benefit.subtitle && (
-                      <p className="text-xs text-gray-600 mb-2">{benefit.subtitle}</p>
+                      <p className="text-xs text-gray-600 mb-2">
+                        {benefit.subtitle}
+                      </p>
                     )}
                     {benefit.description && (
                       <p className="text-xs md:text-sm text-gray-700 leading-relaxed mb-2">
@@ -360,14 +510,26 @@ export const WhatYouGetSection = ({ scrollToRegistration, isUae = false, isInter
                       </p>
                     )}
                     {benefit.link && (
-                      <a href="https://www.instagram.com/sumit_sharma_coach/" target="_blank" rel="noopener noreferrer" className="text-xs text-blue-600 hover:underline">
+                      <a
+                        href="https://www.instagram.com/sumit_sharma_coach/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-blue-600 hover:underline"
+                      >
                         {benefit.link}
                       </a>
                     )}
                     {benefit.details && (
                       <div className="text-xs text-gray-700 space-y-1 mt-2">
                         {benefit.details.map((detail, i) => (
-                          <p key={i} className={i === benefit.details!.length - 1 ? "italic text-gray-600" : ""}>
+                          <p
+                            key={i}
+                            className={
+                              i === benefit.details!.length - 1
+                                ? "italic text-gray-600"
+                                : ""
+                            }
+                          >
                             {detail}
                           </p>
                         ))}
@@ -385,11 +547,13 @@ export const WhatYouGetSection = ({ scrollToRegistration, isUae = false, isInter
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center">
+          className="text-center"
+        >
           <Button
             onClick={scrollToRegistration}
-            className="w-full md:w-auto bg-gradient-to-r from-green-600 to-lime-400 hover:from-green-700 hover:to-lime-500 text-white font-bold text-xl px-12 md:px-10 py-6 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
-            Register Now
+            className="w-full md:w-auto bg-gradient-to-r from-green-600 to-lime-400 hover:from-green-700 hover:to-lime-500 text-white font-bold text-xl px-12 md:px-10 py-6 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+          >
+            {registerButtonText}
           </Button>
         </motion.div>
       </div>

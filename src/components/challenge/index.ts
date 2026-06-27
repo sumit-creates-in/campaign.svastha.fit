@@ -1,22 +1,26 @@
-export { HeroSection } from './HeroSection';
-export { LeaderboardSection } from './LeaderboardSection';
-export { JyotiTestimonialSection } from './JyotiTestimonialSection';
-export { HowItWorksSection } from './HowItWorksSection';
-export { AanchalTestimonialSection } from './AanchalTestimonialSection';
-export { WhatYouGetSection } from './WhatYouGetSection';
-export { MeetYourMentorSection } from './MeetYourMentorSection';
-export { MoreMentorsSection } from './MoreMentorsSection';
-export { BenefitsSection } from './BenefitsSection';
-export { TransformationsSection } from './TransformationsSection';
-export { WhoIsThisForSection } from './WhoIsThisForSection';
-export { YogaTeachersSection } from './YogaTeachersSection';
-export { PeopleSayingSection } from './PeopleSayingSection';
-export { VideoTestimonialsSection } from './VideoTestimonialsSection';
-export { UpgradeModal } from './UpgradeModal';
-export { ScrollPopupModal } from './ScrollPopupModal';
-export { StickyBottomBar } from './StickyBottomBar';
-export { RegisterHereSection } from './RegisterHereSection';
-export { RegistrationFormSection, type RegistrationFormData } from './RegistrationFormSection';
-export { FAQSection } from './FAQSection';
-export { FinalCTASection } from './FinalCTASection';
-export { default as WhatsAppFloatingButton } from './WhatsAppFloatingButton';
+export { HeroSection } from "./HeroSection";
+export { LeaderboardSection } from "./LeaderboardSection";
+export { JyotiTestimonialSection } from "./JyotiTestimonialSection";
+export { HowItWorksSection } from "./HowItWorksSection";
+export { AanchalTestimonialSection } from "./AanchalTestimonialSection";
+export { WhatYouGetSection } from "./WhatYouGetSection";
+export { MeetYourMentorSection } from "./MeetYourMentorSection";
+export { MoreMentorsSection } from "./MoreMentorsSection";
+export { BenefitsSection } from "./BenefitsSection";
+export { TransformationsSection } from "./TransformationsSection";
+export { WhoIsThisForSection } from "./WhoIsThisForSection";
+export { YogaTeachersSection } from "./YogaTeachersSection";
+export { PeopleSayingSection } from "./PeopleSayingSection";
+export { VideoTestimonialsSection } from "./VideoTestimonialsSection";
+export { UpgradeModal } from "./UpgradeModal";
+export { ScrollPopupModal } from "./ScrollPopupModal";
+export { FreeRegistrationModal } from "./FreeRegistrationModal";
+export { StickyBottomBar } from "./StickyBottomBar";
+export { RegisterHereSection } from "./RegisterHereSection";
+export {
+  RegistrationFormSection,
+  type RegistrationFormData,
+} from "./RegistrationFormSection";
+export { FAQSection } from "./FAQSection";
+export { FinalCTASection } from "./FinalCTASection";
+export { default as WhatsAppFloatingButton } from "./WhatsAppFloatingButton";

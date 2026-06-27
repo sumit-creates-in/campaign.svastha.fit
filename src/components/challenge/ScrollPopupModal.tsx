@@ -11,6 +11,7 @@ interface ScrollPopupModalProps {
   personalPriceText?: string;
   groupDiscountText?: string;
   groupPriceText?: string;
+  joinGroupButtonText?: string;
   isGlobal?: boolean;
   hideGroupPlan?: boolean;
   startDateText?: string;
@@ -27,6 +28,7 @@ export const ScrollPopupModal = ({
   personalPriceText = "Rs. 2790",
   groupDiscountText = "Rs. 100 off",
   groupPriceText = "Rs. 890",
+  joinGroupButtonText,
   isGlobal = false,
   hideGroupPlan = false,
   startDateText = "28th June 2026",
@@ -42,9 +44,9 @@ export const ScrollPopupModal = ({
       const now = new Date();
       const endDate = timerEndDate
         ? new Date(timerEndDate)
-        : (isGlobal 
-            ? new Date('2026-06-21T23:59:59') 
-            : new Date('2026-06-08T12:00:00'));
+        : isGlobal
+          ? new Date("2026-06-21T23:59:59")
+          : new Date("2026-06-08T12:00:00");
 
       const difference = endDate.getTime() - now.getTime();
 
@@ -66,14 +68,16 @@ export const ScrollPopupModal = ({
   useEffect(() => {
     const handleScroll = () => {
       // Find the TransformationsSection by looking for the heading text
-      const transformationsHeading = Array.from(document.querySelectorAll('h2')).find(
-        h2 => h2.textContent?.includes('We Deliver The Best Transformations')
+      const transformationsHeading = Array.from(
+        document.querySelectorAll("h2"),
+      ).find((h2) =>
+        h2.textContent?.includes("We Deliver The Best Transformations"),
       );
 
       if (!transformationsHeading || hasShown) return;
 
       // Get the section element (parent of the heading)
-      const section = transformationsHeading.closest('section');
+      const section = transformationsHeading.closest("section");
       if (!section) return;
 
       // Check if user has scrolled past the section
@@ -87,8 +91,8 @@ export const ScrollPopupModal = ({
       }
     };
 
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, [hasShown]);
 
   const handleClose = () => {
@@ -104,7 +108,8 @@ export const ScrollPopupModal = ({
         <button
           onClick={handleClose}
           className="absolute top-3 right-3 text-gray-700 hover:text-gray-900 transition-colors z-10"
-          aria-label="Close modal">
+          aria-label="Close modal"
+        >
           <X className="w-5 h-5" strokeWidth={2} />
         </button>
 
@@ -140,7 +145,8 @@ export const ScrollPopupModal = ({
                   <p className="text-xs text-red-600 font-semibold flex items-center justify-center gap-2 mt-1">
                     Limited Time Offer :
                     <span className="font-bold text-red-600">
-                      {timeLeft.days} {timeLeft.days === 1 ? 'Day' : 'Days'} Left
+                      {timeLeft.days} {timeLeft.days === 1 ? "Day" : "Days"}{" "}
+                      Left
                     </span>
                   </p>
                 )}
@@ -163,7 +169,9 @@ export const ScrollPopupModal = ({
                     <div className="w-3 h-3 rounded-full bg-cyan-400 flex items-center justify-center flex-shrink-0 mt-0.5">
                       <Check className="w-2 h-2 text-white" strokeWidth={3} />
                     </div>
-                    <p className="text-sm text-gray-800 leading-tight">{benefit}</p>
+                    <p className="text-sm text-gray-800 leading-tight">
+                      {benefit}
+                    </p>
                   </div>
                 ))}
               </div>
@@ -171,7 +179,9 @@ export const ScrollPopupModal = ({
 
             {/* Start Anyday & Discount */}
             <div className="text-center mb-3 mt-3">
-              <p className="text-red-500 font-semibold text-sm">{personalDiscountText}</p>
+              <p className="text-red-500 font-semibold text-sm">
+                {personalDiscountText}
+              </p>
               <p className="text-gray-700 font-medium text-xs">Start Anyday</p>
             </div>
 
@@ -185,7 +195,8 @@ export const ScrollPopupModal = ({
                   window.open(upgradeUrl, "_blank");
                 }
               }}
-              className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 mb-3 mt-2 flex flex-col items-center leading-tight gap-0.5">
+              className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 mb-3 mt-2 flex flex-col items-center leading-tight gap-0.5"
+            >
               <span>Upgrade to Personalized Plan</span>
               <span>{personalPriceText}</span>
             </Button>
@@ -196,14 +207,21 @@ export const ScrollPopupModal = ({
               {/* No Upgrade Section */}
               <div className="mb-2">
                 <div className="flex items-center gap-2 justify-center mb-2">
-                  <X className="w-4 h-4 text-red-500 flex-shrink-0" strokeWidth={3} />
+                  <X
+                    className="w-4 h-4 text-red-500 flex-shrink-0"
+                    strokeWidth={3}
+                  />
                   <h3 className="text-sm font-bold text-gray-900">
                     No, I don't want to Upgrade
                   </h3>
                 </div>
                 <div className="text-center mb-2">
-                  <p className="text-red-500 font-semibold text-sm">{groupDiscountText}</p>
-                  <p className="text-gray-700 font-medium text-xs">Starts {startDateText}</p>
+                  <p className="text-red-500 font-semibold text-sm">
+                    {groupDiscountText}
+                  </p>
+                  <p className="text-gray-700 font-medium text-xs">
+                    Starts {startDateText}
+                  </p>
                 </div>
               </div>
 
@@ -217,8 +235,9 @@ export const ScrollPopupModal = ({
                     window.open(joinGroupUrl, "_blank");
                   }
                 }}
-                className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
-                Join Group Plan - {groupPriceText}
+                className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+              >
+                {joinGroupButtonText ?? `Join Group Plan - ${groupPriceText}`}
               </Button>
             </>
           )}
