@@ -171,10 +171,12 @@ const Ultimate21DayChallenge = () => {
           onClose={() => setIsModalOpen(false)}
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
+          startDateText="12th July 2026"
         />
         <ScrollPopupModal
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
+          startDateText="12th July 2026"
         />
         <StickyBottomBar onRegisterClick={scrollToRegistration} />
         <WhatsAppFloatingButton />
