@@ -55,6 +55,9 @@ const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean })
     const isUsa =
         location.pathname.replace(/\/$/, "") === "/u21dwlc-group-registration-success-usa";
 
+    const isIndia =
+        location.pathname.replace(/\/$/, "") === "/reg-confirm-group-21wlyc-india";
+
     const localHour = 20.5 + tzInfo.offsetFromIST;
     const formattedLocalTime = formatTime12h(localHour);
 
@@ -97,7 +100,9 @@ const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean })
     const handleJoinWhatsApp = () => {
         const whatsappLink = isUsa
             ? "https://chat.whatsapp.com/IQFDiBlIYQ2BOPQd0fTO5G"
-            : "https://chat.whatsapp.com/FCrXhOBEwmv8v7cX467LYP";
+            : isIndia
+                ? "https://chat.whatsapp.com/Cn87tLSjuHUE7BA3pfl0Jb"
+                : "https://chat.whatsapp.com/FCrXhOBEwmv8v7cX467LYP";
         window.open(whatsappLink, "_blank");
     };
 
@@ -115,7 +120,7 @@ const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean })
         {
             number: "3️⃣",
             title: "Attend the orientation session on time",
-            description: `Join the Zoom call at ${sessionTime} on ${isUsa ? "12th July" : "28th June"}`
+            description: `Join the Zoom call at ${sessionTime} on ${(isUsa || isIndia) ? "12th July" : "28th June"}`
         }
     ];
 
@@ -207,7 +212,7 @@ const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean })
                                 <div>
                                     <p className="text-sm text-gray-600 font-semibold">Date</p>
                                     <p className="text-lg text-gray-900 font-bold">
-                                        {isUsa ? "12th July (Sunday)" : "28th June (Sunday)"}
+                                        {(isUsa || isIndia) ? "12th July (Sunday)" : "28th June (Sunday)"}
                                     </p>
                                 </div>
                             </div>
