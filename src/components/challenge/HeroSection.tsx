@@ -12,17 +12,29 @@ interface HeroSectionProps {
   videoId?: string;
   showLanguageToggle?: boolean;
   timerEndDate?: string;
+  registerButtonText?: string;
 }
 
-export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlobal = false, locationText, videoId = "0zkAOy4AP38", showLanguageToggle = false, timerEndDate }: HeroSectionProps) => {
+export const HeroSection = ({
+  scrollToRegistration,
+  feeText = "Rs. 990/-",
+  isGlobal = false,
+  locationText,
+  videoId = "0zkAOy4AP38",
+  showLanguageToggle = false,
+  timerEndDate,
+  registerButtonText = "Register Now",
+}: HeroSectionProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [modalStep, setModalStep] = useState<"select-language" | "play-video">("select-language");
+  const [modalStep, setModalStep] = useState<"select-language" | "play-video">(
+    "select-language",
+  );
   const [modalVideoId, setModalVideoId] = useState<string | null>(null);
   const peopleCount = useAutoIncrementCounter({
     initialCount: 67833,
     incrementAmount: 8,
     intervalHours: 1,
-    startDate: '2026-03-30T18:00:00Z',
+    startDate: "2026-03-30T18:00:00Z",
   });
 
   const [timeLeft, setTimeLeft] = useState({ days: 0 });
@@ -32,9 +44,9 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
       const now = new Date();
       const endDate = timerEndDate
         ? new Date(timerEndDate)
-        : (isGlobal 
-            ? new Date('2026-06-21T23:59:59') 
-            : new Date('2026-06-08T12:00:00'));
+        : isGlobal
+          ? new Date("2026-06-21T23:59:59")
+          : new Date("2026-06-08T12:00:00");
 
       const difference = endDate.getTime() - now.getTime();
 
@@ -54,15 +66,16 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
   }, [isGlobal, timerEndDate]);
 
   return (
-    <section className="relative px-4 bg-white" style={{ paddingTop: '2rem' }}>
-      <div style={{ paddingTop: '2rem', paddingBottom: '75px' }}>
+    <section className="relative px-4 bg-white" style={{ paddingTop: "2rem" }}>
+      <div style={{ paddingTop: "2rem", paddingBottom: "75px" }}>
         <div className="container mx-auto max-w-7xl">
           {/* Main Heading */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="text-center mb-6 md:mb-12">
+            className="text-center mb-6 md:mb-12"
+          >
             <div className="flex items-center justify-center gap-2 mb-2">
               <span className="text-emerald-500 text-3xl md:text-4xl">✦</span>
               <h1 className="text-3xl md:text-4xl text-emerald-600 tracking-wider">
@@ -78,7 +91,8 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
             </h3>
             {isGlobal && (
               <p className="text-red-600 font-normal text-base md:text-lg mt-4 md:mt-6 mb-2 px-4">
-                {locationText || "🌍 For Indians living in UAE, Saudi Arabia, Qatar, Oman, Bahrain & Kuwait"}
+                {locationText ||
+                  "🌍 For Indians living in UAE, Saudi Arabia, Qatar, Oman, Bahrain & Kuwait"}
               </p>
             )}
           </motion.div>
@@ -90,7 +104,8 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.6, delay: 0.4 }}
-              className="space-y-6">
+              className="space-y-6"
+            >
               {/* Main Headline */}
               <div>
                 <h4 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 whitespace-nowrap">
@@ -105,40 +120,62 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
               <div className="space-y-3">
                 {isGlobal && (
                   <div className="flex items-start gap-3 border-b-2 border-gray-200 pb-2">
-                    <span className="text-emerald-600 text-xl flex-shrink-0">✦</span>
+                    <span className="text-emerald-600 text-xl flex-shrink-0">
+                      ✦
+                    </span>
                     <p className="text-lg text-gray-700">
-                      <span className="font-semibold">Suitable for</span> Indians living abroad 🌍
+                      <span className="font-semibold">Suitable for</span>{" "}
+                      Indians living abroad 🌍
                     </p>
                   </div>
                 )}
                 <div className="flex items-start gap-3 border-b-2 border-gray-200 pb-2">
-                  <span className="text-emerald-600 text-xl flex-shrink-0">✦</span>
+                  <span className="text-emerald-600 text-xl flex-shrink-0">
+                    ✦
+                  </span>
                   <p className="text-lg text-gray-700">
-                    <span className="font-semibold">{isGlobal ? 'With Natural Food' : 'With Natural Food Like'}</span> {isGlobal ? '🌾' : 'Daal, Rice, Roti, Sabji 🌾'}
+                    <span className="font-semibold">
+                      {isGlobal
+                        ? "With Natural Food"
+                        : "With Natural Food Like"}
+                    </span>{" "}
+                    {isGlobal ? "🌾" : "Daal, Rice, Roti, Sabji 🌾"}
                   </p>
                 </div>
                 <div className="flex items-start gap-3 border-b-2 border-gray-200 pb-2">
-                  <span className="text-emerald-600 text-xl flex-shrink-0">✦</span>
+                  <span className="text-emerald-600 text-xl flex-shrink-0">
+                    ✦
+                  </span>
                   <p className="text-lg text-gray-700">
-                    <span className="font-semibold">Start Burning Fat For</span> Energy 🔥
+                    <span className="font-semibold">Start Burning Fat For</span>{" "}
+                    Energy 🔥
                   </p>
                 </div>
                 <div className="flex items-start gap-3 border-b-2 border-gray-200 pb-2">
-                  <span className="text-emerald-600 text-xl flex-shrink-0">✦</span>
+                  <span className="text-emerald-600 text-xl flex-shrink-0">
+                    ✦
+                  </span>
                   <p className="text-lg text-gray-700">
-                    <span className="font-semibold">Learn 5 Ultimate</span> Golden Habits 🌟
+                    <span className="font-semibold">Learn 5 Ultimate</span>{" "}
+                    Golden Habits 🌟
                   </p>
                 </div>
                 <div className="flex items-start gap-3 border-b-2 border-gray-200 pb-2">
-                  <span className="text-emerald-600 text-xl flex-shrink-0">✦</span>
+                  <span className="text-emerald-600 text-xl flex-shrink-0">
+                    ✦
+                  </span>
                   <p className="text-lg text-gray-700">
-                    <span className="font-semibold">Learn The</span> Right Way of Fasting 🍽️
+                    <span className="font-semibold">Learn The</span> Right Way
+                    of Fasting 🍽️
                   </p>
                 </div>
                 <div className="flex items-start gap-3 border-b-2 border-gray-200 pb-2">
-                  <span className="text-emerald-600 text-xl flex-shrink-0">✦</span>
+                  <span className="text-emerald-600 text-xl flex-shrink-0">
+                    ✦
+                  </span>
                   <p className="text-lg text-gray-700">
-                    <span className="font-semibold">Join Live</span> Yoga Classes from Home 🧘
+                    <span className="font-semibold">Join Live</span> Yoga
+                    Classes from Home 🧘
                   </p>
                 </div>
               </div>
@@ -148,21 +185,30 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
                 <Button
                   onClick={scrollToRegistration}
                   size="lg"
-                  className="w-full md:w-auto bg-gradient-to-r from-green-600 to-lime-400 hover:from-green-700 hover:to-lime-500 text-white font-bold text-xl px-12 md:px-10 py-6 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
-                  Register Now
+                  className="w-full md:w-auto bg-gradient-to-r from-green-600 to-lime-400 hover:from-green-700 hover:to-lime-500 text-white font-bold text-xl px-12 md:px-10 py-6 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+                >
+                  {registerButtonText}
                 </Button>
                 {timeLeft.days > 0 && (
-                  <p className="text-center md:text-left text-sm text-red-600 font-medium flex items-center justify-center md:justify-start gap-2 md:pl-2" style={{ marginTop: "15px" }}>
+                  <p
+                    className="text-center md:text-left text-sm text-red-600 font-medium flex items-center justify-center md:justify-start gap-2 md:pl-2"
+                    style={{ marginTop: "15px" }}
+                  >
                     Limited Time Offer:
                     <span className="ml-2 font-bold text-red-600">
-                      {timeLeft.days} {timeLeft.days === 1 ? 'Day' : 'Days'} Left
+                      {timeLeft.days} {timeLeft.days === 1 ? "Day" : "Days"}{" "}
+                      Left
                     </span>
                   </p>
                 )}
                 <p className="text-center md:text-left mt-3 text-lg font-semibold text-gray-700 md:pl-2">
-                  Fee: {feeText} only
+                  Fee: {feeText}
+                  {feeText !== "FREE" && " only"}
                 </p>
-                <p className="text-center md:text-left text-sm text-emerald-600 font-medium flex items-center justify-center md:justify-start gap-2 md:pl-2" style={{ marginTop: "15px" }}>
+                <p
+                  className="text-center md:text-left text-sm text-emerald-600 font-medium flex items-center justify-center md:justify-start gap-2 md:pl-2"
+                  style={{ marginTop: "15px" }}
+                >
                   <Users className="w-4 h-4" />
                   {peopleCount.toLocaleString()} people joined
                 </p>
@@ -177,9 +223,12 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
               className="w-full order-first lg:order-last"
             >
               {showLanguageToggle ? (
-                <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl border-4 border-emerald-100" style={{ paddingBottom: '56.25%' }}>
+                <div
+                  className="relative w-full rounded-2xl overflow-hidden shadow-2xl border-4 border-emerald-100"
+                  style={{ paddingBottom: "56.25%" }}
+                >
                   {/* Transparent overlay to intercept clicks and trigger modal */}
-                  <div 
+                  <div
                     onClick={() => {
                       setModalStep("select-language");
                       setModalVideoId(null);
@@ -196,7 +245,10 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
                   ></iframe>
                 </div>
               ) : (
-                <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl border-4 border-emerald-100" style={{ paddingBottom: '56.25%' }}>
+                <div
+                  className="relative w-full rounded-2xl overflow-hidden shadow-2xl border-4 border-emerald-100"
+                  style={{ paddingBottom: "56.25%" }}
+                >
                   <iframe
                     className="absolute top-0 left-0 w-full h-full"
                     src={`https://www.youtube.com/embed/${videoId}`}
@@ -234,8 +286,19 @@ export const HeroSection = ({ scrollToRegistration, feeText = "Rs. 990/-", isGlo
                 onClick={() => setIsModalOpen(false)}
                 className="absolute top-2 right-2 z-10 p-2 text-gray-500 hover:text-gray-900 bg-white/80 rounded-full hover:bg-gray-100 transition-colors shadow-sm no-heartbeat"
               >
-                <svg xmlns="http://www.w3.org/2000/svg" className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  className="w-5 h-5"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               </button>
 

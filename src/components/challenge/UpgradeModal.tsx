@@ -11,6 +11,7 @@ interface UpgradeModalProps {
   joinGroupUrl?: string;
   upgradePriceText?: string;
   groupPriceText?: string;
+  joinGroupButtonText?: string;
   isGlobal?: boolean;
   startDateText?: string;
   timerEndDate?: string;
@@ -26,6 +27,7 @@ export const UpgradeModal = ({
   joinGroupUrl = "https://pages.razorpay.com/pl_QHMrm9qAqyqcdA/view",
   upgradePriceText = "Rs. 2990",
   groupPriceText = "Rs. 990",
+  joinGroupButtonText,
   isGlobal = false,
   startDateText = "28th June 2026",
   timerEndDate,
@@ -38,9 +40,9 @@ export const UpgradeModal = ({
       const now = new Date();
       const endDate = timerEndDate
         ? new Date(timerEndDate)
-        : (isGlobal 
-            ? new Date('2026-06-21T23:59:59') 
-            : new Date('2026-06-08T12:00:00'));
+        : isGlobal
+          ? new Date("2026-06-21T23:59:59")
+          : new Date("2026-06-08T12:00:00");
 
       const difference = endDate.getTime() - now.getTime();
 
@@ -68,7 +70,8 @@ export const UpgradeModal = ({
         <button
           onClick={onClose}
           className="absolute top-3 right-3 text-gray-700 hover:text-gray-900 transition-colors z-10"
-          aria-label="Close modal">
+          aria-label="Close modal"
+        >
           <X className="w-5 h-5" strokeWidth={2} />
         </button>
 
@@ -91,7 +94,7 @@ export const UpgradeModal = ({
               <p className="text-xs text-red-600 font-semibold flex items-center justify-center gap-2">
                 Limited Time Offer :
                 <span className="font-bold text-red-600">
-                  {timeLeft.days} {timeLeft.days === 1 ? 'Day' : 'Days'} Left
+                  {timeLeft.days} {timeLeft.days === 1 ? "Day" : "Days"} Left
                 </span>
               </p>
             )}
@@ -99,7 +102,9 @@ export const UpgradeModal = ({
 
           {/* Upgrade Benefits */}
           <div className="mb-5">
-            <p className="text-xs text-gray-700 mb-2 italic text-center">Upgrade to get:</p>
+            <p className="text-xs text-gray-700 mb-2 italic text-center">
+              Upgrade to get:
+            </p>
             <div className="space-y-1.5 flex flex-col items-start pl-8">
               {[
                 "Start Anytime (Priority Onboarding)",
@@ -114,14 +119,18 @@ export const UpgradeModal = ({
                   <div className="w-4 h-4 rounded-full bg-cyan-400 flex items-center justify-center flex-shrink-0 mt-0.5">
                     <Check className="w-2.5 h-2.5 text-white" strokeWidth={3} />
                   </div>
-                  <p className="text-xs text-gray-900 leading-tight">{benefit}</p>
+                  <p className="text-xs text-gray-900 leading-tight">
+                    {benefit}
+                  </p>
                 </div>
               ))}
             </div>
           </div>
 
           {/* Start Anyday Text */}
-          <p className="text-center text-gray-700 font-medium text-xs mb-3">Start Anyday</p>
+          <p className="text-center text-gray-700 font-medium text-xs mb-3">
+            Start Anyday
+          </p>
 
           {/* Upgrade Button */}
           <Button
@@ -129,17 +138,21 @@ export const UpgradeModal = ({
               if (upgradeUrl === "") {
                 onUpgrade();
               } else {
-                window.open(upgradeUrl, '_blank');
+                window.open(upgradeUrl, "_blank");
               }
             }}
-            className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 mb-5">
+            className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 mb-5"
+          >
             Upgrade & Pay {upgradePriceText}
           </Button>
 
           {/* No Upgrade Section */}
           <div className="mb-4">
             <div className="flex items-center gap-2 justify-center mb-3">
-              <X className="w-5 h-5 text-red-500 flex-shrink-0" strokeWidth={3} />
+              <X
+                className="w-5 h-5 text-red-500 flex-shrink-0"
+                strokeWidth={3}
+              />
               <h3 className="text-sm font-bold text-gray-900">
                 No, I don't want to Upgrade
               </h3>
@@ -155,11 +168,12 @@ export const UpgradeModal = ({
               if (joinGroupUrl === "") {
                 onJoinGroup();
               } else {
-                window.open(joinGroupUrl, '_blank');
+                window.open(joinGroupUrl, "_blank");
               }
             }}
-            className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300">
-            Join Group Plan - {groupPriceText}
+            className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+          >
+            {joinGroupButtonText ?? `Join Group Plan - ${groupPriceText}`}
           </Button>
         </div>
       </div>

@@ -5,9 +5,13 @@ import sumitImage from "@/assets/image.png";
 
 interface MeetYourMentorSectionProps {
   scrollToRegistration: () => void;
+  registerButtonText?: string;
 }
 
-export const MeetYourMentorSection = ({ scrollToRegistration }: MeetYourMentorSectionProps) => {
+export const MeetYourMentorSection = ({
+  scrollToRegistration,
+  registerButtonText = "Register Now - Learn from Sumit",
+}: MeetYourMentorSectionProps) => {
   return (
     <section className="py-16 px-4 bg-gradient-to-br from-teal-50 via-emerald-50 to-green-50 overflow-hidden">
       <div className="container mx-auto max-w-6xl px-2 md:px-6">
@@ -16,7 +20,8 @@ export const MeetYourMentorSection = ({ scrollToRegistration }: MeetYourMentorSe
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-4">
+          className="text-center mb-4"
+        >
           <h2 className="text-3xl md:text-4xl font-bold text-teal-700 mb-2">
             Meet Your Mentor
           </h2>
@@ -32,12 +37,18 @@ export const MeetYourMentorSection = ({ scrollToRegistration }: MeetYourMentorSe
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="flex justify-start pl-0">
-            <div className="bg-white rounded-2xl shadow-xl p-5 w-full relative" style={{ maxWidth: "calc(100vw - 2rem)" }}>
+            className="flex justify-start pl-0"
+          >
+            <div
+              className="bg-white rounded-2xl shadow-xl p-5 w-full relative"
+              style={{ maxWidth: "calc(100vw - 2rem)" }}
+            >
               {/* Instagram Header */}
               <div className="flex items-center justify-between mb-4">
                 <div className="flex items-center gap-2">
-                  <span className="font-semibold text-gray-900">sumit_sharma_coach</span>
+                  <span className="font-semibold text-gray-900">
+                    sumit_sharma_coach
+                  </span>
                   <span className="text-red-500">❤️</span>
                 </div>
                 <div className="flex items-center gap-3">
@@ -48,8 +59,18 @@ export const MeetYourMentorSection = ({ scrollToRegistration }: MeetYourMentorSe
                     </span>
                   </div>
                   <button className="text-gray-800">
-                    <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                    <svg
+                      className="w-6 h-6"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M4 6h16M4 12h16M4 18h16"
+                      />
                     </svg>
                   </button>
                 </div>
@@ -98,10 +119,15 @@ export const MeetYourMentorSection = ({ scrollToRegistration }: MeetYourMentorSe
                   <span>🥗 Dietitian |</span>
                   <span>🧘 Yoga Teacher</span>
                 </div>
-                <div>💪 Follow me to learn secrets of weight loss & intermittent fasting</div>
+                <div>
+                  💪 Follow me to learn secrets of weight loss & intermittent
+                  fasting
+                </div>
                 <div>📚 Plans, Courses & Services</div>
                 <div className="flex items-center gap-1">
-                  <span className="text-blue-600">🔗 strongbyyoga.com/healthy-life-by-sumit...</span>
+                  <span className="text-blue-600">
+                    🔗 strongbyyoga.com/healthy-life-by-sumit...
+                  </span>
                 </div>
                 <div className="flex items-center gap-1">
                   <span>👥 Fasting Champs</span>
@@ -111,8 +137,12 @@ export const MeetYourMentorSection = ({ scrollToRegistration }: MeetYourMentorSe
 
               {/* Professional Dashboard */}
               <div className="bg-gray-50 rounded-lg p-2 mb-4">
-                <div className="font-semibold text-xs text-gray-900">Professional dashboard</div>
-                <div className="text-xs text-gray-500">3.4M views in the last 30 days</div>
+                <div className="font-semibold text-xs text-gray-900">
+                  Professional dashboard
+                </div>
+                <div className="text-xs text-gray-500">
+                  3.4M views in the last 30 days
+                </div>
               </div>
 
               {/* Instagram Badge */}
@@ -130,30 +160,38 @@ export const MeetYourMentorSection = ({ scrollToRegistration }: MeetYourMentorSe
             initial={{ opacity: 0, x: 30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="space-y-6 px-1 md:pr-0">
+            className="space-y-6 px-1 md:pr-0"
+          >
             <div>
               <h3 className="text-2xl md:text-3xl font-bold text-gray-900 mb-3">
                 Sumit Sharma
               </h3>
               <p className="text-sm text-teal-600 font-medium mb-4">
-                Certified Dietitian | Yoga Teacher | Lifestyle Coach | Intermittent Fasting Expert | Founder: Svastha
+                Certified Dietitian | Yoga Teacher | Lifestyle Coach |
+                Intermittent Fasting Expert | Founder: Svastha
               </p>
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-green-600 text-lg">⭐</span>
-                <span className="text-sm font-semibold text-gray-700">Get trained by the best</span>
+                <span className="text-sm font-semibold text-gray-700">
+                  Get trained by the best
+                </span>
               </div>
               <p className="text-gray-700 text-sm leading-relaxed">
-                Sumit is a well-accomplished name in the wellness industry. With an impressive experience of over{" "}
-                <span className="font-bold">10 years</span>, he has successfully helped{" "}
-                <span className="font-bold">thousands of people</span> transform their life. He is known for his work in holistic lifestyle changes and all-natural solutions.
+                Sumit is a well-accomplished name in the wellness industry. With
+                an impressive experience of over{" "}
+                <span className="font-bold">10 years</span>, he has successfully
+                helped <span className="font-bold">thousands of people</span>{" "}
+                transform their life. He is known for his work in holistic
+                lifestyle changes and all-natural solutions.
               </p>
             </div>
 
             <div className="flex justify-center">
-              <Button 
+              <Button
                 onClick={scrollToRegistration}
-                className="bg-gradient-to-r from-green-600 to-lime-400 hover:from-green-700 hover:to-lime-500 text-white font-bold text-lg px-8 py-5 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300">
-                Register Now - Learn from Sumit
+                className="bg-gradient-to-r from-green-600 to-lime-400 hover:from-green-700 hover:to-lime-500 text-white font-bold text-lg px-8 py-5 rounded-full shadow-xl hover:shadow-2xl transform hover:scale-105 transition-all duration-300"
+              >
+                {registerButtonText}
               </Button>
             </div>
           </motion.div>
