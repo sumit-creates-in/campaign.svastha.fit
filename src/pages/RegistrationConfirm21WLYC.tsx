@@ -102,7 +102,7 @@ const RegistrationConfirm21WLYC = ({ isGlobal = false }: { isGlobal?: boolean })
             ? "https://chat.whatsapp.com/IQFDiBlIYQ2BOPQd0fTO5G"
             : isIndia
                 ? "https://chat.whatsapp.com/Cn87tLSjuHUE7BA3pfl0Jb"
-                : "https://chat.whatsapp.com/FCrXhOBEwmv8v7cX467LYP";
+                : "https://chat.whatsapp.com/Cn87tLSjuHUE7BA3pfl0Jb";
         window.open(whatsappLink, "_blank");
     };
 
