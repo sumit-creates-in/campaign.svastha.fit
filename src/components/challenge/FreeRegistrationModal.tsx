@@ -159,7 +159,7 @@ export const FreeRegistrationModal = ({
                 htmlFor="free-reg-mobile"
                 className="block text-xs font-semibold text-gray-700 mb-1"
               >
-                Mobile Number <span className="text-red-500">*</span>
+                Whatsapp Number <span className="text-red-500">*</span>
               </label>
               <div className="flex border border-gray-300 rounded-lg overflow-visible focus-within:ring-2 focus-within:ring-emerald-400 focus-within:border-transparent transition relative">
                 {/* Custom country picker trigger */}
@@ -199,11 +199,10 @@ export const FreeRegistrationModal = ({
                           setSelectedCountry(c);
                           setIsCountryOpen(false);
                         }}
-                        className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-emerald-50 transition text-left ${
-                          selectedCountry.value === c.value
+                        className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-emerald-50 transition text-left ${selectedCountry.value === c.value
                             ? "bg-emerald-50 text-emerald-700 font-semibold"
                             : "text-gray-700"
-                        }`}
+                          }`}
                       >
                         <span className="text-xl leading-none">{c.flag}</span>
                         <span className="flex-1">{c.name}</span>
