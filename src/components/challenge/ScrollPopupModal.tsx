@@ -22,7 +22,7 @@ interface ScrollPopupModalProps {
 export const ScrollPopupModal = ({
   onUpgrade,
   onJoinGroup,
-  upgradeUrl = "https://svastha.fit/exclusive-plans/678ce043c6c94dee4635044f57109e45c998c06da95a015de500868e59001daa",
+  upgradeUrl = "https://pages.razorpay.com/pl_QHfwHt0q52MdOJ/view",
   joinGroupUrl = "https://pages.razorpay.com/pl_QHg0K5EhmJMBP8/view",
   personalDiscountText = "Rs. 200 off",
   personalPriceText = "Rs. 2790",

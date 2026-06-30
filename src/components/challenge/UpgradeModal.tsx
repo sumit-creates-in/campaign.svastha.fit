@@ -23,7 +23,7 @@ export const UpgradeModal = ({
   onClose,
   onUpgrade,
   onJoinGroup,
-  upgradeUrl = "https://svastha.fit/exclusive-plans/a4c5a0bb6477e88aa1a4d9f5830be0750914085528527331d76043893f8134b4",
+  upgradeUrl = "https://pages.razorpay.com/pl_QHMy1AvL4XDeqQ/view",
   joinGroupUrl = "https://pages.razorpay.com/pl_QHMrm9qAqyqcdA/view",
   upgradePriceText = "Rs. 2990",
   groupPriceText = "Rs. 990",
