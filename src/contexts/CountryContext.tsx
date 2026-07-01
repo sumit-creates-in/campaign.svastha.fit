@@ -13,6 +13,12 @@ export const CountryProvider = ({ children }: { children: ReactNode }) => {
 
     useEffect(() => {
         const detectCountry = async () => {
+
+            // if (import.meta.env.DEV) {
+            //     setCountry("AE");
+            //     setLoading(false);
+            //     return;
+            // }
             try {
                 const response = await fetch("https://ipapi.co/json/");
                 if (!response.ok) throw new Error("API failed");
