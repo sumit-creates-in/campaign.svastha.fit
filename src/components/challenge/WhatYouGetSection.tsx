@@ -13,6 +13,7 @@ interface WhatYouGetSectionProps {
   scrollToRegistration: () => void;
   isUae?: boolean;
   isInternational?: boolean;
+  isUltimate?: boolean;
   registerButtonText?: string;
 }
 
@@ -117,20 +118,25 @@ export const WhatYouGetSection = ({
   scrollToRegistration,
   isUae = false,
   isInternational = false,
+  isUltimate = false,
   registerButtonText = "Register Now",
 }: WhatYouGetSectionProps) => {
   const [tzInfo, setTzInfo] = useState<{ name: string; offsetFromIST: number }>(
     {
-      name: "Eastern Time (ET)",
-      offsetFromIST: -9.5,
+      name: "India Standard Time (IST)",
+      offsetFromIST: 0,
     },
   );
 
   useEffect(() => {
     if (isInternational) {
       setTzInfo(getUSTimezoneInfo());
+    } else if (isUae) {
+      setTzInfo({ name: "Gulf Standard Time (GST)", offsetFromIST: -1.5 });
+    } else {
+      setTzInfo({ name: "India Standard Time (IST)", offsetFromIST: 0 });
     }
-  }, [isInternational]);
+  }, [isInternational, isUae]);
 
   const morningLocal = IST_MORNING_HOURS.map((h) =>
     formatTime12h(h + tzInfo.offsetFromIST),
@@ -235,7 +241,7 @@ export const WhatYouGetSection = ({
         {/* Benefits Cards */}
         <div className="space-y-6 mb-12">
           {benefits.map((benefit, idx) => {
-            if (idx === 3 && isInternational) {
+            if (idx === 3 && (isInternational || isUltimate)) {
               return (
                 <motion.div
                   key={idx}
