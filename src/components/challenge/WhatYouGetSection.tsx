@@ -145,14 +145,12 @@ export const WhatYouGetSection = ({
     formatTime12h(h + tzInfo.offsetFromIST),
   );
 
-  const morningStr =
-    morningLocal.slice(0, -1).join(", ") +
-    " & " +
-    morningLocal[morningLocal.length - 1];
-  const eveningStr =
-    eveningLocal.slice(0, -1).join(", ") +
-    " & " +
-    eveningLocal[eveningLocal.length - 1];
+  const morningStr = isUltimate
+    ? "5:30 am, 6:30 am, 7:30 am, 8:30 am & 9:30 am"
+    : morningLocal.slice(0, -1).join(", ") + " & " + morningLocal[morningLocal.length - 1];
+  const eveningStr = isUltimate
+    ? "4:30 pm, 5:30 pm & 6:30 pm"
+    : eveningLocal.slice(0, -1).join(", ") + " & " + eveningLocal[eveningLocal.length - 1];
 
   const benefits = [
     {
