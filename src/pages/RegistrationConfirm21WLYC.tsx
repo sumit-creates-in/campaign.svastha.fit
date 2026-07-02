@@ -90,11 +90,11 @@ const RegistrationConfirm21WLYC = ({
     location.pathname.replace(/\/$/, "") ===
     "/u21dwlc-group-registration-success-usa";
 
-    const isIndia =
-        location.pathname.replace(/\/$/, "") === "/reg-confirm-group-21wlyc-india";
+  const isIndia =
+    location.pathname.replace(/\/$/, "") === "/reg-confirm-group-21wlyc-india";
 
-    const localHour = 20.5 + tzInfo.offsetFromIST;
-    const formattedLocalTime = formatTime12h(localHour);
+  const localHour = 20.5 + tzInfo.offsetFromIST;
+  const formattedLocalTime = formatTime12h(localHour);
 
   const sessionTime = isUsa
     ? `${formattedLocalTime} (${tzInfo.name})`
@@ -132,14 +132,14 @@ const RegistrationConfirm21WLYC = ({
     w.fbq("track", "PageView");
   }, []);
 
-    const handleJoinWhatsApp = () => {
-        const whatsappLink = isUsa
-            ? "https://chat.whatsapp.com/IQFDiBlIYQ2BOPQd0fTO5G"
-            : isIndia
-                ? "https://chat.whatsapp.com/Cn87tLSjuHUE7BA3pfl0Jb"
-                : "https://chat.whatsapp.com/Cn87tLSjuHUE7BA3pfl0Jb";
-        window.open(whatsappLink, "_blank");
-    };
+  const handleJoinWhatsApp = () => {
+    const whatsappLink = isUsa
+      ? "https://chat.whatsapp.com/HQFzjIqDVyoLXWwKsL6XfF"
+      : isIndia
+        ? "https://chat.whatsapp.com/Cn87tLSjuHUE7BA3pfl0Jb"
+        : "https://chat.whatsapp.com/Cn87tLSjuHUE7BA3pfl0Jb";
+    window.open(whatsappLink, "_blank");
+  };
 
   const steps = [
     {
@@ -248,16 +248,16 @@ const RegistrationConfirm21WLYC = ({
               Orientation Session Details
             </h3>
 
-                        <div className="space-y-6">
-                            <div className="flex items-start gap-4">
-                                <Calendar className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
-                                <div>
-                                    <p className="text-sm text-gray-600 font-semibold">Date</p>
-                                    <p className="text-lg text-gray-900 font-bold">
-                                        {(isUsa || isIndia) ? "12th July (Sunday)" : "28th June (Sunday)"}
-                                    </p>
-                                </div>
-                            </div>
+            <div className="space-y-6">
+              <div className="flex items-start gap-4">
+                <Calendar className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
+                <div>
+                  <p className="text-sm text-gray-600 font-semibold">Date</p>
+                  <p className="text-lg text-gray-900 font-bold">
+                    {(isUsa || isIndia) ? "12th July (Sunday)" : "28th June (Sunday)"}
+                  </p>
+                </div>
+              </div>
 
               <div className="flex items-start gap-4">
                 <Clock className="w-6 h-6 text-blue-600 flex-shrink-0 mt-1" />
