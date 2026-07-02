@@ -15,14 +15,6 @@ interface Country {
 const COUNTRIES: Country[] = [
   { value: "us", code: "+1", flag: "🇺🇸", name: "USA", maxDigits: 10 },
   { value: "ca", code: "+1", flag: "🇨🇦", name: "Canada", maxDigits: 10 },
-  { value: "in", code: "+91", flag: "🇮🇳", name: "India", maxDigits: 10 },
-  { value: "gb", code: "+44", flag: "🇬🇧", name: "UK", maxDigits: 10 },
-  { value: "au", code: "+61", flag: "🇦🇺", name: "Australia", maxDigits: 9 },
-  { value: "ae", code: "+971", flag: "🇦🇪", name: "UAE", maxDigits: 9 },
-  { value: "sa", code: "+966", flag: "🇸🇦", name: "Saudi Arabia", maxDigits: 9 },
-  { value: "sg", code: "+65", flag: "🇸🇬", name: "Singapore", maxDigits: 8 },
-  { value: "nz", code: "+64", flag: "🇳🇿", name: "NZ", maxDigits: 9 },
-  { value: "de", code: "+49", flag: "🇩🇪", name: "Germany", maxDigits: 11 },
 ];
 
 interface FreeRegistrationModalProps {
@@ -200,8 +192,8 @@ export const FreeRegistrationModal = ({
                           setIsCountryOpen(false);
                         }}
                         className={`w-full flex items-center gap-3 px-4 py-2.5 text-sm hover:bg-emerald-50 transition text-left ${selectedCountry.value === c.value
-                            ? "bg-emerald-50 text-emerald-700 font-semibold"
-                            : "text-gray-700"
+                          ? "bg-emerald-50 text-emerald-700 font-semibold"
+                          : "text-gray-700"
                           }`}
                       >
                         <span className="text-xl leading-none">{c.flag}</span>
