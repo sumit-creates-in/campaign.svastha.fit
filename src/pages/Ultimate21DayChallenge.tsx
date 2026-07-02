@@ -149,7 +149,7 @@ const Ultimate21DayChallenge = () => {
         <div style={{ height: "150px" }} />
         <AanchalTestimonialSection />
         <div style={{ height: "150px" }} />
-        <WhatYouGetSection scrollToRegistration={scrollToRegistration} />
+        <WhatYouGetSection scrollToRegistration={scrollToRegistration} isUltimate={true} />
         <div style={{ height: "150px" }} />
         <MeetYourMentorSection scrollToRegistration={scrollToRegistration} />
         <div style={{ height: "150px" }} />
