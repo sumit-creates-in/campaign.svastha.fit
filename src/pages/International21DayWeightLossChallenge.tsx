@@ -122,6 +122,7 @@ const internationalFaqs = [
 const International21DayWeightLossChallenge = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isFreeModalOpen, setIsFreeModalOpen] = useState(false);
+  const [isScrollModalOpen, setIsScrollModalOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -253,6 +254,7 @@ const International21DayWeightLossChallenge = () => {
           startDateText="12th July"
           timerEndDate="2026-07-12T23:59:59"
           hideTimer={true}
+          onVisibilityChange={setIsScrollModalOpen}
         />
         <FreeRegistrationModal
           isOpen={isFreeModalOpen}
@@ -264,7 +266,11 @@ const International21DayWeightLossChallenge = () => {
           feeText="FREE"
           registerButtonText="Register For Free"
         />
-        <WhatsAppFloatingButton message="I want to know more about International 21 Day Weight Loss Challenge" />
+        <WhatsAppFloatingButton 
+          showImmediately={true}
+          isModalOpen={isModalOpen || isFreeModalOpen || isScrollModalOpen}
+          message="I want to know more about International 21 Day Weight Loss Challenge" 
+        />
       </div>
     </>
   );
