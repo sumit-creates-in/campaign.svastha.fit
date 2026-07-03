@@ -4,7 +4,7 @@ import { useState, useEffect, useRef } from "react";
 const PLAN_DATA = {
   12: {
     group: {
-      name: "⭐ Group Plan",
+      name: "⭐ Community",
       sell: 6900,
       base: 10800,
       perMonth: 575,
@@ -22,7 +22,7 @@ const PLAN_DATA = {
       ]
     },
     personalSilver: {
-      name: "👑 Personalized Silver",
+      name: "👑 Silver",
       sell: 23900,
       base: 35640,
       perMonth: 1992,
@@ -41,7 +41,7 @@ const PLAN_DATA = {
       ]
     },
     personalGold: {
-      name: "💎 Personalized Gold",
+      name: "💎 Gold",
       sell: 29900,
       base: 46800,
       perMonth: 2492,
@@ -65,12 +65,12 @@ const PLAN_DATA = {
   },
   6: {
     group: {
-      name: "⭐ Group Plan",
-      sell: 3900,
-      base: 5400,
-      perMonth: 650,
+      name: "⭐ Community",
+      sell: 5990,
+      base: 18000,
+      perMonth: 998,
       link: "https://rzp.io/rzp/rwAlm54",
-      badge: "Save ₹1.5k",
+      badge: "Save ₹12k",
       features: [
         "🥗 Community Diet Plan",
         "📺 Weekly Live with Sumit",
@@ -83,7 +83,7 @@ const PLAN_DATA = {
       ]
     },
     personalSilver: {
-      name: "👑 Personalized Silver",
+      name: "👑 Silver",
       sell: 13900,
       base: 17820,
       perMonth: 2317,
@@ -102,7 +102,7 @@ const PLAN_DATA = {
       ]
     },
     personalGold: {
-      name: "💎 Personalized Gold",
+      name: "💎 Gold",
       sell: 16900,
       base: 23400,
       perMonth: 2817,
@@ -445,7 +445,7 @@ function CompareTable() {
         <thead>
           <tr>
             <th style={{ padding: "8px 4px", fontWeight: 800, fontSize: 11, textAlign: "left", minWidth: 120 }}></th>
-            <th style={{ padding: "8px 4px", fontWeight: 800, fontSize: 11, textAlign: "center", color: "#1565c0" }}>Group</th>
+            <th style={{ padding: "8px 4px", fontWeight: 800, fontSize: 11, textAlign: "center", color: "#1565c0" }}>Community</th>
             <th style={{ padding: "8px 4px", fontWeight: 800, fontSize: 11, textAlign: "center", color: "#d97706" }}>Silver</th>
             <th style={{ padding: "8px 4px", fontWeight: 800, fontSize: 11, textAlign: "center", color: "#e65100" }}>Gold</th>
           </tr>
@@ -550,7 +550,7 @@ function FinalCTA({ timeLeft }) {
         </a>
         <a href="https://rzp.io/rzp/7vgo0f2W" target="_blank" rel="noreferrer"
           style={{ background: "linear-gradient(135deg, #2d9f63, #1a7a4a)", boxShadow: "0 6px 20px rgba(26,122,74,0.4)", color: "white", border: "none", borderRadius: 50, padding: 18, fontFamily: "'Baloo 2', cursive", fontSize: 18, fontWeight: 700, cursor: "pointer", textDecoration: "none", display: "block", textAlign: "center" }}>
-          ⭐ Group Plan – 12 Months ₹4,999
+          ⭐ Community – 12 Months ₹4,999
         </a>
       </div>
       <p style={{ marginTop: 16, fontSize: 13, opacity: 0.7 }}>🔒 Secure payment · Instant access · Safe &amp; trusted</p>
