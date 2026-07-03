@@ -4,18 +4,25 @@ import { MessageCircle, X, ChevronDown } from "lucide-react";
 interface WhatsAppFloatingButtonProps {
   phoneNumber?: string;
   message?: string;
+  showImmediately?: boolean;
 }
 
 const WhatsAppFloatingButton = ({
   phoneNumber = "15557533653",
-  message = "I want to know more about Ultimate 21 Day Weight Loss Challenge"
+  message = "I want to know more about Ultimate 21 Day Weight Loss Challenge",
+  showImmediately = false
 }: WhatsAppFloatingButtonProps) => {
   const [isOpen, setIsOpen] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isVisible, setIsVisible] = useState(showImmediately);
 
   useEffect(() => {
+    if (showImmediately) {
+      setIsVisible(true);
+      return;
+    }
+
     const handleScroll = () => {
-      // Show button after scrolling 6500px (approximately after Meet Your Mentor section)
+      // Show button after scrolling 3000px (approximately after Meet Your Mentor section)
       if (window.scrollY > 3000) {
         setIsVisible(true);
       } else {
@@ -25,7 +32,7 @@ const WhatsAppFloatingButton = ({
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, [showImmediately]);
 
   const handleChatClick = () => {
     const whatsappUrl = `https://api.whatsapp.com/send/?phone=${phoneNumber}&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
