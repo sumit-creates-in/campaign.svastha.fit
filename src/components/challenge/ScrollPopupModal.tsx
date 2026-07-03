@@ -17,6 +17,7 @@ interface ScrollPopupModalProps {
   startDateText?: string;
   timerEndDate?: string;
   hideTimer?: boolean;
+  onVisibilityChange?: (isVisible: boolean) => void;
 }
 
 export const ScrollPopupModal = ({
@@ -34,10 +35,15 @@ export const ScrollPopupModal = ({
   startDateText = "28th June 2026",
   timerEndDate,
   hideTimer = false,
+  onVisibilityChange,
 }: ScrollPopupModalProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [hasShown, setHasShown] = useState(false);
   const [timeLeft, setTimeLeft] = useState({ days: 0 });
+
+  useEffect(() => {
+    onVisibilityChange?.(isVisible);
+  }, [isVisible, onVisibilityChange]);
 
   useEffect(() => {
     const calculateTimeLeft = () => {

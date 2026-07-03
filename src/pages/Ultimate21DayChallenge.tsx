@@ -53,6 +53,7 @@ function detectUserLocation(): Promise<{ country: string }> {
 
 const Ultimate21DayChallenge = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isScrollModalOpen, setIsScrollModalOpen] = useState(false);
   const [shouldRedirect, setShouldRedirect] = useState(true);
   const navigate = useNavigate();
 
@@ -110,6 +111,7 @@ const Ultimate21DayChallenge = () => {
           <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-green-600 mx-auto mb-4"></div>
           <p className="text-gray-600">Loading...</p>
         </div>
+        <WhatsAppFloatingButton showImmediately={true} />
       </div>
     );
   }
@@ -177,9 +179,10 @@ const Ultimate21DayChallenge = () => {
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
           startDateText="12th July 2026"
+          onVisibilityChange={setIsScrollModalOpen}
         />
         <StickyBottomBar onRegisterClick={scrollToRegistration} />
-        <WhatsAppFloatingButton showImmediately={true} />
+        <WhatsAppFloatingButton showImmediately={true} isModalOpen={isModalOpen || isScrollModalOpen} />
       </div>
     </>
   );

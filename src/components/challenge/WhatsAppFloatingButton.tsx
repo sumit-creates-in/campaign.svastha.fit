@@ -5,12 +5,14 @@ interface WhatsAppFloatingButtonProps {
   phoneNumber?: string;
   message?: string;
   showImmediately?: boolean;
+  isModalOpen?: boolean;
 }
 
 const WhatsAppFloatingButton = ({
   phoneNumber = "15557533653",
   message = "I want to know more about Ultimate 21 Day Weight Loss Challenge",
-  showImmediately = false
+  showImmediately = false,
+  isModalOpen = false
 }: WhatsAppFloatingButtonProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(showImmediately);
@@ -42,7 +44,7 @@ const WhatsAppFloatingButton = ({
   return (
     <>
       {/* Popup Widget */}
-      {isVisible && isOpen && (
+      {isVisible && isOpen && !isModalOpen && (
         <div className="fixed bottom-44 md:bottom-36 left-4 md:left-6 z-[9999] animate-slideUp">
           <div className="bg-white rounded-[32px] w-[300px] md:w-[340px] border-2 border-green-500 p-6 relative" style={{ boxShadow: '-2px -2px 0px rgba(0, 0, 0, 0.15), 5px 5px 0px rgba(22, 163, 74, 0.35), 0 4px 12px rgba(0, 0, 0, 0.08)' }}>
             {/* Speech bubble tail - pointing to button */}
@@ -102,7 +104,7 @@ const WhatsAppFloatingButton = ({
       {isVisible && (
         <button
           onClick={() => setIsOpen(!isOpen)}
-          className="fixed bottom-24 md:bottom-6 left-4 md:left-6 z-[9999] w-14 h-14 bg-green-500/90 hover:bg-green-500 text-white rounded-full transition-all duration-300 hover:scale-110 group flex items-center justify-center"
+          className={`fixed bottom-24 md:bottom-6 left-4 md:left-6 z-[9999] w-14 h-14 bg-green-500/90 hover:bg-green-500 text-white rounded-full transition-all duration-300 hover:scale-110 group flex items-center justify-center ${isModalOpen ? 'hidden md:flex' : 'flex'}`}
           style={{ boxShadow: '0 4px 12px rgba(22, 163, 74, 0.4), 0 2px 6px rgba(0, 0, 0, 0.12)' }}
           aria-label="WhatsApp Chat"
         >
