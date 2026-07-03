@@ -179,7 +179,7 @@ const Ultimate21DayChallenge = () => {
           startDateText="12th July 2026"
         />
         <StickyBottomBar onRegisterClick={scrollToRegistration} />
-        <WhatsAppFloatingButton />
+        <WhatsAppFloatingButton showImmediately={true} />
       </div>
     </>
   );
