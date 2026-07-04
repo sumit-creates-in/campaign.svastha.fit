@@ -101,6 +101,7 @@ const globalFaqs = [
 
 const Global21DayWeightLossChallenge = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isScrollModalOpen, setIsScrollModalOpen] = useState(false);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -203,9 +204,14 @@ const Global21DayWeightLossChallenge = () => {
           groupDiscountText="AED 10 off"
           groupPriceText="AED 39"
           isGlobal={true}
+          onVisibilityChange={setIsScrollModalOpen}
         />
         <StickyBottomBar onRegisterClick={scrollToRegistration} feeText="AED 49" />
-        <WhatsAppFloatingButton message="I want to know more about Global 21 Day Weight Loss Challenge" />
+        <WhatsAppFloatingButton 
+          showImmediately={true}
+          isModalOpen={isModalOpen || isScrollModalOpen}
+          message="I want to know more about Global 21 Day Weight Loss Challenge" 
+        />
       </div>
     </>
   );
