@@ -4,14 +4,13 @@ import { useState, useEffect, useRef } from "react";
 const PLAN_DATA = {
   12: {
     group: {
-      name: "⭐ Community",
-      sell: 6900,
+      name: "⭐ Community Plan",
+      sell: 6990,
       base: 10800,
-      perMonth: 575,
+      perMonth: 583,
       link: "https://rzp.io/rzp/FmzKCdx",
-      badge: "Save ₹2k+",
       features: [
-        "� Communitiy Diet Plan",
+        "🥗 Community Diet Plan",
         "📺 Weekly Live with Sumit",
         "🎙️ Voice Notes",
         "🧘 Live Yoga Classes",
@@ -22,12 +21,13 @@ const PLAN_DATA = {
       ]
     },
     personalSilver: {
-      name: "👑 Silver",
-      sell: 23900,
+      name: "👑 Transformation Plan",
+      sell: 23990,
       base: 35640,
-      perMonth: 1992,
+      perMonth: 1999,
       link: "https://rzp.io/rzp/P3u4HHm7",
-      badge: "Save ₹11.7k",
+      badge: "🏆 Most Popular",
+      featured: true,
       features: [
         "👩‍⚕️ Personal Dietitian",
         "📋 Your Own Diet Plan",
@@ -37,17 +37,17 @@ const PLAN_DATA = {
         "🧘 Live Yoga Classes",
         "🎬 Class Recordings",
         "⚖️ Weight Tracker",
+        "📞 Consultation with Sumit: 1",
         "📞 1 weekly follow-up"
       ]
     },
     personalGold: {
-      name: "💎 Gold",
-      sell: 29900,
-      base: 46800,
-      perMonth: 2492,
+      name: "💎 VIP Transformation Plan",
+      sell: 53990,
+      base: 70000,
+      perMonth: 4499,
       link: "https://rzp.io/rzp/UaNRicm",
-      badge: "🏆 Save ₹16.9k",
-      featured: true,
+      badge: "⚡ Fastest Results",
       features: [
         "👩‍⚕️ Personal Dietitian",
         "📋 Your Own Diet Plan",
@@ -59,18 +59,18 @@ const PLAN_DATA = {
         "🎬 Class Recordings",
         "⚖️ Weight Tracker",
         "✅ Habit Tracker",
+        "📞 Consultation with Sumit: 3",
         "📞 3 weekly follow-up"
       ]
     }
   },
   6: {
     group: {
-      name: "⭐ Community",
+      name: "⭐ Community Plan",
       sell: 5990,
       base: 18000,
       perMonth: 998,
       link: "https://rzp.io/rzp/rwAlm54",
-      badge: "Save ₹12k",
       features: [
         "🥗 Community Diet Plan",
         "📺 Weekly Live with Sumit",
@@ -83,12 +83,13 @@ const PLAN_DATA = {
       ]
     },
     personalSilver: {
-      name: "👑 Silver",
-      sell: 13900,
-      base: 17820,
-      perMonth: 2317,
+      name: "👑 Transformation Plan",
+      sell: 13990,
+      base: 20000,
+      perMonth: 2332,
       link: "https://rzp.io/rzp/euYWM5k",
-      badge: "Save ₹3.9k",
+      badge: "🏆 Most Popular",
+      featured: true,
       features: [
         "👩‍⚕️ Personal Dietitian",
         "📋 Your Own Diet Plan",
@@ -98,17 +99,17 @@ const PLAN_DATA = {
         "🧘 Live Yoga Classes",
         "🎬 Class Recordings",
         "⚖️ Weight Tracker",
+        "📞 Consultation with Sumit: 1",
         "📞 1 weekly follow-up"
       ]
     },
     personalGold: {
-      name: "💎 Gold",
-      sell: 16900,
-      base: 23400,
-      perMonth: 2817,
+      name: "💎 VIP Transformation Plan",
+      sell: 33990,
+      base: 46800,
+      perMonth: 5665,
       link: "https://rzp.io/rzp/eZ6OOmoH",
-      badge: "🏆 Save ₹6.5k",
-      featured: true,
+      badge: "⚡ Fastest Results",
       features: [
         "👩‍⚕️ Personal Dietitian",
         "📋 Your Own Diet Plan",
@@ -120,6 +121,7 @@ const PLAN_DATA = {
         "🎬 Class Recordings",
         "⚖️ Weight Tracker",
         "✅ Habit Tracker",
+        "📞 Consultation with Sumit: 3",
         "📞 3 weekly follow-up"
       ]
     }
@@ -127,18 +129,19 @@ const PLAN_DATA = {
 };
 
 const COMPARE_ROWS = [
-  { feature: "Live Yoga Classes", group: true, silver: true, gold: true },
-  { feature: "Class Recordings", group: true, silver: true, gold: true },
-  { feature: "Weight Tracker", group: true, silver: true, gold: true },
-  { feature: "Habit Tracker", group: true, silver: false, gold: true },
-  { feature: "Daily Reminders", group: true, silver: false, gold: true },
-  { feature: "Community Diet Plan", group: true, silver: true, gold: true },
-  { feature: "Weekly Live with Sumit", group: true, silver: true, gold: true },
-  { feature: "Sumit's Voice Notes", group: true, silver: true, gold: true },
+  { feature: "Consultation with Sumit", group: false, silver: 1, gold: 3 },
   { feature: "Personal Dietitian", group: false, silver: true, gold: true },
   { feature: "Personalized Diet Plan", group: false, silver: true, gold: true },
   { feature: "Call & Chat Support", group: false, silver: true, gold: true },
   { feature: "Weekly Follow-ups", group: false, silver: 1, gold: 3 },
+  { feature: "Habit Tracker", group: true, silver: false, gold: true },
+  { feature: "Daily Reminders", group: true, silver: false, gold: true },
+  { feature: "Live Yoga Classes", group: true, silver: true, gold: true },
+  { feature: "Class Recordings", group: true, silver: true, gold: true },
+  { feature: "Weight Tracker", group: true, silver: true, gold: true },
+  { feature: "Community Diet Plan", group: true, silver: true, gold: true },
+  { feature: "Weekly Live with Sumit", group: true, silver: true, gold: true },
+  { feature: "Sumit's Voice Notes", group: true, silver: true, gold: true },
 ];
 
 
@@ -333,6 +336,7 @@ function PlanCard({ planKey, planData, duration }) {
   const { ref, visible } = useFadeUp();
   const [showAll, setShowAll] = useState(false);
   const saving = planData.base - planData.sell;
+  const isVIP = planKey === "personalGold";
 
   return (
     <div
@@ -341,15 +345,15 @@ function PlanCard({ planKey, planData, duration }) {
         background: planData.featured ? "linear-gradient(150deg, #fffdf5 0%, #fff8e6 100%)" : "white",
         borderRadius: 18,
         padding: "16px 16px",
-        boxShadow: planData.featured ? "0 8px 28px rgba(245,166,35,0.22)" : "0 4px 18px rgba(0,0,0,0.08)",
-        border: `2px solid ${planData.featured ? "#f5a623" : "#eee"}`,
+        boxShadow: planData.featured ? "0 8px 28px rgba(245,166,35,0.22)" : isVIP ? "0 8px 28px rgba(45,159,99,0.22)" : "0 4px 18px rgba(0,0,0,0.08)",
+        border: `2px solid ${planData.featured ? "#f5a623" : isVIP ? "#2d9f63" : "#eee"}`,
         position: "relative",
         opacity: visible ? 1 : 0,
         transform: visible ? "none" : "translateY(24px)",
         transition: "opacity 0.5s ease, transform 0.5s ease",
         width: "78vw",
-        maxWidth: 300,
-        minWidth: 240,
+        maxWidth: planData.featured ? 320 : 300,
+        minWidth: planData.featured ? 260 : 240,
         boxSizing: "border-box" as const,
         flexShrink: 0,
         scrollSnapAlign: "start",
@@ -446,8 +450,8 @@ function CompareTable() {
           <tr>
             <th style={{ padding: "8px 4px", fontWeight: 800, fontSize: 11, textAlign: "left", minWidth: 120 }}></th>
             <th style={{ padding: "8px 4px", fontWeight: 800, fontSize: 11, textAlign: "center", color: "#1565c0" }}>Community</th>
-            <th style={{ padding: "8px 4px", fontWeight: 800, fontSize: 11, textAlign: "center", color: "#d97706" }}>Silver</th>
-            <th style={{ padding: "8px 4px", fontWeight: 800, fontSize: 11, textAlign: "center", color: "#e65100" }}>Gold</th>
+            <th style={{ padding: "8px 4px", fontWeight: 800, fontSize: 11, textAlign: "center", color: "#d97706" }}>Transformation</th>
+            <th style={{ padding: "8px 4px", fontWeight: 800, fontSize: 11, textAlign: "center", color: "#e65100" }}>VIP</th>
           </tr>
         </thead>
         <tbody>
