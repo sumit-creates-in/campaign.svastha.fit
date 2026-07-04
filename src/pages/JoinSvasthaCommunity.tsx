@@ -349,11 +349,11 @@ function PlanCard({ planKey, planData, duration }) {
         border: `2px solid ${planData.featured ? "#f5a623" : isVIP ? "#2d9f63" : "#eee"}`,
         position: "relative",
         opacity: visible ? 1 : 0,
-        transform: visible ? "none" : "translateY(24px)",
+        transform: visible ? "none" : planData.featured ? "scale(1.05)" : "translateY(24px)",
         transition: "opacity 0.5s ease, transform 0.5s ease",
         width: "78vw",
-        maxWidth: planData.featured ? 320 : 300,
-        minWidth: planData.featured ? 260 : 240,
+        maxWidth: planData.featured ? 340 : 300,
+        minWidth: planData.featured ? 280 : 240,
         boxSizing: "border-box" as const,
         flexShrink: 0,
         scrollSnapAlign: "start",
@@ -382,19 +382,19 @@ function PlanCard({ planKey, planData, duration }) {
         </div>
       </div>
 
-      <div style={{ marginBottom: 12 }}>
-        {(showAll ? planData.features : planData.features.slice(0, 5)).map((feature) => (
-          <div key={feature} style={{ fontSize: 12, color: "#333", marginBottom: 5, display: "flex", alignItems: "center", gap: 6 }}>
+      <div style={{ marginBottom: planData.featured ? 12 : 6 }}>
+        {(showAll ? planData.features : planData.features.slice(0, planData.featured ? 8 : 5)).map((feature) => (
+          <div key={feature} style={{ fontSize: 12, color: "#333", marginBottom: planData.featured ? 5 : 3, display: "flex", alignItems: "center", gap: 6 }}>
             <span style={{ color: "#1a7a4a", fontSize: 13 }}>✓</span>
             <span>{feature}</span>
           </div>
         ))}
-        {planData.features.length > 5 && (
+        {planData.features.length > (planData.featured ? 8 : 5) && (
           <div
             onClick={() => setShowAll(!showAll)}
-            style={{ fontSize: 12, color: "#1a7a4a", marginTop: 6, cursor: "pointer", fontWeight: 700 }}
+            style={{ fontSize: 12, color: "#1a7a4a", marginTop: 4, cursor: "pointer", fontWeight: 700 }}
           >
-            {showAll ? "▲ Show less" : `+ ${planData.features.length - 5} more features ▼`}
+            {showAll ? "▲ Show less" : `+ ${planData.features.length - (planData.featured ? 8 : 5)} more features ▼`}
           </div>
         )}
       </div>
@@ -422,7 +422,7 @@ function PlanCard({ planKey, planData, duration }) {
           boxSizing: "border-box" as const,
         }}
       >
-        Get This Plan →
+        Get {planData.name.replace(/[⭐👑💎]/g, '').trim()} →
       </a>
       <div style={{ textAlign: "center", fontSize: 12, color: "#666", marginTop: 8 }}>🔒 Secure checkout · Instant access</div>
     </div>
