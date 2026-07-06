@@ -5,9 +5,9 @@ const PLAN_DATA = {
   12: {
     group: {
       name: "⭐ Community Plan",
-      sell: 6990,
-      base: 10800,
-      perMonth: 583,
+      sell: 7990,
+      base: 36000,
+      perMonth: 666,
       link: "https://rzp.io/rzp/FmzKCdx",
       features: [
         "🥗 Community Diet Plan",
@@ -22,9 +22,9 @@ const PLAN_DATA = {
     },
     personalSilver: {
       name: "👑 Transformation Plan",
-      sell: 23990,
-      base: 35640,
-      perMonth: 1999,
+      sell: 24990,
+      base: 48000,
+      perMonth:2083,
       link: "https://rzp.io/rzp/P3u4HHm7",
       badge: "🏆 Most Popular",
       featured: true,
@@ -43,9 +43,9 @@ const PLAN_DATA = {
     },
     personalGold: {
       name: "💎 VIP Transformation Plan",
-      sell: 53990,
-      base: 70000,
-      perMonth: 4499,
+      sell: 54990,
+      base: 180000,
+      perMonth: 4583,
       link: "https://rzp.io/rzp/UaNRicm",
       badge: "⚡ Fastest Results",
       features: [
@@ -84,9 +84,9 @@ const PLAN_DATA = {
     },
     personalSilver: {
       name: "👑 Transformation Plan",
-      sell: 13990,
-      base: 20000,
-      perMonth: 2332,
+      sell: 14990,
+      base: 24000,
+      perMonth: 2498,
       link: "https://rzp.io/rzp/euYWM5k",
       badge: "🏆 Most Popular",
       featured: true,
@@ -105,9 +105,9 @@ const PLAN_DATA = {
     },
     personalGold: {
       name: "💎 VIP Transformation Plan",
-      sell: 33990,
-      base: 46800,
-      perMonth: 5665,
+      sell: 34990,
+      base: 90000,
+      perMonth: 5832,
       link: "https://rzp.io/rzp/eZ6OOmoH",
       badge: "⚡ Fastest Results",
       features: [
