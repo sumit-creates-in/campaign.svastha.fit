@@ -5,9 +5,9 @@ const PLAN_DATA = {
   12: {
     group: {
       name: "⭐ Community Plan",
-      sell: 6990,
-      base: 10800,
-      perMonth: 583,
+      sell: 7990,
+      base: 36000,
+      perMonth: 666,
       link: "https://rzp.io/rzp/FmzKCdx",
       features: [
         "🥗 Community Diet Plan",
@@ -22,9 +22,9 @@ const PLAN_DATA = {
     },
     personalSilver: {
       name: "👑 Transformation Plan",
-      sell: 23990,
-      base: 35640,
-      perMonth: 1999,
+      sell: 24990,
+      base: 48000,
+      perMonth:2083,
       link: "https://rzp.io/rzp/P3u4HHm7",
       badge: "🏆 Most Popular",
       featured: true,
@@ -43,9 +43,9 @@ const PLAN_DATA = {
     },
     personalGold: {
       name: "💎 VIP Transformation Plan",
-      sell: 53990,
-      base: 70000,
-      perMonth: 4499,
+      sell: 54990,
+      base: 180000,
+      perMonth: 4583,
       link: "https://rzp.io/rzp/UaNRicm",
       badge: "⚡ Fastest Results",
       features: [
@@ -84,9 +84,9 @@ const PLAN_DATA = {
     },
     personalSilver: {
       name: "👑 Transformation Plan",
-      sell: 13990,
-      base: 20000,
-      perMonth: 2332,
+      sell: 14990,
+      base: 24000,
+      perMonth: 2498,
       link: "https://rzp.io/rzp/euYWM5k",
       badge: "🏆 Most Popular",
       featured: true,
@@ -105,9 +105,9 @@ const PLAN_DATA = {
     },
     personalGold: {
       name: "💎 VIP Transformation Plan",
-      sell: 33990,
-      base: 46800,
-      perMonth: 5665,
+      sell: 34990,
+      base: 90000,
+      perMonth: 5832,
       link: "https://rzp.io/rzp/eZ6OOmoH",
       badge: "⚡ Fastest Results",
       features: [
@@ -168,11 +168,16 @@ function useFadeUp() {
 
 // ── SUB-COMPONENTS ────────────────────────────────────────────────────────────
 
-function TimerStrip({ timeLeft, urgent }) {
+function TimerStrip({ timeLeft, urgent, endDate }) {
   const days = Math.floor(timeLeft / 86400);
   const hours = Math.floor((timeLeft % 86400) / 3600);
   const minutes = Math.floor((timeLeft % 3600) / 60);
   const seconds = timeLeft % 60;
+
+  const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+  const endLabel = endDate
+    ? `${dayNames[endDate.getDay()]} ${endDate.getDate()} ${endDate.toLocaleString("en-IN", { month: "short" })} · ${endDate.getHours() % 12 || 12}:${String(endDate.getMinutes()).padStart(2, "0")} ${endDate.getHours() >= 12 ? "PM" : "AM"}`
+    : "";
 
   return (
     <div
@@ -180,31 +185,17 @@ function TimerStrip({ timeLeft, urgent }) {
         background: "linear-gradient(135deg, #d93025 0%, #c0392b 100%)",
         color: "white",
         textAlign: "center",
-        padding: "14px 16px",
+        padding: "12px 16px",
         position: "sticky",
         top: 0,
         zIndex: 100,
         boxShadow: "0 3px 16px rgba(217,48,37,0.4)",
-        animation: urgent ? "pulseBg 1s infinite" : "none",
       }}
     >
-      <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", opacity: 0.9, marginBottom: 6 }}>
-        ⚡ Offer Ends Sunday 11:30 AM
+      <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", opacity: 0.9 }}>
+        ⚡ OFFER ENDS NOW
       </div>
-      <div style={{ display: "flex", justifyContent: "center", alignItems: "center", gap: 4, flexWrap: "wrap" }}>
-        {days > 0 && (
-          <>
-            <div style={digitBoxStyle}>{pad(days)}</div>
-            <div style={{ fontSize: 28, fontWeight: 800, opacity: 0.8, marginBottom: 4 }}>:</div>
-          </>
-        )}
-        <div style={digitBoxStyle}>{pad(hours)}</div>
-        <div style={{ fontSize: 28, fontWeight: 800, opacity: 0.8, marginBottom: 4 }}>:</div>
-        <div style={digitBoxStyle}>{pad(minutes)}</div>
-        <div style={{ fontSize: 28, fontWeight: 800, opacity: 0.8, marginBottom: 4 }}>:</div>
-        <div style={digitBoxStyle}>{pad(seconds)}</div>
-      </div>
-      <div style={{ fontSize: 11, opacity: 0.8, marginTop: 6, letterSpacing: 0.5 }}>
+      <div style={{ fontSize: 11, opacity: 0.8, marginTop: 4, letterSpacing: 0.5 }}>
         After this, prices go back to normal
       </div>
     </div>
@@ -579,23 +570,25 @@ function ExpiredOverlay({ show }) {
 // ── MAIN COMPONENT ────────────────────────────────────────────────────────────
 export default function WeightLossOffer() {
   // Calculate time until Sunday 11:30 AM
-  const getTimeUntilSunday = () => {
+  const getTargetDate = () => {
     const now = new Date();
     const targetDate = new Date();
-
-    // Set target to next Sunday at 11:30 AM
-    const daysUntilSunday = (7 - now.getDay()) % 7; // 0 if today is Sunday
+    const daysUntilSunday = (7 - now.getDay()) % 7;
     targetDate.setDate(now.getDate() + daysUntilSunday);
     targetDate.setHours(11, 30, 0, 0);
-
-    // If we're past 11:30 AM on Sunday, set to next Sunday
     if (targetDate <= now) {
       targetDate.setDate(targetDate.getDate() + 7);
     }
+    return targetDate;
+  };
 
+  const getTimeUntilSunday = () => {
+    const now = new Date();
+    const targetDate = getTargetDate();
     return Math.floor((targetDate.getTime() - now.getTime()) / 1000);
   };
 
+  const [endDate] = useState(getTargetDate);
   const [timeLeft, setTimeLeft] = useState(getTimeUntilSunday());
   const [expired, setExpired] = useState(false);
   const [currentDuration, setCurrentDuration] = useState(12);
@@ -651,7 +644,7 @@ export default function WeightLossOffer() {
 
       <div style={{ maxWidth: 720, margin: "0 auto", background: "#f4faf7", minHeight: "100vh", boxShadow: "0 0 60px rgba(0,0,0,0.15)", overflow: "hidden", fontFamily: "'Nunito', sans-serif" }}>
 
-        <TimerStrip timeLeft={timeLeft} urgent={urgent} />
+        <TimerStrip timeLeft={timeLeft} urgent={urgent} endDate={endDate} />
 
         {/* Duration Toggle */}
         <section style={{ padding: "20px 16px 0" }}>
