@@ -2,7 +2,6 @@ import { useCountry } from "@/contexts/CountryContext";
 import { useEffect, ReactNode } from "react";
 import { useNavigate } from "react-router-dom";
 
-
 const LoadingScreen = () => (
     <div
         style={{
@@ -14,7 +13,9 @@ const LoadingScreen = () => (
         }}
     >
         <div style={{ textAlign: "center" }}>
-            <p style={{ fontSize: "18px", fontWeight: "bold" }}>Loading...</p>
+            <p style={{ fontSize: "18px", fontWeight: "bold" }}>
+                Loading...
+            </p>
         </div>
     </div>
 );
@@ -23,7 +24,7 @@ interface RouteGuardProps {
     children: ReactNode;
 }
 
-// India route guard - only India users can access /Ultimate-21-day-weight-loss-challenge
+// India route - only India users
 export const IndiaRouteGuard = ({ children }: RouteGuardProps) => {
     const { country, loading } = useCountry();
     const navigate = useNavigate();
@@ -33,10 +34,16 @@ export const IndiaRouteGuard = ({ children }: RouteGuardProps) => {
 
         if (country === "IN") {
             return;
-        } else if (country === "AE") {
-            navigate("/global-21-day-weight-loss-challenge", { replace: true });
+        }
+
+        if (country === "AE") {
+            navigate("/global-21-day-weight-loss-challenge", {
+                replace: true,
+            });
         } else {
-            navigate("/international-21-day-weight-loss-challenge", { replace: true });
+            navigate("/international-21-day-weight-loss-challenge", {
+                replace: true,
+            });
         }
     }, [country, loading, navigate]);
 
@@ -46,7 +53,7 @@ export const IndiaRouteGuard = ({ children }: RouteGuardProps) => {
     return children;
 };
 
-// UAE route guard - only UAE users can access /global-21-day-weight-loss-challenge
+// UAE route - India + UAE users
 export const UAERouteGuard = ({ children }: RouteGuardProps) => {
     const { country, loading } = useCountry();
     const navigate = useNavigate();
@@ -54,38 +61,49 @@ export const UAERouteGuard = ({ children }: RouteGuardProps) => {
     useEffect(() => {
         if (loading) return;
 
-        if (country === "AE") {
+        if (country === "AE" || country === "IN") {
             return;
-        } else if (country === "IN") {
-            navigate("/Ultimate-21-day-weight-loss-challenge", { replace: true });
-        } else {
-            navigate("/international-21-day-weight-loss-challenge", { replace: true });
         }
+
+        navigate("/international-21-day-weight-loss-challenge", {
+            replace: true,
+        });
     }, [country, loading, navigate]);
 
     if (loading) return <LoadingScreen />;
-    if (country !== "AE") return <LoadingScreen />;
+
+    // Allow India and UAE
+    if (country !== "AE" && country !== "IN") {
+        return <LoadingScreen />;
+    }
 
     return children;
 };
 
-// International route guard - only non-IN, non-AE users can access
-export const InternationalRouteGuard = ({ children }: RouteGuardProps) => {
+// International route - India + all non-AE countries
+export const InternationalRouteGuard = ({
+    children,
+}: RouteGuardProps) => {
     const { country, loading } = useCountry();
     const navigate = useNavigate();
 
     useEffect(() => {
         if (loading) return;
 
-        if (country === "IN") {
-            navigate("/Ultimate-21-day-weight-loss-challenge", { replace: true });
-        } else if (country === "AE") {
-            navigate("/global-21-day-weight-loss-challenge", { replace: true });
+        // UAE users should always stay on UAE page
+        if (country === "AE") {
+            navigate("/global-21-day-weight-loss-challenge", {
+                replace: true,
+            });
         }
     }, [country, loading, navigate]);
 
     if (loading) return <LoadingScreen />;
-    if (country === "IN" || country === "AE") return <LoadingScreen />;
+
+    // Only block UAE users
+    if (country === "AE") {
+        return <LoadingScreen />;
+    }
 
     return children;
 };
