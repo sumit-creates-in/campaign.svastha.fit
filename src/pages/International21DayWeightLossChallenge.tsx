@@ -230,9 +230,9 @@ const International21DayWeightLossChallenge = () => {
           onClose={() => setIsModalOpen(false)}
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
-          upgradeUrl="https://buy.stripe.com/fZudR93SE6aIaNR2Rq5c40Y"
+          upgradeUrl="https://buy.stripe.com/5kQ4gzfBm2YwaNR63C5c40Z"
           joinGroupUrl=""
-          upgradePriceText="$ 59"
+          upgradePriceText="$ 49"
           groupPriceText="FREE"
           joinGroupButtonText="Register For Free"
           isGlobal={true}
@@ -243,10 +243,10 @@ const International21DayWeightLossChallenge = () => {
         <ScrollPopupModal
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
-          upgradeUrl="https://buy.stripe.com/5kQ4gzfBm2YwaNR63C5c40Z"
+          upgradeUrl="https://buy.stripe.com/7sY3cvbl62Yw7BFcs05c412"
           joinGroupUrl=""
           personalDiscountText="$ 10 off"
-          personalPriceText="$ 49"
+          personalPriceText="$ 39"
           groupDiscountText=""
           groupPriceText="FREE"
           joinGroupButtonText="Register For Free"
@@ -266,10 +266,10 @@ const International21DayWeightLossChallenge = () => {
           feeText="FREE"
           registerButtonText="Register For Free"
         />
-        <WhatsAppFloatingButton 
+        <WhatsAppFloatingButton
           showImmediately={true}
           isModalOpen={isModalOpen || isFreeModalOpen || isScrollModalOpen}
-          message="I want to know more about International 21 Day Weight Loss Challenge" 
+          message="I want to know more about International 21 Day Weight Loss Challenge"
         />
       </div>
     </>
