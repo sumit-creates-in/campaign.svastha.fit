@@ -230,7 +230,7 @@ const International21DayWeightLossChallenge = () => {
           onClose={() => setIsModalOpen(false)}
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
-          upgradeUrl="https://buy.stripe.com/fZudR93SE6aIaNR2Rq5c40Y"
+          upgradeUrl="https://buy.stripe.com/5kQ4gzfBm2YwaNR63C5c40Z"
           joinGroupUrl=""
           upgradePriceText="$ 49"
           groupPriceText="FREE"
@@ -243,7 +243,7 @@ const International21DayWeightLossChallenge = () => {
         <ScrollPopupModal
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
-          upgradeUrl="https://buy.stripe.com/5kQ4gzfBm2YwaNR63C5c40Z"
+          upgradeUrl="https://buy.stripe.com/7sY3cvbl62Yw7BFcs05c412"
           joinGroupUrl=""
           personalDiscountText="$ 10 off"
           personalPriceText="$ 39"
