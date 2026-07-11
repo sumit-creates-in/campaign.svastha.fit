@@ -232,7 +232,7 @@ const International21DayWeightLossChallenge = () => {
           onJoinGroup={handleJoinGroup}
           upgradeUrl="https://buy.stripe.com/fZudR93SE6aIaNR2Rq5c40Y"
           joinGroupUrl=""
-          upgradePriceText="$ 59"
+          upgradePriceText="$ 49"
           groupPriceText="FREE"
           joinGroupButtonText="Register For Free"
           isGlobal={true}
@@ -246,7 +246,7 @@ const International21DayWeightLossChallenge = () => {
           upgradeUrl="https://buy.stripe.com/5kQ4gzfBm2YwaNR63C5c40Z"
           joinGroupUrl=""
           personalDiscountText="$ 10 off"
-          personalPriceText="$ 49"
+          personalPriceText="$ 39"
           groupDiscountText=""
           groupPriceText="FREE"
           joinGroupButtonText="Register For Free"
@@ -266,10 +266,10 @@ const International21DayWeightLossChallenge = () => {
           feeText="FREE"
           registerButtonText="Register For Free"
         />
-        <WhatsAppFloatingButton 
+        <WhatsAppFloatingButton
           showImmediately={true}
           isModalOpen={isModalOpen || isFreeModalOpen || isScrollModalOpen}
-          message="I want to know more about International 21 Day Weight Loss Challenge" 
+          message="I want to know more about International 21 Day Weight Loss Challenge"
         />
       </div>
     </>
