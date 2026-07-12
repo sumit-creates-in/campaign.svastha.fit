@@ -29,7 +29,7 @@ export const UpgradeModal = ({
   groupPriceText = "Rs. 990",
   joinGroupButtonText,
   isGlobal = false,
-  startDateText = "28th June 2026",
+  startDateText = "26th July 2026",
   timerEndDate,
   hideTimer = false,
 }: UpgradeModalProps) => {

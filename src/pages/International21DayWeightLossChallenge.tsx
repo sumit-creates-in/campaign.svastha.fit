@@ -236,7 +236,7 @@ const International21DayWeightLossChallenge = () => {
           groupPriceText="FREE"
           joinGroupButtonText="Register For Free"
           isGlobal={true}
-          startDateText="12th July"
+          startDateText="26th July"
           timerEndDate="2026-07-12T23:59:59"
           hideTimer={true}
         />
@@ -251,7 +251,7 @@ const International21DayWeightLossChallenge = () => {
           groupPriceText="FREE"
           joinGroupButtonText="Register For Free"
           isGlobal={true}
-          startDateText="12th July"
+          startDateText="26th July"
           timerEndDate="2026-07-12T23:59:59"
           hideTimer={true}
           onVisibilityChange={setIsScrollModalOpen}
@@ -259,7 +259,7 @@ const International21DayWeightLossChallenge = () => {
         <FreeRegistrationModal
           isOpen={isFreeModalOpen}
           onClose={() => setIsFreeModalOpen(false)}
-          startDateText="12th July"
+          startDateText="26th July"
         />
         <StickyBottomBar
           onRegisterClick={scrollToRegistration}

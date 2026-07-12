@@ -30,19 +30,19 @@ function detectUserLocation(): Promise<{ country: string }> {
     // Try to get timezone-based location
     try {
       const tz = Intl.DateTimeFormat().resolvedOptions().timeZone;
-      
+
       // Check for India
       if (tz.includes("Asia/Kolkata") || tz.includes("Asia/Calcutta")) {
         resolve({ country: "IN" });
         return;
       }
-      
+
       // Check for UAE
       if (tz.includes("Asia/Dubai")) {
         resolve({ country: "AE" });
         return;
       }
-      
+
       // Default to international
       resolve({ country: "OTHER" });
     } catch {
@@ -61,7 +61,7 @@ const Ultimate21DayChallenge = () => {
     // Check if user should be redirected based on location
     const checkAndRedirect = async () => {
       const location = await detectUserLocation();
-      
+
       if (location.country === "AE") {
         // Redirect to UAE page
         navigate("/global-21-day-weight-loss-challenge", { replace: true });
@@ -173,12 +173,12 @@ const Ultimate21DayChallenge = () => {
           onClose={() => setIsModalOpen(false)}
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
-          startDateText="12th July 2026"
+          startDateText="26th July 2026"
         />
         <ScrollPopupModal
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
-          startDateText="12th July 2026"
+          startDateText="26th July 2026"
           onVisibilityChange={setIsScrollModalOpen}
         />
         <StickyBottomBar onRegisterClick={scrollToRegistration} />
