@@ -22,8 +22,8 @@ import Loseweightwithvaishnavi from "./pages/Loseweightwithvaishnavi";
 import ThankYouLoseWeightVaishnavi from "./pages/ThankYouLoseWeightVaishnavi";
 import U21DWLCPaymentConfirmation from "./pages/U21DWLCPaymentConfirmation";
 import JoinSvasthaCommunity from "./pages/JoinSvasthaCommunity";
+import JoinSvasthaCommunityUSA from "./pages/JoinSvasthaCommunityUSA";
 import NotFound from "./pages/NotFound";
-import { CounterTest } from "./components/test/CounterTest";
 
 // Context and Guards
 
@@ -153,7 +153,11 @@ function App() {
                 path="/join-svastha-community"
                 element={<JoinSvasthaCommunity />}
               />
-              <Route path="/test-counter" element={<CounterTest />} />
+
+              <Route
+                path="/get-transformed"
+                element={<JoinSvasthaCommunityUSA />}
+              />
 
               {/* Catch-all */}
               <Route path="*" element={<NotFound />} />
