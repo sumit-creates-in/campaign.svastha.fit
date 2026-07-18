@@ -101,6 +101,18 @@ const PLAN_DATA = {
     }
 };
 
+const NEW_LINKS = {
+    3: {
+        personalSilver: "https://buy.stripe.com/28EfZh3SE9mU2hl1Nm5c417",
+        personalGold: "https://buy.stripe.com/dRm7sL1Kw6aIg8b63C5c418",
+    },
+    6: {
+        personalSilver: "https://buy.stripe.com/dRmcN50Gs56E5tx77G5c419",
+        personalGold: "https://buy.stripe.com/8x26oHbl6dDacVZgIg5c41a",
+    },
+};
+
+
 const BASE_COMPARE_ROWS = [
     { feature: "Consultation with Sumit", group: false, silverKey: "consultation", goldKey: "consultation" },
     { feature: "1-on-1 Yoga Sessions /month", group: false, silverKey: "yoga", goldKey: "yoga" },
@@ -303,8 +315,18 @@ function DurationToggle({ currentDuration, onSelect }) {
 function PlanCard({ planKey, planData, duration, expired }: { planKey: string; planData: typeof PLAN_DATA[3]["personalSilver"]; duration: number; expired: boolean }) {
     const { ref, visible } = useFadeUp();
     const [showAll, setShowAll] = useState(false);
-    const saving = planData.base - planData.sell;
     const isVIP = planKey === "personalGold";
+
+    const finalSell = expired
+        ? planData.sell + 100
+        : planData.sell
+
+    const finalLink = expired
+        ? NEW_LINKS[duration][planKey]
+        : planData.link;
+
+    const saving = planData.base - finalSell;
+
 
     return (
         <div
@@ -341,7 +363,7 @@ function PlanCard({ planKey, planData, duration, expired }: { planKey: string; p
                 <div>
                     <div style={{ fontSize: 11, color: "#666", textDecoration: "line-through" }}>${fmt(planData.base)}</div>
                     <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 26, fontWeight: 800, color: planData.featured ? "#c07000" : "#1a7a4a", lineHeight: 1 }}>
-                        ${fmt(planData.sell)}
+                        ${fmt(finalSell)}
                     </div>
                     <div style={{ fontSize: 11, color: "#666", marginTop: 2 }}>${fmt(planData.perMonth)}/month</div>
                 </div>
@@ -367,53 +389,33 @@ function PlanCard({ planKey, planData, duration, expired }: { planKey: string; p
                 )}
             </div>
 
-            {expired ? (
-                <div
-                    style={{
-                        display: "block",
-                        width: "100%",
-                        background: "#d0d0d0",
-                        color: "#888",
-                        borderRadius: 50,
-                        padding: 13,
-                        fontFamily: "'Baloo 2', cursive",
-                        fontSize: 16,
-                        fontWeight: 700,
-                        cursor: "not-allowed",
-                        textAlign: "center",
-                        boxSizing: "border-box" as const,
-                        userSelect: "none",
-                    }}
-                >
-                    🚫 Offer Expired
-                </div>
-            ) : (
-                <a
-                    href={planData.link}
-                    target="_blank"
-                    rel="noreferrer"
-                    style={{
-                        display: "block",
-                        width: "100%",
-                        background: planData.featured
-                            ? "linear-gradient(135deg, #f5a623, #d4840a)"
-                            : "linear-gradient(135deg, #2d9f63, #1a7a4a)",
-                        color: "white",
-                        borderRadius: 50,
-                        padding: 13,
-                        fontFamily: "'Baloo 2', cursive",
-                        fontSize: 16,
-                        fontWeight: 700,
-                        cursor: "pointer",
-                        boxShadow: planData.featured ? "0 4px 16px rgba(245,166,35,0.45)" : "0 4px 16px rgba(26,122,74,0.35)",
-                        textDecoration: "none",
-                        textAlign: "center",
-                        boxSizing: "border-box" as const,
-                    }}
-                >
-                    Get {planData.name.replace(/[⭐👑💎]/g, '').trim()} →
-                </a>
-            )}
+            <a
+                href={finalLink}
+                target="_blank"
+                rel="noreferrer"
+                style={{
+                    display: "block",
+                    width: "100%",
+                    background: planData.featured
+                        ? "linear-gradient(135deg, #f5a623, #d4840a)"
+                        : "linear-gradient(135deg, #2d9f63, #1a7a4a)",
+                    color: "white",
+                    borderRadius: 50,
+                    padding: 13,
+                    fontFamily: "'Baloo 2', cursive",
+                    fontSize: 16,
+                    fontWeight: 700,
+                    cursor: "pointer",
+                    boxShadow: planData.featured
+                        ? "0 4px 16px rgba(245,166,35,0.45)"
+                        : "0 4px 16px rgba(26,122,74,0.35)",
+                    textDecoration: "none",
+                    textAlign: "center",
+                    boxSizing: "border-box" as const,
+                }}
+            >
+                Get {planData.name.replace(/[⭐👑💎]/g, "").trim()} →
+            </a>
             <div style={{ textAlign: "center", fontSize: 12, color: "#666", marginTop: 8 }}>🔒 Secure checkout · Instant access</div>
         </div>
     );
@@ -463,19 +465,6 @@ function CompareTable({ duration }: { duration: number }) {
 }
 
 
-function ExpiredOverlay({ show }) {
-    if (!show) return null;
-    return (
-        <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)", zIndex: 999, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
-            <div style={{ background: "white", borderRadius: 24, padding: "36px 24px", textAlign: "center", maxWidth: 360, width: "100%" }}>
-                <div style={{ fontSize: 56, marginBottom: 12 }}>⏰</div>
-                <h2 style={{ fontFamily: "'Baloo 2', cursive", fontSize: 24, fontWeight: 800, marginBottom: 8 }}>Offer Has Expired</h2>
-                <p style={{ fontSize: 15, color: "#666", lineHeight: 1.6 }}>This special offer has ended. Please contact us to check if a new offer is available for you.</p>
-                <p style={{ marginTop: 16, fontSize: 13, color: "#999" }}>Thank you for your interest!</p>
-            </div>
-        </div>
-    );
-}
 
 // ── MAIN COMPONENT ────────────────────────────────────────────────────────────
 export default function WeightLossOffer() {
@@ -484,6 +473,7 @@ export default function WeightLossOffer() {
     const getTargetDate = () => {
         // July 19, 2026 at 11:00 PM IST = July 19 at 17:30 UTC = July 19 at 12:30 PM CDT
         return new Date("2026-07-19T17:30:00Z");
+
     };
 
 
@@ -677,8 +667,6 @@ export default function WeightLossOffer() {
                     <div style={{ textAlign: "center", color: "#666", fontSize: 14, marginBottom: 20 }}>See everything side by side</div>
                     <CompareTable duration={currentDuration} />
                 </section>
-
-                <ExpiredOverlay show={expired} />
             </div>
         </>
     );
