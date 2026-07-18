@@ -11,16 +11,19 @@ const PLAN_DATA = {
             badge: "🏆 Most Popular",
             featured: true,
             features: [
+                "📞 3 weekly follow-up",
                 "👩‍⚕️ Personal Dietitian",
-                "📋 Your Own Diet Plan",
+                "📋 Personalized Diet Plan",
+                "📞 Call & Chat Support",
                 "🥗 Community Diet Plan",
                 "📺 Weekly Live with Sumit",
-                "🎙️ Voice Notes",
+                "🎙️ Sumit's Voice Notes",
+                "🤖 Ai Chat Support",
+                "🗫 Daily Remainder",
                 "🧘 Live Yoga Classes",
                 "🎬 Class Recordings",
                 "⚖️ Weight Tracker",
-                "📞 Consultation with Sumit: 1",
-                "📞 1 weekly follow-up"
+                "✅ Habit Tracker"
             ]
         },
         personalGold: {
@@ -31,18 +34,22 @@ const PLAN_DATA = {
             link: "https://buy.stripe.com/dRmfZh60M56EbRVajS5c414",
             badge: "⚡ Fastest Results",
             features: [
+                "📞 Consultation with Sumit: 1",
+                "🧘 1-on-1 Yoga Sessions: 12/month",
+                "⚙️ Maintenance Plan",
+                "📞 3 weekly follow-up",
                 "👩‍⚕️ Personal Dietitian",
-                "📋 Your Own Diet Plan",
+                "📋 Personalized Diet Plan",
                 "📞 Call & Chat Support",
                 "🥗 Community Diet Plan",
                 "📺 Weekly Live with Sumit",
-                "🎙️ Voice Notes",
+                "🎙️ Sumit's Voice Notes",
+                "🤖 Ai Chat Support",
+                "🗫 Daily Remainder",
                 "🧘 Live Yoga Classes",
                 "🎬 Class Recordings",
                 "⚖️ Weight Tracker",
-                "✅ Habit Tracker",
-                "📞 Consultation with Sumit: 3",
-                "📞 3 weekly follow-up"
+                "✅ Habit Tracker"
             ]
         }
     },
@@ -56,16 +63,19 @@ const PLAN_DATA = {
             badge: "🏆 Most Popular",
             featured: true,
             features: [
+                "📞 1 weekly follow-up",
                 "👩‍⚕️ Personal Dietitian",
-                "📋 Your Own Diet Plan",
+                "📋 Personalized Diet Plan",
+                "📞 Call & Chat Support",
                 "🥗 Community Diet Plan",
                 "📺 Weekly Live with Sumit",
-                "🎙️ Voice Notes",
+                "🎙️ Sumit's Voice Notes",
+                "🤖 Ai Chat Support",
+                "🗫 Daily Remainder",
                 "🧘 Live Yoga Classes",
                 "🎬 Class Recordings",
                 "⚖️ Weight Tracker",
-                "📞 Consultation with Sumit: 1",
-                "📞 1 weekly follow-up"
+                "✅ Habit Tracker"
             ]
         },
         personalGold: {
@@ -76,38 +86,75 @@ const PLAN_DATA = {
             link: "https://buy.stripe.com/aFa14n3SE9mUbRVbnW5c416",
             badge: "⚡ Fastest Results",
             features: [
+                "📞 Consultation with Sumit: 3",
+                "🧘 1-on-1 Yoga Sessions: 12/month",
+                "⚙️ Maintenance Plan",
+                "📞 3 weekly follow-up",
                 "👩‍⚕️ Personal Dietitian",
-                "📋 Your Own Diet Plan",
+                "📋 Personalized Diet Plan",
                 "📞 Call & Chat Support",
                 "🥗 Community Diet Plan",
                 "📺 Weekly Live with Sumit",
-                "🎙️ Voice Notes",
+                "🎙️ Sumit's Voice Notes",
+                "🤖 Ai Chat Support",
+                "🗫 Daily Remainder",
                 "🧘 Live Yoga Classes",
                 "🎬 Class Recordings",
                 "⚖️ Weight Tracker",
-                "✅ Habit Tracker",
-                "📞 Consultation with Sumit: 3",
-                "📞 3 weekly follow-up"
+                "✅ Habit Tracker"
             ]
         }
     }
 };
 
-const COMPARE_ROWS = [
-    { feature: "Consultation with Sumit", group: false, silver: 1, gold: 3 },
+const BASE_COMPARE_ROWS = [
+    { feature: "Consultation with Sumit", group: false, silverKey: "consultation", goldKey: "consultation" },
+    { feature: "1-on-1 Yoga Sessions /month", group: false, silverKey: "yoga", goldKey: "yoga" },
+    { feature: "Maintenance Plan", group: false, silver: false, gold: true },
+    { feature: "Weekly Follow-ups", group: false, silverKey: "followups", goldKey: "followups" },
     { feature: "Personal Dietitian", group: false, silver: true, gold: true },
     { feature: "Personalized Diet Plan", group: false, silver: true, gold: true },
     { feature: "Call & Chat Support", group: false, silver: true, gold: true },
-    { feature: "Weekly Follow-ups", group: false, silver: 1, gold: 3 },
-    { feature: "Habit Tracker", group: true, silver: false, gold: true },
-    { feature: "Daily Reminders", group: true, silver: false, gold: true },
-    { feature: "Live Yoga Classes", group: true, silver: true, gold: true },
-    { feature: "Class Recordings", group: true, silver: true, gold: true },
-    { feature: "Weight Tracker", group: true, silver: true, gold: true },
     { feature: "Community Diet Plan", group: true, silver: true, gold: true },
     { feature: "Weekly Live with Sumit", group: true, silver: true, gold: true },
     { feature: "Sumit's Voice Notes", group: true, silver: true, gold: true },
+    { feature: "Ai chat support", group: true, silver: true, gold: true },
+    { feature: "Daily Reminders", group: true, silver: true, gold: true },
+    { feature: "Live Yoga Classes", group: true, silver: true, gold: true },
+    { feature: "Class Recordings", group: true, silver: true, gold: true },
+    { feature: "Weight Tracker", group: true, silver: true, gold: true },
+    { feature: "Habit Tracker", group: true, silver: true, gold: true },
 ];
+
+function getCompareRows(duration: number) {
+    const silver = PLAN_DATA[duration].personalSilver.features;
+    const gold = PLAN_DATA[duration].personalGold.features;
+
+    const extractCount = (features: string[], keyword: string): number => {
+        const match = features.find(f => f.toLowerCase().includes(keyword.toLowerCase()));
+        if (!match) return 0;
+        // Match "X weekly follow-up" style (number before keyword)
+        const numBefore = match.match(/(\d+)\s+\w+\s+follow/i);
+        if (numBefore) return parseInt(numBefore[1]);
+        // Match ": X" or "X/month" style
+        const numAfter = match.match(/:\s*(\d+)/) || match.match(/(\d+)\/month/);
+        return numAfter ? parseInt(numAfter[1]) : 0;
+    };
+
+    const silverConsultation = extractCount(silver, "Consultation with Sumit:");
+    const goldConsultation = extractCount(gold, "Consultation with Sumit:");
+    const silverFollowups = extractCount(silver, "weekly follow-up");
+    const goldFollowups = extractCount(gold, "weekly follow-up");
+    const silverYoga = extractCount(silver, "1-on-1 Yoga Sessions");
+    const goldYoga = extractCount(gold, "1-on-1 Yoga Sessions");
+
+    return BASE_COMPARE_ROWS.map(row => {
+        if (row.silverKey === "consultation") return { ...row, silver: silverConsultation, gold: goldConsultation };
+        if (row.silverKey === "followups") return { ...row, silver: silverFollowups, gold: goldFollowups };
+        if (row.silverKey === "yoga") return { ...row, silver: silverYoga, gold: goldYoga };
+        return row;
+    });
+}
 
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
@@ -245,7 +292,7 @@ function DurationToggle({ currentDuration, onSelect }) {
                             minWidth: 140,
                         }}
                     >
-                        {months === 3 && (
+                        {months === 6 && (
                             <div style={{ position: "absolute", top: -8, right: 8, background: "#f5a623", color: "white", fontSize: 9, fontWeight: 800, padding: "2px 8px", borderRadius: 8 }}>
                                 BEST DEAL
                             </div>
@@ -309,8 +356,8 @@ function PlanCard({ planKey, planData, duration, expired }: { planKey: string; p
             </div>
 
             <div style={{ marginBottom: planData.featured ? 3 : 6 }}>
-                {(showAll ? planData.features : planData.features.slice(0, planData.featured ? 8 : 5)).map((feature) => (
-                    <div key={feature} style={{ fontSize: 12, color: "#333", marginBottom: planData.featured ? 5 : 3, display: "flex", alignItems: "center", gap: 6 }}>
+                {(showAll ? planData.features : planData.features.slice(0, planData.featured ? 8 : 8)).map((feature) => (
+                    <div key={feature} style={{ fontSize: 12, color: "#333", marginBottom: planData.featured ? 5 : 5, display: "flex", alignItems: "center", gap: 6 }}>
                         <span style={{ color: "#1a7a4a", fontSize: 13 }}>✓</span>
                         <span>{feature}</span>
                     </div>
@@ -320,7 +367,7 @@ function PlanCard({ planKey, planData, duration, expired }: { planKey: string; p
                         onClick={() => setShowAll(!showAll)}
                         style={{ fontSize: 12, color: "#1a7a4a", marginTop: 4, cursor: "pointer", fontWeight: 700 }}
                     >
-                        {showAll ? "▲ Show less" : `+ ${planData.features.length - (planData.featured ? 8 : 5)} more features ▼`}
+                        {showAll ? "▲ Show less" : `+ ${planData.features.length - (planData.featured ? 8 : 8)} more features ▼`}
                     </div>
                 )}
             </div>
@@ -377,8 +424,9 @@ function PlanCard({ planKey, planData, duration, expired }: { planKey: string; p
     );
 }
 
-function CompareTable() {
+function CompareTable({ duration }: { duration: number }) {
     const { ref, visible } = useFadeUp();
+    const rows = getCompareRows(duration);
     return (
         <div
             ref={ref}
@@ -402,15 +450,14 @@ function CompareTable() {
                     </tr>
                 </thead>
                 <tbody>
-                    {COMPARE_ROWS.map(({ feature, silver, gold }, i) => (
+                    {rows.map(({ feature, silver, gold }, i) => (
                         <tr key={feature} style={{ background: i % 2 === 0 ? "#f9fdf9" : "white" }}>
                             <td style={{ padding: "11px 4px", fontWeight: 700, fontSize: 12, color: "#1a1a2e", borderBottom: "1px solid #f0f0f0" }}>{feature}</td>
-
                             <td style={{ padding: "11px 4px", textAlign: "center", borderBottom: "1px solid #f0f0f0" }}>
-                                <span style={{ color: silver ? "#1a7a4a" : "#ddd", fontSize: typeof silver === "number" ? 13 : 18 }}>{typeof silver === "number" ? `${silver}x` : silver ? "✓" : "✗"}</span>
+                                <span style={{ color: silver ? "#1a7a4a" : "#ddd", fontSize: typeof silver === "number" ? 13 : 18 }}>{typeof silver === "number" ? (silver === 0 ? "✗" : `${silver}x`) : silver ? "✓" : "✗"}</span>
                             </td>
                             <td style={{ padding: "11px 4px", textAlign: "center", borderBottom: "1px solid #f0f0f0" }}>
-                                <span style={{ color: gold ? "#1a7a4a" : "#ddd", fontSize: typeof gold === "number" ? 13 : 18 }}>{typeof gold === "number" ? `${gold}x` : gold ? "✓" : "✗"}</span>
+                                <span style={{ color: gold ? "#1a7a4a" : "#ddd", fontSize: typeof gold === "number" ? 13 : 18 }}>{typeof gold === "number" ? (gold === 0 ? "✗" : `${gold}x`) : gold ? "✓" : "✗"}</span>
                             </td>
                         </tr>
                     ))}
@@ -467,6 +514,14 @@ export default function WeightLossOffer() {
 
     const urgent = timeLeft <= 300;
     const plans = PLAN_DATA[currentDuration];
+
+    // Reset scroll and active card when duration changes
+    useEffect(() => {
+        setActiveCard(0);
+        if (cardsScrollRef.current) {
+            cardsScrollRef.current.scrollTo({ left: 0, behavior: "smooth" });
+        }
+    }, [currentDuration]);
 
     return (
         <>
@@ -539,8 +594,8 @@ export default function WeightLossOffer() {
                                 scrollbarWidth: "none",
                             }}
                         >
-                            <PlanCard planKey="personalSilver" planData={plans.personalSilver} duration={currentDuration} expired={expired} />
-                            <PlanCard planKey="personalGold" planData={plans.personalGold} duration={currentDuration} expired={expired} />
+                            <PlanCard key={`silver-${currentDuration}`} planKey="personalSilver" planData={plans.personalSilver} duration={currentDuration} expired={expired} />
+                            <PlanCard key={`gold-${currentDuration}`} planKey="personalGold" planData={plans.personalGold} duration={currentDuration} expired={expired} />
                         </div>
 
                         {/* Scroll hint label */}
@@ -624,7 +679,7 @@ export default function WeightLossOffer() {
                 <section style={{ padding: "20px 16px" }}>
                     <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 22, fontWeight: 800, textAlign: "center", marginBottom: 6 }}>What's Included?</div>
                     <div style={{ textAlign: "center", color: "#666", fontSize: 14, marginBottom: 20 }}>See everything side by side</div>
-                    <CompareTable />
+                    <CompareTable duration={currentDuration} />
                 </section>
 
                 <ExpiredOverlay show={expired} />
