@@ -5,149 +5,278 @@ const PLAN_DATA = {
   12: {
     group: {
       name: "⭐ Community Plan",
-      sell: 7990,
+      sell: 6990,
       base: 36000,
       perMonth: 666,
-      link: "https://rzp.io/rzp/FmzKCdx",
+      link: "https://rzp.io/rzp/gzYKXmHl",
       features: [
         "🥗 Community Diet Plan",
-        "📺 Weekly Live with Sumit",
-        "🎙️ Voice Notes",
+        "🎥 Weekly Live with Sumit",
+        "🗣️ Sumit's Voice Notes",
+        "🤖 Ai Chat Support",
+        "🗫 Daily Remainder",
         "🧘 Live Yoga Classes",
         "🎬 Class Recordings",
         "⚖️ Weight Tracker",
-        "✅ Habit Tracker",
-        "🔔 Daily Reminders"
+        "✅ Habit Tracker"
       ]
     },
     personalSilver: {
       name: "👑 Transformation Plan",
-      sell: 24990,
+      sell: 23990,
       base: 48000,
-      perMonth:2083,
-      link: "https://rzp.io/rzp/P3u4HHm7",
+      perMonth: 2083,
+      link: "https://rzp.io/rzp/NBM0DyPd",
       badge: "🏆 Most Popular",
       featured: true,
       features: [
+        "📞 Consultation with Sumit: 1",
+        "📞 1 weekly follow-up",
         "👩‍⚕️ Personal Dietitian",
-        "📋 Your Own Diet Plan",
+        "📋 Personalized Diet Plan",
+        "📞 Call & Chat Support",
         "🥗 Community Diet Plan",
-        "📺 Weekly Live with Sumit",
-        "🎙️ Voice Notes",
+        "🎥 Weekly Live with Sumit",
+        "🗣️ Sumit's Voice Notes",
+        "🤖 Ai Chat Support",
+        "🗫 Daily Remainder",
         "🧘 Live Yoga Classes",
         "🎬 Class Recordings",
         "⚖️ Weight Tracker",
-        "📞 Consultation with Sumit: 1",
-        "📞 1 weekly follow-up"
+        "✅ Habit Tracker"
       ]
     },
     personalGold: {
       name: "💎 VIP Transformation Plan",
-      sell: 54990,
+      sell: 53990,
       base: 180000,
       perMonth: 4583,
-      link: "https://rzp.io/rzp/UaNRicm",
+      link: "https://rzp.io/rzp/Zg4ilA1q",
       badge: "⚡ Fastest Results",
       features: [
+        "📞 Consultation with Sumit: 3",
+        "🧘 1-on-1 Yoga Sessions: 12/month",
+        "⚙️ Maintenance Plan",
+        "🍹 Juice Detox",
+        "📞 3 weekly follow-up",
         "👩‍⚕️ Personal Dietitian",
-        "📋 Your Own Diet Plan",
+        "📋 Personalized Diet Plan",
         "📞 Call & Chat Support",
         "🥗 Community Diet Plan",
-        "📺 Weekly Live with Sumit",
-        "🎙️ Voice Notes",
+        "🎥 Weekly Live with Sumit",
+        "🗣️ Sumit's Voice Notes",
+        "🤖 Ai Chat Support",
+        "🗫 Daily Remainder",
         "🧘 Live Yoga Classes",
         "🎬 Class Recordings",
         "⚖️ Weight Tracker",
-        "✅ Habit Tracker",
-        "📞 Consultation with Sumit: 3",
-        "📞 3 weekly follow-up"
+        "✅ Habit Tracker"
       ]
     }
   },
   6: {
     group: {
       name: "⭐ Community Plan",
-      sell: 5990,
+      sell: 4990,
       base: 18000,
       perMonth: 998,
-      link: "https://rzp.io/rzp/rwAlm54",
+      link: "https://rzp.io/rzp/pMRx9dlC",
       features: [
         "🥗 Community Diet Plan",
-        "📺 Weekly Live with Sumit",
-        "🎙️ Voice Notes",
+        "🎥 Weekly Live with Sumit",
+        "🗣️ Sumit's Voice Notes",
+        "🤖 Ai Chat Support",
+        "🗫 Daily Remainder",
         "🧘 Live Yoga Classes",
         "🎬 Class Recordings",
         "⚖️ Weight Tracker",
-        "✅ Habit Tracker",
-        "🔔 Daily Reminders"
+        "✅ Habit Tracker"
       ]
     },
     personalSilver: {
       name: "👑 Transformation Plan",
-      sell: 14990,
+      sell: 13990,
       base: 24000,
       perMonth: 2498,
-      link: "https://rzp.io/rzp/euYWM5k",
+      link: "https://rzp.io/rzp/gO7e1wT",
       badge: "🏆 Most Popular",
       featured: true,
       features: [
+        "📞 Consultation with Sumit: 1",
+        "📞 1 weekly follow-up",
         "👩‍⚕️ Personal Dietitian",
-        "📋 Your Own Diet Plan",
+        "📋 Personalized Diet Plan",
+        "📞 Call & Chat Support",
         "🥗 Community Diet Plan",
-        "📺 Weekly Live with Sumit",
-        "🎙️ Voice Notes",
+        "🎥 Weekly Live with Sumit",
+        "🗣️ Sumit's Voice Notes",
+        "🤖 Ai Chat Support",
+        "🗫 Daily Remainder",
         "🧘 Live Yoga Classes",
         "🎬 Class Recordings",
         "⚖️ Weight Tracker",
-        "📞 Consultation with Sumit: 1",
-        "📞 1 weekly follow-up"
+        "✅ Habit Tracker"
       ]
     },
     personalGold: {
       name: "💎 VIP Transformation Plan",
-      sell: 34990,
+      sell: 33990,
       base: 90000,
       perMonth: 5832,
-      link: "https://rzp.io/rzp/eZ6OOmoH",
+      link: "https://rzp.io/rzp/ms0tzWQp",
       badge: "⚡ Fastest Results",
       features: [
+        "📞 Consultation with Sumit: 3",
+        "🧘 1-on-1 Yoga Sessions: 12/month",
+        "⚙️ Maintenance Plan",
+        "🍹 Juice Detox",
+        "📞 3 weekly follow-up",
         "👩‍⚕️ Personal Dietitian",
-        "📋 Your Own Diet Plan",
+        "📋 Personalized Diet Plan",
         "📞 Call & Chat Support",
         "🥗 Community Diet Plan",
-        "📺 Weekly Live with Sumit",
-        "🎙️ Voice Notes",
+        "🎥 Weekly Live with Sumit",
+        "🗣️ Sumit's Voice Notes",
+        "🤖 Ai Chat Support",
+        "🗫 Daily Remainder",
         "🧘 Live Yoga Classes",
         "🎬 Class Recordings",
         "⚖️ Weight Tracker",
-        "✅ Habit Tracker",
-        "📞 Consultation with Sumit: 3",
-        "📞 3 weekly follow-up"
+        "✅ Habit Tracker"
       ]
     }
   }
 };
 
+const NEW_LINKS = {
+  12: {
+
+
+    group: "https://rzp.io/rzp/rwAlm54",
+    personalSilver: "https://rzp.io/rzp/euYWM5k",
+    personalGold: "https://rzp.io/rzp/eZ6OOmoH",
+
+  },
+
+  6: {
+
+    group: "https://rzp.io/rzp/FmzKCdx",
+    personalSilver: "https://rzp.io/rzp/P3u4HHm7",
+    personalGold: "https://rzp.io/rzp/UaNRicm",
+
+  },
+
+}
+
 const COMPARE_ROWS = [
-  { feature: "Consultation with Sumit", group: false, silver: 1, gold: 3 },
-  { feature: "Personal Dietitian", group: false, silver: true, gold: true },
-  { feature: "Personalized Diet Plan", group: false, silver: true, gold: true },
-  { feature: "Call & Chat Support", group: false, silver: true, gold: true },
-  { feature: "Weekly Follow-ups", group: false, silver: 1, gold: 3 },
-  { feature: "Habit Tracker", group: true, silver: false, gold: true },
-  { feature: "Daily Reminders", group: true, silver: false, gold: true },
-  { feature: "Live Yoga Classes", group: true, silver: true, gold: true },
-  { feature: "Class Recordings", group: true, silver: true, gold: true },
-  { feature: "Weight Tracker", group: true, silver: true, gold: true },
-  { feature: "Community Diet Plan", group: true, silver: true, gold: true },
-  { feature: "Weekly Live with Sumit", group: true, silver: true, gold: true },
-  { feature: "Sumit's Voice Notes", group: true, silver: true, gold: true },
+  {
+    feature: "Consultation with Sumit",
+    group: false,
+    silver: 1,
+    gold: 3,
+  },
+  {
+    feature: "1-on-1 Yoga Sessions /month",
+    group: false,
+    silver: false,
+    gold: "12x",
+  },
+  {
+    feature: "Maintenance Plan",
+    group: false,
+    silver: false,
+    gold: true,
+  },
+  {
+    feature: "Juice Detox",
+    group: false,
+    silver: false,
+    gold: true,
+  },
+  {
+    feature: "Weekly Follow-ups",
+    group: false,
+    silver: 1,
+    gold: 3,
+  },
+  {
+    feature: "Personal Dietitian",
+    group: false,
+    silver: true,
+    gold: true,
+  },
+  {
+    feature: "Personalized Diet Plan",
+    group: false,
+    silver: true,
+    gold: true,
+  },
+  {
+    feature: "Call & Chat Support",
+    group: false,
+    silver: true,
+    gold: true,
+  },
+  {
+    feature: "Community Diet Plan",
+    group: true,
+    silver: true,
+    gold: true,
+  },
+  {
+    feature: "Weekly Live with Sumit",
+    group: true,
+    silver: true,
+    gold: true,
+  },
+  {
+    feature: "Sumit's Voice Notes",
+    group: true,
+    silver: true,
+    gold: true,
+  },
+  {
+    feature: "AI Chat Support",
+    group: true,
+    silver: true,
+    gold: true,
+  },
+  {
+    feature: "Daily Reminders",
+    group: true,
+    silver: true,
+    gold: true,
+  },
+  {
+    feature: "Live Yoga Classes",
+    group: true,
+    silver: true,
+    gold: true,
+  },
+  {
+    feature: "Class Recordings",
+    group: true,
+    silver: true,
+    gold: true,
+  },
+  {
+    feature: "Weight Tracker",
+    group: true,
+    silver: true,
+    gold: true,
+  },
+  {
+    feature: "Habit Tracker",
+    group: true,
+    silver: true,
+    gold: true,
+  },
 ];
 
 
 // ── HELPERS ───────────────────────────────────────────────────────────────────
-function pad(n) { return String(n).padStart(2, "0"); }
-function fmt(n) { return n.toLocaleString("en-IN"); }
+function pad(n: number) { return String(n).padStart(2, "0"); }
+function fmt(n: number) { return n.toLocaleString("en-IN"); }
 
 // ── FADE-UP HOOK ──────────────────────────────────────────────────────────────
 function useFadeUp() {
@@ -168,116 +297,69 @@ function useFadeUp() {
 
 // ── SUB-COMPONENTS ────────────────────────────────────────────────────────────
 
-function TimerStrip({ timeLeft, urgent, endDate }) {
+function TimerStrip({ timeLeft, expired }: { timeLeft: number; expired: boolean }) {
   const days = Math.floor(timeLeft / 86400);
   const hours = Math.floor((timeLeft % 86400) / 3600);
   const minutes = Math.floor((timeLeft % 3600) / 60);
   const seconds = timeLeft % 60;
 
-  const dayNames = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
-  const endLabel = endDate
-    ? `${dayNames[endDate.getDay()]} ${endDate.getDate()} ${endDate.toLocaleString("en-IN", { month: "short" })} · ${endDate.getHours() % 12 || 12}:${String(endDate.getMinutes()).padStart(2, "0")} ${endDate.getHours() >= 12 ? "PM" : "AM"}`
-    : "";
-
   return (
     <div
       style={{
-        background: "linear-gradient(135deg, #d93025 0%, #c0392b 100%)",
+        background: expired
+          ? "linear-gradient(135deg, #555 0%, #333 100%)"
+          : "linear-gradient(135deg, #d93025 0%, #c0392b 100%)",
         color: "white",
         textAlign: "center",
         padding: "12px 16px",
         position: "sticky",
         top: 0,
         zIndex: 100,
-        boxShadow: "0 3px 16px rgba(217,48,37,0.4)",
+        boxShadow: expired
+          ? "0 3px 16px rgba(0,0,0,0.4)"
+          : "0 3px 16px rgba(217,48,37,0.4)",
       }}
     >
-      <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", opacity: 0.9 }}>
-        ⚡ OFFER ENDS NOW
-      </div>
-      <div style={{ fontSize: 11, opacity: 0.8, marginTop: 4, letterSpacing: 0.5 }}>
-        After this, prices go back to normal
-      </div>
-    </div>
-  );
-}
-
-const digitBoxStyle = {
-  background: "rgba(255,255,255,0.2)",
-  borderRadius: 10,
-  padding: "8px 14px",
-  fontFamily: "'Baloo 2', cursive",
-  fontSize: 32,
-  fontWeight: 800,
-  minWidth: 60,
-  lineHeight: 1,
-};
-
-function Hero() {
-  return (
-    <div
-      style={{
-        background: "linear-gradient(160deg, #1a7a4a 0%, #0f5c37 100%)",
-        color: "white",
-        padding: "32px 20px 36px",
-        textAlign: "center",
-        position: "relative",
-        overflow: "hidden",
-      }}
-    >
-      {/* decorative circles */}
-      <div style={{ position: "absolute", top: -60, right: -60, width: 200, height: 200, background: "rgba(255,255,255,0.05)", borderRadius: "50%" }} />
-      <div style={{ position: "absolute", bottom: -40, left: -40, width: 160, height: 160, background: "rgba(255,255,255,0.05)", borderRadius: "50%" }} />
-
-      <div style={{ display: "inline-block", background: "#f5a623", color: "#1a1a2e", fontSize: 12, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase", padding: "5px 14px", borderRadius: 20, marginBottom: 16 }}>
-        🎉 Week 2 Special — Only for You
-      </div>
-      <h1 style={{ fontFamily: "'Baloo 2', cursive", fontSize: 28, fontWeight: 800, lineHeight: 1.2, marginBottom: 12 }}>
-        You've Done <span style={{ color: "#f5a623" }}>7 Days!</span>
-        <br />Now Let's Finish Strong 💪
-      </h1>
-      <p style={{ fontSize: 16, opacity: 0.9, maxWidth: 340, margin: "0 auto 20px", lineHeight: 1.6 }}>
-        You've already proven you can do it. Now get the right support to reach your goal — at a price that's only available <strong>RIGHT NOW.</strong>
-      </p>
-      <div style={{ display: "flex", justifyContent: "center", gap: 24, marginTop: 8 }}>
-        {[{ num: "5000+", desc: "People\nTransformed" }, { num: "4.9★", desc: "Average\nRating" }, { num: "93%", desc: "See Results\nin 30 Days" }].map(({ num, desc }) => (
-          <div key={num} style={{ textAlign: "center" }}>
-            <span style={{ fontFamily: "'Baloo 2', cursive", fontSize: 26, fontWeight: 800, color: "#f5a623", display: "block" }}>{num}</span>
-            <span style={{ fontSize: 11, opacity: 0.8, lineHeight: 1.3, whiteSpace: "pre-line" }}>{desc}</span>
+      {expired ? (
+        <>
+          <div style={{ fontSize: 15, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase" }}>
+            ⏰ Offer Ended
           </div>
-        ))}
-      </div>
+          <div style={{ fontSize: 11, opacity: 0.8, marginTop: 4, letterSpacing: 0.5 }}>
+            Prices have increased — new rates apply
+          </div>
+        </>
+      ) : (
+        <>
+          <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", opacity: 0.9 }}>
+            ⚡ Offer Ends — 19 July 2026 · 11:30 AM IST
+          </div>
+          <div style={{ display: "flex", justifyContent: "center", gap: 12, marginTop: 8 }}>
+            {[
+              { label: "Days", value: pad(days) },
+              { label: "Hours", value: pad(hours) },
+              { label: "Mins", value: pad(minutes) },
+              { label: "Secs", value: pad(seconds) },
+            ].map(({ label, value }) => (
+              <div key={label} style={{ textAlign: "center" }}>
+                <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 22, fontWeight: 800, lineHeight: 1, letterSpacing: 1 }}>
+                  {value}
+                </div>
+                <div style={{ fontSize: 9, opacity: 0.8, letterSpacing: 0.5, textTransform: "uppercase", marginTop: 2 }}>
+                  {label}
+                </div>
+              </div>
+            ))}
+          </div>
+          <div style={{ fontSize: 11, opacity: 0.8, marginTop: 6, letterSpacing: 0.5 }}>
+            After this, prices go back to normal
+          </div>
+        </>
+      )}
     </div>
   );
 }
 
-function FomoBar({ html }) {
-  const { ref, visible } = useFadeUp();
-  return (
-    <div
-      ref={ref}
-      style={{
-        background: "#fff8e1",
-        borderLeft: "4px solid #f5a623",
-        padding: "12px 16px",
-        margin: "8px 16px 16px",
-        borderRadius: "0 10px 10px 0",
-        fontSize: 14,
-        fontWeight: 700,
-        color: "#7a5000",
-        display: "flex",
-        alignItems: "center",
-        gap: 10,
-        opacity: visible ? 1 : 0,
-        transform: visible ? "none" : "translateX(-20px)",
-        transition: "opacity 0.5s ease, transform 0.5s ease",
-      }}
-    >
-      <div style={{ width: 10, height: 10, background: "#d93025", borderRadius: "50%", flexShrink: 0, animation: "blink 1.2s infinite" }} />
-      <span dangerouslySetInnerHTML={{ __html: html }} />
-    </div>
-  );
-}
 
 function DurationToggle({ currentDuration, onSelect }) {
   return (
@@ -323,11 +405,17 @@ function DurationToggle({ currentDuration, onSelect }) {
   );
 }
 
-function PlanCard({ planKey, planData, duration }) {
+function PlanCard({ planKey, planData, duration, expired }) {
   const { ref, visible } = useFadeUp();
   const [showAll, setShowAll] = useState(false);
-  const saving = planData.base - planData.sell;
   const isVIP = planKey === "personalGold";
+
+  const finalSell = expired ? planData.sell + 1000 : planData.sell;
+
+  const finalLink = expired ? NEW_LINKS[duration][planKey] : planData.link;
+
+  const saving = planData.base - finalSell;
+
 
   return (
     <div
@@ -364,7 +452,7 @@ function PlanCard({ planKey, planData, duration }) {
         <div>
           <div style={{ fontSize: 11, color: "#666", textDecoration: "line-through" }}>₹{fmt(planData.base)}</div>
           <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 26, fontWeight: 800, color: planData.featured ? "#c07000" : "#1a7a4a", lineHeight: 1 }}>
-            ₹{fmt(planData.sell)}
+            ₹{fmt(finalSell)}
           </div>
           <div style={{ fontSize: 11, color: "#666", marginTop: 2 }}>₹{fmt(planData.perMonth)}/month</div>
         </div>
@@ -391,7 +479,7 @@ function PlanCard({ planKey, planData, duration }) {
       </div>
 
       <a
-        href={planData.link}
+        href={finalLink}
         target="_blank"
         rel="noreferrer"
         style={{
@@ -415,6 +503,42 @@ function PlanCard({ planKey, planData, duration }) {
       >
         Get {planData.name.replace(/[⭐👑💎]/g, '').trim()} →
       </a>
+
+      {expired && (
+        <>
+          <a
+            href="https://wa.me/15557533653?text=Hi%2C%20I%20want%20to%20consult%20about%20the%20transformation%20plan"
+            target="_blank"
+            rel="noreferrer"
+            style={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              gap: 8,
+              width: "100%",
+              background: "transparent",
+              color: "#25D366",
+              border: "2px solid #25D366",
+              borderRadius: 50,
+              padding: 11,
+              fontFamily: "'Baloo 2', cursive",
+              fontSize: 14,
+              fontWeight: 700,
+              cursor: "pointer",
+              textDecoration: "none",
+              textAlign: "center",
+              boxSizing: "border-box" as const,
+              marginTop: 8,
+            }}
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#25D366">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
+            </svg>
+            Want to Consult?
+          </a>
+        </>
+      )}
+
       <div style={{ textAlign: "center", fontSize: 12, color: "#666", marginTop: 8 }}>🔒 Secure checkout · Instant access</div>
     </div>
   );
@@ -466,143 +590,37 @@ function CompareTable() {
   );
 }
 
-function TestimonialCard({ avatar, stars, text, name, detail }) {
-  const { ref, visible } = useFadeUp();
-  return (
-    <div
-      ref={ref}
-      style={{
-        background: "white",
-        borderRadius: 16,
-        padding: 18,
-        boxShadow: "0 4px 16px rgba(0,0,0,0.07)",
-        borderLeft: "4px solid #2d9f63",
-        opacity: visible ? 1 : 0,
-        transform: visible ? "none" : "translateY(24px)",
-        transition: "opacity 0.5s ease, transform 0.5s ease",
-      }}
-    >
-      <div style={{ color: "#f5a623", fontSize: 16, marginBottom: 8 }}>{"★".repeat(stars)}</div>
-      <p style={{ fontSize: 14, lineHeight: 1.6, color: "#333", marginBottom: 10 }}>"{text}"</p>
-      <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
-        <div style={{ width: 36, height: 36, borderRadius: "50%", display: "flex", alignItems: "center", justifyContent: "center", fontSize: 18, background: "#e6f7ee", flexShrink: 0 }}>{avatar}</div>
-        <div>
-          <div style={{ fontWeight: 800, fontSize: 14 }}>{name}</div>
-          <div style={{ fontSize: 12, color: "#666" }}>{detail}</div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-function Guarantee() {
-  const { ref, visible } = useFadeUp();
-  return (
-    <div
-      ref={ref}
-      style={{
-        background: "white",
-        borderRadius: 20,
-        padding: "24px 20px",
-        textAlign: "center",
-        boxShadow: "0 8px 32px rgba(26,122,74,0.12)",
-        opacity: visible ? 1 : 0,
-        transform: visible ? "none" : "translateY(24px)",
-        transition: "opacity 0.5s ease, transform 0.5s ease",
-      }}
-    >
-      <div style={{ fontSize: 48, marginBottom: 12 }}>🛡️</div>
-      <h3 style={{ fontFamily: "'Baloo 2', cursive", fontSize: 22, fontWeight: 800, marginBottom: 8 }}>100% Safe to Join</h3>
-      <p style={{ fontSize: 15, color: "#666", lineHeight: 1.6 }}>
-        If you follow the program and don't see any results in the first 30 days, reach out to us. We've helped 5,000+ people — we'll make sure it works for you too.
-      </p>
-    </div>
-  );
-}
-
-function FinalCTA({ timeLeft }) {
-  const m = Math.floor(timeLeft / 60);
-  const s = timeLeft % 60;
-  return (
-    <div style={{ background: "linear-gradient(160deg, #1a7a4a, #0f5c37)", color: "white", padding: "32px 20px", textAlign: "center" }}>
-      <h2 style={{ fontFamily: "'Baloo 2', cursive", fontSize: 26, fontWeight: 800, marginBottom: 8, lineHeight: 1.2 }}>
-        Don't Let This Offer<br /><span style={{ color: "#f5a623" }}>Slip Away</span> ⏳
-      </h2>
-      <p style={{ fontSize: 15, opacity: 0.85, marginBottom: 20 }}>
-        This special price is ONLY available while the timer is running. Once it hits zero — offer is gone forever.
-      </p>
-      <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 20, fontWeight: 700, background: "rgba(255,255,255,0.15)", borderRadius: 12, padding: "10px 20px", margin: "0 auto 20px", display: "inline-block", color: "#f5a623" }}>
-        ⏱ {pad(m)}:{pad(s)} remaining
-      </div>
-      <div style={{ background: "#fff8e1", border: "2px solid #f5a623", borderRadius: 10, padding: "12px 16px", marginBottom: 20, display: "flex", alignItems: "center", justifyContent: "center", gap: 10, fontSize: 14, fontWeight: 700, color: "#7a5000" }}>
-        <div style={{ width: 10, height: 10, background: "#d93025", borderRadius: "50%", animation: "blink 1.2s infinite" }} />
-        <span>🔥 <strong>47 people</strong> are looking at this right now</span>
-      </div>
-      <div style={{ display: "flex", flexDirection: "column", gap: 12 }}>
-        <a href="https://rzp.io/rzp/dAjZcUT" target="_blank" rel="noreferrer"
-          style={{ background: "linear-gradient(135deg,#f5a623,#d4840a)", boxShadow: "0 6px 20px rgba(245,166,35,0.5)", color: "white", border: "none", borderRadius: 50, padding: 18, fontFamily: "'Baloo 2', cursive", fontSize: 18, fontWeight: 700, cursor: "pointer", textDecoration: "none", display: "block", textAlign: "center" }}>
-          👑 Personalized Plan – 12 Months ₹14,999
-        </a>
-        <a href="https://rzp.io/rzp/7vgo0f2W" target="_blank" rel="noreferrer"
-          style={{ background: "linear-gradient(135deg, #2d9f63, #1a7a4a)", boxShadow: "0 6px 20px rgba(26,122,74,0.4)", color: "white", border: "none", borderRadius: 50, padding: 18, fontFamily: "'Baloo 2', cursive", fontSize: 18, fontWeight: 700, cursor: "pointer", textDecoration: "none", display: "block", textAlign: "center" }}>
-          ⭐ Community – 12 Months ₹4,999
-        </a>
-      </div>
-      <p style={{ marginTop: 16, fontSize: 13, opacity: 0.7 }}>🔒 Secure payment · Instant access · Safe &amp; trusted</p>
-    </div>
-  );
-}
-
-function ExpiredOverlay({ show }) {
-  if (!show) return null;
-  return (
-    <div style={{ position: "fixed", inset: 0, background: "rgba(0,0,0,0.85)", zIndex: 999, display: "flex", alignItems: "center", justifyContent: "center", padding: 20 }}>
-      <div style={{ background: "white", borderRadius: 24, padding: "36px 24px", textAlign: "center", maxWidth: 360, width: "100%" }}>
-        <div style={{ fontSize: 56, marginBottom: 12 }}>⏰</div>
-        <h2 style={{ fontFamily: "'Baloo 2', cursive", fontSize: 24, fontWeight: 800, marginBottom: 8 }}>Offer Has Expired</h2>
-        <p style={{ fontSize: 15, color: "#666", lineHeight: 1.6 }}>This special offer has ended. Please contact us to check if a new offer is available for you.</p>
-        <p style={{ marginTop: 16, fontSize: 13, color: "#999" }}>Thank you for your interest!</p>
-      </div>
-    </div>
-  );
-}
 
 // ── MAIN COMPONENT ────────────────────────────────────────────────────────────
 export default function WeightLossOffer() {
-  // Calculate time until Sunday 11:30 AM
-  const getTargetDate = () => {
-    const now = new Date();
-    const targetDate = new Date();
-    const daysUntilSunday = (7 - now.getDay()) % 7;
-    targetDate.setDate(now.getDate() + daysUntilSunday);
-    targetDate.setHours(11, 30, 0, 0);
-    if (targetDate <= now) {
-      targetDate.setDate(targetDate.getDate() + 7);
-    }
-    return targetDate;
-  };
+  // Fixed target: 19 July 2026, 11:30 AM IST (UTC+5:30) = 19 July 2026 06:00:00 UTC
+  // const TARGET_UTC_MS = Date.UTC(2026, 6, 19, 6, 0, 0);
 
-  const getTimeUntilSunday = () => {
-    const now = new Date();
-    const targetDate = getTargetDate();
-    return Math.floor((targetDate.getTime() - now.getTime()) / 1000);
-  };
+  const TARGET_UTC_MS = Date.now() - 1000;
 
-  const [endDate] = useState(getTargetDate);
-  const [timeLeft, setTimeLeft] = useState(getTimeUntilSunday());
-  const [expired, setExpired] = useState(false);
+
+
+  const getTimeUntilTarget = () =>
+    Math.max(0, Math.floor((TARGET_UTC_MS - Date.now()) / 1000));
+
+  const [timeLeft, setTimeLeft] = useState(getTimeUntilTarget);
+  const [expired, setExpired] = useState(() => getTimeUntilTarget() <= 0);
   const [currentDuration, setCurrentDuration] = useState(12);
   const [activeCard, setActiveCard] = useState(0);
   const cardsScrollRef = useRef<HTMLDivElement>(null);
 
   // Countdown timer
   useEffect(() => {
+    if (expired) return;
     if (timeLeft <= 0) { setExpired(true); return; }
-    const id = setInterval(() => setTimeLeft((t) => { if (t <= 1) { setExpired(true); return 0; } return t - 1; }), 1000);
+    const id = setInterval(() => {
+      const remaining = getTimeUntilTarget();
+      setTimeLeft(remaining);
+      if (remaining <= 0) { setExpired(true); }
+    }, 1000);
     return () => clearInterval(id);
-  }, [timeLeft]);
+  }, [expired]); // eslint-disable-line react-hooks/exhaustive-deps
 
-  const urgent = timeLeft <= 300;
   const plans = PLAN_DATA[currentDuration];
 
   return (
@@ -644,7 +662,7 @@ export default function WeightLossOffer() {
 
       <div style={{ maxWidth: 720, margin: "0 auto", background: "#f4faf7", minHeight: "100vh", boxShadow: "0 0 60px rgba(0,0,0,0.15)", overflow: "hidden", fontFamily: "'Nunito', sans-serif" }}>
 
-        <TimerStrip timeLeft={timeLeft} urgent={urgent} endDate={endDate} />
+        <TimerStrip timeLeft={timeLeft} expired={expired} />
 
         {/* Duration Toggle */}
         <section style={{ padding: "20px 16px 0" }}>
@@ -676,9 +694,9 @@ export default function WeightLossOffer() {
                 scrollbarWidth: "none",
               }}
             >
-              <PlanCard planKey="group" planData={plans.group} duration={currentDuration} />
-              <PlanCard planKey="personalSilver" planData={plans.personalSilver} duration={currentDuration} />
-              <PlanCard planKey="personalGold" planData={plans.personalGold} duration={currentDuration} />
+              <PlanCard planKey="group" planData={plans.group} duration={currentDuration} expired={expired} />
+              <PlanCard planKey="personalSilver" planData={plans.personalSilver} duration={currentDuration} expired={expired} />
+              <PlanCard planKey="personalGold" planData={plans.personalGold} duration={currentDuration} expired={expired} />
             </div>
 
             {/* Scroll hint label */}
@@ -765,7 +783,6 @@ export default function WeightLossOffer() {
           <CompareTable />
         </section>
 
-        <ExpiredOverlay show={expired} />
       </div>
     </>
   );
