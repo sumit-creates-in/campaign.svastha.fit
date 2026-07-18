@@ -15,7 +15,7 @@ const PLAN_DATA = {
                 "👩‍⚕️ Personal Dietitian",
                 "📋 Personalized Diet Plan",
                 "📞 Call & Chat Support",
-                "🎙️ Sumit's Voice Notes",
+
                 "🤖 Ai Chat Support",
                 "🗫 Daily Remainder",
                 "🧘 Live Yoga Classes",
@@ -40,7 +40,7 @@ const PLAN_DATA = {
                 "👩‍⚕️ Personal Dietitian",
                 "📋 Personalized Diet Plan",
                 "📞 Call & Chat Support",
-                "🎙️ Sumit's Voice Notes",
+
                 "🤖 Ai Chat Support",
                 "🗫 Daily Remainder",
                 "🧘 Live Yoga Classes",
@@ -64,7 +64,7 @@ const PLAN_DATA = {
                 "👩‍⚕️ Personal Dietitian",
                 "📋 Personalized Diet Plan",
                 "📞 Call & Chat Support",
-                "🎙️ Sumit's Voice Notes",
+
                 "🤖 Ai Chat Support",
                 "🗫 Daily Remainder",
                 "🧘 Live Yoga Classes",
@@ -89,7 +89,7 @@ const PLAN_DATA = {
                 "👩‍⚕️ Personal Dietitian",
                 "📋 Personalized Diet Plan",
                 "📞 Call & Chat Support",
-                "🎙️ Sumit's Voice Notes",
+
                 "🤖 Ai Chat Support",
                 "🗫 Daily Remainder",
                 "🧘 Live Yoga Classes",
@@ -110,7 +110,6 @@ const BASE_COMPARE_ROWS = [
     { feature: "Personal Dietitian", group: false, silver: true, gold: true },
     { feature: "Personalized Diet Plan", group: false, silver: true, gold: true },
     { feature: "Call & Chat Support", group: false, silver: true, gold: true },
-    { feature: "Sumit's Voice Notes", group: true, silver: true, gold: true },
     { feature: "Ai chat support", group: true, silver: true, gold: true },
     { feature: "Daily Reminders", group: true, silver: true, gold: true },
     { feature: "Live Yoga Classes", group: true, silver: true, gold: true },
