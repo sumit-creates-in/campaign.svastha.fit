@@ -594,9 +594,9 @@ function CompareTable() {
 // ── MAIN COMPONENT ────────────────────────────────────────────────────────────
 export default function WeightLossOffer() {
   // Fixed target: 19 July 2026, 11:30 AM IST (UTC+5:30) = 19 July 2026 06:00:00 UTC
-  // const TARGET_UTC_MS = Date.UTC(2026, 6, 19, 6, 0, 0);
+  const TARGET_UTC_MS = Date.UTC(2026, 6, 19, 6, 0, 0);
 
-  const TARGET_UTC_MS = Date.now() - 1000;
+  // const TARGET_UTC_MS = Date.now() - 1000;
 
 
 
