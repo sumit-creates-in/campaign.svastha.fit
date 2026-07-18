@@ -134,7 +134,7 @@ const RegistrationConfirm21WLYC = ({
 
   const handleJoinWhatsApp = () => {
     const whatsappLink = isUsa
-      ? "https://chat.whatsapp.com/KsA4ieQFaOa65XJMNqUJDJ?s=cl&p=a&ilr=4"
+      ? "https://chat.whatsapp.com/FoGwXxLnNAsAHkp8BD5dmh"
       : isIndia
         ? "https://chat.whatsapp.com/GKvX7MN0hDz341BmvCVePC"
         : "https://chat.whatsapp.com/GKvX7MN0hDz341BmvCVePC";

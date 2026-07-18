@@ -180,17 +180,20 @@ function TimerStrip({ timeLeft, urgent, endDate }: { timeLeft: number; urgent: b
 
     const pad = (n: number) => String(n).padStart(2, "0");
 
-    // Format: "July 19 · 11:59 PM CDT"
+    // Format: "July 19 at 11:00 PM CDT"
     const endLabel = endDate
-        ? endDate.toLocaleString("en-US", {
-            timeZone: "America/Chicago",
-            month: "long",
-            day: "numeric",
-            hour: "numeric",
-            minute: "2-digit",
-            hour12: true,
-            timeZoneName: "short",
-        })
+        ? (() => {
+            const opts: Intl.DateTimeFormatOptions = { timeZone: "America/Chicago", month: "long", day: "numeric" };
+            const datePart = endDate.toLocaleDateString("en-US", opts); // "July 19"
+            const timePart = endDate.toLocaleTimeString("en-US", {
+                timeZone: "America/Chicago",
+                hour: "numeric",
+                minute: "2-digit",
+                hour12: true,
+                timeZoneName: "short",
+            }); // "11:00 PM CDT"
+            return `${datePart} at ${timePart}`;
+        })()
         : "";
 
     const bgStyle = urgent
@@ -480,7 +483,8 @@ export default function WeightLossOffer() {
 
 
     const getTargetDate = () => {
-        return new Date("2026-07-19T23:59:59-05:00");
+        // July 19, 2026 at 11:00 PM IST = July 19 at 17:30 UTC = July 19 at 12:30 PM CDT
+        return new Date("2026-07-19T17:30:00Z");
     };
 
 
@@ -493,7 +497,7 @@ export default function WeightLossOffer() {
 
     const [endDate] = useState(getTargetDate);
     const [timeLeft, setTimeLeft] = useState(getTimeUntilSunday());
-    const [expired, setExpired] = useState(false);
+    const [expired, setExpired] = useState(() => getTimeUntilSunday() <= 0);
     const [currentDuration, setCurrentDuration] = useState(3);
     const [activeCard, setActiveCard] = useState(0);
     const cardsScrollRef = useRef<HTMLDivElement>(null);
