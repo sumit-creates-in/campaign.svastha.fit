@@ -416,6 +416,36 @@ function PlanCard({ planKey, planData, duration, expired }: { planKey: string; p
             >
                 Get {planData.name.replace(/[⭐👑💎]/g, "").trim()} →
             </a>
+
+            {expired && (
+                <>
+                    <a
+                        href="https://wa.me/15557533653"
+                        target="_blank"
+                        rel="noreferrer"
+                        style={{
+                            display: "block",
+                            width: "100%",
+                            background: "transparent",
+                            color: "#25D366",
+                            border: "2px solid #25D366",
+                            borderRadius: 50,
+                            padding: 11,
+                            fontFamily: "'Baloo 2', cursive",
+                            fontSize: 14,
+                            fontWeight: 700,
+                            cursor: "pointer",
+                            textDecoration: "none",
+                            textAlign: "center",
+                            boxSizing: "border-box" as const,
+                            marginTop: 8,
+                        }}
+                    >
+                        🤔 Want to Consult?
+                    </a>
+                </>
+            )}
+
             <div style={{ textAlign: "center", fontSize: 12, color: "#666", marginTop: 8 }}>🔒 Secure checkout · Instant access</div>
         </div>
     );
