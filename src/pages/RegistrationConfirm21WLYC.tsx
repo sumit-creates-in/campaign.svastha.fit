@@ -136,8 +136,8 @@ const RegistrationConfirm21WLYC = ({
     const whatsappLink = isUsa
       ? "https://chat.whatsapp.com/KsA4ieQFaOa65XJMNqUJDJ?s=cl&p=a&ilr=4"
       : isIndia
-        ? "https://chat.whatsapp.com/LMuS8Wx5w0VAt0gU1sGCTI?s=cl&p=a&ilr=4"
-        : "https://chat.whatsapp.com/LMuS8Wx5w0VAt0gU1sGCTI?s=cl&p=a&ilr=4";
+        ? "https://chat.whatsapp.com/GKvX7MN0hDz341BmvCVePC"
+        : "https://chat.whatsapp.com/GKvX7MN0hDz341BmvCVePC";
     window.open(whatsappLink, "_blank");
   };
 
