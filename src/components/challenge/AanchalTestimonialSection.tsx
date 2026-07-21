@@ -1,10 +1,17 @@
 import { motion } from "framer-motion";
+import { ReactNode } from "react";
+
+interface AanchalTestimonialSectionProps {
+  heading?: ReactNode;
+  subHeading?: ReactNode;
+  videoUrl?: string;
+}
 
 export const AanchalTestimonialSection = ({
   heading = "Aanchal Lost 6.5 Kg in Just 9 Days!",
   subHeading = "Watch her unbelievable journey!",
   videoUrl = "https://www.youtube.com/embed/is5v451Bw18",
-}) => {
+}: AanchalTestimonialSectionProps) => {
   return (
     <section className="py-20 px-4 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
       <div className="container mx-auto max-w-4xl">

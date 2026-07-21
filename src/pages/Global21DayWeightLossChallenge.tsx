@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useMeta } from "@/hooks/useMeta";
 import { toast } from "sonner";
+import ReactCountryFlag from "react-country-flag";
 
 // Import all sections
 import {
@@ -159,7 +160,7 @@ const Global21DayWeightLossChallenge = () => {
         <HeroSection scrollToRegistration={scrollToRegistration} feeText="AED 199" isGlobal={true} videoId="0NBiGEJodyc" registerButtonText="Start Now" />
         <div style={{ height: "150px" }} />
         <AanchalTestimonialSection
-          heading="Shwetha from US, Lost 5.5 kg in 4 Weeks 😱"
+          heading={<>Shwetha from <ReactCountryFlag countryCode="US" svg style={{ width: "0.9em", height: "0.9em" }} /> US, Lost 5.5 kg in 4 Weeks 😱</>}
           subHeading="Watch her unbelievable journey!"
           videoUrl="https://www.youtube.com/embed/E2wElxslK5E"
         />
@@ -170,7 +171,8 @@ const Global21DayWeightLossChallenge = () => {
         <div style={{ height: "150px" }} />
         <HowItWorksSection />
         <div style={{ height: "150px" }} />
-        <AanchalTestimonialSection />
+        <AanchalTestimonialSection
+        />
         <div style={{ height: "150px" }} />
         <WhatYouGetSection scrollToRegistration={scrollToRegistration} isUae={true} />
         <div style={{ height: "150px" }} />
