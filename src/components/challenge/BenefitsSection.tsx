@@ -8,6 +8,8 @@ import b6 from "@/assets/b6.jpeg";
 import b7 from "@/assets/b7.jpeg";
 import b8 from "@/assets/b8.jpeg";
 import mens1 from "@/assets/mens1.jpeg";
+import mens2 from "@/assets/mens2.jpeg";
+import mens3 from "@/assets/mens3.jpeg";
 import { useLocation } from "react-router-dom";
 
 export const BenefitsSection = () => {
@@ -22,7 +24,7 @@ export const BenefitsSection = () => {
     },
     {
       title: "Lose Inches Like Magic",
-      image: b8
+      image: isStartPage ? mens2 : b8
     },
     {
       title: "Learn to Fight Type 2 Diabetes, PCOS, Hypothyriod, Hypertension, Fatty Liver, Uric Acid etc.",
@@ -38,7 +40,7 @@ export const BenefitsSection = () => {
     },
     {
       title: "Get Rid of Your Cravings & Food Addiction",
-      image: b4
+      image: isStartPage ? mens3 : b4
     },
     {
       title: "Build Habits that will Help You Stay Healthy, Fit Forever",
