@@ -1,0 +1,243 @@
+import { X, Check } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+
+interface ScrollPopupModalProps {
+    onUpgrade: () => void;
+    onJoinGroup: () => void;
+    upgradeUrl?: string;
+    joinGroupUrl?: string;
+    personalDiscountText?: string;
+    personalPriceText?: string;
+    groupDiscountText?: string;
+    groupPriceText?: string;
+    joinGroupButtonText?: string;
+    isGlobal?: boolean;
+    hideGroupPlan?: boolean;
+    startDateText?: string;
+    timerEndDate?: string;
+    hideTimer?: boolean;
+    onVisibilityChange?: (isVisible: boolean) => void;
+}
+
+export const ScrollPopupModalGlobal = ({
+    onUpgrade,
+    onJoinGroup,
+    upgradeUrl = "https://pages.razorpay.com/pl_QHfwHt0q52MdOJ/view",
+    joinGroupUrl = "https://pages.razorpay.com/pl_QHg0K5EhmJMBP8/view",
+    personalDiscountText = "Rs. 200 off",
+    personalPriceText = "Rs. 2790",
+    groupDiscountText = "Rs. 100 off",
+    groupPriceText = "Rs. 890",
+    joinGroupButtonText,
+    isGlobal = false,
+    hideGroupPlan = false,
+    startDateText = "26th July 2026",
+    timerEndDate,
+    hideTimer = false,
+    onVisibilityChange,
+}: ScrollPopupModalProps) => {
+    const [isVisible, setIsVisible] = useState(false);
+    const [hasShown, setHasShown] = useState(false);
+    const [timeLeft, setTimeLeft] = useState({ days: 0 });
+
+    useEffect(() => {
+        onVisibilityChange?.(isVisible);
+    }, [isVisible, onVisibilityChange]);
+
+    useEffect(() => {
+        const calculateTimeLeft = () => {
+            const now = new Date();
+            const endDate = timerEndDate
+                ? new Date(timerEndDate)
+                : isGlobal
+                    ? new Date("2026-06-21T23:59:59")
+                    : new Date("2026-06-08T12:00:00");
+
+            const difference = endDate.getTime() - now.getTime();
+
+            if (difference > 0) {
+                // Calculate total days and round up if there are remaining hours
+                const totalDays = Math.ceil(difference / (1000 * 60 * 60 * 24));
+                setTimeLeft({ days: totalDays });
+            } else {
+                setTimeLeft({ days: 0 });
+            }
+        };
+
+        calculateTimeLeft();
+        const timer = setInterval(calculateTimeLeft, 1000);
+
+        return () => clearInterval(timer);
+    }, [isGlobal, timerEndDate]);
+
+    useEffect(() => {
+        const handleScroll = () => {
+            // Find the TransformationsSection by looking for the heading text
+            const transformationsHeading = Array.from(
+                document.querySelectorAll("h2"),
+            ).find((h2) =>
+                h2.textContent?.includes("We Deliver The Best Transformations"),
+            );
+
+            if (!transformationsHeading || hasShown) return;
+
+            // Get the section element (parent of the heading)
+            const section = transformationsHeading.closest("section");
+            if (!section) return;
+
+            // Check if user has scrolled past the section
+            const sectionBottom = section.getBoundingClientRect().bottom;
+            const windowHeight = window.innerHeight;
+
+            // Show popup when the section bottom is above the viewport (user scrolled past it)
+            if (sectionBottom < windowHeight * 0.5 && !hasShown) {
+                setIsVisible(true);
+                setHasShown(true);
+            }
+        };
+
+        window.addEventListener("scroll", handleScroll);
+        return () => window.removeEventListener("scroll", handleScroll);
+    }, [hasShown]);
+
+    const handleClose = () => {
+        setIsVisible(false);
+    };
+
+    if (!isVisible) return null;
+
+    return (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-1 bg-black/70 backdrop-blur-sm animate-in fade-in duration-300">
+            <div className="relative bg-white rounded-2xl shadow-2xl max-w-sm w-full max-h-[95vh] overflow-y-auto animate-in zoom-in duration-300">
+                {/* Close Button */}
+                <button
+                    onClick={handleClose}
+                    className="absolute top-3 right-3 text-gray-700 hover:text-gray-900 transition-colors z-10"
+                    aria-label="Close modal"
+                >
+                    <X className="w-5 h-5" strokeWidth={2} />
+                </button>
+
+                {/* Modal Content */}
+                <div className="px-6 py-6 pt-10">
+                    {/* Alert Icon */}
+                    <div className="flex justify-center mb-2">
+                        <span className="text-3xl animate-bounce">🚨</span>
+                    </div>
+
+                    {/* Warning Text */}
+                    <div className="text-center mb-3">
+                        <h2 className="text-lg font-bold text-red-600 leading-tight">
+                            If You Close It, You Will Lose it!
+                        </h2>
+                    </div>
+
+                    {/* Discount Badge */}
+                    <div className="text-center mb-3">
+                        <p className="text-xl font-bold text-gray-900">
+                            🎉 <span className="text-gray-800">Discount Unlocked</span> 🥳
+                        </p>
+                    </div>
+
+                    {/* Upgrade Section */}
+                    <div className="mb-3">
+                        <div className="flex items-center gap-2 mb-2 justify-center">
+                            <div className="text-center">
+                                <h3 className="text-base font-bold text-gray-900 leading-tight text-center mb-2">
+                                    Want to Add a Personal Yoga Teacher?
+                                </h3>
+                                {!hideTimer && timeLeft.days > 0 && (
+                                    <p className="text-xs text-red-600 font-semibold flex items-center justify-center gap-2 mt-1">
+                                        Limited Time Offer :
+                                        <span className="font-bold text-red-600">
+                                            {timeLeft.days} {timeLeft.days === 1 ? "Day" : "Days"}{" "}
+                                            Left
+                                        </span>
+                                    </p>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Benefits */}
+                        <div className="mb-2 mt-2">
+                            <div className="space-y-1 flex flex-col items-start pl-6">
+                                {[
+                                    "✅ 3 Live 1-on-1 Yoga Sessions Every Week",
+                                    "✅ Personalized Yoga Plan",
+                                    "✅ Lose Weight Faster & Stay Motivated",
+                                ].map((benefit, idx) => (
+                                    <div key={idx} className="flex items-start gap-1.5">
+
+                                        <p className="text-sm text-gray-800 leading-tight">
+                                            {benefit}
+                                        </p>
+                                    </div>
+                                ))}
+                            </div>
+                        </div>
+
+                        {/* Start Anyday & Discount */}
+                        <div className="text-center mb-3 mt-3">
+                            <p className="text-red-500 font-semibold text-sm">
+                                {personalDiscountText}
+                            </p>
+
+                        </div>
+
+                        {/* Upgrade Button */}
+                        <Button
+                            onClick={() => {
+                                handleClose();
+                                if (upgradeUrl === "") {
+                                    onUpgrade();
+                                } else {
+                                    window.open(upgradeUrl, "_blank");
+                                }
+                            }}
+                            className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 mb-3 mt-2 flex flex-col items-center leading-tight gap-0.5"
+                        >
+                            <span>Yes, Add Yoga Teacher – Pay AED 279</span>
+
+                        </Button>
+                    </div>
+
+                    {!hideGroupPlan && (
+                        <>
+                            {/* No Upgrade Section */}
+                            <div className="mb-2">
+                                <div className="flex items-center gap-2 justify-center mb-2">
+
+                                    <h3 className="text-sm font-bold text-gray-900">
+                                        Or
+                                    </h3>
+                                </div>
+                                <div className="text-center mb-2">
+                                    <p className="text-red-500 font-semibold text-sm">
+                                        {groupDiscountText}
+                                    </p>
+
+                                </div>
+                            </div>
+
+                            {/* Group Plan Button */}
+                            <Button
+                                onClick={() => {
+                                    handleClose();
+                                    if (joinGroupUrl === "") {
+                                        onJoinGroup();
+                                    } else {
+                                        window.open(joinGroupUrl, "_blank");
+                                    }
+                                }}
+                                className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-[12px] py-2.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+                            >
+                                {joinGroupButtonText ?? `Join Group Plan - ${groupPriceText}`}
+                            </Button>
+                        </>
+                    )}
+                </div>
+            </div>
+        </div>
+    );
+};
