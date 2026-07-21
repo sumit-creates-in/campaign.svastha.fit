@@ -19,8 +19,8 @@ interface WhatYouGetSectionProps {
 }
 
 // IST base times (24h format) for yoga classes
-const IST_MORNING_HOURS = [17.5, 18.5, 19.5]; // 5:30 PM - 7:30 PM IST (now showing as Morning)
-const IST_EVENING_HOURS = [5.5, 6.5, 7.5, 8.5, 9.5]; // 5:30 AM - 9:30 AM IST (now showing as Evening)
+const IST_MORNING_HOURS = [5.5, 6.5, 7.5, 8.5, 9.5]; // 5:30 AM - 9:30 AM IST
+const IST_EVENING_HOURS = [16.5, 17.5, 18.5]; // 4:30 PM - 6:30 PM IST
 
 function formatTime12h(hour24: number): string {
   // Normalize to 0-24 range
@@ -117,6 +117,18 @@ export const WhatYouGetSection = ({
     formatTime12h(h + tzInfo.offsetFromIST),
   );
 
+  // Derive smart labels based on actual local hour of the first slot
+  function getSlotLabel(istHour: number, offset: number): string {
+    const localHour = ((istHour + offset) % 24 + 24) % 24;
+    if (localHour >= 4 && localHour < 12) return "Morning Classes";
+    if (localHour >= 12 && localHour < 17) return "Afternoon Classes";
+    if (localHour >= 17 && localHour < 21) return "Evening Classes";
+    return "Night Classes";
+  }
+
+  const slot1Label = isUltimate ? "Morning Classes" : getSlotLabel(IST_MORNING_HOURS[0], tzInfo.offsetFromIST);
+  const slot2Label = isUltimate ? "Evening Classes" : getSlotLabel(IST_EVENING_HOURS[0], tzInfo.offsetFromIST);
+
   const morningStr = isUltimate
     ? "5:30 am, 6:30 am, 7:30 am, 8:30 am & 9:30 am"
     : morningLocal.slice(0, -1).join(", ") + " & " + morningLocal[morningLocal.length - 1];
@@ -150,7 +162,7 @@ export const WhatYouGetSection = ({
       subtitle: isInternational
         ? `Timings of the live yoga classes (${tzInfo.name}):`
         : isUae
-          ? "Timings of the live yoga classes (Gulf Standard Time (GST)):"
+          ? `Timings of the live yoga classes (Gulf Standard Time (GST)):`
           : "Timings of the live yoga classes:",
       details: isInternational
         ? [
@@ -161,14 +173,14 @@ export const WhatYouGetSection = ({
         ]
         : isUae
           ? [
-            "Morning Classes: 4:00 am, 5:00 am, 6:00 am, 7:00 am & 8:00 am",
-            "Evening Classes: 3:00 pm, 4:00 pm & 5:00 pm",
+            `Morning Classes: ${morningStr}`,
+            `Evening Classes: ${eveningStr}`,
             "(Mon to Fri)",
             "Recordings of the classes will be provided.",
           ]
           : [
-            "Morning Classes: 5:30 pm, 6:30 pm & 7:30 pm",
-            "Evening Classes: 5:30 am, 6:30 am, 7:30 am, 8:30 am and 9:30 am",
+            "Morning Classes: 5:30 am, 6:30 am, 7:30 am, 8:30 am & 9:30 am",
+            "Evening Classes: 4:30 pm, 5:30 pm & 6:30 pm",
             "(Mon to Fri)",
             "Recordings of the classes will be provided.",
           ],
@@ -211,7 +223,7 @@ export const WhatYouGetSection = ({
         {/* Benefits Cards */}
         <div className="space-y-6 mb-12">
           {benefits.map((benefit, idx) => {
-            if (idx === 3 && (isInternational || isUltimate)) {
+            if (idx === 3 && (isInternational || isUltimate || isUae)) {
               return (
                 <motion.div
                   key={idx}
@@ -314,7 +326,7 @@ export const WhatYouGetSection = ({
                         </div>
                         <div className="flex-1 min-w-0">
                           <span className="text-sm font-bold text-gray-900 block">
-                            Morning Classes
+                            {slot1Label}
                           </span>
                         </div>
                         <div className="text-sm text-gray-700 font-medium sm:text-right">
@@ -340,7 +352,7 @@ export const WhatYouGetSection = ({
                         </div>
                         <div className="flex-1 min-w-0">
                           <span className="text-sm font-bold text-gray-900 block">
-                            Evening Classes
+                            {slot2Label}
                           </span>
                         </div>
                         <div className="text-sm text-gray-700 font-medium sm:text-right">
