@@ -122,13 +122,13 @@ const Global21DayWeightLossChallenge = () => {
   const handleUpgrade = () => {
     setIsModalOpen(false);
     toast.success("Redirecting to upgrade payment...");
-    window.open("https://buy.stripe.com/3cI4gz74QdDa4pt63C5c40W", "_blank");
+
   };
 
   const handleJoinGroup = () => {
     setIsModalOpen(false);
     toast.success("Redirecting to payment...");
-    window.open("https://buy.stripe.com/3cI6oH88U6aIaNR9fO5c40V", "_blank");
+
   };
 
   return (
@@ -156,7 +156,7 @@ const Global21DayWeightLossChallenge = () => {
         }
       `}</style>
       <div className="ultimate-challenge-page min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">
-        <HeroSection scrollToRegistration={scrollToRegistration} feeText="AED 49" isGlobal={true} videoId="0NBiGEJodyc" />
+        <HeroSection scrollToRegistration={scrollToRegistration} feeText="AED 199" isGlobal={true} videoId="0NBiGEJodyc" registerButtonText="Start Now" />
         <div style={{ height: "150px" }} />
         <LeaderboardSection />
         <div style={{ height: "150px" }} />
@@ -180,7 +180,7 @@ const Global21DayWeightLossChallenge = () => {
         <div style={{ height: "150px" }} />
         <YogaTeachersSection />
         <div style={{ height: "150px" }} />
-        <RegisterHereSection onRegister={scrollToRegistration} originalPrice="AED 149" discountedPrice="AED 49" />
+        <RegisterHereSection onRegister={scrollToRegistration} originalPrice="AED 399" discountedPrice="AED 199" />
         <div style={{ height: "150px" }} />
         <FAQSection faqs={globalFaqs} />
         <UpgradeModal
@@ -188,29 +188,31 @@ const Global21DayWeightLossChallenge = () => {
           onClose={() => setIsModalOpen(false)}
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
-          upgradeUrl="https://buy.stripe.com/3cI4gz74QdDa4pt63C5c40W"
-          joinGroupUrl="https://buy.stripe.com/3cI6oH88U6aIaNR9fO5c40V"
-          upgradePriceText="AED 149"
-          groupPriceText="AED 49"
+          upgradeUrl="https://buy.stripe.com/6oUcN54WI1Us3lpgIg5c41b"
+          joinGroupUrl="https://buy.stripe.com/eVqaEX4WI1Usf47eA85c41d"
+          upgradePriceText="AED 199"
+          groupPriceText="AED 299"
+          joinGroupButtonText="Personal Plan & Yoga Teacher AED 299"
           isGlobal={true}
         />
         <ScrollPopupModal
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
-          upgradeUrl="https://buy.stripe.com/28E00jbl6fLi5txfEc5c40X"
-          joinGroupUrl="https://buy.stripe.com/5kQ6oHah20Qo5txdw45c40U"
+          upgradeUrl="https://buy.stripe.com/9B6dR960MdDa8FJ9fO5c41c"
+          joinGroupUrl="https://buy.stripe.com/4gM14n4WI6aI6xBdw45c41e"
           personalDiscountText="AED 20 off"
-          personalPriceText="AED 129"
-          groupDiscountText="AED 10 off"
-          groupPriceText="AED 39"
+          personalPriceText="AED 179"
+          groupDiscountText="AED 20 off"
+          groupPriceText="AED 279"
+          joinGroupButtonText="Personal Plan & Yoga Teacher AED 279"
           isGlobal={true}
           onVisibilityChange={setIsScrollModalOpen}
         />
-        <StickyBottomBar onRegisterClick={scrollToRegistration} feeText="AED 49" />
-        <WhatsAppFloatingButton 
+        <StickyBottomBar onRegisterClick={scrollToRegistration} feeText="AED 199" registerButtonText="Start Now" />
+        <WhatsAppFloatingButton
           showImmediately={true}
           isModalOpen={isModalOpen || isScrollModalOpen}
-          message="I want to know more about Global 21 Day Weight Loss Challenge" 
+          message="I want to know more about Global 21 Day Weight Loss Challenge"
         />
       </div>
     </>
