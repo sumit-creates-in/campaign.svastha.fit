@@ -126,12 +126,12 @@ export const WhatYouGetSection = ({
 
   const benefits = [
     {
-      title: isUae ? "Dedicated Dietitian" : "Live & Interactive Sessions by Sumit Sharma every Sunday",
-      subtitle: isUae ? "" : "(Recordings will be provided)",
-      description: isUae ? "Get a dedicated dietitian who will support you with every step of this journey." :
+      title: isInternational ? "Dedicated Dietitian" : isUae ? "Dedicated Dietitian" : "Live & Interactive Sessions by Sumit Sharma every Sunday",
+      subtitle: isInternational ? "" : isUae ? "" : "(Recordings will be provided)",
+      description: isInternational ? "Get a dedicated dietitian who will support you with every step of this journey." : isUae ? "Get a dedicated dietitian who will support you with every step of this journey." :
         "Learn the secrets of intermittent fasting, diet, health and wellness that Bollywood celebrities use to stay fit and look young. Learn it directly from Sumit Sharma, the ultimate intermittent fasting guru who has taught thousands of people to live healthy and fit forever.",
-      link: isUae ? "" : "click here to check him out on Instagram",
-      image: isUae ? muskanImage : sumitImage,
+      link: isInternational ? "" : isUae ? "" : "click here to check him out on Instagram",
+      image: isInternational ? muskanImage : isUae ? muskanImage : sumitImage,
       imageType: "photo",
     },
     {

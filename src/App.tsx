@@ -103,6 +103,16 @@ function App() {
                 }
               />
 
+              <Route
+                path="/Ultimate-21-day-weight-loss-challenge-Start"
+                element={
+                  <IndiaRouteGuard>
+                    <Ultimate21DayChallenge />
+                  </IndiaRouteGuard>
+                }
+              />
+
+
               {/* UAE Route - Only accessible to UAE users */}
               <Route
                 path="/global-21-day-weight-loss-challenge"
