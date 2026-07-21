@@ -8,6 +8,7 @@ import image4 from "@/assets/4.jpeg";
 import image5 from "@/assets/5.jpeg";
 import image6 from "@/assets/6.jpeg";
 import image7 from "@/assets/7.jpeg";
+import muskanImage from "@/assets/muskan lalwani.jpeg";
 
 interface WhatYouGetSectionProps {
   scrollToRegistration: () => void;
@@ -125,12 +126,12 @@ export const WhatYouGetSection = ({
 
   const benefits = [
     {
-      title: "Live & Interactive Sessions by Sumit Sharma every Sunday",
-      subtitle: "(Recordings will be provided)",
-      description:
+      title: isUae ? "Dedicated Dietitian" : "Live & Interactive Sessions by Sumit Sharma every Sunday",
+      subtitle: isUae ? "" : "(Recordings will be provided)",
+      description: isUae ? "Get a dedicated dietitian who will support you with every step of this journey." :
         "Learn the secrets of intermittent fasting, diet, health and wellness that Bollywood celebrities use to stay fit and look young. Learn it directly from Sumit Sharma, the ultimate intermittent fasting guru who has taught thousands of people to live healthy and fit forever.",
-      link: "click here to check him out on Instagram",
-      image: sumitImage,
+      link: isUae ? "" : "click here to check him out on Instagram",
+      image: isUae ? muskanImage : sumitImage,
       imageType: "photo",
     },
     {
