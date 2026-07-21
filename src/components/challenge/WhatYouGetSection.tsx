@@ -84,35 +84,6 @@ function getUSTimezoneInfo(): { name: string; offsetFromIST: number } {
   }
 }
 
-function getInternationalTimings(): { subtitle: string; details: string[] } {
-  const { name, offsetFromIST } = getUSTimezoneInfo();
-
-  const morningLocal = IST_MORNING_HOURS.map((h) =>
-    formatTime12h(h + offsetFromIST),
-  );
-  const eveningLocal = IST_EVENING_HOURS.map((h) =>
-    formatTime12h(h + offsetFromIST),
-  );
-
-  const morningStr =
-    morningLocal.slice(0, -1).join(", ") +
-    " and " +
-    morningLocal[morningLocal.length - 1];
-  const eveningStr =
-    eveningLocal.slice(0, -1).join(", ") +
-    " & " +
-    eveningLocal[eveningLocal.length - 1];
-
-  return {
-    subtitle: `Timings of the live yoga classes (${name}):`,
-    details: [
-      `Morning Classes: ${morningStr}`,
-      `Evening Classes: ${eveningStr}`,
-      "(Mon to Fri)",
-      "Recordings of the classes will be provided.",
-    ],
-  };
-}
 
 export const WhatYouGetSection = ({
   scrollToRegistration,
@@ -163,8 +134,8 @@ export const WhatYouGetSection = ({
       imageType: "photo",
     },
     {
-      title: "21 Day Diet Plan (Weekly)",
-      description: "Simple Home Cooked Meals like Daal Chawal, Sabji Roti",
+      title: isUae ? "Personalised 21 Day Diet Plan (Weekly)" : "21 Day Diet Plan (Weekly)",
+      description: isUae ? "A completely personalised diet plan that is built around your eating habits and supports maximum weight loss." : "Simple Home Cooked Meals like Daal Chawal, Sabji Roti",
       image: image2,
       imageType: "photo",
     },
@@ -182,24 +153,24 @@ export const WhatYouGetSection = ({
           : "Timings of the live yoga classes:",
       details: isInternational
         ? [
-            `Morning Classes: ${morningStr}`,
-            `Evening Classes: ${eveningStr}`,
+          `Morning Classes: ${morningStr}`,
+          `Evening Classes: ${eveningStr}`,
+          "(Mon to Fri)",
+          "Recordings of the classes will be provided.",
+        ]
+        : isUae
+          ? [
+            "Morning Classes: 4:00 pm, 5:00 pm & 6:00 pm",
+            "Evening Classes: 4:00 am, 5:00 am, 6:00 am, 7:00 am and 8:00 am",
             "(Mon to Fri)",
             "Recordings of the classes will be provided.",
           ]
-        : isUae
-          ? [
-              "Morning Classes: 4:00 pm, 5:00 pm & 6:00 pm",
-              "Evening Classes: 4:00 am, 5:00 am, 6:00 am, 7:00 am and 8:00 am",
-              "(Mon to Fri)",
-              "Recordings of the classes will be provided.",
-            ]
           : [
-              "Morning Classes: 5:30 pm, 6:30 pm & 7:30 pm",
-              "Evening Classes: 5:30 am, 6:30 am, 7:30 am, 8:30 am and 9:30 am",
-              "(Mon to Fri)",
-              "Recordings of the classes will be provided.",
-            ],
+            "Morning Classes: 5:30 pm, 6:30 pm & 7:30 pm",
+            "Evening Classes: 5:30 am, 6:30 am, 7:30 am, 8:30 am and 9:30 am",
+            "(Mon to Fri)",
+            "Recordings of the classes will be provided.",
+          ],
       image: image7,
       imageType: "photo",
     },
