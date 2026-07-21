@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { useMeta } from "@/hooks/useMeta";
 import { toast } from "sonner";
 
@@ -56,8 +56,8 @@ const Ultimate21DayChallenge = () => {
   const [isScrollModalOpen, setIsScrollModalOpen] = useState(false);
   const [shouldRedirect, setShouldRedirect] = useState(true);
   const navigate = useNavigate();
-  const location = window.location.pathname;
-  const isStartPage = location === "/Ultimate-21-day-weight-loss-challenge-Start";
+  const { pathname } = useLocation();
+  const isStartPage = pathname === "/Ultimate-21-day-weight-loss-challenge-Start";
 
   useEffect(() => {
     // Check if user should be redirected based on location
@@ -145,13 +145,13 @@ const Ultimate21DayChallenge = () => {
       <div className="ultimate-challenge-page min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">
         <HeroSection scrollToRegistration={scrollToRegistration} showLanguageToggle={true} />
         <div style={{ height: "150px" }} />
-        <div style={{ height: "150px" }} />
         {isStartPage && (
           <AanchalTestimonialSection
             heading="Watch Sumit's Amazing Transformation"
             videoUrl="https://www.youtube.com/embed/lyo56Iu67_M"
           />
         )}
+        <div style={{ height: "150px" }} />
         <LeaderboardSection />
         <div style={{ height: "150px" }} />
         <JyotiTestimonialSection />
