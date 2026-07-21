@@ -23,7 +23,7 @@ export const MeetYourMentorSection = ({
           className="text-center mb-4"
         >
           <h2 className="text-3xl md:text-4xl font-bold text-teal-700 mb-2">
-            Meet Your Mentor
+            Meet Program Creator
           </h2>
           <p className="text-sm text-gray-600">
             Get trained by the best in the industry

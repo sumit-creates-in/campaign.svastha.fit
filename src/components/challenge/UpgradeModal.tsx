@@ -141,7 +141,7 @@ export const UpgradeModal = ({
                 window.open(upgradeUrl, "_blank");
               }
             }}
-            className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 mb-5"
+            className="w-full bg-gradient-to-r from-green-600 to-lime-400 text-white font-semibold text-sm py-3.5 rounded-full shadow-md transition-all duration-300 mb-5"
           >
             Upgrade & Pay {upgradePriceText}
           </Button>
@@ -171,7 +171,7 @@ export const UpgradeModal = ({
                 window.open(joinGroupUrl, "_blank");
               }
             }}
-            className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300"
+            className="w-full bg-gradient-to-r from-green-600 to-lime-400 text-white font-semibold text-sm py-3.5 rounded-full shadow-md transition-all duration-300"
           >
             {joinGroupButtonText ?? `Join Group Plan - ${groupPriceText}`}
           </Button>

@@ -37,7 +37,7 @@ export const StickyBottomBar = ({
         <div className="flex flex-col items-end ">
           <Button
             onClick={onRegisterClick}
-            className="bg-gradient-to-r w-full from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm !px-12 py-2 rounded-full shadow-md hover:shadow-lg transition-all duration-300 mb-1"
+            className="bg-gradient-to-r w-full from-green-600 to-lime-400 text-white font-semibold text-sm !px-12 py-2 rounded-full shadow-md transition-all duration-300 mb-1"
           >
             {registerButtonText}
           </Button>

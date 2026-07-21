@@ -233,7 +233,7 @@ export const FreeRegistrationModal = ({
             <Button
               type="submit"
               disabled={isSubmitting}
-              className="w-full bg-gradient-to-r from-green-500 to-lime-400 hover:from-green-600 hover:to-lime-500 text-white font-semibold text-sm py-3.5 rounded-full shadow-md hover:shadow-lg transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
+              className="w-full bg-gradient-to-r from-green-600 to-lime-400 text-white font-semibold text-sm py-3.5 rounded-full shadow-md transition-all duration-300 disabled:opacity-70 disabled:cursor-not-allowed"
             >
               {isSubmitting ? "Registering..." : "Register For Free →"}
             </Button>

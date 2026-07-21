@@ -24,6 +24,7 @@ import {
 } from "@/components/challenge";
 import { ScrollPopupModalGlobal } from "@/components/challenge/ScrollPopupModalGlobal";
 import { UpgradeModalGlobal } from "@/components/challenge/UpgradeModalGlobal";
+import { Calendar, ClipboardList, UserCheck, Users } from "lucide-react";
 
 const globalFaqs = [
   {
@@ -157,7 +158,7 @@ const Global21DayWeightLossChallenge = () => {
         }
       `}</style>
       <div className="ultimate-challenge-page min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">
-        <HeroSection scrollToRegistration={scrollToRegistration} feeText="AED 199" isGlobal={true} videoId="0NBiGEJodyc" registerButtonText="Start Now" />
+        <HeroSection scrollToRegistration={scrollToRegistration} feeText="AED 199" isGlobal={true} videoId="0NBiGEJodyc" registerButtonText="Register Now" />
         <div style={{ height: "150px" }} />
         <AanchalTestimonialSection
           heading={<>Shwetha from <ReactCountryFlag countryCode="US" svg style={{ width: "0.9em", height: "0.9em" }} /> US, Lost 5.5 kg in 4 Weeks 😱</>}
@@ -169,7 +170,30 @@ const Global21DayWeightLossChallenge = () => {
         <div style={{ height: "150px" }} />
         <JyotiTestimonialSection />
         <div style={{ height: "150px" }} />
-        <HowItWorksSection />
+        <HowItWorksSection
+          steps={[
+            {
+              icon: UserCheck,
+              title: "Register",
+              desc: "Register for your personalised challenge.",
+            },
+            {
+              icon: Calendar,
+              title: "Onboarding",
+              desc: "Consult with an expert dietitian. Get your personalised plan.",
+            },
+            {
+              icon: ClipboardList,
+              title: "Follow The Plan",
+              desc: "Start following the plan from next day. Get daily reminders & motivation via WhatsApp Group.",
+            },
+            {
+              icon: Users,
+              title: "Transform",
+              desc: "Track progress on the LIVE leaderboard & push yourself to the top!",
+            },
+          ]}
+        />
         <div style={{ height: "150px" }} />
         <AanchalTestimonialSection
         />
@@ -218,7 +242,7 @@ const Global21DayWeightLossChallenge = () => {
           isGlobal={true}
           onVisibilityChange={setIsScrollModalOpen}
         />
-        <StickyBottomBar onRegisterClick={scrollToRegistration} feeText="AED 199" registerButtonText="Start Now" />
+        <StickyBottomBar onRegisterClick={scrollToRegistration} feeText="AED 199" registerButtonText="Regiter Now" />
         <WhatsAppFloatingButton
           showImmediately={true}
           isModalOpen={isModalOpen || isScrollModalOpen}
