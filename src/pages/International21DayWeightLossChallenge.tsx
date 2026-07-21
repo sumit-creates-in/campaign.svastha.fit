@@ -1,279 +1,531 @@
 import { useEffect, useState } from "react";
+
 import { useMeta } from "@/hooks/useMeta";
+
 import { toast } from "sonner";
 
 // Import all sections
+
 import {
+
   HeroSection,
+
   LeaderboardSection,
+
   JyotiTestimonialSection,
+
   HowItWorksSection,
+
   AanchalTestimonialSection,
+
   WhatYouGetSection,
+
   MeetYourMentorSection,
+
   MoreMentorsSection,
+
   BenefitsSection,
+
   TransformationsSection,
+
   WhoIsThisForSection,
+
   YogaTeachersSection,
+
   RegisterHereSection,
+
   FAQSection,
-  UpgradeModal,
-  ScrollPopupModal,
+
   FreeRegistrationModal,
+
   StickyBottomBar,
+
   WhatsAppFloatingButton,
+
 } from "@/components/challenge";
 
+import { ScrollPopupModalGlobal } from "@/components/challenge/ScrollPopupModalGlobal";
+
+import { UpgradeModalGlobal } from "@/components/challenge/UpgradeModalGlobal";
+
 const internationalFaqs = [
+
   {
+
     question: "I live in USA / Canada. Can I still join?",
+
     answer:
+
       "Absolutely!\n\nThis program is designed for Indians living both in India and abroad. We already have participants joining from multiple countries.\n\nYou can follow the program comfortably from your location and receive guidance throughout the challenge.",
+
   },
+
   {
+
     question: "Will the diet plan work with food available in USA & Canada?",
+
     answer:
+
       "Yes.\n\nThe diet plan is based on simple Indian foods that are easily available across USA and Canada.\n\nYou won't need expensive supplements, meal replacements or special products.",
+
   },
+
   {
+
     question: "What will happen after I register?",
+
     answer:
+
       "After registration, you'll receive a confirmation email with access to our WhatsApp group, course materials, and schedule for the live sessions.",
+
   },
+
   {
+
     question: "Is it possible to lose weight within 21 days?",
+
     answer:
+
       "Yes! Our proven program has helped 6733+ people lose an average of 7.5 kg in 21 days through a combination of proper diet, yoga, and lifestyle changes.",
+
   },
+
   {
+
     question: "Is it safe to lose weight within 21 days?",
+
     answer:
+
       "Absolutely! Our program focuses on natural, sustainable weight loss through healthy eating and yoga. It's designed by certified experts and is completely safe.",
+
   },
+
   {
+
     question: "What happens after 21 Days?",
+
     answer:
+
       "You'll have learned sustainable habits that you can continue for life. We also offer ongoing support and advanced programs to help you maintain your results.",
+
   },
+
   {
+
     question: "What kind of diet plan will be provided?",
+
     answer:
+
       "You'll get a personalized Indian diet plan with natural foods like daal, rice, roti, and sabji. No expensive supplements or exotic ingredients required!",
+
   },
+
   {
+
     question: "When will I receive confirmation email?",
+
     answer:
+
       "You'll receive your confirmation email within 24 hours of registration with all the details to get started.",
+
   },
+
   {
+
     question: "What if I cannot attend the live sessions?",
+
     answer:
+
       "No problem.\n\nAll important sessions are recorded and shared with participants so you can watch them at your convenience.",
+
   },
+
   {
+
     question: "I am in different country/time zone. How will it work for me?",
+
     answer:
+
       "All live sessions are recorded and available for replay. You can follow the program at your own pace and still get full support through our WhatsApp group.",
+
   },
+
   {
+
     question: "I don't know how to do yoga. Can I join?",
+
     answer:
+
       "Yes! Our program is designed for complete beginners. We'll guide you step-by-step through each yoga pose and provide modifications for all levels.",
+
   },
+
   {
+
     question: "I don't want to do yoga or workout. Will I still lose weight?",
+
     answer:
+
       "While yoga enhances results, our diet plan alone can help you lose weight. However, we highly recommend yoga for better health and faster results.",
+
   },
+
   {
+
     question: "I work long hours. Will I be able to follow this program?",
+
     answer:
+
       "Yes.\n\nThe program is specifically designed for busy professionals, business owners, parents and homemakers.\n\nMost participants spend very little extra time following the plan because it focuses on simple lifestyle changes rather than complicated routines.",
+
   },
+
   {
+
     question: "Is this a crash diet?",
+
     answer:
+
       "No.\n\nThis is a healthy lifestyle transformation program based on proper nutrition, intermittent fasting, yoga and sustainable habits.\n\nThe goal is not just weight loss but long-term health improvement.",
+
   },
+
   {
+
     question: "Do I need to buy supplements, protein powders or special foods?",
+
     answer:
+
       "No.\n\nThe program focuses on real food and practical habits.\n\nMost participants can follow the plan using ingredients they already buy for their household.",
+
   },
+
   {
+
     question: "Who should not join this program?",
+
     answer:
+
       "Pregnant women, people with serious medical conditions, or those under 18 should consult their doctor before joining. This program is for healthy adults.",
+
   },
+
   {
+
     question:
+
       "I have diabetes, thyroid, PCOS, fatty liver or high blood pressure. Can I join?",
+
     answer:
+
       "Many participants with lifestyle-related health conditions have successfully completed the program.\n\nHowever, if you have a medical condition or are taking medication, we recommend consulting your doctor before starting any weight loss program.",
+
   },
+
   {
+
     question: "Is WhatsApp support available internationally?",
+
     answer:
+
       "Yes.\n\nWhatsApp support is available for participants joining from USA, Canada, and other parts of the world.",
+
   },
+
 ];
 
 const International21DayWeightLossChallenge = () => {
+
   const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [isFreeModalOpen, setIsFreeModalOpen] = useState(false);
+
   const [isScrollModalOpen, setIsScrollModalOpen] = useState(false);
 
   useEffect(() => {
+
     window.scrollTo(0, 0);
+
   }, []);
 
   useMeta({
+
     title:
+
       "International 21 Day Weight Loss Challenge | Lose up to 10 Kg | Svastha",
+
     description:
+
       "Join the International 21 Day Weight Loss Challenge. 4067+ transformations, 7.5 kg average loss, 98% success rate. Expert guidance, diet plans, yoga classes. Register for $ 29.",
+
     ogTitle: "International 21 Day Weight Loss Challenge | Svastha",
+
     ogDescription:
+
       "Transform your body in 21 days. Proven system with 4067+ success stories. Diet plan + Yoga + WhatsApp support. Register now for $ 29.",
+
     ogImage: "/src/assets/hero-yoga.jpg",
+
   });
 
   const scrollToRegistration = () => {
+
     setIsModalOpen(true);
+
   };
 
   const handleUpgrade = () => {
+
     setIsModalOpen(false);
+
     toast.success("Redirecting to upgrade payment...");
+
     window.open("https://buy.stripe.com/fZudR93SE6aIaNR2Rq5c40Y", "_blank");
+
   };
 
   const handleJoinGroup = () => {
+
     setIsModalOpen(false);
+
     setIsFreeModalOpen(true);
+
   };
 
   return (
+
     <>
+
       <style>{`
-        @keyframes heartbeat {
-          0%, 100% {
-            transform: scale(1);
-          }
-          25% {
-            transform: scale(1.05);
-          }
-          50% {
-            transform: scale(1);
-          }
-        }
-        
-        .ultimate-challenge-page button {
-          animation: heartbeat 1s ease-in-out infinite;
-        }
-        
-        .ultimate-challenge-page button[aria-expanded],
-        .ultimate-challenge-page button.no-heartbeat {
-          animation: none;
-        }
-      `}</style>
+
+        @keyframes heartbeat {
+
+          0%, 100% {
+
+            transform: scale(1);
+
+          }
+
+          25% {
+
+            transform: scale(1.05);
+
+          }
+
+          50% {
+
+            transform: scale(1);
+
+          }
+
+        }
+
+        
+
+        .ultimate-challenge-page button {
+
+          animation: heartbeat 1s ease-in-out infinite;
+
+        }
+
+        
+
+        .ultimate-challenge-page button[aria-expanded],
+
+        .ultimate-challenge-page button.no-heartbeat {
+
+          animation: none;
+
+        }
+
+      `}</style>
+
       <div className="ultimate-challenge-page min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">
+
         <HeroSection
+
           scrollToRegistration={scrollToRegistration}
-          feeText="FREE"
+
+          feeText="$ 99"
+
           isGlobal={true}
+
           locationText="🌍 For Indians living in USA & CANADA"
+
           videoId="0NBiGEJodyc"
-          registerButtonText="Register For Free"
+
+          registerButtonText="Register Now"
+
         />
+
         <div style={{ height: "150px" }} />
+
         <LeaderboardSection />
+
         <div style={{ height: "150px" }} />
+
         <JyotiTestimonialSection />
+
         <div style={{ height: "150px" }} />
+
         <HowItWorksSection />
+
         <div style={{ height: "150px" }} />
+
         <AanchalTestimonialSection />
+
         <div style={{ height: "150px" }} />
+
         <WhatYouGetSection
+
           scrollToRegistration={scrollToRegistration}
+
           isInternational={true}
+
           registerButtonText="Register For Free"
+
         />
+
         <div style={{ height: "150px" }} />
+
         <MeetYourMentorSection
+
           scrollToRegistration={scrollToRegistration}
+
           registerButtonText="Register For Free"
+
         />
+
         <div style={{ height: "150px" }} />
+
         <MoreMentorsSection />
+
         <div style={{ height: "150px" }} />
+
         <BenefitsSection />
+
         <div style={{ height: "150px" }} />
+
         <TransformationsSection />
+
         <div style={{ height: "150px" }} />
+
         <WhoIsThisForSection />
+
         <div style={{ height: "150px" }} />
+
         <YogaTeachersSection />
+
         <div style={{ height: "150px" }} />
+
         <RegisterHereSection
+
           onRegister={scrollToRegistration}
+
           originalPrice="$ 89"
+
           discountedPrice="0 /-"
-          registerButtonText="Register For Free"
+
+          registerButtonText="Register Now"
+
         />
+
         <div style={{ height: "150px" }} />
+
         <FAQSection faqs={internationalFaqs} />
-        <UpgradeModal
+
+        <UpgradeModalGlobal
+
           isOpen={isModalOpen}
+
           onClose={() => setIsModalOpen(false)}
+
           onUpgrade={handleUpgrade}
+
           onJoinGroup={handleJoinGroup}
-          upgradeUrl="https://buy.stripe.com/5kQ4gzfBm2YwaNR63C5c40Z"
-          joinGroupUrl=""
-          upgradePriceText="$ 49"
-          groupPriceText="FREE"
-          joinGroupButtonText="Register For Free"
+
+          upgradeUrl="https://buy.stripe.com/3cI8wP60M56Ee03ajS5c41f"
+
+          joinGroupUrl="https://buy.stripe.com/cNicN5cpa7eM1dhcs05c41h"
+
+          upgradePriceText="$ 99"
+
+          groupPriceText="$ 199"
+
+          joinGroupButtonText="Continue with Personalized Plan – Pay $ 99"
+
+          yogaTeacher="Yes, Add Yoga Teacher – Pay $199"
+
           isGlobal={true}
-          startDateText="26th July"
-          timerEndDate="2026-07-12T23:59:59"
-          hideTimer={true}
+
+          startDateText="Anyday"
+
         />
-        <ScrollPopupModal
+
+        <ScrollPopupModalGlobal
+
           onUpgrade={handleUpgrade}
+
           onJoinGroup={handleJoinGroup}
-          upgradeUrl="https://buy.stripe.com/7sY3cvbl62Yw7BFcs05c412"
-          joinGroupUrl=""
-          personalDiscountText="$ 10 off"
-          personalPriceText="$ 39"
-          groupDiscountText=""
-          groupPriceText="FREE"
-          joinGroupButtonText="Register For Free"
+
+          upgradeUrl="https://buy.stripe.com/8x2dR9fBm0Qo09d0Ji5c41g"
+
+          joinGroupUrl="https://buy.stripe.com/7sY7sL60MaqY1dhbnW5c41i"
+
+          personalDiscountText="$ 20 off"
+
+          personalPriceText="$ 79"
+
+          groupDiscountText="$ 20 off"
+
+          groupPriceText="$ 179"
+
+          joinGroupButtonText="Continue with Personalized Plan – Pay $ 79"
+
           isGlobal={true}
-          startDateText="26th July"
-          timerEndDate="2026-07-12T23:59:59"
-          hideTimer={true}
+
+          startDateText="Anyday"
+
           onVisibilityChange={setIsScrollModalOpen}
+
         />
+
         <FreeRegistrationModal
+
           isOpen={isFreeModalOpen}
+
           onClose={() => setIsFreeModalOpen(false)}
+
           startDateText="26th July"
+
         />
+
         <StickyBottomBar
+
           onRegisterClick={scrollToRegistration}
-          feeText="FREE"
-          registerButtonText="Register For Free"
+
+          feeText="$ 99"
+
+          registerButtonText="Register Now"
+
         />
+
         <WhatsAppFloatingButton
+
           showImmediately={true}
+
           isModalOpen={isModalOpen || isFreeModalOpen || isScrollModalOpen}
+
           message="I want to know more about International 21 Day Weight Loss Challenge"
+
         />
+
       </div>
+
     </>
+
   );
+
 };
 
-export default International21DayWeightLossChallenge;
+export default International21DayWeightLossChallenge; 

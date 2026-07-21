@@ -16,6 +16,7 @@ interface UpgradeModalProps {
     startDateText?: string;
     timerEndDate?: string;
     hideTimer?: boolean;
+    yogaTeacher?: string;
 }
 
 export const UpgradeModalGlobal = ({
@@ -32,6 +33,7 @@ export const UpgradeModalGlobal = ({
     startDateText = "26th July 2026",
     timerEndDate,
     hideTimer = false,
+    yogaTeacher = "Yes, Add Yoga Teacher – Pay AED 299"
 }: UpgradeModalProps) => {
     const [timeLeft, setTimeLeft] = useState({ days: 0 });
 
@@ -127,7 +129,7 @@ export const UpgradeModalGlobal = ({
                         }}
                         className="w-full bg-gradient-to-r from-green-600 to-lime-400 text-white font-semibold text-sm py-3.5 rounded-full shadow-md transition-all duration-300 mb-5"
                     >
-                        Yes, Add Yoga Teacher – Pay AED 299
+                        {yogaTeacher}
                     </Button>
 
                     {/* No Upgrade Section */}
