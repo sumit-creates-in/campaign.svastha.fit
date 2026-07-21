@@ -6,14 +6,66 @@ import transformation3 from "@/assets/tranformation3.jpeg";
 import transformation4 from "@/assets/tranformation4.jpeg";
 import transformation5 from "@/assets/tranformation5.jpeg";
 import transformation6 from "@/assets/tranformation6.jpeg";
-import transformation7 from "@/assets/tranformation7.jpeg";
 import transformation8 from "@/assets/tranformation8.jpeg";
 import transformation9 from "@/assets/tranformation9.jpeg";
 
-export const TransformationsSection = () => {
+export type Transformation = {
+  image: string;
+  text: string;
+}
+
+const defaultTransformations: Transformation[] = [
+  {
+    image: transformation1,
+    text: "Explained very well and helped me follow through. I didn't even realize I was on a diet. Everyone is amazed that I lost weight while eating everything. This is a great program.",
+  },
+  {
+    image: transformation2,
+    text: "Lost 15 kilos without following any strict diet, just ate well and enjoyed life. Thank you Sumit Sir. - Vijay",
+  },
+  {
+    image: transformation3,
+    text: "I lost 25 kg just by following the golden rules without any strict diet. Thank you Sumit Sir!!! - Namrata",
+  },
+  {
+    image: transformation4,
+    text: "Got the results in just 21 days. So happy to have joined this program. - Aditi",
+  },
+  {
+    image: transformation5,
+    text: "Now I can eat without any tension and enjoy my life. My fatty liver and hypertension are also cured now. Amazing experience. - Ravikant",
+  },
+  {
+    image: transformation6,
+    text: "The journey from 95 kg to 60 kg was not just weight loss for me, it was a complete life change.",
+  },
+  {
+    image: transformation8,
+    text: "With Sir's guidance, I have lost 20 kg so far and have been maintaining it for the last 6 months. Thank you Sumit Sir. - Sumit",
+  },
+  {
+    image: transformation9,
+    text: "Lost 12 kg's with the help of Sumit's teachings. Best decision ever. - Rabiya",
+  },
+];
+
+type TransformationsSectionProps = {
+  transformations?: Transformation[];
+  heading?: string;
+  subHeading?: string;
+};
+
+export const TransformationsSection = ({
+  heading = "🔥 We Deliver The Best Transformations 🔥",
+  subHeading = "Are you ready for yours?",
+  transformations = defaultTransformations,
+}: Props) => {
+
   const scrollRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isPaused, setIsPaused] = useState(false);
+
+
 
   useEffect(() => {
     const scrollContainer = scrollRef.current;
@@ -34,13 +86,13 @@ export const TransformationsSection = () => {
     const autoScroll = () => {
       if (!isPaused && scrollContainer) {
         scrollContainer.scrollLeft += scrollSpeed;
-        
+
         // Seamless loop: reset to start when reaching halfway through duplicated content
         const halfWidth = scrollContainer.scrollWidth / 2;
         if (scrollContainer.scrollLeft >= halfWidth) {
           scrollContainer.scrollLeft = 0;
         }
-        
+
         updateCurrentIndex();
       }
       animationFrameId = requestAnimationFrame(autoScroll);
@@ -72,41 +124,6 @@ export const TransformationsSection = () => {
     };
   }, [isPaused]);
 
-  const transformations = [
-    {
-      image: transformation1,
-      text: "Explained very well and helped me follow through. I didn't even realize I was on a diet. Everyone is amazed that I lost weight while eating everything. This is a great program."
-    },
-    {
-      image: transformation2,
-      text: "Lost 15 kilos without following any strict diet, just ate well and enjoyed life. Thank you Sumit Sir. - Vijay"
-    },
-    {
-      image: transformation3,
-      text: "I lost 25 kg just by following the golden rules without any strict diet. Thank you Sumit Sir!!! - Namrata"
-    },
-    {
-      image: transformation4,
-      text: "Got the results in just 21 days. So happy to have joined this program. - Aditi"
-    },
-    {
-      image: transformation5,
-      text: "Now I can eat without any tension and enjoy my life. My fatty liver and hypertension are also cured now. Amazing experience. - Ravikant"
-    },
-    {
-      image: transformation6,
-      text: "The journey from 95 kg to 60 kg was not just weight loss for me, it was a complete life change."
-    },
-    {
-      image: transformation8,
-      text: "With Sir's guidance, I have lost 20 kg so far and have been maintaining it for the last 6 months. Thank you Sumit Sir. - Sumit"
-    },
-    {
-      image: transformation9,
-      text: "Lost 12 kg's with the help of Sumit's teachings. Best decision ever. - Rabiya"
-    }
-  ];
-
   return (
     <section className="py-20 px-4 bg-white">
       <div className="container mx-auto max-w-6xl">
@@ -118,15 +135,15 @@ export const TransformationsSection = () => {
           className="text-center mb-12">
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 flex items-center justify-center gap-2 mb-3">
             <span>🔥</span>
-            <span>We Deliver The Best Transformations</span>
+            <span>{heading}</span>
             <span>🔥</span>
           </h2>
-          <p className="text-base md:text-lg text-gray-700">Are you ready for yours?</p>
+          <p className="text-base md:text-lg text-gray-700">{subHeading}</p>
         </motion.div>
 
         {/* Transformations Horizontal Scroll */}
-        <div 
-          ref={scrollRef} 
+        <div
+          ref={scrollRef}
           className="overflow-x-auto pb-4 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
         >
           <div className="flex gap-6 min-w-max">
@@ -141,13 +158,13 @@ export const TransformationsSection = () => {
                 className="w-64 flex-shrink-0">
                 {/* Image */}
                 <div className="w-full h-64 rounded-xl overflow-hidden mb-3">
-                  <img 
-                    src={transformation.image} 
+                  <img
+                    src={transformation.image}
                     alt={`Transformation ${idx + 1}`}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                
+
                 {/* Text */}
                 <p className="text-xs text-gray-800 text-center leading-relaxed italic px-2">
                   "{transformation.text}"
@@ -165,13 +182,13 @@ export const TransformationsSection = () => {
                 className="w-64 flex-shrink-0">
                 {/* Image */}
                 <div className="w-full h-64 rounded-xl overflow-hidden mb-3">
-                  <img 
-                    src={transformation.image} 
+                  <img
+                    src={transformation.image}
                     alt={`Transformation ${idx + 1}`}
                     className="w-full h-full object-cover"
                   />
                 </div>
-                
+
                 {/* Text */}
                 <p className="text-xs text-gray-800 text-center leading-relaxed italic px-2">
                   "{transformation.text}"
@@ -192,9 +209,8 @@ export const TransformationsSection = () => {
                   scrollRef.current.scrollLeft = idx * cardWidth;
                 }
               }}
-              className={`w-2 h-2 rounded-full transition-all duration-300 ${
-                currentIndex === idx ? 'bg-black w-8' : 'bg-gray-400'
-              }`}
+              className={`w-2 h-2 rounded-full transition-all duration-300 ${currentIndex === idx ? 'bg-black w-8' : 'bg-gray-400'
+                }`}
               aria-label={`Go to transformation ${idx + 1}`}
             />
           ))}

@@ -24,6 +24,49 @@ import {
   StickyBottomBar,
   WhatsAppFloatingButton,
 } from "@/components/challenge";
+import transformation1 from "@/assets/tranformation1.jpeg";
+import transformation2 from "@/assets/tranformation2.jpeg";
+import transformation3 from "@/assets/tranformation3.jpeg";
+import transformation4 from "@/assets/tranformation4.jpeg";
+import transformation5 from "@/assets/tranformation5.jpeg";
+import transformation6 from "@/assets/tranformation6.jpeg";
+import transformation8 from "@/assets/tranformation8.jpeg";
+import transformation9 from "@/assets/tranformation9.jpeg";
+
+const transformation = [
+  {
+    image: transformation5,
+    text: "Now I can eat without any tension and enjoy my life. My fatty liver and hypertension are also cured now. Amazing experience. - Ravikant",
+  },
+  {
+    image: transformation8,
+    text: "With Sir's guidance, I have lost 20 kg so far and have been maintaining it for the last 6 months. Thank you Sumit Sir. - Sumit",
+  },
+  {
+    image: transformation2,
+    text: "Lost 15 kilos without following any strict diet, just ate well and enjoyed life. Thank you Sumit Sir. - Vijay",
+  },
+  {
+    image: transformation1,
+    text: "Explained very well and helped me follow through. I didn't even realize I was on a diet. Everyone is amazed that I lost weight while eating everything. This is a great program.",
+  },
+  {
+    image: transformation3,
+    text: "I lost 25 kg just by following the golden rules without any strict diet. Thank you Sumit Sir!!! - Namrata",
+  },
+  {
+    image: transformation4,
+    text: "Got the results in just 21 days. So happy to have joined this program. - Aditi",
+  },
+  {
+    image: transformation6,
+    text: "The journey from 95 kg to 60 kg was not just weight loss for me, it was a complete life change.",
+  },
+  {
+    image: transformation9,
+    text: "Lost 12 kg's with the help of Sumit's teachings. Best decision ever. - Rabiya",
+  },
+];
 
 function detectUserLocation(): Promise<{ country: string }> {
   return new Promise((resolve) => {
@@ -153,8 +196,20 @@ const Ultimate21DayChallenge = () => {
         )}
         <div style={{ height: "150px" }} />
         <LeaderboardSection />
+
         <div style={{ height: "150px" }} />
-        <JyotiTestimonialSection />
+        {(!isStartPage &&
+          <JyotiTestimonialSection
+          />
+        )}
+
+        <div style={{ height: "150px" }} />
+        {isStartPage && (
+          <TransformationsSection
+            transformations={transformation}
+          />
+        )}
+
         <div style={{ height: "150px" }} />
         {isStartPage && (
           <AanchalTestimonialSection
@@ -162,6 +217,7 @@ const Ultimate21DayChallenge = () => {
             videoUrl="https://www.youtube.com/embed/LVHVl5kHhgI"
           />
         )}
+
         {!isStartPage && (
           <AanchalTestimonialSection />
         )}
