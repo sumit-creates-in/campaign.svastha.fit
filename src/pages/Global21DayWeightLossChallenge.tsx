@@ -18,11 +18,11 @@ import {
   YogaTeachersSection,
   RegisterHereSection,
   FAQSection,
-  UpgradeModal,
-  ScrollPopupModal,
   StickyBottomBar,
   WhatsAppFloatingButton,
 } from "@/components/challenge";
+import { UpgradeModalGlobal } from "@/components/challenge/UpgradeModalGLobal";
+import { ScrollPopupModalGlobal } from "@/components/challenge/ScrollPopupModalGlobal";
 
 const globalFaqs = [
   {
@@ -158,6 +158,12 @@ const Global21DayWeightLossChallenge = () => {
       <div className="ultimate-challenge-page min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">
         <HeroSection scrollToRegistration={scrollToRegistration} feeText="AED 199" isGlobal={true} videoId="0NBiGEJodyc" registerButtonText="Start Now" />
         <div style={{ height: "150px" }} />
+        <AanchalTestimonialSection
+          heading="Shwetha from US, Lost 5.5 kg in 4 Weeks 😱"
+          subHeading="Watch her unbelievable journey!"
+          videoUrl="https://www.youtube.com/embed/E2wElxslK5E"
+        />
+        <div style={{ height: "150px" }} />
         <LeaderboardSection />
         <div style={{ height: "150px" }} />
         <JyotiTestimonialSection />
@@ -183,29 +189,29 @@ const Global21DayWeightLossChallenge = () => {
         <RegisterHereSection onRegister={scrollToRegistration} originalPrice="AED 399" discountedPrice="AED 199" />
         <div style={{ height: "150px" }} />
         <FAQSection faqs={globalFaqs} />
-        <UpgradeModal
+        <UpgradeModalGlobal
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
-          upgradeUrl="https://buy.stripe.com/6oUcN54WI1Us3lpgIg5c41b"
-          joinGroupUrl="https://buy.stripe.com/eVqaEX4WI1Usf47eA85c41d"
+          joinGroupUrl="https://buy.stripe.com/6oUcN54WI1Us3lpgIg5c41b"
+          upgradeUrl="https://buy.stripe.com/eVqaEX4WI1Usf47eA85c41d"
           upgradePriceText="AED 199"
           groupPriceText="AED 299"
-          joinGroupButtonText="Personal Plan & Yoga Teacher AED 299"
+          joinGroupButtonText="Continue with Personalized Plan – Pay AED 199"
           startDateText="Anyday"
           isGlobal={true}
         />
-        <ScrollPopupModal
+        <ScrollPopupModalGlobal
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
-          upgradeUrl="https://buy.stripe.com/9B6dR960MdDa8FJ9fO5c41c"
-          joinGroupUrl="https://buy.stripe.com/4gM14n4WI6aI6xBdw45c41e"
+          joinGroupUrl="https://buy.stripe.com/9B6dR960MdDa8FJ9fO5c41c"
+          upgradeUrl="https://buy.stripe.com/4gM14n4WI6aI6xBdw45c41e"
           personalDiscountText="AED 20 off"
           personalPriceText="AED 179"
           groupDiscountText="AED 20 off"
           groupPriceText="AED 279"
-          joinGroupButtonText="Personal Plan & Yoga Teacher AED 279"
+          joinGroupButtonText="Continue with Personalized Plan – Pay AED 179"
           startDateText="Anyday"
           isGlobal={true}
           onVisibilityChange={setIsScrollModalOpen}
