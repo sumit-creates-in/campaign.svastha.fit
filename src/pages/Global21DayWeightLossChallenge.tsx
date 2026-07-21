@@ -193,7 +193,7 @@ const Global21DayWeightLossChallenge = () => {
           upgradePriceText="AED 199"
           groupPriceText="AED 299"
           joinGroupButtonText="Personal Plan & Yoga Teacher AED 299"
-          startDateText="AnyDay"
+          startDateText="Anyday"
           isGlobal={true}
         />
         <ScrollPopupModal
@@ -206,7 +206,7 @@ const Global21DayWeightLossChallenge = () => {
           groupDiscountText="AED 20 off"
           groupPriceText="AED 279"
           joinGroupButtonText="Personal Plan & Yoga Teacher AED 279"
-          startDateText="AnyDay"
+          startDateText="Anyday"
           isGlobal={true}
           onVisibilityChange={setIsScrollModalOpen}
         />
