@@ -197,7 +197,7 @@ const Ultimate21DayChallenge = () => {
         <div style={{ height: "150px" }} />
         <LeaderboardSection />
 
-        <div style={{ height: "150px" }} />
+        <div style={{ height: "10px" }} />
         {(!isStartPage &&
           <JyotiTestimonialSection
           />
