@@ -10,6 +10,7 @@ import b8 from "@/assets/b8.jpeg";
 import mens1 from "@/assets/mens1.jpeg";
 import mens2 from "@/assets/mens2.jpeg";
 import mens3 from "@/assets/mens3.jpeg";
+import mens4 from "@/assets/mens4.jpeg";
 import { useLocation } from "react-router-dom";
 
 export const BenefitsSection = () => {
@@ -48,7 +49,7 @@ export const BenefitsSection = () => {
     },
     {
       title: "Increased Stamina, Strength & Flexibility",
-      image: b2
+      image: isStartPage ? mens4 : b2
     }
   ];
 
