@@ -7,12 +7,18 @@ import b5 from "@/assets/b5.jpeg";
 import b6 from "@/assets/b6.jpeg";
 import b7 from "@/assets/b7.jpeg";
 import b8 from "@/assets/b8.jpeg";
+import mens1 from "@/assets/mens1.jpeg";
+import { useLocation } from "react-router-dom";
 
 export const BenefitsSection = () => {
+
+  const { pathname } = useLocation();
+  const isStartPage = pathname === "/Ultimate-21-day-weight-loss-challenge-Start"
+
   const benefits = [
     {
       title: "100% Healthy, Natural Fat Loss",
-      image: b7
+      image: isStartPage ? mens1 : b7
     },
     {
       title: "Lose Inches Like Magic",
