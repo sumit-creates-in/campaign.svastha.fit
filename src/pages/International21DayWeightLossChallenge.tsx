@@ -47,6 +47,8 @@ import {
 import { ScrollPopupModalGlobal } from "@/components/challenge/ScrollPopupModalGlobal";
 
 import { UpgradeModalGlobal } from "@/components/challenge/UpgradeModalGlobal";
+import ReactCountryFlag from "react-country-flag";
+import { Calendar, ClipboardList, UserCheck, Users } from "lucide-react";
 
 const internationalFaqs = [
 
@@ -357,6 +359,12 @@ const International21DayWeightLossChallenge = () => {
           registerButtonText="Register Now"
 
         />
+        <div style={{ height: "150px" }} />
+        <AanchalTestimonialSection
+          heading={<>Shwetha from <ReactCountryFlag countryCode="US" svg style={{ width: "0.9em", height: "0.9em" }} /> US, Lost 5.5 kg in 4 Weeks 😱</>}
+          subHeading="Watch her unbelievable journey!"
+          videoUrl="https://www.youtube.com/embed/E2wElxslK5E"
+        />
 
         <div style={{ height: "150px" }} />
 
@@ -368,7 +376,30 @@ const International21DayWeightLossChallenge = () => {
 
         <div style={{ height: "150px" }} />
 
-        <HowItWorksSection />
+        <HowItWorksSection
+          steps={[
+            {
+              icon: UserCheck,
+              title: "Register",
+              desc: "Register for your personalised challenge.",
+            },
+            {
+              icon: Calendar,
+              title: "Onboarding",
+              desc: "Consult with an expert dietitian. Get your personalised plan.",
+            },
+            {
+              icon: ClipboardList,
+              title: "Follow The Plan",
+              desc: "Start following the plan from next day. Get daily reminders & motivation via WhatsApp Group.",
+            },
+            {
+              icon: Users,
+              title: "Transform",
+              desc: "Track progress on the LIVE leaderboard & push yourself to the top!",
+            },
+          ]}
+        />
 
         <div style={{ height: "150px" }} />
 
@@ -422,9 +453,9 @@ const International21DayWeightLossChallenge = () => {
 
           onRegister={scrollToRegistration}
 
-          originalPrice="$ 89"
+          originalPrice="$ 159"
 
-          discountedPrice="0 /-"
+          discountedPrice="99 /-"
 
           registerButtonText="Register Now"
 

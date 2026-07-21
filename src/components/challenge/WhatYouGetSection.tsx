@@ -147,8 +147,8 @@ export const WhatYouGetSection = ({
       imageType: "photo",
     },
     {
-      title: isUae ? "Personalised 21 Day Diet Plan (Weekly)" : "21 Day Diet Plan (Weekly)",
-      description: isUae ? "A completely personalised diet plan that is built around your eating habits and supports maximum weight loss." : "Simple Home Cooked Meals like Daal Chawal, Sabji Roti",
+      title: isInternational ? "Personalised 21 Day Diet Plan (Weekly)" : isUae ? "Personalised 21 Day Diet Plan (Weekly)" : "21 Day Diet Plan (Weekly)",
+      description: isInternational ? "A completely personalised diet plan that is built around your eating habits and supports maximum weight loss." : isUae ? "A completely personalised diet plan that is built around your eating habits and supports maximum weight loss." : "Simple Home Cooked Meals like Daal Chawal, Sabji Roti",
       image: image2,
       imageType: "photo",
     },
