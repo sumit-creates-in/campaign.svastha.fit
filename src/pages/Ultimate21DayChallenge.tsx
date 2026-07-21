@@ -56,6 +56,8 @@ const Ultimate21DayChallenge = () => {
   const [isScrollModalOpen, setIsScrollModalOpen] = useState(false);
   const [shouldRedirect, setShouldRedirect] = useState(true);
   const navigate = useNavigate();
+  const location = window.location.pathname;
+  const isStartPage = location === "/Ultimate-21-day-weight-loss-challenge-Start";
 
   useEffect(() => {
     // Check if user should be redirected based on location
@@ -143,13 +145,29 @@ const Ultimate21DayChallenge = () => {
       <div className="ultimate-challenge-page min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">
         <HeroSection scrollToRegistration={scrollToRegistration} showLanguageToggle={true} />
         <div style={{ height: "150px" }} />
+        <div style={{ height: "150px" }} />
+        {isStartPage && (
+          <AanchalTestimonialSection
+            heading="Watch Sumit's Amazing Transformation"
+            videoUrl="https://www.youtube.com/embed/lyo56Iu67_M"
+          />
+        )}
         <LeaderboardSection />
         <div style={{ height: "150px" }} />
         <JyotiTestimonialSection />
         <div style={{ height: "150px" }} />
-        <HowItWorksSection />
+        {isStartPage && (
+          <AanchalTestimonialSection
+            heading="Rajesh ji Lost 4 Kg's in Just 7 Days 🤩"
+            videoUrl="https://www.youtube.com/embed/LVHVl5kHhgI"
+          />
+        )}
+        {!isStartPage && (
+          <AanchalTestimonialSection />
+        )}
+
         <div style={{ height: "150px" }} />
-        <AanchalTestimonialSection />
+        <HowItWorksSection />
         <div style={{ height: "150px" }} />
         <WhatYouGetSection scrollToRegistration={scrollToRegistration} isUltimate={true} />
         <div style={{ height: "150px" }} />
