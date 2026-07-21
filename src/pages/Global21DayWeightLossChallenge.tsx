@@ -21,8 +21,8 @@ import {
   StickyBottomBar,
   WhatsAppFloatingButton,
 } from "@/components/challenge";
-import { UpgradeModalGlobal } from "@/components/challenge/UpgradeModalGLobal";
 import { ScrollPopupModalGlobal } from "@/components/challenge/ScrollPopupModalGlobal";
+import { UpgradeModalGlobal } from "@/components/challenge/UpgradeModalGlobal";
 
 const globalFaqs = [
   {
