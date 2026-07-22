@@ -16,6 +16,7 @@ interface UpgradeModalProps {
   startDateText?: string;
   timerEndDate?: string;
   hideTimer?: boolean;
+  UpgradePay?: string;
 }
 
 export const UpgradeModal = ({
@@ -32,6 +33,7 @@ export const UpgradeModal = ({
   startDateText = "26th July 2026",
   timerEndDate,
   hideTimer = false,
+  UpgradePay = "Upgrade & Pay"
 }: UpgradeModalProps) => {
   const [timeLeft, setTimeLeft] = useState({ days: 0 });
 
@@ -143,7 +145,7 @@ export const UpgradeModal = ({
             }}
             className="w-full bg-gradient-to-r from-green-600 to-lime-400 text-white font-semibold text-sm py-3.5 rounded-full shadow-md transition-all duration-300 mb-5"
           >
-            Upgrade & Pay {upgradePriceText}
+            {UpgradePay} {upgradePriceText}
           </Button>
 
           {/* No Upgrade Section */}

@@ -29,6 +29,7 @@ import NotFound from "./pages/NotFound";
 
 import { CountryProvider } from "./contexts/CountryContext";
 import { IndiaRouteGuard, InternationalRouteGuard, UAERouteGuard } from "./components/campaign/Routeguards";
+import UaeGroupPersonalized from "./pages/UaeGroupPersonalized";
 
 const queryClient = new QueryClient();
 
@@ -119,6 +120,15 @@ function App() {
                 element={
                   <UAERouteGuard>
                     <Global21DayWeightLossChallenge />
+                  </UAERouteGuard>
+                }
+              />
+
+              <Route
+                path="/global-21-day-weight-loss-challenge-group"
+                element={
+                  <UAERouteGuard>
+                    <UaeGroupPersonalized />
                   </UAERouteGuard>
                 }
               />
