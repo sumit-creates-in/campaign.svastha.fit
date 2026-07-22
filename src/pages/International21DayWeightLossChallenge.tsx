@@ -359,6 +359,7 @@ const International21DayWeightLossChallenge = () => {
           registerButtonText="Register Now"
 
         />
+
         <div style={{ height: "150px" }} />
         <AanchalTestimonialSection
           heading={<>Shwetha from <ReactCountryFlag countryCode="US" svg style={{ width: "0.9em", height: "0.9em" }} /> US, Lost 5.5 kg in 4 Weeks 😱</>}
@@ -369,10 +370,12 @@ const International21DayWeightLossChallenge = () => {
         <div style={{ height: "150px" }} />
 
         <LeaderboardSection />
-
         <div style={{ height: "150px" }} />
-
-        <JyotiTestimonialSection />
+        <AanchalTestimonialSection
+          heading="See What Kavitha, Saritha & Veena has to to say about us ♥️"
+          subHeading="Watch her unbelievable journey!"
+          videoUrl="https://www.youtube.com/embed/o-H24IM-emE"
+        />
 
         <div style={{ height: "150px" }} />
 
@@ -430,6 +433,10 @@ const International21DayWeightLossChallenge = () => {
         <div style={{ height: "150px" }} />
 
         <MoreMentorsSection />
+
+        <div style={{ height: "150px" }} />
+
+        <JyotiTestimonialSection />
 
         <div style={{ height: "150px" }} />
 
