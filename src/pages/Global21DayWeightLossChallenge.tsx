@@ -171,8 +171,8 @@ const Global21DayWeightLossChallenge = () => {
         <LeaderboardSection />
         <div style={{ height: "150px" }} />
         <AanchalTestimonialSection
-          heading="See What Kavitha, Saritha & Veena has to to say about us ♥️"
-          subHeading="Watch her unbelievable journey!"
+          heading="See What Kavitha, Saritha & Veena has to say about us ♥️"
+          subHeading=""
           videoUrl="https://www.youtube.com/embed/o-H24IM-emE"
         />
 

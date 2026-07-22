@@ -9,7 +9,7 @@ interface AanchalTestimonialSectionProps {
 
 export const AanchalTestimonialSection = ({
   heading = "Aanchal Lost 6.5 Kg in Just 9 Days!",
-  subHeading = "Watch her unbelievable journey!",
+  subHeading = "🔥 Watch her unbelievable journey! ✨",
   videoUrl = "https://www.youtube.com/embed/is5v451Bw18",
 }: AanchalTestimonialSectionProps) => {
   return (
@@ -29,9 +29,9 @@ export const AanchalTestimonialSection = ({
 
           {/* Subheading */}
           <p className="text-xl md:text-2xl text-gray-800 mb-8 flex items-center justify-center gap-2">
-            <span>🔥</span>
+
             <span>{subHeading}</span>
-            <span>✨</span>
+
           </p>
 
           {/* Video */}
