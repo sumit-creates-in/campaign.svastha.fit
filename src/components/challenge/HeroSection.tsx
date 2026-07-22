@@ -13,6 +13,7 @@ interface HeroSectionProps {
   showLanguageToggle?: boolean;
   timerEndDate?: string;
   registerButtonText?: string;
+  headline?: string;
 }
 
 export const HeroSection = ({
@@ -24,6 +25,7 @@ export const HeroSection = ({
   showLanguageToggle = false,
   timerEndDate,
   registerButtonText = "Register Now",
+  headline = "Lose up to 10 Kg's",
 }: HeroSectionProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalStep, setModalStep] = useState<"select-language" | "play-video">(
@@ -109,7 +111,7 @@ export const HeroSection = ({
               {/* Main Headline */}
               <div>
                 <h4 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-900 whitespace-nowrap">
-                  Lose up to 10 Kg's 🔥
+                  {headline} 🔥
                 </h4>
                 <p className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">
                   In Just 21 Days!

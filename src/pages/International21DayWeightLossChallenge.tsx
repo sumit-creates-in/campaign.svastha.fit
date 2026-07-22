@@ -254,7 +254,7 @@ const International21DayWeightLossChallenge = () => {
 
     title:
 
-      "International 21 Day Weight Loss Challenge | Lose up to 10 Kg | Svastha",
+      "International 21 Day Weight Loss Challenge | Lose up to 22 lbs (10 Kg's) | Svastha",
 
     description:
 
@@ -351,6 +351,7 @@ const International21DayWeightLossChallenge = () => {
           feeText="$ 99"
 
           isGlobal={true}
+          headline="Lose up to 22 lbs (10 Kg's)"
 
           locationText="🌍 For Indians living in USA & CANADA"
 
