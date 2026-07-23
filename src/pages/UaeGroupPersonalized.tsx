@@ -3,6 +3,42 @@ import { useMeta } from "@/hooks/useMeta";
 import { toast } from "sonner";
 import ReactCountryFlag from "react-country-flag";
 
+// ─── Limited-Time Offer configuration ────────────────────────────────────────
+// Offer ends July 24 2026 at 1:30 PM IST  = 09:00 AM UTC  = 1:00 PM Gulf (UTC+4)
+const OFFER_END_UTC = new Date("2026-07-24T09:00:00Z");
+
+// Gulf timezone offset: UTC+4 (used for display reference)
+// Timer displays in Gulf time
+
+function getGulfTimeLeft() {
+    const nowUTC = Date.now();
+    const diff = OFFER_END_UTC.getTime() - nowUTC;
+    if (diff <= 0) return null;
+    const totalSecs = Math.floor(diff / 1000);
+    const hours = Math.floor(totalSecs / 3600);
+    const minutes = Math.floor((totalSecs % 3600) / 60);
+    const seconds = totalSecs % 60;
+    return { hours, minutes, seconds };
+}
+
+function useOfferActive() {
+    const [offerActive, setOfferActive] = useState(() => Date.now() < OFFER_END_UTC.getTime());
+    const [timeLeft, setTimeLeft] = useState(getGulfTimeLeft);
+
+    useEffect(() => {
+        const tick = () => {
+            const remaining = getGulfTimeLeft();
+            setTimeLeft(remaining);
+            setOfferActive(remaining !== null);
+        };
+        tick();
+        const id = setInterval(tick, 1000);
+        return () => clearInterval(id);
+    }, []);
+
+    return { offerActive, timeLeft };
+}
+
 // Import all sections
 import {
     HeroSection,
@@ -104,6 +140,43 @@ const globalFaqs = [
 const UaeGroupPersonalized = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isScrollModalOpen, setIsScrollModalOpen] = useState(false);
+    const { offerActive, timeLeft } = useOfferActive();
+
+    // ── Offer prices ──────────────────────────────────────────────────────────
+    // Group plan (UpgradeModal "join group" / HeroSection fee):
+    //   Normal AED 99 → Offer AED 59
+    // Personalized plan (UpgradeModal "upgrade"):
+    //   Normal AED 199 → Offer AED 149
+    // Scroll popup personalized:
+    //   Normal AED 179 → Offer AED 139
+    // Scroll popup group:
+    //   Normal AED 79 → Offer AED 49
+
+    const groupPrice = offerActive ? "AED 59" : "AED 99";
+    const personalizedPrice = offerActive ? "AED 149" : "AED 199";
+    const scrollPersonPrice = offerActive ? "AED 139" : "AED 179";
+    const scrollGroupPrice = offerActive ? "AED 49" : "AED 79";
+
+    const groupUrl = offerActive
+        ? "https://buy.stripe.com/14A00j4WI9mUbRV3Vu5c41l"   // AED 59
+        : "https://buy.stripe.com/bJe8wP60M1Us3lp2Rq5c41j";  // AED 99 (normal)
+
+    const personalizedUrl = offerActive
+        ? "https://buy.stripe.com/3cI4gz74QdDa4pt63C5c40W"   // AED 149
+        : "https://buy.stripe.com/6oUcN54WI1Us3lpgIg5c41b";  // AED 199 (normal)
+
+    const scrollPersonUrl = offerActive
+        ? "https://buy.stripe.com/3cIfZh74Q2Ywg8b8bK5c41m"   // AED 139
+        : "https://buy.stripe.com/9B6dR960MdDa8FJ9fO5c41c";  // AED 179 (normal)
+
+    const scrollGroupUrl = offerActive
+        ? "https://buy.stripe.com/3cI6oH88U6aIaNR9fO5c40V"   // AED 49
+        : "https://buy.stripe.com/eVq8wP88U56EaNR77G5c41k";  // AED 79 (normal)
+
+    // Countdown label for Gulf time
+    const countdownLabel = timeLeft
+        ? `${String(timeLeft.hours).padStart(2, "0")}:${String(timeLeft.minutes).padStart(2, "0")}:${String(timeLeft.seconds).padStart(2, "0")}`
+        : null;
 
     useEffect(() => {
         window.scrollTo(0, 0);
@@ -158,8 +231,7 @@ const UaeGroupPersonalized = () => {
         }
       `}</style>
             <div className="ultimate-challenge-page min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">
-                <HeroSection scrollToRegistration={scrollToRegistration} feeText="AED 99" isGlobal={true} videoId="0NBiGEJodyc" registerButtonText="Register Now" />
-
+                <HeroSection scrollToRegistration={scrollToRegistration} feeText={groupPrice} isGlobal={true} videoId="0NBiGEJodyc" registerButtonText="Register Now" timerEndDate="2026-07-24T09:00:00Z" />
 
                 <div style={{ height: "150px" }} />
                 <AanchalTestimonialSection
@@ -221,7 +293,7 @@ const UaeGroupPersonalized = () => {
                 <div style={{ height: "150px" }} />
                 <YogaTeachersSection />
                 <div style={{ height: "150px" }} />
-                <RegisterHereSection onRegister={scrollToRegistration} originalPrice="AED 399" discountedPrice="AED 99" />
+                <RegisterHereSection onRegister={scrollToRegistration} originalPrice="AED 399" discountedPrice={groupPrice} />
                 <div style={{ height: "150px" }} />
                 <FAQSection faqs={globalFaqs} />
                 <UpgradeModal
@@ -229,30 +301,32 @@ const UaeGroupPersonalized = () => {
                     onClose={() => setIsModalOpen(false)}
                     onUpgrade={handleUpgrade}
                     onJoinGroup={handleJoinGroup}
-                    upgradeUrl="https://buy.stripe.com/6oUcN54WI1Us3lpgIg5c41b"
-                    joinGroupUrl="https://buy.stripe.com/bJe8wP60M1Us3lp2Rq5c41j"
-                    upgradePriceText="AED 199"
-                    groupPriceText="AED 99"
-                    joinGroupButtonText="Continue with Group Plan – Pay AED 99"
+                    upgradeUrl={personalizedUrl}
+                    joinGroupUrl={groupUrl}
+                    upgradePriceText={personalizedPrice}
+                    groupPriceText={groupPrice}
+                    joinGroupButtonText={`Continue with Group Plan – Pay ${groupPrice}`}
                     UpgradePay="Upgrade & Pay"
                     startDateText="26th July"
                     isGlobal={true}
+                    timerEndDate="2026-07-24T09:00:00Z"
                 />
                 <ScrollPopupModal
                     onUpgrade={handleUpgrade}
                     onJoinGroup={handleJoinGroup}
-                    upgradeUrl="https://buy.stripe.com/9B6dR960MdDa8FJ9fO5c41c"
-                    joinGroupUrl="https://buy.stripe.com/eVq8wP88U56EaNR77G5c41k"
-                    personalDiscountText="AED 20 off"
-                    personalPriceText="AED 179"
-                    groupDiscountText="AED 20 off"
-                    groupPriceText="AED 279"
-                    joinGroupButtonText="Continue with Group Plan – Pay AED 79"
+                    upgradeUrl={scrollPersonUrl}
+                    joinGroupUrl={scrollGroupUrl}
+                    personalDiscountText="AED 10 off"
+                    personalPriceText={scrollPersonPrice}
+                    groupDiscountText="AED 10 off"
+                    groupPriceText={scrollGroupPrice}
+                    joinGroupButtonText={`Continue with Group Plan – Pay ${scrollGroupPrice}`}
                     startDateText="26th July"
                     isGlobal={true}
                     onVisibilityChange={setIsScrollModalOpen}
+                    timerEndDate="2026-07-24T09:00:00Z"
                 />
-                <StickyBottomBar onRegisterClick={scrollToRegistration} feeText="AED 99" registerButtonText="Regiter Now" />
+                <StickyBottomBar onRegisterClick={scrollToRegistration} feeText={groupPrice} registerButtonText="Regiter Now" />
                 <WhatsAppFloatingButton
                     showImmediately={true}
                     isModalOpen={isModalOpen || isScrollModalOpen}

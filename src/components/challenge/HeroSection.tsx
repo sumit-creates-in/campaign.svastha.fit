@@ -39,7 +39,7 @@ export const HeroSection = ({
     startDate: "2026-03-30T18:00:00Z",
   });
 
-  const [timeLeft, setTimeLeft] = useState({ days: 0 });
+  const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
     const calculateTimeLeft = () => {
@@ -53,11 +53,13 @@ export const HeroSection = ({
       const difference = endDate.getTime() - now.getTime();
 
       if (difference > 0) {
-        // Calculate total days and round up if there are remaining hours
-        const totalDays = Math.ceil(difference / (1000 * 60 * 60 * 24));
-        setTimeLeft({ days: totalDays });
+        const totalSecs = Math.floor(difference / 1000);
+        const hours = Math.floor(totalSecs / 3600);
+        const minutes = Math.floor((totalSecs % 3600) / 60);
+        const seconds = totalSecs % 60;
+        setTimeLeft({ hours, minutes, seconds });
       } else {
-        setTimeLeft({ days: 0 });
+        setTimeLeft({ hours: 0, minutes: 0, seconds: 0 });
       }
     };
 
@@ -191,14 +193,14 @@ export const HeroSection = ({
                 >
                   {registerButtonText}
                 </Button>
-                {timeLeft.days > 0 && (
+                {(timeLeft.hours > 0 || timeLeft.minutes > 0 || timeLeft.seconds > 0) && (
                   <p
                     className="text-center md:text-left text-sm text-red-600 font-medium flex items-center justify-center md:justify-start gap-2 md:pl-2"
                     style={{ marginTop: "15px" }}
                   >
                     Limited Time Offer:
-                    <span className="ml-2 font-bold text-red-600">
-                      {timeLeft.days} {timeLeft.days === 1 ? "Day" : "Days"}{" "}
+                    <span className="ml-2 font-bold font-mono text-red-600">
+                      {String(timeLeft.hours).padStart(2, "0")}:{String(timeLeft.minutes).padStart(2, "0")}:{String(timeLeft.seconds).padStart(2, "0")}{" "}
                       Left
                     </span>
                   </p>
