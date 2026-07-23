@@ -4,8 +4,8 @@ import { toast } from "sonner";
 import ReactCountryFlag from "react-country-flag";
 
 // ─── Limited-Time Offer configuration ────────────────────────────────────────
-// Offer ends July 24 2026 at 1:30 PM IST  = 09:00 AM UTC  = 1:00 PM Gulf (UTC+4)
-const OFFER_END_UTC = new Date("2026-07-24T09:00:00Z");
+// Offer ends July 24 2026 at 12:00 PM IST  = 06:30 AM UTC  = 12:00 PM Gulf (UTC+4 - wait: IST is UTC+5:30, so 12:00 PM IST = 06:30 UTC)
+const OFFER_END_UTC = new Date("2026-07-24T06:30:00Z");
 
 // Gulf timezone offset: UTC+4 (used for display reference)
 // Timer displays in Gulf time
@@ -231,7 +231,7 @@ const UaeGroupPersonalized = () => {
         }
       `}</style>
             <div className="ultimate-challenge-page min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">
-                <HeroSection scrollToRegistration={scrollToRegistration} feeText={groupPrice} isGlobal={true} videoId="0NBiGEJodyc" registerButtonText="Register Now" timerEndDate="2026-07-24T09:00:00Z" />
+                <HeroSection scrollToRegistration={scrollToRegistration} feeText={groupPrice} isGlobal={true} videoId="0NBiGEJodyc" registerButtonText="Register Now" timerEndDate="2026-07-24T06:30:00Z" />
 
                 <div style={{ height: "150px" }} />
                 <AanchalTestimonialSection
@@ -253,13 +253,13 @@ const UaeGroupPersonalized = () => {
                     steps={[
                         {
                             icon: UserCheck,
-                            title: "Register",
-                            desc: "Register for your personalised challenge.",
+                            title: "Join the Challenge",
+                            desc: "Secure your spot by registering right now!",
                         },
                         {
                             icon: Calendar,
-                            title: "Onboarding",
-                            desc: "Consult with an expert dietitian. Get your personalised plan.",
+                            title: "Attend Live Session",
+                            desc: "Join the live session batch start date to learn everything about the course.",
                         },
                         {
                             icon: ClipboardList,
@@ -277,7 +277,7 @@ const UaeGroupPersonalized = () => {
                 <AanchalTestimonialSection
                 />
                 <div style={{ height: "150px" }} />
-                <WhatYouGetSection scrollToRegistration={scrollToRegistration} isUae={true} />
+                <WhatYouGetSection scrollToRegistration={scrollToRegistration} isUaeGroup={true} />
                 <div style={{ height: "150px" }} />
                 <MeetYourMentorSection scrollToRegistration={scrollToRegistration} />
                 <div style={{ height: "150px" }} />
@@ -309,7 +309,7 @@ const UaeGroupPersonalized = () => {
                     UpgradePay="Upgrade & Pay"
                     startDateText="26th July"
                     isGlobal={true}
-                    timerEndDate="2026-07-24T09:00:00Z"
+                    timerEndDate="2026-07-24T06:30:00Z"
                 />
                 <ScrollPopupModal
                     onUpgrade={handleUpgrade}
@@ -324,7 +324,7 @@ const UaeGroupPersonalized = () => {
                     startDateText="26th July"
                     isGlobal={true}
                     onVisibilityChange={setIsScrollModalOpen}
-                    timerEndDate="2026-07-24T09:00:00Z"
+                    timerEndDate="2026-07-24T06:30:00Z"
                 />
                 <StickyBottomBar onRegisterClick={scrollToRegistration} feeText={groupPrice} registerButtonText="Regiter Now" />
                 <WhatsAppFloatingButton

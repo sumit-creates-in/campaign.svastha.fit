@@ -13,6 +13,7 @@ import muskanImage from "@/assets/muskan lalwani.jpeg";
 interface WhatYouGetSectionProps {
   scrollToRegistration: () => void;
   isUae?: boolean;
+  isUaeGroup?: boolean;
   isInternational?: boolean;
   isUltimate?: boolean;
   registerButtonText?: string;
@@ -89,6 +90,7 @@ function getUSTimezoneInfo(): { name: string; offsetFromIST: number } {
 export const WhatYouGetSection = ({
   scrollToRegistration,
   isUae = false,
+  isUaeGroup = false,
   isInternational = false,
   isUltimate = false,
   registerButtonText = "Register Now",
@@ -103,12 +105,12 @@ export const WhatYouGetSection = ({
   useEffect(() => {
     if (isInternational) {
       setTzInfo(getUSTimezoneInfo());
-    } else if (isUae) {
+    } else if (isUae || isUaeGroup) {
       setTzInfo({ name: "Gulf Standard Time (GST)", offsetFromIST: -1.5 });
     } else {
       setTzInfo({ name: "India Standard Time (IST)", offsetFromIST: 0 });
     }
-  }, [isInternational, isUae]);
+  }, [isInternational, isUae, isUaeGroup]);
 
   const morningLocal = IST_MORNING_HOURS.map((h) =>
     formatTime12h(h + tzInfo.offsetFromIST),
@@ -138,17 +140,24 @@ export const WhatYouGetSection = ({
 
   const benefits = [
     {
-      title: isInternational ? "Dedicated Dietitian" : isUae ? "Dedicated Dietitian" : "Live & Interactive Sessions by Sumit Sharma every Sunday",
-      subtitle: isInternational ? "" : isUae ? "" : "(Recordings will be provided)",
-      description: isInternational ? "Get a dedicated dietitian who will support you with every step of this journey." : isUae ? "Get a dedicated dietitian who will support you with every step of this journey." :
-        "Learn the secrets of intermittent fasting, diet, health and wellness that Bollywood celebrities use to stay fit and look young. Learn it directly from Sumit Sharma, the ultimate intermittent fasting guru who has taught thousands of people to live healthy and fit forever.",
-      link: isInternational ? "" : isUae ? "" : "click here to check him out on Instagram",
-      image: isInternational ? muskanImage : isUae ? muskanImage : sumitImage,
+      title: isInternational ? "Dedicated Dietitian" : (isUae && !isUaeGroup) ? "Dedicated Dietitian" : "Live & Interactive Sessions by Sumit Sharma every Sunday",
+      subtitle: isInternational ? "" : (isUae && !isUaeGroup) ? "" : "(Recordings will be provided)",
+      description: isInternational
+        ? "Get a dedicated dietitian who will support you with every step of this journey."
+        : (isUae && !isUaeGroup)
+          ? "Get a dedicated dietitian who will support you with every step of this journey."
+          : "Learn the secrets of intermittent fasting, diet, health and wellness that Bollywood celebrities use to stay fit and look young. Learn it directly from Sumit Sharma, the ultimate intermittent fasting guru who has taught thousands of people to live healthy and fit forever.",
+      link: isInternational ? "" : (isUae && !isUaeGroup) ? "" : "click here to check him out on Instagram",
+      image: isInternational ? muskanImage : (isUae && !isUaeGroup) ? muskanImage : sumitImage,
       imageType: "photo",
     },
     {
-      title: isInternational ? "Personalised 21 Day Diet Plan (Weekly)" : isUae ? "Personalised 21 Day Diet Plan (Weekly)" : "21 Day Diet Plan (Weekly)",
-      description: isInternational ? "A completely personalised diet plan that is built around your eating habits and supports maximum weight loss." : isUae ? "A completely personalised diet plan that is built around your eating habits and supports maximum weight loss." : "Simple Home Cooked Meals like Daal Chawal, Sabji Roti",
+      title: isInternational ? "Personalised 21 Day Diet Plan (Weekly)" : (isUae && !isUaeGroup) ? "Personalised 21 Day Diet Plan (Weekly)" : "21 Day Diet Plan (Weekly)",
+      description: isInternational
+        ? "A completely personalised diet plan that is built around your eating habits and supports maximum weight loss."
+        : (isUae && !isUaeGroup)
+          ? "A completely personalised diet plan that is built around your eating habits and supports maximum weight loss."
+          : "Simple Home Cooked Meals like Daal Chawal, Sabji Roti",
       image: image2,
       imageType: "photo",
     },
@@ -223,7 +232,7 @@ export const WhatYouGetSection = ({
         {/* Benefits Cards */}
         <div className="space-y-6 mb-12">
           {benefits.map((benefit, idx) => {
-            if (idx === 3 && (isInternational || isUltimate || isUae)) {
+            if (idx === 3 && (isInternational || isUltimate || isUae || isUaeGroup)) {
               return (
                 <motion.div
                   key={idx}
