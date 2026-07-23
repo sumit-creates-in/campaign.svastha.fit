@@ -28,7 +28,7 @@ import NotFound from "./pages/NotFound";
 // Context and Guards
 
 import { CountryProvider } from "./contexts/CountryContext";
-import { IndiaRouteGuard, InternationalRouteGuard, UAERouteGuard } from "./components/campaign/Routeguards";
+import { InternationalRouteGuard } from "./components/campaign/Routeguards";
 import UaeGroupPersonalized from "./pages/UaeGroupPersonalized";
 
 const queryClient = new QueryClient();
@@ -93,44 +93,26 @@ function App() {
                 element={<TransformationProgram />}
               />
 
-              {/* GEOLOCATION-PROTECTED ROUTES */}
-              {/* India Route - Only accessible to India users */}
+              {/* India Route */}
               <Route
                 path="/Ultimate-21-day-weight-loss-challenge"
-                element={
-                  <IndiaRouteGuard>
-                    <Ultimate21DayChallenge />
-                  </IndiaRouteGuard>
-                }
+                element={<Ultimate21DayChallenge />}
               />
 
               <Route
                 path="/Ultimate-21-day-weight-loss-challenge-Start"
-                element={
-                  <IndiaRouteGuard>
-                    <Ultimate21DayChallenge />
-                  </IndiaRouteGuard>
-                }
+                element={<Ultimate21DayChallenge />}
               />
 
-
-              {/* UAE Route - Only accessible to UAE users */}
+              {/* UAE/Global Route */}
               <Route
                 path="/global-21-day-weight-loss-challenge"
-                element={
-                  <UAERouteGuard>
-                    <Global21DayWeightLossChallenge />
-                  </UAERouteGuard>
-                }
+                element={<Global21DayWeightLossChallenge />}
               />
 
               <Route
                 path="/global-21-day-weight-loss-challenge-group"
-                element={
-                  <UAERouteGuard>
-                    <UaeGroupPersonalized />
-                  </UAERouteGuard>
-                }
+                element={<UaeGroupPersonalized />}
               />
 
               {/* International Route - Only accessible to USA and other countries */}

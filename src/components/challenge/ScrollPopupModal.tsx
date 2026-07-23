@@ -39,7 +39,7 @@ export const ScrollPopupModal = ({
 }: ScrollPopupModalProps) => {
   const [isVisible, setIsVisible] = useState(false);
   const [hasShown, setHasShown] = useState(false);
-  const [timeLeft, setTimeLeft] = useState({ days: 0 });
+  const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
     onVisibilityChange?.(isVisible);
@@ -57,11 +57,13 @@ export const ScrollPopupModal = ({
       const difference = endDate.getTime() - now.getTime();
 
       if (difference > 0) {
-        // Calculate total days and round up if there are remaining hours
-        const totalDays = Math.ceil(difference / (1000 * 60 * 60 * 24));
-        setTimeLeft({ days: totalDays });
+        const totalSecs = Math.floor(difference / 1000);
+        const hours = Math.floor(totalSecs / 3600);
+        const minutes = Math.floor((totalSecs % 3600) / 60);
+        const seconds = totalSecs % 60;
+        setTimeLeft({ hours, minutes, seconds });
       } else {
-        setTimeLeft({ days: 0 });
+        setTimeLeft({ hours: 0, minutes: 0, seconds: 0 });
       }
     };
 
@@ -147,12 +149,11 @@ export const ScrollPopupModal = ({
                 <h3 className="text-base font-bold text-gray-900 leading-tight text-center">
                   Upgrade to Personalized 21 Day Plan to Get:
                 </h3>
-                {!hideTimer && timeLeft.days > 0 && (
+                {!hideTimer && (timeLeft.hours > 0 || timeLeft.minutes > 0 || timeLeft.seconds > 0) && (
                   <p className="text-xs text-red-600 font-semibold flex items-center justify-center gap-2 mt-1">
                     Limited Time Offer :
-                    <span className="font-bold text-red-600">
-                      {timeLeft.days} {timeLeft.days === 1 ? "Day" : "Days"}{" "}
-                      Left
+                    <span className="font-bold font-mono text-red-600">
+                      {String(timeLeft.hours).padStart(2, "0")}:{String(timeLeft.minutes).padStart(2, "0")}:{String(timeLeft.seconds).padStart(2, "0")} Left
                     </span>
                   </p>
                 )}
