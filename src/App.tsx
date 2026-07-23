@@ -107,12 +107,12 @@ function App() {
               {/* UAE/Global Route */}
               <Route
                 path="/global-21-day-weight-loss-challenge"
-                element={<Global21DayWeightLossChallenge />}
+                element={<UaeGroupPersonalized />}
               />
 
               <Route
                 path="/global-21-day-weight-loss-challenge-group"
-                element={<UaeGroupPersonalized />}
+                element={<Global21DayWeightLossChallenge />}
               />
 
               {/* International Route - Only accessible to USA and other countries */}
