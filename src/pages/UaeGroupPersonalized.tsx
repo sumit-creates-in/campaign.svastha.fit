@@ -316,9 +316,9 @@ const UaeGroupPersonalized = () => {
                     onJoinGroup={handleJoinGroup}
                     upgradeUrl={scrollPersonUrl}
                     joinGroupUrl={scrollGroupUrl}
-                    personalDiscountText="AED 10 off"
+                    personalDiscountText="AED 20 off"
                     personalPriceText={scrollPersonPrice}
-                    groupDiscountText="AED 10 off"
+                    groupDiscountText="AED 20 off"
                     groupPriceText={scrollGroupPrice}
                     joinGroupButtonText={`Continue with Group Plan – Pay ${scrollGroupPrice}`}
                     startDateText="26th July"
