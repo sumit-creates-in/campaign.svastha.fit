@@ -136,8 +136,8 @@ const RegistrationConfirm21WLYC = ({
     const whatsappLink = isUsa
       ? "https://chat.whatsapp.com/FoGwXxLnNAsAHkp8BD5dmh"
       : isIndia
-        ? "https://chat.whatsapp.com/GKvX7MN0hDz341BmvCVePC?s=cl&p=a&mlu=0"
-        : "https://chat.whatsapp.com/GKvX7MN0hDz341BmvCVePC?s=cl&p=a&mlu=0";
+        ? "https://chat.whatsapp.com/EZuAkW4qgmA9ZU5fNvJhTR?s=cl&p=a&ilr=0&amv=0"
+        : "https://chat.whatsapp.com/EZuAkW4qgmA9ZU5fNvJhTR?s=cl&p=a&ilr=0&amv=0";
     window.open(whatsappLink, "_blank");
   };
 
@@ -155,7 +155,7 @@ const RegistrationConfirm21WLYC = ({
     {
       number: "3️⃣",
       title: "Attend the orientation session on time",
-      description: `Join the Zoom call at ${sessionTime} on ${isUsa ? "26th July" : "26th June"}`,
+      description: `Join the Zoom call at ${sessionTime} on ${isUsa ? "9th August" : "9th August"}`,
     },
   ];
 
@@ -254,7 +254,7 @@ const RegistrationConfirm21WLYC = ({
                 <div>
                   <p className="text-sm text-gray-600 font-semibold">Date</p>
                   <p className="text-lg text-gray-900 font-bold">
-                    {(isUsa || isIndia) ? "26th July (Sunday)" : "26th June (Sunday)"}
+                    {(isUsa || isIndia) ? "9th August (Sunday)" : "9th August (Sunday)"}
                   </p>
                 </div>
               </div>

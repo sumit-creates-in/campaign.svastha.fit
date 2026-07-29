@@ -307,7 +307,7 @@ const UaeGroupPersonalized = () => {
                     groupPriceText={groupPrice}
                     joinGroupButtonText={`Continue with Group Plan – Pay ${groupPrice}`}
                     UpgradePay="Upgrade & Pay"
-                    startDateText="26th July"
+                    startDateText="9th August"
                     isGlobal={true}
                     timerEndDate="2026-07-24T06:30:00Z"
                 />
@@ -321,7 +321,7 @@ const UaeGroupPersonalized = () => {
                     groupDiscountText="AED 20 off"
                     groupPriceText={scrollGroupPrice}
                     joinGroupButtonText={`Continue with Group Plan – Pay ${scrollGroupPrice}`}
-                    startDateText="26th July"
+                    startDateText="9th August"
                     isGlobal={true}
                     onVisibilityChange={setIsScrollModalOpen}
                     timerEndDate="2026-07-24T06:30:00Z"
