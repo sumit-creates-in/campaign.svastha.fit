@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useMeta } from "@/hooks/useMeta";
 import { toast } from "sonner";
 
@@ -218,7 +218,6 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Users } from "lucide-react";
 import { useAutoIncrementCounter } from "@/hooks/useAutoIncrementCounter";
-import { useState } from "react";
 
 interface DetoxHeroProps {
     onRegister: () => void;
@@ -232,7 +231,29 @@ const DetoxHeroSection = ({ onRegister }: DetoxHeroProps) => {
         startDate: "2026-03-30T18:00:00Z",
     });
 
-    const [timeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
+    const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0 });
+
+    useEffect(() => {
+        const calculateTimeLeft = () => {
+            const now = new Date();
+            const targetDate = new Date("2026-08-16T00:00:00"); // 16 August 2026
+            const difference = targetDate.getTime() - now.getTime();
+
+            if (difference > 0) {
+                const days = Math.floor(difference / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((difference % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((difference % (1000 * 60 * 60)) / (1000 * 60));
+                setTimeLeft({ days, hours, minutes });
+            } else {
+                setTimeLeft({ days: 0, hours: 0, minutes: 0 });
+            }
+        };
+
+        calculateTimeLeft();
+        const timer = setInterval(calculateTimeLeft, 60000); // Update every minute
+
+        return () => clearInterval(timer);
+    }, []);
 
     return (
         <section className="relative px-4 bg-white" style={{ paddingTop: "2rem" }}>
@@ -314,7 +335,28 @@ const DetoxHeroSection = ({ onRegister }: DetoxHeroProps) => {
                                     <span className="text-xs text-red-500 font-semibold">Limited-Time Offer</span> {" "}
 
                                 </p>
-                                <span className="text-center mt-3 text-lg font-semibold text-gray-700 md:pl-2 ml-14">Ends On : 16 Aug 2026 </span>
+
+                                {/* Start Date */}
+                                <div className="text-center md:text-left mt-12 md:pl-2">
+                                    <span className="text-lg font-semibold text-gray-700">Start Date: 16th August (Sunday)</span>
+                                </div>
+
+                                {/* Countdown Timer */}
+                                <div className="flex items-center justify-center md:justify-start gap-3 mt-4 md:pl-2">
+                                    <div className="flex flex-col items-center bg-emerald-50 rounded-lg px-4 py-2 min-w-[70px]">
+                                        <span className="text-2xl font-bold text-emerald-600">{timeLeft.days}</span>
+                                        <span className="text-xs text-gray-600 font-medium">Days</span>
+                                    </div>
+                                    <div className="flex flex-col items-center bg-emerald-50 rounded-lg px-4 py-2 min-w-[70px]">
+                                        <span className="text-2xl font-bold text-emerald-600">{timeLeft.hours}</span>
+                                        <span className="text-xs text-gray-600 font-medium">Hrs</span>
+                                    </div>
+                                    <div className="flex flex-col items-center bg-emerald-50 rounded-lg px-4 py-2 min-w-[70px]">
+                                        <span className="text-2xl font-bold text-emerald-600">{timeLeft.minutes}</span>
+                                        <span className="text-xs text-gray-600 font-medium">Min</span>
+                                    </div>
+                                </div>
+
                                 <p
                                     className="text-center md:text-left text-sm text-emerald-600 font-medium flex items-center justify-center md:justify-start gap-2 md:pl-2"
                                     style={{ marginTop: "15px" }}

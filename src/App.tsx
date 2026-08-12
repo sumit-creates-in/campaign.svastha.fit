@@ -86,6 +86,10 @@ function App() {
                 element={<RegistrationConfirm21WLYC />}
               />
               <Route
+                path="/reg-confirm-group-7dfbdc-india"
+                element={<RegistrationConfirm21WLYC />}
+              />
+              <Route
                 path="/reg-confirm-21wlyc-global-uae"
                 element={<RegistrationConfirm21WLYC isGlobal={true} />}
               />

@@ -10,6 +10,7 @@ import {
   ArrowBigDown,
 } from "lucide-react";
 import { useLocation } from "react-router-dom";
+import { useMeta } from "@/hooks/useMeta";
 
 function formatTime12h(hour24: number): string {
   let h = ((hour24 % 24) + 24) % 24;
@@ -136,6 +137,29 @@ const RegistrationConfirm21WLYC = ({
     w.fbq("track", "PageView");
   }, []);
 
+  // Set meta tags based on page type
+  useMeta(
+    isDetoxPage
+      ? {
+        title: "Registration Successful - 7 Day Full Body Detox Challenge | Svastha",
+        description:
+          "Your registration for the 7 Day Full Body Detox Challenge is confirmed. Join our WhatsApp group and get ready to transform!",
+        ogTitle: "Registration Successful - 7 Day Detox | Svastha",
+        ogDescription:
+          "Welcome to the 7 Day Full Body Detox Challenge. Check your next steps and join the community.",
+        ogImage: "/src/assets/hero-yoga.jpg",
+      }
+      : {
+        title: "Registration Successful - 21 Day Weight Loss Challenge | Svastha",
+        description:
+          "Your registration for the Ultimate 21 Day Weight Loss Challenge is confirmed. Join our WhatsApp group and get ready to transform!",
+        ogTitle: "Registration Successful - 21 Day Challenge | Svastha",
+        ogDescription:
+          "Welcome to the Ultimate 21 Day Weight Loss Challenge. Check your next steps and join the community.",
+        ogImage: "/src/assets/hero-yoga.jpg",
+      }
+  );
+
   const handleJoinWhatsApp = () => {
     const whatsappLink = isUsa
       ? "https://chat.whatsapp.com/FoGwXxLnNAsAHkp8BD5dmh"
@@ -194,7 +218,7 @@ const RegistrationConfirm21WLYC = ({
               Registration Successful!
             </h1>
             <p className="text-xl text-white/90">
-              🎉 Welcome to the 21 Day Weight Loss & Yoga Camp
+              🎉 Welcome to the {isDetoxPage ? "7 Day Full Body Detox" : "21 Day Weight Loss & Yoga"} Camp
             </p>
           </motion.div>
         </div>
