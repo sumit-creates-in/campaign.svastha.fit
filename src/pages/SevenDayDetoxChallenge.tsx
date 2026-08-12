@@ -195,14 +195,14 @@ const SevenDayDetoxChallenge = () => {
                 />
 
                 <div style={{ height: "150px" }} />
-                <FAQSection faqs={detoxFaqs} />
+                <FAQSection faqs={detoxFaqs} whatsappUrl="https://api.whatsapp.com/send/?phone=15557533653&text=I%20want%20to%20know%20more%20about%207%20Day%20Full%20Body%20Detox%20Challenge&type=phone_number&app_absent=0" />
 
                 <StickyBottomBar
                     onRegisterClick={handleRegister}
                     feeText="Rs. 49/- (Limited Offer)"
                     registerButtonText="Join Now"
                 />
-                <WhatsAppFloatingButton showImmediately={true} />
+                <WhatsAppFloatingButton showImmediately={true} message="I want to know more about 7 Day Full Body Detox Challenge" />
             </div>
         </>
     );
@@ -283,7 +283,7 @@ const DetoxHeroSection = ({ onRegister }: DetoxHeroProps) => {
                                 {[
                                     { label: "With Natural Food Like", value: "Daal, Rice, Roti, Sabji 🌾" },
                                     { label: "Start Burning Fat For", value: "Energy 🔥" },
-                                    { label: "Learn 5 Ultimate", value: "Golden Habits 🌟" },
+                                    { label: "Learn 3 Ultimate", value: "Golden Habits 🌟" },
                                     { label: "Learn The", value: "Right Way of Fasting 🍽️" },
                                     { label: "Join Live", value: "Yoga Classes from Home 🧘" },
                                 ].map((item, i) => (

@@ -12,7 +12,7 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export const FAQSection = ({ faqs }: { faqs?: { question: string; answer: string }[] }) => {
+export const FAQSection = ({ faqs, whatsappUrl }: { faqs?: { question: string; answer: string }[]; whatsappUrl?: string }) => {
   const defaultFaqs = [
     {
       question: "What will happen after I register?",
@@ -95,7 +95,7 @@ export const FAQSection = ({ faqs }: { faqs?: { question: string; answer: string
             Chat with us
           </p>
           <Button
-            onClick={() => window.open('https://api.whatsapp.com/send/?phone=15557533653&text=I%20want%20to%20know%20more%20about%20Ultimate%2021%20Day%20Weight%20Loss%20Challenge&type=phone_number&app_absent=0', '_blank')}
+            onClick={() => window.open(whatsappUrl ?? 'https://api.whatsapp.com/send/?phone=15557533653&text=I%20want%20to%20know%20more%20about%20Ultimate%2021%20Day%20Weight%20Loss%20Challenge&type=phone_number&app_absent=0', '_blank')}
             className="no-heartbeat bg-[#25D366] hover:bg-[#20BA5A] text-white font-semibold text-base px-16 py-5 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 mx-auto">
             <WhatsAppIcon className="w-6 h-6" />
             Chat with us

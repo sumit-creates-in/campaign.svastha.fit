@@ -90,6 +90,10 @@ const RegistrationConfirm21WLYC = ({
     location.pathname.replace(/\/$/, "") ===
     "/u21dwlc-group-registration-success-usa";
 
+  const isDetoxPage =
+    location.pathname.replace(/\/$/, "") ===
+    "/reg-confirm-group-7dfbdc-india";
+
   const isIndia =
     location.pathname.replace(/\/$/, "") === "/reg-confirm-group-21wlyc-india";
 
@@ -137,7 +141,9 @@ const RegistrationConfirm21WLYC = ({
       ? "https://chat.whatsapp.com/FoGwXxLnNAsAHkp8BD5dmh"
       : isIndia
         ? "https://chat.whatsapp.com/EZuAkW4qgmA9ZU5fNvJhTR?s=cl&p=a&ilr=0&amv=0"
-        : "https://chat.whatsapp.com/EZuAkW4qgmA9ZU5fNvJhTR?s=cl&p=a&ilr=0&amv=0";
+        : isDetoxPage
+          ? "https://chat.whatsapp.com/HBjqeFJhIvFLRbLAh05cGz?s=cl&p=a&ilr=4"
+          : "https://chat.whatsapp.com/EZuAkW4qgmA9ZU5fNvJhTR?s=cl&p=a&ilr=0&amv=0"
     window.open(whatsappLink, "_blank");
   };
 
@@ -155,7 +161,7 @@ const RegistrationConfirm21WLYC = ({
     {
       number: "3️⃣",
       title: "Attend the orientation session on time",
-      description: `Join the Zoom call at ${sessionTime} on ${isUsa ? "9th August" : "9th August"}`,
+      description: `Join the Zoom call at ${sessionTime} on ${isUsa ? "9th August" : isDetoxPage ? "16th August" : "9th August"}`,
     },
   ];
 
@@ -254,7 +260,7 @@ const RegistrationConfirm21WLYC = ({
                 <div>
                   <p className="text-sm text-gray-600 font-semibold">Date</p>
                   <p className="text-lg text-gray-900 font-bold">
-                    {(isUsa || isIndia) ? "9th August (Sunday)" : "9th August (Sunday)"}
+                    {(isUsa || isIndia) ? "9th August (Sunday)" : isDetoxPage ? "16th August (Sunday)" : "9th August (Sunday)"}
                   </p>
                 </div>
               </div>
@@ -276,7 +282,7 @@ const RegistrationConfirm21WLYC = ({
                     Platform
                   </p>
                   <p className="text-lg text-gray-900 font-bold">
-                    Live on Zoom
+                    {(isUsa || isIndia) ? "Live On Zoom" : isDetoxPage ? "Live Online" : "Live On Zoom"}
                   </p>
                 </div>
               </div>
