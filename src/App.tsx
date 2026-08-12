@@ -30,6 +30,7 @@ import NotFound from "./pages/NotFound";
 import { CountryProvider } from "./contexts/CountryContext";
 import { InternationalRouteGuard } from "./components/campaign/Routeguards";
 import UaeGroupPersonalized from "./pages/UaeGroupPersonalized";
+import SevenDayDetoxChallenge from "./pages/SevenDayDetoxChallenge";
 
 const queryClient = new QueryClient();
 
@@ -104,6 +105,10 @@ function App() {
                 element={<Ultimate21DayChallenge />}
               />
 
+              <Route
+                path="/7-Day-Full-Body-Detox-Challenge"
+                element={<SevenDayDetoxChallenge />}
+              />
               {/* UAE/Global Route */}
               <Route
                 path="/global-21-day-weight-loss-challenge"

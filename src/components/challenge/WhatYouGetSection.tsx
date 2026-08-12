@@ -17,6 +17,7 @@ interface WhatYouGetSectionProps {
   isInternational?: boolean;
   isUltimate?: boolean;
   registerButtonText?: string;
+  dietPlanLabel?: string;
 }
 
 // IST base times (24h format) for yoga classes
@@ -94,6 +95,7 @@ export const WhatYouGetSection = ({
   isInternational = false,
   isUltimate = false,
   registerButtonText = "Register Now",
+  dietPlanLabel,
 }: WhatYouGetSectionProps) => {
   const [tzInfo, setTzInfo] = useState<{ name: string; offsetFromIST: number }>(
     {
@@ -152,7 +154,7 @@ export const WhatYouGetSection = ({
       imageType: "photo",
     },
     {
-      title: isInternational ? "Personalised 21 Day Diet Plan (Weekly)" : (isUae && !isUaeGroup) ? "Personalised 21 Day Diet Plan (Weekly)" : "21 Day Diet Plan (Weekly)",
+      title: dietPlanLabel ?? (isInternational ? "Personalised 21 Day Diet Plan (Weekly)" : (isUae && !isUaeGroup) ? "Personalised 21 Day Diet Plan (Weekly)" : "21 Day Diet Plan (Weekly)"),
       description: isInternational
         ? "A completely personalised diet plan that is built around your eating habits and supports maximum weight loss."
         : (isUae && !isUaeGroup)
