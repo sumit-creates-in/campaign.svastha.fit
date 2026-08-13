@@ -26,7 +26,7 @@ interface FreeRegistrationModalProps {
 export const FreeRegistrationModal = ({
   isOpen,
   onClose,
-  startDateText = "9th August",
+  startDateText = " August",
 }: FreeRegistrationModalProps) => {
   const navigate = useNavigate();
   const [name, setName] = useState("");

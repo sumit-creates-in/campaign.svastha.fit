@@ -535,7 +535,7 @@ const International21DayWeightLossChallenge = () => {
 
           onClose={() => setIsFreeModalOpen(false)}
 
-          startDateText="9th August"
+          startDateText="30th August"
 
         />
 

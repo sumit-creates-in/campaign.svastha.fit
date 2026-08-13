@@ -45,13 +45,10 @@ function App() {
             <Routes>
               <Route
                 path="/"
-                element={<Navigate to="/ultimate-21days/yoga-camp" replace />}
+                element={<Navigate to="/Ultimate-21-day-weight-loss-challenge" replace />}
               />
-              <Route path="/ultimate-21days/yoga-camp" element={<Index />} />
-              <Route
-                path="/14-Day-Yoga-Fat-Loss-Camp"
-                element={<FatLossCampaign />}
-              />
+
+              <Route path="/Ultimate-21-day-weight-loss-challenge" element={<Ultimate21DayChallenge />} />
               <Route
                 path="/14-Day-Yoga-Fat-Loss-Camp-int"
                 element={<FatLossCampaignInt />}
@@ -103,10 +100,7 @@ function App() {
               />
 
               {/* India Route */}
-              <Route
-                path="/Ultimate-21-day-weight-loss-challenge"
-                element={<Ultimate21DayChallenge />}
-              />
+
 
               <Route
                 path="/Ultimate-21-day-weight-loss-challenge-Start"

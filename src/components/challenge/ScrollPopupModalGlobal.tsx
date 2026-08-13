@@ -32,7 +32,7 @@ export const ScrollPopupModalGlobal = ({
     joinGroupButtonText,
     isGlobal = false,
     hideGroupPlan = false,
-    startDateText = "9th August 2026",
+    startDateText = "30th August 2026",
     timerEndDate,
     hideTimer = false,
     onVisibilityChange,

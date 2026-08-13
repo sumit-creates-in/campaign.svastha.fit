@@ -185,7 +185,7 @@ const RegistrationConfirm21WLYC = ({
     {
       number: "3️⃣",
       title: "Attend the orientation session on time",
-      description: `Join the Zoom call at ${sessionTime} on ${isUsa ? "9th August" : isDetoxPage ? "16th August" : "9th August"}`,
+      description: `Join the Zoom call at ${sessionTime} on ${isUsa ? "30th August" : isDetoxPage ? "16th August" : "30th August"}`,
     },
   ];
 
@@ -284,7 +284,7 @@ const RegistrationConfirm21WLYC = ({
                 <div>
                   <p className="text-sm text-gray-600 font-semibold">Date</p>
                   <p className="text-lg text-gray-900 font-bold">
-                    {(isUsa || isIndia) ? "9th August (Sunday)" : isDetoxPage ? "16th August (Sunday)" : "9th August (Sunday)"}
+                    {(isUsa || isIndia) ? "30th August (Sunday)" : isDetoxPage ? "16th August (Sunday)" : "30th August (Sunday)"}
                   </p>
                 </div>
               </div>
