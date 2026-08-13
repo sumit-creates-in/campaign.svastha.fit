@@ -164,10 +164,10 @@ const RegistrationConfirm21WLYC = ({
     const whatsappLink = isUsa
       ? "https://chat.whatsapp.com/FoGwXxLnNAsAHkp8BD5dmh"
       : isIndia
-        ? "https://chat.whatsapp.com/EZuAkW4qgmA9ZU5fNvJhTR?s=cl&p=a&ilr=0&amv=0"
+        ? "https://chat.whatsapp.com/FbSpt3hm7DYFxzm9ekjKLU?s=cl&p=a&ilr=4"
         : isDetoxPage
           ? "https://chat.whatsapp.com/HBjqeFJhIvFLRbLAh05cGz?s=cl&p=a&ilr=4"
-          : "https://chat.whatsapp.com/EZuAkW4qgmA9ZU5fNvJhTR?s=cl&p=a&ilr=0&amv=0"
+          : "https://chat.whatsapp.com/FbSpt3hm7DYFxzm9ekjKLU?s=cl&p=a&ilr=4"
     window.open(whatsappLink, "_blank");
   };
 
