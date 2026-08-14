@@ -295,11 +295,24 @@ function useFadeUp() {
   return { ref, visible };
 }
 
+// ── COUNTRY CODES ─────────────────────────────────────────────────────────────
+const COUNTRY_CODES = [
+  { code: "+91", flag: "🇮🇳", label: "India" },
+  { code: "+1", flag: "🇺🇸", label: "USA/Canada" },
+  { code: "+44", flag: "🇬🇧", label: "UK" },
+  { code: "+971", flag: "🇦🇪", label: "UAE" },
+  { code: "+65", flag: "🇸🇬", label: "Singapore" },
+  { code: "+61", flag: "🇦🇺", label: "Australia" },
+  { code: "+49", flag: "🇩🇪", label: "Germany" },
+  { code: "+60", flag: "🇲🇾", label: "Malaysia" },
+];
+
 // ── CONSULTATION MODAL ────────────────────────────────────────────────────────
 const WEBHOOK_URL = "https://svastha-automator-webhook-production.up.railway.app/api/webhooks/xnWibTPsDVpsn9U3EbEcOu";
 
 function ConsultModal({ onClose }: { onClose: () => void }) {
   const [name, setName] = useState("");
+  const [countryCode, setCountryCode] = useState("+91");
   const [mobile, setMobile] = useState("");
   const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
@@ -311,8 +324,8 @@ function ConsultModal({ onClose }: { onClose: () => void }) {
       setError("Please fill in both fields.");
       return;
     }
-    if (!/^[6-9]\d{9}$/.test(mobile.trim())) {
-      setError("Enter a valid 10-digit Indian mobile number.");
+    if (mobile.length !== 10) {
+      setError("Mobile number must be exactly 10 digits.");
       return;
     }
     setError("");
@@ -320,8 +333,9 @@ function ConsultModal({ onClose }: { onClose: () => void }) {
     try {
       await fetch(WEBHOOK_URL, {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name: name.trim(), mobile: mobile.trim(), source: "JoinSvastha - Free Consultation" }),
+        mode: "no-cors",
+        headers: { "Content-Type": "text/plain" },
+        body: JSON.stringify({ name: name.trim(), mobile: `${countryCode}${mobile.trim()}`, source: "JoinSvastha - Free Consultation" }),
       });
       setSuccess(true);
     } catch {
@@ -417,20 +431,55 @@ function ConsultModal({ onClose }: { onClose: () => void }) {
                 <label style={{ fontSize: 13, fontWeight: 700, color: "#444", display: "block", marginBottom: 6 }}>
                   Mobile Number
                 </label>
-                <input
-                  type="tel"
-                  placeholder="10-digit mobile number"
-                  value={mobile}
-                  onChange={(e) => setMobile(e.target.value.replace(/\D/g, "").slice(0, 10))}
-                  style={{
-                    width: "100%", padding: "11px 14px", borderRadius: 10,
-                    border: "1.5px solid #ddd", fontSize: 14, outline: "none",
-                    fontFamily: "'Nunito', sans-serif",
-                    transition: "border-color 0.2s",
-                  }}
-                  onFocus={(e) => (e.target.style.borderColor = "#2d9f63")}
-                  onBlur={(e) => (e.target.style.borderColor = "#ddd")}
-                />
+                <div style={{ display: "flex", gap: 8 }}>
+                  {/* Country code dropdown */}
+                  <select
+                    value={countryCode}
+                    onChange={(e) => setCountryCode(e.target.value)}
+                    style={{
+                      padding: "11px 8px",
+                      borderRadius: 10,
+                      border: "1.5px solid #ddd",
+                      fontSize: 13,
+                      fontFamily: "'Nunito', sans-serif",
+                      background: "#f9f9f9",
+                      color: "#333",
+                      cursor: "pointer",
+                      outline: "none",
+                      flexShrink: 0,
+                      minWidth: 95,
+                    }}
+                  >
+                    {COUNTRY_CODES.map(({ code, flag }) => (
+                      <option key={code} value={code}>{flag} {code}</option>
+                    ))}
+                  </select>
+
+                  {/* 10-digit input */}
+                  <input
+                    type="tel"
+                    placeholder="10-digit number"
+                    value={mobile}
+                    maxLength={10}
+                    onChange={(e) => setMobile(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                    style={{
+                      flex: 1,
+                      padding: "11px 14px",
+                      borderRadius: 10,
+                      border: "1.5px solid #ddd",
+                      fontSize: 14,
+                      outline: "none",
+                      fontFamily: "'Nunito', sans-serif",
+                      transition: "border-color 0.2s",
+                      boxSizing: "border-box" as const,
+                    }}
+                    onFocus={(e) => (e.target.style.borderColor = "#2d9f63")}
+                    onBlur={(e) => (e.target.style.borderColor = "#ddd")}
+                  />
+                </div>
+                <div style={{ fontSize: 11, color: mobile.length === 10 ? "#1a7a4a" : "#aaa", textAlign: "right", marginTop: 4 }}>
+                  {mobile.length}/10 digits
+                </div>
               </div>
 
               {error && (
@@ -681,34 +730,31 @@ function PlanCard({ planKey, planData, duration, expired, onConsult }: {
         Get {planData.name.replace(/[⭐👑💎]/g, '').trim()} →
       </a>
 
-      {expired && (
-        <>
-          <button
-            onClick={onConsult}
-            style={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              gap: 8,
-              width: "100%",
-              background: "transparent",
-              color: "#1a7a4a",
-              border: "2px solid #1a7a4a",
-              borderRadius: 50,
-              padding: 11,
-              fontFamily: "'Baloo 2', cursive",
-              fontSize: 14,
-              fontWeight: 700,
-              cursor: "pointer",
-              textAlign: "center",
-              boxSizing: "border-box" as const,
-              marginTop: 8,
-            }}
-          >
-            📞 Get Free Consultation
-          </button>
-        </>
-      )}
+      {/* Consultation button — always visible */}
+      <button
+        onClick={onConsult}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: 8,
+          width: "100%",
+          background: "transparent",
+          color: "#1a7a4a",
+          border: "2px solid #1a7a4a",
+          borderRadius: 50,
+          padding: 11,
+          fontFamily: "'Baloo 2', cursive",
+          fontSize: 14,
+          fontWeight: 700,
+          cursor: "pointer",
+          textAlign: "center",
+          boxSizing: "border-box" as const,
+          marginTop: 8,
+        }}
+      >
+        📞 Get Free Consultation
+      </button>
 
       <div style={{ textAlign: "center", fontSize: 12, color: "#666", marginTop: 8 }}>🔒 Secure checkout · Instant access</div>
     </div>
@@ -954,6 +1000,46 @@ export default function WeightLossOffer() {
           <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 22, fontWeight: 800, textAlign: "center", marginBottom: 6 }}>What's Included?</div>
           <div style={{ textAlign: "center", color: "#666", fontSize: 14, marginBottom: 20 }}>See everything side by side</div>
           <CompareTable />
+
+          {/* CTA below compare table — always visible */}
+          <div style={{ marginTop: 28, textAlign: "center" }}>
+            <div style={{ fontSize: 14, color: "#555", marginBottom: 12 }}>
+              Not sure which plan is right for you?
+            </div>
+            <button
+              onClick={() => setShowConsultModal(true)}
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: 8,
+                background: "linear-gradient(135deg, #2d9f63, #1a7a4a)",
+                color: "white",
+                border: "none",
+                borderRadius: 50,
+                padding: "14px 32px",
+                fontFamily: "'Baloo 2', cursive",
+                fontSize: 17,
+                fontWeight: 700,
+                cursor: "pointer",
+                boxShadow: "0 4px 20px rgba(26,122,74,0.35)",
+                transition: "transform 0.15s ease, box-shadow 0.15s ease",
+              }}
+              onMouseEnter={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.transform = "translateY(-2px)";
+                (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 8px 24px rgba(26,122,74,0.45)";
+              }}
+              onMouseLeave={(e) => {
+                (e.currentTarget as HTMLButtonElement).style.transform = "none";
+                (e.currentTarget as HTMLButtonElement).style.boxShadow = "0 4px 20px rgba(26,122,74,0.35)";
+              }}
+            >
+              📞 Get Free Consultation
+            </button>
+            <div style={{ fontSize: 11, color: "#999", marginTop: 10 }}>
+              Our expert will help you pick the best plan — no obligation
+            </div>
+          </div>
         </section>
 
       </div>
