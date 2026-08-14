@@ -14,7 +14,12 @@ const PORT = process.env.PORT || 5000;
 const corsOptions = {
   origin:
     process.env.NODE_ENV === "production"
-      ? ["https://spiritriseyoga.com", "https://campaign.svastha.fit"]
+      ? [
+          "https://spiritriseyoga.com",
+          "https://campaign.svastha.fit",
+          "https://svastha.fit",
+          "https://www.svastha.fit",
+        ]
       : [
           "http://localhost:5173",
           "http://localhost:3000",
@@ -262,6 +267,35 @@ app.get("/api/test-campaign-webhook", async (req, res) => {
     console.error("❌ Campaign webhook test error:", err);
     res.status(500).json({ error: err.message });
   }
+});
+
+// 📞 Proxy — forward consultation lead to external webhook (avoids browser CORS)
+app.post("/api/consult-lead", async (req, res) => {
+  const { name, mobile, source } = req.body;
+
+  if (!name || !mobile) {
+    return res.status(400).json({ error: "Name and mobile are required" });
+  }
+
+  const SVASTHA_WEBHOOK =
+    "https://svastha-automator-webhook-production.up.railway.app/api/webhooks/xnWibTPsDVpsn9U3EbEcOu";
+
+  try {
+    await fetch(SVASTHA_WEBHOOK, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        name,
+        mobile,
+        source: source || "Free Consultation",
+      }),
+    });
+  } catch (err) {
+    console.error("❌ Svastha webhook error:", err);
+    // Still respond success — don't block the user
+  }
+
+  res.json({ success: true });
 });
 
 // 🔍 Debug endpoint

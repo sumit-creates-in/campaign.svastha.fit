@@ -308,7 +308,7 @@ const COUNTRY_CODES = [
 ];
 
 // ── CONSULTATION MODAL ────────────────────────────────────────────────────────
-const WEBHOOK_URL = "https://svastha-automator-webhook-production.up.railway.app/api/webhooks/xnWibTPsDVpsn9U3EbEcOu";
+const WEBHOOK_URL = `${import.meta.env.VITE_API_BASE_URL ?? import.meta.env.VITE_API_URL ?? "http://localhost:5000/api"}/consult-lead`;
 
 function ConsultModal({ onClose }: { onClose: () => void }) {
   const [name, setName] = useState("");
