@@ -730,31 +730,33 @@ function PlanCard({ planKey, planData, duration, expired, onConsult }: {
         Get {planData.name.replace(/[⭐👑💎]/g, '').trim()} →
       </a>
 
-      {/* Consultation button — always visible */}
-      <button
-        onClick={onConsult}
-        style={{
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          gap: 8,
-          width: "100%",
-          background: "transparent",
-          color: "#1a7a4a",
-          border: "2px solid #1a7a4a",
-          borderRadius: 50,
-          padding: 11,
-          fontFamily: "'Baloo 2', cursive",
-          fontSize: 14,
-          fontWeight: 700,
-          cursor: "pointer",
-          textAlign: "center",
-          boxSizing: "border-box" as const,
-          marginTop: 8,
-        }}
-      >
-        📞 Get Free Consultation
-      </button>
+      {/* Consultation button — only shown after offer expires */}
+      {expired && (
+        <button
+          onClick={onConsult}
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            gap: 8,
+            width: "100%",
+            background: "transparent",
+            color: "#1a7a4a",
+            border: "2px solid #1a7a4a",
+            borderRadius: 50,
+            padding: 11,
+            fontFamily: "'Baloo 2', cursive",
+            fontSize: 14,
+            fontWeight: 700,
+            cursor: "pointer",
+            textAlign: "center",
+            boxSizing: "border-box" as const,
+            marginTop: 8,
+          }}
+        >
+          📞 Get Free Consultation
+        </button>
+      )}
 
       <div style={{ textAlign: "center", fontSize: 12, color: "#666", marginTop: 8 }}>🔒 Secure checkout · Instant access</div>
     </div>
