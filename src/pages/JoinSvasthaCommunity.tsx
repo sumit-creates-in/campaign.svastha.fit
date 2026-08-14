@@ -333,9 +333,14 @@ function ConsultModal({ onClose }: { onClose: () => void }) {
     try {
       await fetch(WEBHOOK_URL, {
         method: "POST",
-        mode: "no-cors",
-        headers: { "Content-Type": "text/plain" },
-        body: JSON.stringify({ name: name.trim(), mobile: `${countryCode}${mobile.trim()}`, source: "JoinSvastha - Free Consultation" }),
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: name.trim(),
+          mobile: `${countryCode}${mobile.trim()}`,
+          source: "JoinSvastha - Free Consultation",
+        }),
       });
       setSuccess(true);
     } catch {
