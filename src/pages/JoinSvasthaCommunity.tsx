@@ -295,6 +295,174 @@ function useFadeUp() {
   return { ref, visible };
 }
 
+// ── CONSULTATION MODAL ────────────────────────────────────────────────────────
+const WEBHOOK_URL = "https://svastha-automator-webhook-production.up.railway.app/api/webhooks/xnWibTPsDVpsn9U3EbEcOu";
+
+function ConsultModal({ onClose }: { onClose: () => void }) {
+  const [name, setName] = useState("");
+  const [mobile, setMobile] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    if (!name.trim() || !mobile.trim()) {
+      setError("Please fill in both fields.");
+      return;
+    }
+    if (!/^[6-9]\d{9}$/.test(mobile.trim())) {
+      setError("Enter a valid 10-digit Indian mobile number.");
+      return;
+    }
+    setError("");
+    setLoading(true);
+    try {
+      await fetch(WEBHOOK_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name: name.trim(), mobile: mobile.trim(), source: "JoinSvastha - Free Consultation" }),
+      });
+      setSuccess(true);
+    } catch {
+      setError("Something went wrong. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  return (
+    <div
+      onClick={(e) => { if (e.target === e.currentTarget) onClose(); }}
+      style={{
+        position: "fixed",
+        inset: 0,
+        background: "rgba(0,0,0,0.55)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        zIndex: 1000,
+        padding: "16px",
+      }}
+    >
+      <div style={{
+        background: "white",
+        borderRadius: 20,
+        padding: "28px 24px",
+        width: "100%",
+        maxWidth: 380,
+        boxShadow: "0 20px 60px rgba(0,0,0,0.25)",
+        position: "relative",
+        fontFamily: "'Nunito', sans-serif",
+      }}>
+        {/* Close */}
+        <button
+          onClick={onClose}
+          style={{
+            position: "absolute", top: 14, right: 16,
+            background: "none", border: "none",
+            fontSize: 22, cursor: "pointer", color: "#888", lineHeight: 1,
+          }}
+        >×</button>
+
+        {success ? (
+          <div style={{ textAlign: "center", padding: "16px 0" }}>
+            <div style={{ fontSize: 48, marginBottom: 12 }}>🎉</div>
+            <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 20, fontWeight: 800, color: "#1a7a4a", marginBottom: 8 }}>
+              We'll reach out soon!
+            </div>
+            <div style={{ fontSize: 14, color: "#555", marginBottom: 20 }}>
+              Thanks {name.split(" ")[0]}! Our team will call you within 24 hours.
+            </div>
+            <button
+              onClick={onClose}
+              style={{
+                background: "linear-gradient(135deg,#2d9f63,#1a7a4a)",
+                color: "white", border: "none", borderRadius: 50,
+                padding: "12px 32px", fontSize: 15, fontWeight: 700, cursor: "pointer",
+              }}
+            >Done</button>
+          </div>
+        ) : (
+          <>
+            <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 20, fontWeight: 800, color: "#1a1a2e", marginBottom: 4 }}>
+              Get Free Consultation
+            </div>
+            <div style={{ fontSize: 13, color: "#666", marginBottom: 20 }}>
+              Our expert will call you and help you choose the best plan.
+            </div>
+
+            <form onSubmit={handleSubmit}>
+              <div style={{ marginBottom: 14 }}>
+                <label style={{ fontSize: 13, fontWeight: 700, color: "#444", display: "block", marginBottom: 6 }}>
+                  Your Name
+                </label>
+                <input
+                  type="text"
+                  placeholder="e.g. Priya Sharma"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  style={{
+                    width: "100%", padding: "11px 14px", borderRadius: 10,
+                    border: "1.5px solid #ddd", fontSize: 14, outline: "none",
+                    fontFamily: "'Nunito', sans-serif",
+                    transition: "border-color 0.2s",
+                  }}
+                  onFocus={(e) => (e.target.style.borderColor = "#2d9f63")}
+                  onBlur={(e) => (e.target.style.borderColor = "#ddd")}
+                />
+              </div>
+
+              <div style={{ marginBottom: 14 }}>
+                <label style={{ fontSize: 13, fontWeight: 700, color: "#444", display: "block", marginBottom: 6 }}>
+                  Mobile Number
+                </label>
+                <input
+                  type="tel"
+                  placeholder="10-digit mobile number"
+                  value={mobile}
+                  onChange={(e) => setMobile(e.target.value.replace(/\D/g, "").slice(0, 10))}
+                  style={{
+                    width: "100%", padding: "11px 14px", borderRadius: 10,
+                    border: "1.5px solid #ddd", fontSize: 14, outline: "none",
+                    fontFamily: "'Nunito', sans-serif",
+                    transition: "border-color 0.2s",
+                  }}
+                  onFocus={(e) => (e.target.style.borderColor = "#2d9f63")}
+                  onBlur={(e) => (e.target.style.borderColor = "#ddd")}
+                />
+              </div>
+
+              {error && (
+                <div style={{ fontSize: 12, color: "#d93025", marginBottom: 12, fontWeight: 600 }}>
+                  ⚠️ {error}
+                </div>
+              )}
+
+              <button
+                type="submit"
+                disabled={loading}
+                style={{
+                  width: "100%",
+                  background: loading ? "#aaa" : "linear-gradient(135deg,#2d9f63,#1a7a4a)",
+                  color: "white", border: "none", borderRadius: 50,
+                  padding: "13px", fontSize: 16, fontWeight: 700,
+                  cursor: loading ? "not-allowed" : "pointer",
+                  fontFamily: "'Baloo 2', cursive",
+                  boxShadow: loading ? "none" : "0 4px 16px rgba(26,122,74,0.35)",
+                  transition: "all 0.2s",
+                }}
+              >
+                {loading ? "Submitting…" : "Book My Free Call →"}
+              </button>
+            </form>
+          </>
+        )}
+      </div>
+    </div>
+  );
+}
+
 // ── SUB-COMPONENTS ────────────────────────────────────────────────────────────
 
 function TimerStrip({ timeLeft, expired }: { timeLeft: number; expired: boolean }) {
@@ -332,7 +500,7 @@ function TimerStrip({ timeLeft, expired }: { timeLeft: number; expired: boolean 
       ) : (
         <>
           <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", opacity: 0.9 }}>
-            ⚡ Offer Ends — 2 August 2026 · 12:00 PM IST
+            ⚡ Offer Ends — 16 August 2026 · 11:30 AM IST
           </div>
           <div style={{ display: "flex", justifyContent: "center", gap: 12, marginTop: 8 }}>
             {[
@@ -405,7 +573,16 @@ function DurationToggle({ currentDuration, onSelect }) {
   );
 }
 
-function PlanCard({ planKey, planData, duration, expired }) {
+function PlanCard({ planKey, planData, duration, expired, onConsult }: {
+  planKey: string;
+  planData: {
+    name: string; sell: number; base: number; perMonth: number; link: string;
+    featured?: boolean; badge?: string; features: string[];
+  };
+  duration: number;
+  expired: boolean;
+  onConsult: () => void;
+}) {
   const { ref, visible } = useFadeUp();
   const [showAll, setShowAll] = useState(false);
   const isVIP = planKey === "personalGold";
@@ -506,10 +683,8 @@ function PlanCard({ planKey, planData, duration, expired }) {
 
       {expired && (
         <>
-          <a
-            href="https://wa.me/15557533653?text=Hi%2C%20I%20want%20to%20consult%20about%20the%20transformation%20plan"
-            target="_blank"
-            rel="noreferrer"
+          <button
+            onClick={onConsult}
             style={{
               display: "flex",
               alignItems: "center",
@@ -517,25 +692,21 @@ function PlanCard({ planKey, planData, duration, expired }) {
               gap: 8,
               width: "100%",
               background: "transparent",
-              color: "#25D366",
-              border: "2px solid #25D366",
+              color: "#1a7a4a",
+              border: "2px solid #1a7a4a",
               borderRadius: 50,
               padding: 11,
               fontFamily: "'Baloo 2', cursive",
               fontSize: 14,
               fontWeight: 700,
               cursor: "pointer",
-              textDecoration: "none",
               textAlign: "center",
               boxSizing: "border-box" as const,
               marginTop: 8,
             }}
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="#25D366">
-              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" />
-            </svg>
-            Want to Consult?
-          </a>
+            📞 Get Free Consultation
+          </button>
         </>
       )}
 
@@ -594,7 +765,7 @@ function CompareTable() {
 // ── MAIN COMPONENT ────────────────────────────────────────────────────────────
 export default function WeightLossOffer() {
   // Fixed target: 2 August 2026, 12:00 PM IST (UTC+5:30) = 2 August 2026 06:30:00 UTC
-  const TARGET_UTC_MS = Date.UTC(2026, 7, 2, 6, 30, 0);
+  const TARGET_UTC_MS = Date.UTC(2026, 7, 16, 6, 0, 0);
 
   // const TARGET_UTC_MS = Date.now() - 1000;
 
@@ -607,6 +778,7 @@ export default function WeightLossOffer() {
   const [expired, setExpired] = useState(() => getTimeUntilTarget() <= 0);
   const [currentDuration, setCurrentDuration] = useState(12);
   const [activeCard, setActiveCard] = useState(0);
+  const [showConsultModal, setShowConsultModal] = useState(false);
   const cardsScrollRef = useRef<HTMLDivElement>(null);
 
   // Countdown timer
@@ -625,6 +797,7 @@ export default function WeightLossOffer() {
 
   return (
     <>
+      {showConsultModal && <ConsultModal onClose={() => setShowConsultModal(false)} />}
       {/* Google Fonts - Only for this page */}
       <link rel="preconnect" href="https://fonts.googleapis.com" />
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="" />
@@ -694,9 +867,9 @@ export default function WeightLossOffer() {
                 scrollbarWidth: "none",
               }}
             >
-              <PlanCard planKey="group" planData={plans.group} duration={currentDuration} expired={expired} />
-              <PlanCard planKey="personalSilver" planData={plans.personalSilver} duration={currentDuration} expired={expired} />
-              <PlanCard planKey="personalGold" planData={plans.personalGold} duration={currentDuration} expired={expired} />
+              <PlanCard planKey="group" planData={plans.group} duration={currentDuration} expired={expired} onConsult={() => setShowConsultModal(true)} />
+              <PlanCard planKey="personalSilver" planData={plans.personalSilver} duration={currentDuration} expired={expired} onConsult={() => setShowConsultModal(true)} />
+              <PlanCard planKey="personalGold" planData={plans.personalGold} duration={currentDuration} expired={expired} onConsult={() => setShowConsultModal(true)} />
             </div>
 
             {/* Scroll hint label */}
