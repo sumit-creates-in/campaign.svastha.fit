@@ -554,7 +554,7 @@ function TimerStrip({ timeLeft, expired }: { timeLeft: number; expired: boolean 
       ) : (
         <>
           <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", opacity: 0.9 }}>
-            ⚡ Offer Ends — 16 August 2026 · 11:30 AM IST
+            ⚡ Offer Ends — 16 August 2026 · 11:00 AM IST
           </div>
           <div style={{ display: "flex", justifyContent: "center", gap: 12, marginTop: 8 }}>
             {[
@@ -818,7 +818,7 @@ function CompareTable() {
 // ── MAIN COMPONENT ────────────────────────────────────────────────────────────
 export default function WeightLossOffer() {
   // Fixed target: 2 August 2026, 12:00 PM IST (UTC+5:30) = 2 August 2026 06:30:00 UTC
-  const TARGET_UTC_MS = Date.UTC(2026, 7, 16, 6, 0, 0);
+  const TARGET_UTC_MS = Date.UTC(2026, 7, 16, 5, 30, 0);
 
   // const TARGET_UTC_MS = Date.now() - 1000;
 
