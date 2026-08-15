@@ -645,6 +645,8 @@ function PlanCard({ planKey, planData, duration, expired, onConsult }: {
 
   const finalLink = expired ? NEW_LINKS[duration][planKey] : planData.link;
 
+  const finalPerMonth = Math.round(finalSell / duration);
+
   const saving = planData.base - finalSell;
 
 
@@ -685,7 +687,7 @@ function PlanCard({ planKey, planData, duration, expired, onConsult }: {
           <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 26, fontWeight: 800, color: planData.featured ? "#c07000" : "#1a7a4a", lineHeight: 1 }}>
             ₹{fmt(finalSell)}
           </div>
-          <div style={{ fontSize: 11, color: "#666", marginTop: 2 }}>₹{fmt(planData.perMonth)}/month</div>
+          <div style={{ fontSize: 11, color: "#666", marginTop: 2 }}>₹{fmt(finalPerMonth)}/month</div>
         </div>
         <div style={{ background: "#ffeaea", color: "#d93025", fontSize: 11, fontWeight: 800, padding: "5px 10px", borderRadius: 20 }}>
           Save ₹{fmt(saving)}!
