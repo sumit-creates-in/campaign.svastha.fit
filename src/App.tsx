@@ -23,6 +23,7 @@ import ThankYouLoseWeightVaishnavi from "./pages/ThankYouLoseWeightVaishnavi";
 import U21DWLCPaymentConfirmation from "./pages/U21DWLCPaymentConfirmation";
 import JoinSvasthaCommunity from "./pages/JoinSvasthaCommunity";
 import JoinSvasthaCommunityUSA from "./pages/JoinSvasthaCommunityUSA";
+import JoinsSvasthaCommunity from "./pages/JoinsSvasthaCommunity";
 import NotFound from "./pages/NotFound";
 
 // Context and Guards
@@ -166,6 +167,11 @@ function App() {
               <Route
                 path="/get-transformed"
                 element={<JoinSvasthaCommunityUSA />}
+              />
+
+              <Route
+                path="/joins-svastha-community"
+                element={<JoinsSvasthaCommunity />}
               />
 
               {/* Catch-all */}
