@@ -16,7 +16,7 @@ const PLAN_DATA = {
             "⚖️ Weight Tracker",
             "✅ Habit Tracker",
             "👥 Community Group Access",
-            "📋 General Diet Guidance",
+            "📋 Community Diet Plan",
         ]
     },
     personalized: {
