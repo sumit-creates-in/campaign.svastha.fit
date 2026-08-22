@@ -663,7 +663,7 @@ export default function JoinsSvasthaCommunity() {
 
                 {/* Header */}
                 <section style={{ padding: "24px 16px 0", textAlign: "center" }}>
-                    <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 26, fontWeight: 800, color: "#1a1a2e", lineHeight: 1.2, marginBottom: 8 }}>
+                    <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 26, fontWeight: 800, color: "#1a1a2e", lineHeight: 1.2, marginBottom: 8, marginTop: 10 }}>
                         Join Svastha Community
                     </div>
                     <div style={{ color: "#555", fontSize: 14, marginBottom: 4 }}>
