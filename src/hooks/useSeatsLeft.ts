@@ -8,7 +8,8 @@ export const useSeatsLeft = () => {
     const fetchSeats = async () => {
       try {
         const apiUrl =
-          import.meta.env.VITE_API_BASE_URL || "http://localhost:5000/api";
+          import.meta.env.VITE_API_BASE_URL ||
+          "https://campaign.svastha.fit/api";
         const response = await fetch(`${apiUrl}/seats-left`);
         const data = await response.json();
         if (data.success) {
