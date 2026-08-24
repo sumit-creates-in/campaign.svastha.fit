@@ -298,6 +298,60 @@ app.post("/api/consult-lead", async (req, res) => {
   res.json({ success: true });
 });
 
+// 📊 Get seats left (total registrations - paid users count)
+app.get("/api/seats-left", async (req, res) => {
+  try {
+    const TOTAL_REGISTRATIONS = 71; // Yahan apna number change karo
+
+    const { count, error } = await supabase
+      .from("paid_users")
+      .select("*", { count: "exact", head: true });
+
+    if (error) {
+      console.error("❌ Seats count error:", error);
+      return res.status(500).json({ error: "Failed to fetch seats count" });
+    }
+
+    const paidCount = count || 0;
+    const seatsLeft = Math.max(0, TOTAL_REGISTRATIONS - paidCount);
+
+    res.json({
+      success: true,
+      total_registrations: TOTAL_REGISTRATIONS,
+      paid_users: paidCount,
+      seats_left: seatsLeft,
+    });
+  } catch (err) {
+    console.error("❌ Seats left error:", err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
+
+// 🔍 Debug paid_users table
+app.get("/api/debug-paid-users", async (req, res) => {
+  try {
+    // Test 1: count with exact
+    const { count, error: countError } = await supabase
+      .from("paid_users")
+      .select("*", { count: "exact", head: true });
+
+    // Test 2: fetch first 5 rows to see if table is accessible
+    const { data, error: dataError } = await supabase
+      .from("paid_users")
+      .select("id, name, payment_id")
+      .limit(5);
+
+    res.json({
+      count,
+      countError: countError?.message || null,
+      sampleRows: data,
+      dataError: dataError?.message || null,
+    });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+});
+
 // 🔍 Debug endpoint
 app.get("/api/debug", (req, res) => {
   res.json({
