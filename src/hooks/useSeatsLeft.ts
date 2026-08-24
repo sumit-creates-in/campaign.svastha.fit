@@ -2,8 +2,10 @@ import { useState, useEffect } from "react";
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
-  import.meta.env.VITE_SUPABASE_URL,
-  import.meta.env.VITE_SUPABASE_ANON_KEY,
+  import.meta.env.VITE_SUPABASE_URL ||
+    "https://swcubveqtvjhqwawgcks.supabase.co",
+  import.meta.env.VITE_SUPABASE_ANON_KEY ||
+    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3Y3VidmVxdHZqaHF3YXdnY2tzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAwNzE4MDYsImV4cCI6MjA2NTY0NzgwNn0.KHkPNj7-685p_-LK-L_8JfO2mzvDrIDfgeiUlvOFBmo",
 );
 
 const TOTAL_REGISTRATIONS = 71;
