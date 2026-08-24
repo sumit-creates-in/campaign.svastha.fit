@@ -308,11 +308,12 @@ function useFadeUp() {
 }
 
 // ── TIMER STRIP ───────────────────────────────────────────────────────────────
-function TimerStrip({ timeLeft, urgent, endDate }: { timeLeft: number; urgent: boolean; endDate: Date | null }) {
-    const days = Math.floor(timeLeft / 86400);
-    const hours = Math.floor((timeLeft % 86400) / 3600);
-    const minutes = Math.floor((timeLeft % 3600) / 60);
-    const seconds = timeLeft % 60;
+function TimerStrip({ timeLeft, urgent, endDate, expired }: { timeLeft: number; urgent: boolean; endDate: Date | null; expired: boolean }) {
+    const safe = Math.max(0, timeLeft);
+    const days = Math.floor(safe / 86400);
+    const hours = Math.floor((safe % 86400) / 3600);
+    const minutes = Math.floor((safe % 3600) / 60);
+    const seconds = safe % 60;
 
     const pad = (n: number) => String(n).padStart(2, "0");
 
@@ -331,60 +332,76 @@ function TimerStrip({ timeLeft, urgent, endDate }: { timeLeft: number; urgent: b
         })()
         : "";
 
-    const bgStyle = urgent
-        ? { animation: "pulseBg 1s infinite" }
-        : { background: "linear-gradient(135deg, #d93025 0%, #c0392b 100%)" };
-
     return (
         <div
             style={{
-                ...bgStyle,
+                background: expired
+                    ? "linear-gradient(135deg, #555 0%, #333 100%)"
+                    : urgent
+                        ? undefined
+                        : "linear-gradient(135deg, #d93025 0%, #c0392b 100%)",
+                ...(urgent && !expired ? { animation: "pulseBg 1s infinite" } : {}),
                 color: "white",
                 textAlign: "center",
                 padding: "10px 16px 12px",
                 position: "sticky",
                 top: 0,
                 zIndex: 100,
-                boxShadow: "0 3px 16px rgba(217,48,37,0.4)",
+                boxShadow: expired
+                    ? "0 3px 16px rgba(0,0,0,0.4)"
+                    : "0 3px 16px rgba(217,48,37,0.4)",
             }}
         >
-            <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", opacity: 0.9, marginBottom: 6 }}>
-                ⚡ Special Offer Ends In
-            </div>
-
-            <div style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 6 }}>
-                {[
-                    { val: days, label: "Days" },
-                    { val: hours, label: "Hrs" },
-                    { val: minutes, label: "Min" },
-                    { val: seconds, label: "Sec" },
-                ].map(({ val, label }, i) => (
-                    <div key={label} style={{ display: "flex", alignItems: "center", gap: i < 3 ? 8 : 0 }}>
-                        <div
-                            style={{
-                                background: "rgba(0,0,0,0.25)",
-                                borderRadius: 8,
-                                padding: "4px 10px",
-                                minWidth: 48,
-                                backdropFilter: "blur(4px)",
-                            }}
-                        >
-                            <div style={{ fontSize: 22, fontWeight: 800, fontFamily: "'Baloo 2', cursive", lineHeight: 1.1, letterSpacing: 1 }}>
-                                {pad(val)}
-                            </div>
-                            <div style={{ fontSize: 9, opacity: 0.8, textTransform: "uppercase", letterSpacing: 0.5 }}>{label}</div>
-                        </div>
-                        {i < 3 && (
-                            <div style={{ fontSize: 20, fontWeight: 800, opacity: 0.7, animation: "blink 1s infinite", marginLeft: -4, marginRight: -4 }}>:</div>
-                        )}
+            {expired ? (
+                <>
+                    <div style={{ fontSize: 15, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase" }}>
+                        ⏰ Offer Ended
                     </div>
-                ))}
-            </div>
+                    <div style={{ fontSize: 11, opacity: 0.8, marginTop: 4, letterSpacing: 0.5 }}>
+                        Prices have increased — new rates apply
+                    </div>
+                </>
+            ) : (
+                <>
+                    <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", opacity: 0.9, marginBottom: 6 }}>
+                        ⚡ Special Offer Ends In
+                    </div>
 
-            {endLabel && (
-                <div style={{ fontSize: 10, opacity: 0.75, letterSpacing: 0.4 }}>
-                    Offer ends {endLabel}
-                </div>
+                    <div style={{ display: "flex", justifyContent: "center", gap: 8, marginBottom: 6 }}>
+                        {[
+                            { val: days, label: "Days" },
+                            { val: hours, label: "Hrs" },
+                            { val: minutes, label: "Min" },
+                            { val: seconds, label: "Sec" },
+                        ].map(({ val, label }, i) => (
+                            <div key={label} style={{ display: "flex", alignItems: "center", gap: i < 3 ? 8 : 0 }}>
+                                <div
+                                    style={{
+                                        background: "rgba(0,0,0,0.25)",
+                                        borderRadius: 8,
+                                        padding: "4px 10px",
+                                        minWidth: 48,
+                                        backdropFilter: "blur(4px)",
+                                    }}
+                                >
+                                    <div style={{ fontSize: 22, fontWeight: 800, fontFamily: "'Baloo 2', cursive", lineHeight: 1.1, letterSpacing: 1 }}>
+                                        {pad(val)}
+                                    </div>
+                                    <div style={{ fontSize: 9, opacity: 0.8, textTransform: "uppercase", letterSpacing: 0.5 }}>{label}</div>
+                                </div>
+                                {i < 3 && (
+                                    <div style={{ fontSize: 20, fontWeight: 800, opacity: 0.7, animation: "blink 1s infinite", marginLeft: -4, marginRight: -4 }}>:</div>
+                                )}
+                            </div>
+                        ))}
+                    </div>
+
+                    {endLabel && (
+                        <div style={{ fontSize: 10, opacity: 0.75, letterSpacing: 0.4 }}>
+                            Offer ends {endLabel}
+                        </div>
+                    )}
+                </>
             )}
         </div>
     );
@@ -622,13 +639,19 @@ export default function JoinsSvasthaCommunity() {
 
     // Countdown timer
     useEffect(() => {
-        if (timeLeft <= 0) { setExpired(true); return; }
-        const id = setInterval(() => setTimeLeft((t) => {
-            if (t <= 1) { setExpired(true); return 0; }
-            return t - 1;
-        }), 1000);
+        if (expired) return;
+        const id = setInterval(() => {
+            const remaining = Math.floor((endDate.getTime() - Date.now()) / 1000);
+            if (remaining <= 0) {
+                setTimeLeft(0);
+                setExpired(true);
+                clearInterval(id);
+            } else {
+                setTimeLeft(remaining);
+            }
+        }, 1000);
         return () => clearInterval(id);
-    }, [timeLeft]);
+    }, [expired]); // eslint-disable-line react-hooks/exhaustive-deps
 
     const urgent = timeLeft <= 300;
 
@@ -659,7 +682,7 @@ export default function JoinsSvasthaCommunity() {
 
             <div style={{ maxWidth: 720, margin: "0 auto", background: "#f4faf7", minHeight: "100vh", boxShadow: "0 0 60px rgba(0,0,0,0.15)", overflow: "hidden", fontFamily: "'Nunito', sans-serif" }}>
 
-                <TimerStrip timeLeft={timeLeft} urgent={urgent} endDate={endDate} />
+                <TimerStrip timeLeft={timeLeft} urgent={urgent} endDate={endDate} expired={expired} />
 
                 {/* Header */}
                 <section style={{ padding: "24px 16px 0", textAlign: "center" }}>
