@@ -16,7 +16,7 @@ export const useSeatsLeft = () => {
         }
       } catch (error) {
         console.error("Failed to fetch seats:", error);
-        setSeatsLeft(6733);
+        setSeatsLeft(54);
       } finally {
         setLoading(false);
       }
@@ -31,7 +31,7 @@ export const useSeatsLeft = () => {
     ? "..."
     : seatsLeft !== null
       ? seatsLeft.toLocaleString()
-      : "6733";
+      : "54";
   const displaySeatsPlus = `${displaySeats}`;
 
   return { seatsLeft, loading, displaySeats, displaySeatsPlus };
