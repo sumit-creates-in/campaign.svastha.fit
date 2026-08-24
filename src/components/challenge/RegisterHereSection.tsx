@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Users } from "lucide-react";
+import { useSeatsLeft } from "@/hooks/useSeatsLeft";
 
 interface RegisterHereSectionProps {
   onRegister: () => void;
@@ -15,6 +16,8 @@ export const RegisterHereSection = ({
   discountedPrice = "₹ 990-",
   registerButtonText = "Register Now",
 }: RegisterHereSectionProps) => {
+  const { displaySeats, loading } = useSeatsLeft();
+
   return (
     <section
       id="registration"
@@ -88,10 +91,12 @@ export const RegisterHereSection = ({
               {registerButtonText}
             </Button>
 
-            {/* People Joined */}
+            {/* Seats Left. Hurry Up! */}
             <div className="flex items-center justify-center gap-2 text-gray-600">
               <Users className="w-4 h-4" />
-              <p className="text-xs font-medium">6733 people joined</p>
+              <p className="text-xs font-medium">
+                {loading ? "Loading..." : `${displaySeats} Seats Left. Hurry Up!`}
+              </p>
             </div>
           </div>
         </motion.div>

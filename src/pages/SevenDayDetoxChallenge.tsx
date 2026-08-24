@@ -217,19 +217,14 @@ const SevenDayDetoxChallenge = () => {
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Users } from "lucide-react";
-import { useAutoIncrementCounter } from "@/hooks/useAutoIncrementCounter";
+import { useSeatsLeft } from "@/hooks/useSeatsLeft";
 
 interface DetoxHeroProps {
     onRegister: () => void;
 }
 
 const DetoxHeroSection = ({ onRegister }: DetoxHeroProps) => {
-    const peopleCount = useAutoIncrementCounter({
-        initialCount: 67833,
-        incrementAmount: 8,
-        intervalHours: 1,
-        startDate: "2026-03-30T18:00:00Z",
-    });
+    const { displaySeats } = useSeatsLeft();
 
     const [timeLeft, setTimeLeft] = useState({ days: 0, hours: 0, minutes: 0 });
 
@@ -362,7 +357,7 @@ const DetoxHeroSection = ({ onRegister }: DetoxHeroProps) => {
                                     style={{ marginTop: "15px" }}
                                 >
                                     <Users className="w-4 h-4" />
-                                    {peopleCount.toLocaleString()} people joined
+                                    {displaySeats} Seats Left. Hurry Up!
                                 </p>
                             </div>
                         </motion.div>

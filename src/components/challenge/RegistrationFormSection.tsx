@@ -5,6 +5,7 @@ import { Label } from "@/components/ui/label";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Zap, Phone, Mail, Calendar } from "lucide-react";
 import { UseFormRegister, FieldErrors, UseFormSetValue, UseFormWatch } from "react-hook-form";
+import { useSeatsLeft } from "@/hooks/useSeatsLeft";
 
 export interface RegistrationFormData {
   name: string;
@@ -27,6 +28,8 @@ const COUNTRY_CODES = [
 ];
 
 export const RegistrationFormSection = ({ register, errors, setValue, watch, onSubmit, isUae = false }: RegistrationFormSectionProps) => {
+  const { displaySeatsPlus } = useSeatsLeft();
+
   return (
     <section id="registration" className="py-20 px-4 bg-gradient-to-br from-emerald-600 via-green-600 to-teal-600 text-white">
       <div className="container mx-auto max-w-2xl">
@@ -39,7 +42,7 @@ export const RegistrationFormSection = ({ register, errors, setValue, watch, onS
             Register Now
           </h2>
           <p className="text-xl text-emerald-100">
-            Join 6733+ people who are transforming their lives
+            Join {displaySeatsPlus} people who are transforming their lives
           </p>
         </motion.div>
 

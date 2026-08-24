@@ -1,7 +1,7 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Users } from "lucide-react";
-import { useAutoIncrementCounter } from "@/hooks/useAutoIncrementCounter";
+import { useSeatsLeft } from "@/hooks/useSeatsLeft";
 import { useState, useEffect } from "react";
 
 interface HeroSectionProps {
@@ -32,12 +32,7 @@ export const HeroSection = ({
     "select-language",
   );
   const [modalVideoId, setModalVideoId] = useState<string | null>(null);
-  const peopleCount = useAutoIncrementCounter({
-    initialCount: 67833,
-    incrementAmount: 8,
-    intervalHours: 1,
-    startDate: "2026-03-30T18:00:00Z",
-  });
+  const { displaySeats } = useSeatsLeft();
 
   const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
 
@@ -93,6 +88,19 @@ export const HeroSection = ({
             <h3 className="text-4xl md:text-6xl font-bold text-emerald-600">
               Weight Loss Challenge
             </h3>
+            <hr className="border-t-2 border-gray-300 my-4 mx-auto w-full mt-6" />
+
+            <h5 className="text-4xl md:text-6xl font-bold text-black-500 mt-6">
+              Creating an Exclusive Group of Only 100 People
+            </h5>
+
+            <hr className="border-t-2 border-gray-300 my-4 mx-auto w-full mt-6" />
+
+            <h5 className="text-4xl md:text-6xl font-bold text-black-500 mt-6">
+              Who are Serious About Losing Weight
+            </h5>
+
+
             {isGlobal && (
               <p className="text-red-600 font-normal text-base md:text-lg mt-4 md:mt-6 mb-2 px-4">
                 {locationText ||
@@ -102,7 +110,7 @@ export const HeroSection = ({
           </motion.div>
 
           {/* Content Grid */}
-          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start max-w-6xl mx-auto">
+          <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 items-start max-w-6xl mx-auto mt-12">
             {/* Left Column - Text Content */}
             <motion.div
               initial={{ opacity: 0, x: -30 }}
@@ -214,7 +222,7 @@ export const HeroSection = ({
                   style={{ marginTop: "15px" }}
                 >
                   <Users className="w-4 h-4" />
-                  {peopleCount.toLocaleString()} people joined
+                  {displaySeats} Seats Left. Hurry Up!
                 </p>
               </div>
             </motion.div>

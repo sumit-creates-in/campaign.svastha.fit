@@ -1,12 +1,15 @@
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { ChevronRight, CheckCircle2 } from "lucide-react";
+import { useSeatsLeft } from "@/hooks/useSeatsLeft";
 
 interface FinalCTASectionProps {
   scrollToRegistration: () => void;
 }
 
 export const FinalCTASection = ({ scrollToRegistration }: FinalCTASectionProps) => {
+  const { displaySeatsPlus } = useSeatsLeft();
+
   return (
     <section className="py-20 px-4 bg-gradient-to-br from-emerald-600 via-green-600 to-teal-600 text-white">
       <div className="container mx-auto max-w-4xl">
@@ -19,14 +22,14 @@ export const FinalCTASection = ({ scrollToRegistration }: FinalCTASectionProps) 
             Ready to Transform Your Life?
           </h2>
           <p className="text-xl md:text-2xl text-emerald-100 mb-8">
-            Join 6733+ people who have already started their journey
+            Join {displaySeatsPlus} people who have already started their journey
           </p>
 
           <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 mb-8">
             <div className="grid md:grid-cols-3 gap-6 text-center">
               <div>
-                <div className="text-4xl font-bold mb-2">6733+</div>
-                <div className="text-emerald-100">People Joined</div>
+                <div className="text-4xl font-bold mb-2">{displaySeatsPlus}</div>
+                <div className="text-emerald-100">Seats Left. Hurry Up!</div>
               </div>
               <div>
                 <div className="text-4xl font-bold mb-2">7.5 kg</div>

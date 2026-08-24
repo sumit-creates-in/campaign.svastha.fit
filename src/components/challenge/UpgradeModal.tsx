@@ -1,6 +1,7 @@
-import { X, Check } from "lucide-react";
+import { X, Check, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useState, useEffect } from "react";
+import { useSeatsLeft } from "@/hooks/useSeatsLeft";
 
 interface UpgradeModalProps {
   isOpen: boolean;
@@ -35,6 +36,7 @@ export const UpgradeModal = ({
   hideTimer = false,
   UpgradePay = "Upgrade & Pay"
 }: UpgradeModalProps) => {
+  const { displaySeatsPlus } = useSeatsLeft();
   const [timeLeft, setTimeLeft] = useState({ hours: 0, minutes: 0, seconds: 0 });
 
   useEffect(() => {
@@ -179,6 +181,10 @@ export const UpgradeModal = ({
           >
             {joinGroupButtonText ?? `Join Group Plan - ${groupPriceText}`}
           </Button>
+          <div className="text-red-600 mt-6 text-lg text-center flex items-center justify-center gap-2">
+            <Users className="w-6 h-6" />
+            {displaySeatsPlus} Seats Left. Hurry Up!
+          </div>
         </div>
       </div>
     </div>
