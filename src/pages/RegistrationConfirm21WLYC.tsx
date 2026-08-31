@@ -164,10 +164,10 @@ const RegistrationConfirm21WLYC = ({
     const whatsappLink = isUsa
       ? "https://chat.whatsapp.com/FoGwXxLnNAsAHkp8BD5dmh"
       : isIndia
-        ? "https://chat.whatsapp.com/FbSpt3hm7DYFxzm9ekjKLU?s=cl&p=a&ilr=4"
+        ? "https://chat.whatsapp.com/GL7HH2BqBneDt524AWzaxU?s=cl&p=a&mlu=4"
         : isDetoxPage
           ? "https://chat.whatsapp.com/HBjqeFJhIvFLRbLAh05cGz?s=cl&p=a&ilr=4"
-          : "https://chat.whatsapp.com/FbSpt3hm7DYFxzm9ekjKLU?s=cl&p=a&ilr=4"
+          : "https://chat.whatsapp.com/GL7HH2BqBneDt524AWzaxU?s=cl&p=a&mlu=4"
     window.open(whatsappLink, "_blank");
   };
 
@@ -185,7 +185,7 @@ const RegistrationConfirm21WLYC = ({
     {
       number: "3️⃣",
       title: "Attend the orientation session on time",
-      description: `Join the Zoom call at ${sessionTime} on ${isUsa ? "30th August" : isDetoxPage ? "16th August" : "30th August"}`,
+      description: `Join the Zoom call at ${sessionTime} on ${isUsa ? "26th September" : isDetoxPage ? "16th August" : "26th September"}`,
     },
   ];
 
@@ -284,7 +284,7 @@ const RegistrationConfirm21WLYC = ({
                 <div>
                   <p className="text-sm text-gray-600 font-semibold">Date</p>
                   <p className="text-lg text-gray-900 font-bold">
-                    {(isUsa || isIndia) ? "30th August (Sunday)" : isDetoxPage ? "16th August (Sunday)" : "30th August (Sunday)"}
+                    {(isUsa || isIndia) ? "26th September (Sunday)" : isDetoxPage ? "16th August (Sunday)" : "26th September (Sunday)"}
                   </p>
                 </div>
               </div>

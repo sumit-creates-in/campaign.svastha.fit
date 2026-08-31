@@ -247,12 +247,12 @@ const Ultimate21DayChallenge = () => {
           onClose={() => setIsModalOpen(false)}
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
-          startDateText="30th August 2026"
+          startDateText="26th September 2026"
         />
         <ScrollPopupModal
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
-          startDateText="30th August 2026"
+          startDateText="26th September 2026"
           onVisibilityChange={setIsScrollModalOpen}
         />
         <StickyBottomBar onRegisterClick={scrollToRegistration} />
