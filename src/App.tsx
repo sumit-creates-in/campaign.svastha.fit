@@ -15,6 +15,7 @@ import RegistrationConfirm14WLYC from "./pages/RegistrationConfirm14WLYC";
 import RegistrationConfirm14WLYCInt from "./pages/RegistrationConfirm14WLYCInt";
 import RegistrationConfirm21WLYC from "./pages/RegistrationConfirm21WLYC";
 import Ultimate21DayChallenge from "./pages/Ultimate21DayChallenge";
+import MasterClass from "./pages/MasterClass";
 import Global21DayWeightLossChallenge from "./pages/Global21DayWeightLossChallenge";
 import International21DayWeightLossChallenge from "./pages/International21DayWeightLossChallenge";
 import TwentyOneDayTotalBodyTransformationProgram from "./pages/TwentyOneDayTotalBodyTransformationProgram";
@@ -50,6 +51,16 @@ function App() {
               />
 
               <Route path="/Ultimate-21-day-weight-loss-challenge" element={<Ultimate21DayChallenge />} />
+
+              {/* Master Class — ₹49 paid webinar funnel.
+                  Deliberately NOT geo-redirected: 7:30 PM IST works across the
+                  Gulf, and bouncing that traffic throws away paying registrants. */}
+              <Route path="/masterclass" element={<MasterClass />} />
+              <Route path="/Masterclass" element={<MasterClass />} />
+              <Route
+                path="/Ultimate-21-Day-Weight-Loss-Challenge-Master-Class"
+                element={<MasterClass />}
+              />
               <Route
                 path="/14-Day-Yoga-Fat-Loss-Camp-int"
                 element={<FatLossCampaignInt />}
