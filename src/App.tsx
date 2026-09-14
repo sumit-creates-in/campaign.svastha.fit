@@ -16,6 +16,7 @@ import RegistrationConfirm14WLYCInt from "./pages/RegistrationConfirm14WLYCInt";
 import RegistrationConfirm21WLYC from "./pages/RegistrationConfirm21WLYC";
 import Ultimate21DayChallenge from "./pages/Ultimate21DayChallenge";
 import MasterClass from "./pages/MasterClass";
+import MasterClassConfirmed from "./pages/MasterClassConfirmed";
 import Global21DayWeightLossChallenge from "./pages/Global21DayWeightLossChallenge";
 import International21DayWeightLossChallenge from "./pages/International21DayWeightLossChallenge";
 import TwentyOneDayTotalBodyTransformationProgram from "./pages/TwentyOneDayTotalBodyTransformationProgram";
@@ -60,6 +61,13 @@ function App() {
               <Route
                 path="/Ultimate-21-Day-Weight-Loss-Challenge-Master-Class"
                 element={<MasterClass />}
+              />
+
+              {/* Razorpay redirects here after a successful ₹49 payment.
+                  Set this URL in the Payment Page's post-payment settings. */}
+              <Route
+                path="/masterclass-confirmed"
+                element={<MasterClassConfirmed />}
               />
               <Route
                 path="/14-Day-Yoga-Fat-Loss-Camp-int"

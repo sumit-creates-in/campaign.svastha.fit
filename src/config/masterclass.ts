@@ -110,5 +110,14 @@ export const SOCIAL = {
   facebookDirect: "https://m.me/yogabysumit",
 } as const;
 
+// ─── Post-payment ─────────────────────────────────────────────────────────────
+/**
+ * The WhatsApp group every paid registrant must join — the Zoom link and all
+ * reminders go out here. Shown only on the confirmation page, which Razorpay
+ * redirects to after a successful payment.
+ */
+export const WHATSAPP_GROUP_URL =
+  "https://chat.whatsapp.com/Fe4PyKBrHEMIIvTAk4lRpI";
+
 export const CHAT_MESSAGE =
   "Hi, I want to know more about Ultimate 21 Day Weight Loss Challenge - Master Class.";
