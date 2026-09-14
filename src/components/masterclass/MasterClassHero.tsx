@@ -41,7 +41,7 @@ export const MasterClassHero = ({ onRegister }: Props) => {
   const countdown = useCountdown(MASTERCLASS.startsAt);
 
   return (
-    <section className="bg-white px-4 pt-6 pb-12 md:pt-10 md:pb-16">
+    <section className="bg-white px-4 pb-16 pt-6 md:pb-24 md:pt-10">
       <div className="container mx-auto max-w-6xl">
         {/* Eyebrow */}
         <motion.div
@@ -79,24 +79,23 @@ export const MasterClassHero = ({ onRegister }: Props) => {
           </p>
         </motion.div>
 
-        {/* Navratri urgency — the reason to act this month rather than someday */}
+        {/* Event name — the thing they are actually registering for */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="mx-auto mt-6 max-w-3xl rounded-2xl border-2 border-amber-200 bg-amber-50 px-5 py-4 text-center"
+          className="mx-auto mt-8 max-w-3xl overflow-hidden rounded-2xl border-2 border-emerald-500 bg-gradient-to-r from-emerald-600 to-green-600 px-5 py-4 text-center shadow-lg"
         >
-          <p className="text-sm text-amber-900 md:text-base">
-            🪔 <strong>{MASTERCLASS.navratriLabel} begins {MASTERCLASS.navratriStartLabel}.</strong>{" "}
-            Most people fast for nine days and end them heavier than they
-            started. Begin the 21 days on {MASTERCLASS.challengeStartLabel} and
-            you walk into {MASTERCLASS.navratriLabel} already lighter — then
-            fast through all nine days the right way.
+          <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-100 md:text-sm">
+            {MASTERCLASS.eventName}
+          </p>
+          <p className="mt-1 text-lg font-extrabold leading-tight text-white md:text-2xl">
+            {MASTERCLASS.name}
           </p>
         </motion.div>
 
         {/* Session details + CTA + video */}
-        <div className="mt-10 grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
+        <div className="mt-12 grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
           {/* Video first on mobile — it does the selling */}
           <motion.div
             initial={{ opacity: 0, scale: 0.97 }}

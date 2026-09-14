@@ -8,6 +8,8 @@
 export const MASTERCLASS = {
   name: "Ultimate 21 Day Weight Loss Challenge",
   subtitle: "Master Class",
+  /** Shown as the event-name banner under the headline. */
+  eventName: "MASTER CLASS",
 
   /** ISO 8601 with IST offset. Drives the countdown and all date displays. */
   startsAt: "2026-09-16T19:30:00+05:30",
@@ -19,12 +21,6 @@ export const MASTERCLASS = {
 
   /** Batch that the Master Class pitches into. */
   challengeStartLabel: "20 September 2026",
-
-  // ─── Navratri framing ──────────────────────────────────────────────────────
-  // Sharad Navratri 2026: 11–20 October. A 21-day challenge starting 20 Sept
-  // finishes right as Navratri begins — that's the hook.
-  navratriStartLabel: "11 October",
-  navratriLabel: "Navratri",
 } as const;
 
 // ─── Pricing ──────────────────────────────────────────────────────────────────
@@ -35,21 +31,16 @@ export const PRICING = {
 } as const;
 
 // ─── Payment ──────────────────────────────────────────────────────────────────
-/** Razorpay Payment Page for the ₹49 Master Class registration. */
-export const RAZORPAY_URL = "https://rzp.io/rzp/zWaRqQT";
-
 /**
- * Razorpay Payment Pages accept prefill values as URL query parameters.
- * `email` and `phone` are standard field names. The name field is a custom
- * input, and its parameter is the field's own label lowercased with
- * underscores — which varies per page. We send the three common spellings;
- * Razorpay silently ignores parameters that don't match a field, so the
- * correct one lands and the others are discarded.
+ * The Razorpay Payment Page for the ₹49 Master Class registration.
  *
- * If the name still arrives empty, open the Payment Page in Razorpay, read the
- * exact label of the name field, and add its slug to this list.
+ * IMPORTANT — use the full pages.razorpay.com URL, never the rzp.io short link.
+ * Verified in a real browser on 14 Sep 2026: rzp.io/rzp/zWaRqQT redirects here
+ * but DROPS the entire query string, so every prefill value is lost. That was
+ * why registrants had to retype their details.
  */
-export const RAZORPAY_NAME_PARAMS = ["name", "full_name", "your_name"] as const;
+export const RAZORPAY_URL =
+  "https://pages.razorpay.com/pl_TOmYLhPmv9SfhQ/view";
 
 export interface PrefillDetails {
   name: string;
@@ -58,24 +49,39 @@ export interface PrefillDetails {
   phone: string;
 }
 
-/** Builds the Razorpay URL with the registrant's details already filled in. */
+/**
+ * Builds the Razorpay URL with the registrant's details already filled in.
+ *
+ * Parameter names verified against the live page — the phone field responds to
+ * `mobile`. It does NOT respond to `phone` or `contact`, despite what
+ * Razorpay's own docs suggest for Payment Pages.
+ */
 export function buildRazorpayUrl({ name, email, phone }: PrefillDetails): string {
-  const params = new URLSearchParams();
-  params.set("email", email.trim());
-  params.set("phone", phone.trim());
-  for (const key of RAZORPAY_NAME_PARAMS) {
-    params.set(key, name.trim());
-  }
+  const params = new URLSearchParams({
+    name: name.trim(),
+    email: email.trim(),
+    mobile: phone.trim(),
+  });
   return `${RAZORPAY_URL}?${params.toString()}`;
 }
 
-// ─── Daily practice (yoga classes) ────────────────────────────────────────────
+// ─── Daily yoga classes ───────────────────────────────────────────────────────
 // Positioned as the practice that drives the transformation — never as "free".
 export const DAILY_PRACTICE = {
   morning: "6:30 AM",
   evening: "5:30 PM",
   days: "Monday to Friday",
 } as const;
+
+// ─── Chronic conditions we explicitly welcome ─────────────────────────────────
+export const CONDITIONS = [
+  "Fatty Liver",
+  "PCOS / PCOD",
+  "Type 2 Diabetes",
+  "Thyroid",
+  "Heart & BP Issues",
+  "High Cholesterol",
+] as const;
 
 // ─── Proof numbers ────────────────────────────────────────────────────────────
 // One set of numbers for the whole page. The existing challenge page quotes
@@ -87,10 +93,22 @@ export const PROOF = {
   yearsExperience: "10+",
 } as const;
 
-// ─── WhatsApp ─────────────────────────────────────────────────────────────────
-export const WHATSAPP_URL =
-  "https://api.whatsapp.com/send/?phone=15557533653&text=" +
-  encodeURIComponent(
-    "I want to know more about the Ultimate 21 Day Weight Loss Challenge Master Class",
-  ) +
-  "&type=phone_number&app_absent=0";
+// ─── Chat ─────────────────────────────────────────────────────────────────────
+/**
+ * No WhatsApp anywhere on this page — Sumit wants visitors returned to the
+ * platform they arrived from, with Instagram as the fallback.
+ */
+export const SOCIAL = {
+  instagramHandle: "sumit_sharma_coach",
+  instagramProfile: "https://www.instagram.com/sumit_sharma_coach/",
+  /** ig.me opens a direct-message thread rather than the profile grid. */
+  instagramDirect: "https://ig.me/m/sumit_sharma_coach",
+
+  facebookHandle: "yogabysumit",
+  facebookProfile: "https://www.facebook.com/yogabysumit",
+  /** m.me opens a Messenger thread. */
+  facebookDirect: "https://m.me/yogabysumit",
+} as const;
+
+export const CHAT_MESSAGE =
+  "Hi, I want to know more about Ultimate 21 Day Weight Loss Challenge - Master Class.";

@@ -1,7 +1,6 @@
-import { useState } from "react";
-import { X, Loader2, ShieldCheck } from "lucide-react";
+import { useRef, useState } from "react";
+import { X, Loader2, ShieldCheck, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { toast } from "sonner";
 import { MASTERCLASS, PRICING, buildRazorpayUrl } from "@/config/masterclass";
 
 interface Props {
@@ -16,16 +15,23 @@ const GOALS = [
   "Reverse a health condition",
 ];
 
-const CONDITIONS = [
+const CONDITION_OPTIONS = [
   "PCOS / PCOD",
   "Thyroid",
-  "Diabetes",
+  "Type 2 Diabetes",
   "High BP",
   "Fatty Liver",
   "High Cholesterol",
   "Joint Pain",
   "None of these",
 ];
+
+type FieldErrors = {
+  name?: string;
+  phone?: string;
+  email?: string;
+  goal?: string;
+};
 
 /** Meta Pixel is loaded in index.html; guard in case it is blocked. */
 function trackPixel(event: string, data?: Record<string, unknown>) {
@@ -43,7 +49,13 @@ export const MasterClassRegistrationModal = ({ isOpen, onClose }: Props) => {
   const [phone, setPhone] = useState("");
   const [goal, setGoal] = useState("");
   const [conditions, setConditions] = useState<string[]>([]);
+  const [errors, setErrors] = useState<FieldErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const nameRef = useRef<HTMLInputElement>(null);
+  const phoneRef = useRef<HTMLInputElement>(null);
+  const emailRef = useRef<HTMLInputElement>(null);
+  const goalRef = useRef<HTMLDivElement>(null);
 
   if (!isOpen) return null;
 
@@ -57,26 +69,52 @@ export const MasterClassRegistrationModal = ({ isOpen, onClose }: Props) => {
     });
   };
 
+  /** Clear a field's error the moment the person starts fixing it. */
+  const clearError = (field: keyof FieldErrors) =>
+    setErrors((prev) => {
+      if (!prev[field]) return prev;
+      const next = { ...prev };
+      delete next[field];
+      return next;
+    });
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     const cleanName = name.trim();
     const cleanEmail = email.trim();
-    const digits = phone.replace(/\D/g, "").slice(-10);
+    const digits = phone.replace(/\D/g, "");
 
-    if (cleanName.length < 2) {
-      toast.error("Please enter your name.");
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail)) {
-      toast.error("Please enter a valid email address.");
-      return;
-    }
-    if (digits.length !== 10) {
-      toast.error("Please enter your 10-digit WhatsApp number.");
+    const found: FieldErrors = {};
+    if (!cleanName) found.name = "Please enter your name";
+    else if (cleanName.length < 2) found.name = "That name looks too short";
+
+    if (!digits) found.phone = "Please enter your WhatsApp number";
+    else if (digits.length !== 10)
+      found.phone = `Needs 10 digits — you've entered ${digits.length}`;
+
+    if (!cleanEmail) found.email = "Please enter your email";
+    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(cleanEmail))
+      found.email = "That email doesn't look right";
+
+    if (!goal) found.goal = "Please pick one so we can help you better";
+
+    if (Object.keys(found).length > 0) {
+      setErrors(found);
+      // Take them straight to the first thing that needs fixing.
+      const target = found.name
+        ? nameRef.current
+        : found.phone
+          ? phoneRef.current
+          : found.email
+            ? emailRef.current
+            : goalRef.current;
+      target?.scrollIntoView({ behavior: "smooth", block: "center" });
+      if (target instanceof HTMLInputElement) setTimeout(() => target.focus(), 300);
       return;
     }
 
+    setErrors({});
     setIsSubmitting(true);
 
     // Capture the lead first. Whether or not they go on to pay, the sales team
@@ -115,23 +153,37 @@ export const MasterClassRegistrationModal = ({ isOpen, onClose }: Props) => {
     });
   };
 
+  const fieldClass = (hasError: boolean) =>
+    `w-full rounded-xl border-2 px-3.5 py-2.5 text-base text-gray-900 outline-none transition-colors ${
+      hasError
+        ? "border-red-400 bg-red-50 focus:border-red-500"
+        : "border-gray-200 focus:border-emerald-500"
+    }`;
+
+  const ErrorText = ({ children }: { children: React.ReactNode }) => (
+    <p className="mt-1.5 flex items-center gap-1.5 text-xs font-medium text-red-600">
+      <AlertCircle className="h-3.5 w-3.5 flex-shrink-0" />
+      {children}
+    </p>
+  );
+
   return (
-    <div className="fixed inset-0 z-50 flex items-start md:items-center justify-center p-3 md:p-4 bg-black/70 backdrop-blur-sm overflow-y-auto">
-      <div className="relative bg-white rounded-2xl shadow-2xl w-full max-w-md my-4">
+    <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto bg-black/70 p-3 backdrop-blur-sm md:items-center md:p-4">
+      <div className="relative my-4 w-full max-w-md rounded-2xl bg-white shadow-2xl">
         <button
           onClick={onClose}
-          className="absolute top-3 right-3 text-gray-500 hover:text-gray-900 transition-colors z-10"
+          className="absolute right-3 top-3 z-10 text-gray-500 transition-colors hover:text-gray-900"
           aria-label="Close"
         >
-          <X className="w-5 h-5" strokeWidth={2} />
+          <X className="h-5 w-5" strokeWidth={2} />
         </button>
 
         <div className="px-5 py-6 md:px-7 md:py-7">
           <div className="mb-5 text-center">
-            <p className="text-[11px] font-bold uppercase tracking-wider text-emerald-600 mb-1">
+            <p className="mb-1 text-[11px] font-bold uppercase tracking-wider text-emerald-600">
               Reserve your seat
             </p>
-            <h2 className="text-lg md:text-xl font-bold text-gray-900 leading-snug">
+            <h2 className="text-lg font-bold leading-snug text-gray-900 md:text-xl">
               {MASTERCLASS.name}
             </h2>
             <p className="text-sm font-semibold text-gray-600">
@@ -142,101 +194,136 @@ export const MasterClassRegistrationModal = ({ isOpen, onClose }: Props) => {
             </p>
           </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          {Object.keys(errors).length > 0 && (
+            <div className="mb-4 flex items-start gap-2 rounded-xl border-2 border-red-200 bg-red-50 px-3.5 py-2.5">
+              <AlertCircle className="mt-0.5 h-4 w-4 flex-shrink-0 text-red-600" />
+              <p className="text-xs font-medium text-red-700">
+                Please complete the highlighted {Object.keys(errors).length === 1 ? "field" : "fields"} below.
+              </p>
+            </div>
+          )}
+
+          <form onSubmit={handleSubmit} noValidate className="space-y-4">
             <div>
-              <label
-                htmlFor="mc-name"
-                className="block text-xs font-semibold text-gray-700 mb-1.5"
-              >
-                Your name
+              <label htmlFor="mc-name" className="mb-1.5 block text-xs font-semibold text-gray-700">
+                Your name <span className="text-red-500">*</span>
               </label>
               <input
                 id="mc-name"
+                ref={nameRef}
                 type="text"
                 value={name}
-                onChange={(e) => setName(e.target.value)}
+                onChange={(e) => {
+                  setName(e.target.value);
+                  clearError("name");
+                }}
                 autoComplete="name"
                 placeholder="Full name"
-                className="w-full rounded-xl border-2 border-gray-200 px-3.5 py-2.5 text-base text-gray-900 outline-none transition-colors focus:border-emerald-500"
+                aria-invalid={!!errors.name}
+                className={fieldClass(!!errors.name)}
               />
+              {errors.name && <ErrorText>{errors.name}</ErrorText>}
             </div>
 
             <div>
-              <label
-                htmlFor="mc-phone"
-                className="block text-xs font-semibold text-gray-700 mb-1.5"
-              >
-                WhatsApp number
+              <label htmlFor="mc-phone" className="mb-1.5 block text-xs font-semibold text-gray-700">
+                WhatsApp number <span className="text-red-500">*</span>
               </label>
-              <div className="flex items-stretch rounded-xl border-2 border-gray-200 transition-colors focus-within:border-emerald-500 overflow-hidden">
-                <span className="flex items-center bg-gray-50 px-3 text-base font-medium text-gray-600 border-r-2 border-gray-200">
+              <div
+                className={`flex items-stretch overflow-hidden rounded-xl border-2 transition-colors ${
+                  errors.phone
+                    ? "border-red-400 bg-red-50 focus-within:border-red-500"
+                    : "border-gray-200 focus-within:border-emerald-500"
+                }`}
+              >
+                <span
+                  className={`flex items-center border-r-2 px-3 text-base font-medium text-gray-600 ${
+                    errors.phone ? "border-red-400 bg-red-100/60" : "border-gray-200 bg-gray-50"
+                  }`}
+                >
                   🇮🇳 +91
                 </span>
                 <input
                   id="mc-phone"
+                  ref={phoneRef}
                   type="tel"
                   inputMode="numeric"
                   value={phone}
-                  onChange={(e) =>
-                    setPhone(e.target.value.replace(/\D/g, "").slice(0, 10))
-                  }
+                  onChange={(e) => {
+                    setPhone(e.target.value.replace(/\D/g, "").slice(0, 10));
+                    clearError("phone");
+                  }}
                   autoComplete="tel"
                   placeholder="10-digit number"
-                  className="w-full px-3.5 py-2.5 text-base text-gray-900 outline-none"
+                  aria-invalid={!!errors.phone}
+                  className="w-full bg-transparent px-3.5 py-2.5 text-base text-gray-900 outline-none"
                 />
               </div>
-              <p className="mt-1 text-[11px] text-gray-500">
-                The Zoom link is sent here — please use your WhatsApp number.
-              </p>
+              {errors.phone ? (
+                <ErrorText>{errors.phone}</ErrorText>
+              ) : (
+                <p className="mt-1 text-[11px] text-gray-500">
+                  Your Zoom link is sent here — please use your WhatsApp number.
+                </p>
+              )}
             </div>
 
             <div>
-              <label
-                htmlFor="mc-email"
-                className="block text-xs font-semibold text-gray-700 mb-1.5"
-              >
-                Email
+              <label htmlFor="mc-email" className="mb-1.5 block text-xs font-semibold text-gray-700">
+                Email <span className="text-red-500">*</span>
               </label>
               <input
                 id="mc-email"
+                ref={emailRef}
                 type="email"
                 value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                onChange={(e) => {
+                  setEmail(e.target.value);
+                  clearError("email");
+                }}
                 autoComplete="email"
                 placeholder="you@example.com"
-                className="w-full rounded-xl border-2 border-gray-200 px-3.5 py-2.5 text-base text-gray-900 outline-none transition-colors focus:border-emerald-500"
+                aria-invalid={!!errors.email}
+                className={fieldClass(!!errors.email)}
               />
+              {errors.email && <ErrorText>{errors.email}</ErrorText>}
             </div>
 
-            <div>
-              <p className="block text-xs font-semibold text-gray-700 mb-2">
-                What do you want to achieve?
+            <div ref={goalRef}>
+              <p className="mb-2 block text-xs font-semibold text-gray-700">
+                What do you want to achieve? <span className="text-red-500">*</span>
               </p>
               <div className="grid grid-cols-2 gap-2">
                 {GOALS.map((option) => (
                   <button
                     key={option}
                     type="button"
-                    onClick={() => setGoal(goal === option ? "" : option)}
+                    onClick={() => {
+                      setGoal(goal === option ? "" : option);
+                      clearError("goal");
+                    }}
                     className={`no-heartbeat rounded-xl border-2 px-2.5 py-2 text-xs font-medium transition-all ${
                       goal === option
                         ? "border-emerald-500 bg-emerald-50 text-emerald-800"
-                        : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
+                        : errors.goal
+                          ? "border-red-300 bg-red-50 text-gray-600"
+                          : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
                     }`}
                   >
                     {option}
                   </button>
                 ))}
               </div>
+              {errors.goal && <ErrorText>{errors.goal}</ErrorText>}
             </div>
 
             <div>
-              <p className="block text-xs font-semibold text-gray-700 mb-2">
+              <p className="mb-2 block text-xs font-semibold text-gray-700">
                 Anything we should know about?{" "}
                 <span className="font-normal text-gray-400">(optional)</span>
               </p>
               <div className="flex flex-wrap gap-1.5">
-                {CONDITIONS.map((option) => (
+                {CONDITION_OPTIONS.map((option) => (
                   <button
                     key={option}
                     type="button"
