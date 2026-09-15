@@ -74,5 +74,53 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "Failed to save registration" });
   }
 
+  // Wait for webhook before responding — but cap it at 4 s so a slow
+  // automator never delays the user reaching the payment page.
+  try {
+    const now = new Date();
+    const submitted_date = now.toLocaleDateString("en-IN", {
+      day: "numeric",
+      month: "long",
+      year: "numeric",
+      timeZone: "Asia/Kolkata",
+    });
+
+    const submitted_time = now.toLocaleTimeString("en-IN", {
+      hour: "numeric",
+      minute: "2-digit",
+      hour12: true,
+      timeZone: "Asia/Kolkata",
+    });
+
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 4000);
+
+    await fetch(
+      "https://svastha-automator-webhook-production.up.railway.app/api/webhooks/CKo-2kURHxxTwSetgm1n10",
+      {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        signal: controller.signal,
+        body: JSON.stringify({
+          event: "masterclass_lead",
+          source: row.source,
+          webinar_date: row.webinar_date,
+          name: row.name,
+          email: row.email,
+          phone: row.phone,
+          goal: row.goal,
+          conditions: row.conditions,
+          paid: row.paid,
+          submitted_date,
+          submitted_time: `"${submitted_time}"`,
+        }),
+      },
+    );
+
+    clearTimeout(timeoutId);
+  } catch (webhookErr) {
+    console.error("⚠️ Webhook call failed (non-fatal):", webhookErr);
+  }
+
   return res.json({ success: true });
 }

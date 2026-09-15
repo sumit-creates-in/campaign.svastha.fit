@@ -86,10 +86,10 @@ export const MasterClassHero = ({ onRegister }: Props) => {
           transition={{ duration: 0.5, delay: 0.15 }}
           className="mx-auto mt-8 max-w-3xl overflow-hidden rounded-2xl border-2 border-emerald-500 bg-gradient-to-r from-emerald-600 to-green-600 px-5 py-4 text-center shadow-lg"
         >
-          <p className="text-xs font-bold uppercase tracking-[0.2em] text-emerald-100 md:text-sm">
+          <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-100 md:text-base">
             {MASTERCLASS.eventName}
           </p>
-          <p className="mt-1 text-lg font-extrabold leading-tight text-white md:text-2xl">
+          <p className="mt-1 text-2xl font-extrabold leading-tight text-white md:text-3xl">
             {MASTERCLASS.name}
           </p>
         </motion.div>

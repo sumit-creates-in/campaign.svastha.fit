@@ -45,7 +45,7 @@ export const ChatButton = ({ hidden }: Props) => {
   const isFacebook = platform === "facebook";
 
   return (
-    <div className="fixed bottom-24 right-4 z-30 flex flex-col items-end gap-2 md:bottom-6">
+    <div className="fixed bottom-24 left-4 z-30 flex flex-col items-start gap-2 md:hidden">
       {copied && (
         <div className="max-w-[210px] rounded-xl bg-gray-900 px-3 py-2 text-[11px] leading-snug text-white shadow-xl">
           Message copied — just paste it in the chat.
@@ -56,11 +56,10 @@ export const ChatButton = ({ hidden }: Props) => {
         type="button"
         onClick={handleClick}
         aria-label="Chat with us"
-        className={`no-heartbeat flex items-center gap-2 rounded-full py-2.5 pl-3 pr-4 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105 ${
-          isFacebook
-            ? "bg-gradient-to-r from-[#0084FF] to-[#0064E0]"
-            : "bg-gradient-to-r from-[#F58529] via-[#DD2A7B] to-[#8134AF]"
-        }`}
+        className={`no-heartbeat flex items-center gap-2 rounded-full py-2.5 pl-3 pr-4 text-sm font-semibold text-white shadow-xl transition-transform hover:scale-105 ${isFacebook
+          ? "bg-gradient-to-r from-[#0084FF] to-[#0064E0]"
+          : "bg-gradient-to-r from-[#F58529] via-[#DD2A7B] to-[#8134AF]"
+          }`}
       >
         {isFacebook ? (
           <MessengerGlyph className="h-6 w-6" />

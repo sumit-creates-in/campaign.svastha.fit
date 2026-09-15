@@ -134,7 +134,7 @@ export const JyotiTestimonialSection = () => {
     const cardWidth = 700;
     const gap = 24;
     const newIndex = currentIndex === 0 ? videos.length - 1 : currentIndex - 1;
-    
+
     setCurrentIndex(newIndex);
     scrollContainer.scrollTo({
       left: newIndex * (cardWidth + gap),
@@ -149,7 +149,7 @@ export const JyotiTestimonialSection = () => {
     const cardWidth = 700;
     const gap = 24;
     const newIndex = currentIndex === videos.length - 1 ? 0 : currentIndex + 1;
-    
+
     setCurrentIndex(newIndex);
     scrollContainer.scrollTo({
       left: newIndex * (cardWidth + gap),
@@ -175,10 +175,10 @@ export const JyotiTestimonialSection = () => {
         if (!isPaused && scrollContainer) {
           setCurrentIndex((prevIndex) => {
             const nextIndex = (prevIndex + 1) % videos.length; // Loop infinitely
-            
+
             // Calculate scroll position
             const scrollPosition = nextIndex * (cardWidth + gap);
-            
+
             // Smooth scroll to next card
             scrollContainer.scrollTo({
               left: scrollPosition,
@@ -198,7 +198,7 @@ export const JyotiTestimonialSection = () => {
   }, [isPaused, videos.length]);
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
+    <section className="py-36 px-4 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
       <div className="container mx-auto max-w-6xl">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -207,12 +207,12 @@ export const JyotiTestimonialSection = () => {
           className="text-center">
           {/* Heading */}
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-2 flex-wrap">
-            <span>❤️See What People Are Saying About Us❤️</span>           
+            <span>❤️See What People Are Saying About Us❤️</span>
           </h2>
 
           {/* Subheading */}
           <p className="text-xl md:text-2xl text-gray-800 mb-12 flex items-center justify-center gap-2 flex-wrap">
-            Real transformations, real results! 
+            Real transformations, real results!
             <span>💪</span>
             <span>✨</span>
           </p>
@@ -226,7 +226,7 @@ export const JyotiTestimonialSection = () => {
             className="relative max-w-4xl mx-auto"
             onMouseEnter={() => setIsPaused(true)}
             onMouseLeave={() => setIsPaused(false)}>
-            
+
             {/* Previous Button */}
             <button
               onClick={handlePrevious}
@@ -243,10 +243,10 @@ export const JyotiTestimonialSection = () => {
               <ChevronRight className="w-6 h-6 text-gray-800 group-hover:text-emerald-600 transition-colors" />
             </button>
 
-            <div 
+            <div
               ref={scrollContainerRef}
-              className="overflow-x-scroll pb-4 scrollbar-hide snap-x snap-mandatory" 
-              style={{ 
+              className="overflow-x-scroll pb-4 scrollbar-hide snap-x snap-mandatory"
+              style={{
                 scrollbarWidth: 'none'
               }}>
               <div className="flex gap-6" style={{ width: 'max-content' }}>
@@ -283,8 +283,8 @@ export const JyotiTestimonialSection = () => {
                 ))}
               </div>
             </div>
-            
-         
+
+
           </motion.div>
         </motion.div>
       </div>
@@ -301,7 +301,7 @@ export const JyotiTestimonialSection = () => {
 
       {/* Video Modal */}
       {selectedVideo && (
-        <div 
+        <div
           className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm"
           onClick={() => setSelectedVideo(null)}>
           <div className="relative w-full max-w-4xl" onClick={(e) => e.stopPropagation()}>
