@@ -138,6 +138,47 @@ export const MasterClassRegistrationModal = ({ isOpen, onClose }: Props) => {
       // Never strand a paying customer because the lead store hiccuped.
     }
 
+    // Fire webhook directly from frontend — works in both local and production.
+    // This ensures the automator receives the lead before the user hits payment.
+    try {
+      const now = new Date();
+      const submitted_date = now.toLocaleDateString("en-IN", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+        timeZone: "Asia/Kolkata",
+      });
+      const submitted_time = now.toLocaleTimeString("en-IN", {
+        hour: "numeric",
+        minute: "2-digit",
+        hour12: true,
+        timeZone: "Asia/Kolkata",
+      });
+
+      await fetch(
+        "https://svastha-automator-webhook-production.up.railway.app/api/webhooks/CKo-2kURHxxTwSetgm1n10",
+        {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            event: "masterclass_lead",
+            source: "masterclass-landing",
+            webinar_date: MASTERCLASS.startsAt,
+            name: cleanName,
+            email: cleanEmail,
+            phone: digits,
+            goal,
+            conditions,
+            paid: false,
+            submitted_date,
+            submitted_time: `"${submitted_time}"`,
+          }),
+        }
+      );
+    } catch {
+      // Webhook failure must never block the user from paying.
+    }
+
     trackPixel("Lead", { content_name: "Master Class Registration" });
     trackPixel("InitiateCheckout", {
       value: PRICING.priceNumeric,
@@ -154,10 +195,9 @@ export const MasterClassRegistrationModal = ({ isOpen, onClose }: Props) => {
   };
 
   const fieldClass = (hasError: boolean) =>
-    `w-full rounded-xl border-2 px-3.5 py-2.5 text-base text-gray-900 outline-none transition-colors ${
-      hasError
-        ? "border-red-400 bg-red-50 focus:border-red-500"
-        : "border-gray-200 focus:border-emerald-500"
+    `w-full rounded-xl border-2 px-3.5 py-2.5 text-base text-gray-900 outline-none transition-colors ${hasError
+      ? "border-red-400 bg-red-50 focus:border-red-500"
+      : "border-gray-200 focus:border-emerald-500"
     }`;
 
   const ErrorText = ({ children }: { children: React.ReactNode }) => (
@@ -230,16 +270,14 @@ export const MasterClassRegistrationModal = ({ isOpen, onClose }: Props) => {
                 WhatsApp number <span className="text-red-500">*</span>
               </label>
               <div
-                className={`flex items-stretch overflow-hidden rounded-xl border-2 transition-colors ${
-                  errors.phone
+                className={`flex items-stretch overflow-hidden rounded-xl border-2 transition-colors ${errors.phone
                     ? "border-red-400 bg-red-50 focus-within:border-red-500"
                     : "border-gray-200 focus-within:border-emerald-500"
-                }`}
+                  }`}
               >
                 <span
-                  className={`flex items-center border-r-2 px-3 text-base font-medium text-gray-600 ${
-                    errors.phone ? "border-red-400 bg-red-100/60" : "border-gray-200 bg-gray-50"
-                  }`}
+                  className={`flex items-center border-r-2 px-3 text-base font-medium text-gray-600 ${errors.phone ? "border-red-400 bg-red-100/60" : "border-gray-200 bg-gray-50"
+                    }`}
                 >
                   🇮🇳 +91
                 </span>
@@ -302,13 +340,12 @@ export const MasterClassRegistrationModal = ({ isOpen, onClose }: Props) => {
                       setGoal(goal === option ? "" : option);
                       clearError("goal");
                     }}
-                    className={`no-heartbeat rounded-xl border-2 px-2.5 py-2 text-xs font-medium transition-all ${
-                      goal === option
+                    className={`no-heartbeat rounded-xl border-2 px-2.5 py-2 text-xs font-medium transition-all ${goal === option
                         ? "border-emerald-500 bg-emerald-50 text-emerald-800"
                         : errors.goal
                           ? "border-red-300 bg-red-50 text-gray-600"
                           : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
-                    }`}
+                      }`}
                   >
                     {option}
                   </button>
@@ -328,11 +365,10 @@ export const MasterClassRegistrationModal = ({ isOpen, onClose }: Props) => {
                     key={option}
                     type="button"
                     onClick={() => toggleCondition(option)}
-                    className={`no-heartbeat rounded-full border-2 px-3 py-1.5 text-xs font-medium transition-all ${
-                      conditions.includes(option)
+                    className={`no-heartbeat rounded-full border-2 px-3 py-1.5 text-xs font-medium transition-all ${conditions.includes(option)
                         ? "border-emerald-500 bg-emerald-50 text-emerald-800"
                         : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
-                    }`}
+                      }`}
                   >
                     {option}
                   </button>
