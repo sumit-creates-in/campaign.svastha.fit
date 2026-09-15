@@ -112,7 +112,7 @@ export default async function handler(req, res) {
           conditions: row.conditions,
           paid: row.paid,
           submitted_date,
-          submitted_time: `"${submitted_time}"`,
+          submitted_time,
         }),
       },
     );

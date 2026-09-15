@@ -171,7 +171,7 @@ export const MasterClassRegistrationModal = ({ isOpen, onClose }: Props) => {
             conditions,
             paid: false,
             submitted_date,
-            submitted_time: `"${submitted_time}"`,
+            submitted_time,
           }),
         }
       );
@@ -271,8 +271,8 @@ export const MasterClassRegistrationModal = ({ isOpen, onClose }: Props) => {
               </label>
               <div
                 className={`flex items-stretch overflow-hidden rounded-xl border-2 transition-colors ${errors.phone
-                    ? "border-red-400 bg-red-50 focus-within:border-red-500"
-                    : "border-gray-200 focus-within:border-emerald-500"
+                  ? "border-red-400 bg-red-50 focus-within:border-red-500"
+                  : "border-gray-200 focus-within:border-emerald-500"
                   }`}
               >
                 <span
@@ -341,10 +341,10 @@ export const MasterClassRegistrationModal = ({ isOpen, onClose }: Props) => {
                       clearError("goal");
                     }}
                     className={`no-heartbeat rounded-xl border-2 px-2.5 py-2 text-xs font-medium transition-all ${goal === option
-                        ? "border-emerald-500 bg-emerald-50 text-emerald-800"
-                        : errors.goal
-                          ? "border-red-300 bg-red-50 text-gray-600"
-                          : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
+                      ? "border-emerald-500 bg-emerald-50 text-emerald-800"
+                      : errors.goal
+                        ? "border-red-300 bg-red-50 text-gray-600"
+                        : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
                       }`}
                   >
                     {option}
@@ -366,8 +366,8 @@ export const MasterClassRegistrationModal = ({ isOpen, onClose }: Props) => {
                     type="button"
                     onClick={() => toggleCondition(option)}
                     className={`no-heartbeat rounded-full border-2 px-3 py-1.5 text-xs font-medium transition-all ${conditions.includes(option)
-                        ? "border-emerald-500 bg-emerald-50 text-emerald-800"
-                        : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
+                      ? "border-emerald-500 bg-emerald-50 text-emerald-800"
+                      : "border-gray-200 bg-white text-gray-600 hover:border-gray-300"
                       }`}
                   >
                     {option}
