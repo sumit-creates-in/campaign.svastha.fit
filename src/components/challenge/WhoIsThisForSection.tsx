@@ -42,7 +42,7 @@ export const WhoIsThisForSection = () => {
   ];
 
   return (
-    <section className="py-20 px-4 bg-gradient-to-br from-teal-50 via-cyan-50 to-blue-50">
+    <section className="py-20 px-4 bg-white">
       <div className="container mx-auto max-w-6xl">
         {/* Heading */}
         <motion.div

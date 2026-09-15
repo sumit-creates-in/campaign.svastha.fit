@@ -15,6 +15,7 @@ export const MeetYourMentorSection = ({
   return (
     <section className="py-16 px-4 bg-gradient-to-br from-teal-50 via-emerald-50 to-green-50 overflow-hidden">
       <div className="container mx-auto max-w-6xl px-2 md:px-6">
+        <div style={{ height: '3rem' }} />
         {/* Heading */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -197,6 +198,8 @@ export const MeetYourMentorSection = ({
           </motion.div>
         </div>
       </div>
+
+      <div style={{ height: '3rem' }} />
     </section>
   );
 };

@@ -78,6 +78,7 @@ export const MasterClassFAQ = () => {
   return (
     <section className="bg-[#f5f7f0] px-4 py-20 md:py-28">
       <div className="container mx-auto max-w-3xl">
+        <div style={{ height: '3rem' }} />
         <h2 className="mb-8 text-center text-2xl font-extrabold text-gray-900 md:mb-10 md:text-4xl">
           Questions people ask
         </h2>
@@ -107,11 +108,10 @@ export const MasterClassFAQ = () => {
 
           <Button
             onClick={handleChat}
-            className={`no-heartbeat mx-auto flex items-center gap-2.5 rounded-full px-10 py-6 text-base font-semibold text-white shadow-lg transition-all hover:scale-[1.03] ${
-              isFacebook
-                ? "bg-gradient-to-r from-[#0084FF] to-[#0064E0]"
-                : "bg-gradient-to-r from-[#F58529] via-[#DD2A7B] to-[#8134AF]"
-            }`}
+            className={`no-heartbeat mx-auto flex items-center gap-2.5 rounded-full px-10 py-6 text-base font-semibold text-white shadow-lg transition-all hover:scale-[1.03] ${isFacebook
+              ? "bg-gradient-to-r from-[#0084FF] to-[#0064E0]"
+              : "bg-gradient-to-r from-[#F58529] via-[#DD2A7B] to-[#8134AF]"
+              }`}
           >
             {isFacebook ? (
               <MessengerGlyph className="h-5 w-5" />
@@ -128,6 +128,8 @@ export const MasterClassFAQ = () => {
           )}
         </div>
       </div>
+
+      <div style={{ height: '3rem' }} />
     </section>
   );
 };

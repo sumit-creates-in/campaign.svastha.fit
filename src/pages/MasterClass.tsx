@@ -55,7 +55,7 @@ const MasterClass = () => {
 
       {/* Proof early and proof often — the asset competitors don't have */}
       <JyotiTestimonialSection />
-      <Gap />
+      <div className="h-16 bg-white md:h-24" aria-hidden="true" />
 
       <WhoIsThisForSection />
       <Gap />

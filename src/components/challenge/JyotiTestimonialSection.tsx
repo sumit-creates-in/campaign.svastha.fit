@@ -198,8 +198,9 @@ export const JyotiTestimonialSection = () => {
   }, [isPaused, videos.length]);
 
   return (
-    <section className="py-36 px-4 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
+    <section className="px-4 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50" style={{ paddingTop: '5rem', paddingBottom: '5rem', marginTop: '3rem', marginBottom: '5rem' }}>
       <div className="container mx-auto max-w-6xl">
+        <div style={{ height: '3rem' }} />
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -284,6 +285,7 @@ export const JyotiTestimonialSection = () => {
               </div>
             </div>
 
+            <div style={{ height: '3rem' }} />
 
           </motion.div>
         </motion.div>

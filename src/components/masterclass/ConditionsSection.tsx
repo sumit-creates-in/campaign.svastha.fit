@@ -72,6 +72,7 @@ const PROMISES = [
 export const ConditionsSection = ({ onRegister }: Props) => (
   <section className="bg-gradient-to-br from-teal-50 via-cyan-50/60 to-blue-50 px-4 py-20 md:py-28">
     <div className="container mx-auto max-w-5xl">
+      <div style={{ height: '3rem' }} />
       <motion.div
         initial={{ opacity: 0, y: 16 }}
         whileInView={{ opacity: 1, y: 0 }}
@@ -155,6 +156,8 @@ export const ConditionsSection = ({ onRegister }: Props) => (
           Reserve My Seat — {PRICING.price}
         </Button>
       </div>
+
+      <div style={{ height: '3rem' }} />
     </div>
   </section>
 );
