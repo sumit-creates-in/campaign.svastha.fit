@@ -17,6 +17,7 @@ import RegistrationConfirm21WLYC from "./pages/RegistrationConfirm21WLYC";
 import Ultimate21DayChallenge from "./pages/Ultimate21DayChallenge";
 import MasterClass from "./pages/MasterClass";
 import MasterClassConfirmed from "./pages/MasterClassConfirmed";
+import MasterClassOffer from "./pages/MasterClassOffer";
 import Global21DayWeightLossChallenge from "./pages/Global21DayWeightLossChallenge";
 import International21DayWeightLossChallenge from "./pages/International21DayWeightLossChallenge";
 import TwentyOneDayTotalBodyTransformationProgram from "./pages/TwentyOneDayTotalBodyTransformationProgram";
@@ -68,6 +69,17 @@ function App() {
               <Route
                 path="/masterclass-confirmed"
                 element={<MasterClassConfirmed />}
+              />
+
+              {/* The offer page shared in the WhatsApp group after the class.
+                  Master Class pricing switches itself off at the deadline in
+                  src/config/masterclass.ts — no redeploy needed. */}
+              <Route path="/join" element={<MasterClassOffer />} />
+              <Route path="/Join" element={<MasterClassOffer />} />
+              <Route path="/masterclass-offer" element={<MasterClassOffer />} />
+              <Route
+                path="/join-21-day-weight-loss-challenge"
+                element={<MasterClassOffer />}
               />
               <Route
                 path="/14-Day-Yoga-Fat-Loss-Camp-int"
