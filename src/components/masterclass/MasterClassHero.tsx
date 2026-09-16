@@ -109,7 +109,7 @@ export const MasterClassHero = ({ onRegister }: Props) => {
             >
               <iframe
                 className="absolute left-0 top-0 h-full w-full"
-                src="https://www.youtube.com/embed/0zkAOy4AP38"
+                src="https://www.youtube.com/embed/KyVBhvfzolQ"
                 title="Ultimate 21 Day Weight Loss Challenge Master Class"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
