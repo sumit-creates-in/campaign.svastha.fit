@@ -44,7 +44,7 @@ const PLAN_DATA = {
 const EXPIRED_PLAN_DATA = {
     group: {
         ...PLAN_DATA.group,
-        sell: 890,
+        sell: 1290,
         link: "https://pages.razorpay.com/pl_QHg0K5EhmJMBP8/view", // Payment link after offer ends — to be added
     },
     personalized: {
