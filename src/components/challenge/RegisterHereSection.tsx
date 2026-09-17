@@ -13,7 +13,7 @@ interface RegisterHereSectionProps {
 export const RegisterHereSection = ({
   onRegister,
   originalPrice = "₹ 2900/-",
-  discountedPrice = "₹ 990-",
+  discountedPrice = "₹1490-",
   registerButtonText = "Register Now",
 }: RegisterHereSectionProps) => {
   const { displaySeats, loading } = useSeatsLeft();

@@ -10,7 +10,7 @@ interface StickyBottomBarProps {
 
 export const StickyBottomBar = ({
   onRegisterClick,
-  feeText = "Rs. 990/-",
+  feeText = "Rs.1490/-",
   registerButtonText = "Register Now",
 }: StickyBottomBarProps) => {
   const { displaySeats } = useSeatsLeft();
