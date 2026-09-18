@@ -2,6 +2,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import RegistrationModal from "@/components/RegistrationModal";
+import ConsultationModal from "@/components/consultation/ConsultationModal";
 import { BeforeAfterDashboardCard } from "@/components/gamification/BeforeAfterDashboardCard";
 import sumitSharmaImage from "@/assets/sumit sharma.png";
 import svasthaLogo from "@/assets/svastha.png";
@@ -9,6 +10,7 @@ import { ChartBarIcon, MessageCircle } from "lucide-react";
 
 const FourteenDayHero = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isConsultationModalOpen, setIsConsultationModalOpen] = useState(false);
   const navigate = useNavigate();
 
   return (
@@ -65,7 +67,7 @@ const FourteenDayHero = () => {
 
           <div style={{ height: '20px' }} />
 
-              {/* Review Video Section */}
+          {/* Review Video Section */}
           <div className="max-w-2xl mx-auto mb-8">
             <div className="relative w-full" style={{ paddingBottom: '56.25%' }}>
               <iframe
@@ -79,41 +81,41 @@ const FourteenDayHero = () => {
           </div>
         </div>
 
-          {/* Text */}
-          <div className="text-center mb-8">
-            <h3 className="text-base md:text-lg font-semibold text-gray-700 mb-6">
-              For Effective, Affordable Weight Loss
-            </h3>
+        {/* Text */}
+        <div className="text-center mb-8">
+          <h3 className="text-base md:text-lg font-semibold text-gray-700 mb-6">
+            For Effective, Affordable Weight Loss
+          </h3>
+        </div>
+
+        {/* Action Buttons */}
+        <div className="flex flex-col gap-4 max-w-md mx-auto mb-8">
+          {/* Most Popular Badge + 14 Day Challenge Button */}
+          <div className="relative">
+            <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-orange-500 text-white px-4 py-1 rounded-full text-xs font-bold">
+              Most Popular
+            </div>
+            <Button
+              onClick={() => navigate('/Ultimate-21-day-weight-loss-challenge')}
+              className="w-full bg-gradient-to-r from-blue-800 to-blue-900 hover:from-blue-900 hover:to-blue-950 text-white py-3 md:py-4 text-sm md:text-base font-semibold rounded-full shadow-lg"
+            >
+              🔥 Ultimate 21 Day Weight Loss Challenge
+            </Button>
           </div>
 
-          {/* Action Buttons */}
-          <div className="flex flex-col gap-4 max-w-md mx-auto mb-8">
-            {/* Most Popular Badge + 14 Day Challenge Button */}
-            <div className="relative">
-              <div className="absolute -top-3 left-1/2 transform -translate-x-1/2 bg-orange-500 text-white px-4 py-1 rounded-full text-xs font-bold">
-                Most Popular
-              </div>
-              <Button
-                onClick={() => navigate('/Ultimate-21-day-weight-loss-challenge')}
-                className="w-full bg-gradient-to-r from-blue-800 to-blue-900 hover:from-blue-900 hover:to-blue-950 text-white py-3 md:py-4 text-sm md:text-base font-semibold rounded-full shadow-lg"
-              >
-                🔥 Ultimate 21 Day Weight Loss Challenge
-              </Button>
-            </div>
-
-            {/* Consultation Button */}
-            <div className="text-center pb-20">
-              <p className="text-xs md:text-sm text-gray-600 mb-3">For Exclusive, Faster Weight Loss</p>
-              <Button
-                onClick={() => window.location.href = 'https://svastha.fit/'}
-                className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-3 md:py-4 text-sm md:text-base font-semibold rounded-full shadow-lg"
-              >
-                ✓ Weight Loss Consultation with Expert
-              </Button>
-            </div>
-
-
+          {/* Consultation Button */}
+          <div className="text-center pb-20">
+            <p className="text-xs md:text-sm text-gray-600 mb-3">For Exclusive, Faster Weight Loss</p>
+            <Button
+              onClick={() => setIsConsultationModalOpen(true)}
+              className="w-full bg-gradient-to-r from-blue-600 to-blue-700 hover:from-blue-700 hover:to-blue-800 text-white py-3 md:py-4 text-sm md:text-base font-semibold rounded-full shadow-lg"
+            >
+              ✓ Weight Loss Consultation with Expert
+            </Button>
           </div>
+
+
+        </div>
 
         {/* Fixed Chat Button */}
         <div className="fixed bottom-0 left-0 right-0 bg-green-500 text-white py-3 z-50">
@@ -130,6 +132,10 @@ const FourteenDayHero = () => {
       </section>
 
       <RegistrationModal isOpen={isModalOpen} onOpenChange={setIsModalOpen} />
+      <ConsultationModal
+        isOpen={isConsultationModalOpen}
+        onClose={() => setIsConsultationModalOpen(false)}
+      />
     </>
   );
 };
