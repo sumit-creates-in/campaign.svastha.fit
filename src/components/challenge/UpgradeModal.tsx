@@ -28,7 +28,7 @@ export const UpgradeModal = ({
   upgradeUrl = "https://pages.razorpay.com/pl_QHMy1AvL4XDeqQ/view",
   joinGroupUrl = "https://pages.razorpay.com/pl_QHMrm9qAqyqcdA/view",
   upgradePriceText = "Rs. 2990",
-  groupPriceText = "Rs.1490",
+  groupPriceText = "Rs.1990",
   joinGroupButtonText,
   isGlobal = false,
   startDateText = "26th September 2026",
