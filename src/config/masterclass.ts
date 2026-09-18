@@ -136,7 +136,7 @@ export const CHAT_MESSAGE =
  */
 export const OFFER = {
   /** ISO 8601 with IST offset. After this instant, regular pricing shows. */
-  deadline: "2026-09-16T23:00:00+05:30",
+  deadline: "2026-09-18T23:00:00+05:30",
   deadlineLabel: "11:00 PM tonight",
 } as const;
 
@@ -160,9 +160,13 @@ export const OFFER_PLANS: readonly OfferPlan[] = [
     id: "group",
     name: "Group Plan",
     tagline: "You follow the plan with the batch",
-    earlyPrice: "₹790",
+    earlyPrice: "₹1,450",
+    // Amount is set at the Razorpay end — this link was ₹790 on 16 Sep and
+    // was re-priced to ₹1,450 for 18 Sep. Used ONLY by this page.
     earlyUrl: "https://rzp.io/rzp/29j50yv8",
-    regularPrice: "₹990",
+    regularPrice: "₹1,990",
+    // SHARED with UpgradeModal / ScrollPopupModal on the challenge page.
+    // Re-pricing this link changes what those popups charge too.
     regularUrl: "https://pages.razorpay.com/pl_QHMrm9qAqyqcdA/view",
     startLabel: "Batch starts 27 September",
     features: [
