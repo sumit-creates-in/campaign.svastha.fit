@@ -30,7 +30,7 @@ export const UpgradeModalGlobal = ({
     groupPriceText = "Rs.1990",
     joinGroupButtonText,
     isGlobal = false,
-    startDateText = "26th September 2026",
+    startDateText = "27th September 2026",
     timerEndDate,
     hideTimer = false,
     yogaTeacher = "Yes, Add Yoga Teacher – Pay AED 299"
