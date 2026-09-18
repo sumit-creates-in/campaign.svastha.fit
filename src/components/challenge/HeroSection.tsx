@@ -18,7 +18,7 @@ interface HeroSectionProps {
 
 export const HeroSection = ({
   scrollToRegistration,
-  feeText = "Rs.1490/-",
+  feeText = "Rs.1990/-",
   isGlobal = false,
   locationText,
   videoId = "0zkAOy4AP38",
