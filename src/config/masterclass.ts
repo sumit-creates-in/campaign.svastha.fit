@@ -160,9 +160,9 @@ export const OFFER_PLANS: readonly OfferPlan[] = [
     id: "group",
     name: "Group Plan",
     tagline: "You follow the plan with the batch",
-    earlyPrice: "₹1,450",
+    earlyPrice: "₹1,490",
     // Amount is set at the Razorpay end — this link was ₹790 on 16 Sep and
-    // was re-priced to ₹1,450 for 18 Sep. Used ONLY by this page.
+    // was re-priced to ₹1,490 for 18 Sep. Used ONLY by this page.
     earlyUrl: "https://rzp.io/rzp/29j50yv8",
     regularPrice: "₹1,990",
     // SHARED with UpgradeModal / ScrollPopupModal on the challenge page.
