@@ -120,7 +120,7 @@ export const SOCIAL = {
  * redirects to after a successful payment.
  */
 export const WHATSAPP_GROUP_URL =
-  "https://chat.whatsapp.com/EwwSIdC9HubHL0U89fS0M3?s=cl&p=i&mlu=4&ilr=4";
+  "https://chat.whatsapp.com/Dugcyo9gvcGFB0Xz7yWdHX?s=sh&p=a&mlu=0&ilr=4";
 
 export const CHAT_MESSAGE =
   "Hi, I want to know more about Ultimate 21 Day Weight Loss Challenge - Master Class.";
