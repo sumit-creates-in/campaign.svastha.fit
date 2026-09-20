@@ -12,9 +12,9 @@ export const MASTERCLASS = {
   eventName: "MASTER CLASS",
 
   /** ISO 8601 with IST offset. Drives the countdown and all date displays. */
-  startsAt: "2026-09-20T19:30:00+05:30",
+  startsAt: "2026-09-20T09:30:00+05:30",
   dateLabel: "Sunday, 20 September 2026",
-  timeLabel: "7:30 PM IST",
+  timeLabel: "9:30 AM IST",
   durationLabel: "90 minutes",
   platformLabel: "LIVE on Zoom",
   languageLabel: "Hindi + English",
@@ -136,7 +136,7 @@ export const CHAT_MESSAGE =
  */
 export const OFFER = {
   /** ISO 8601 with IST offset. After this instant, regular pricing shows. */
-  deadline: "2026-09-18T23:00:00+05:30",
+  deadline: "2026-09-20T23:00:00+05:30",
   deadlineLabel: "11:00 PM tonight",
 } as const;
 
