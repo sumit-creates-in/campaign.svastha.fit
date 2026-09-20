@@ -12,9 +12,9 @@ export const MASTERCLASS = {
   eventName: "MASTER CLASS",
 
   /** ISO 8601 with IST offset. Drives the countdown and all date displays. */
-  startsAt: "2026-09-20T09:30:00+05:30",
-  dateLabel: "Sunday, 20 September 2026",
-  timeLabel: "9:30 AM IST",
+  startsAt: "2026-09-23T19:30:00+05:30",
+  dateLabel: "Wednesday, 23 September 2026",
+  timeLabel: "7:30 PM IST",
   durationLabel: "90 minutes",
   platformLabel: "LIVE on Zoom",
   languageLabel: "Hindi + English",
@@ -120,7 +120,7 @@ export const SOCIAL = {
  * redirects to after a successful payment.
  */
 export const WHATSAPP_GROUP_URL =
-  "https://chat.whatsapp.com/Dugcyo9gvcGFB0Xz7yWdHX?s=sh&p=a&mlu=0&ilr=4";
+  "https://chat.whatsapp.com/FHc5WGI0aObFPvrHtHH8Az?s=cl&p=a&mlu=4&ilr=4";
 
 export const CHAT_MESSAGE =
   "Hi, I want to know more about Ultimate 21 Day Weight Loss Challenge - Master Class.";
