@@ -12,7 +12,6 @@ import { ChatButton } from "@/components/masterclass/ChatButton";
 import { TransformationsSection } from "@/components/challenge";
 import {
   MASTERCLASS,
-  OFFER,
   OFFER_PLANS,
   isOfferLive,
   type OfferPlan,
@@ -134,10 +133,10 @@ const MasterClassOffer = () => {
           className="mx-auto max-w-3xl text-center"
         >
           {live ? (
-            <span className="inline-flex items-center gap-2 rounded-full bg-red-50 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-red-600 ring-1 ring-red-200">
+            <span className="inline-flex items-center gap-2 rounded-full bg-red-600 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-white">
               <span className="relative flex h-1.5 w-1.5">
-                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-75" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-red-600" />
+                <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
               </span>
               Master Class price — closing soon
             </span>
@@ -167,13 +166,20 @@ const MasterClassOffer = () => {
           className="mx-auto mt-7 max-w-2xl"
         >
           {live ? (
-            <div className="rounded-2xl border-2 border-gray-950 bg-gray-950 px-5 py-4 text-center">
-              <p className="text-base font-extrabold text-white md:text-lg">
+            /* Deliberately no clock and no closing time. Sumit tells the room
+               the price closes soon without naming the hour, and the page has
+               to say the same thing. The switch still happens by itself at
+               OFFER.deadline. */
+            <div className="rounded-2xl bg-red-600 px-5 py-5 text-center shadow-lg shadow-red-600/20">
+              <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-red-100">
+                Offer ends soon
+              </p>
+              <p className="mt-2 text-xl font-extrabold leading-snug text-white md:text-2xl">
                 This price is for the people who sat through the Master Class.
               </p>
-              <p className="mt-1.5 text-sm text-gray-400">
-                It closes at {OFFER.deadlineLabel}, after which this page goes
-                back to the usual price on its own.
+              <p className="mt-2 text-sm leading-relaxed text-red-100">
+                When it closes, this page goes back to the usual price. You
+                won&apos;t get a reminder.
               </p>
             </div>
           ) : (
