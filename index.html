@@ -58,10 +58,10 @@
         "script",
         "https://connect.facebook.net/en_US/fbevents.js",
       );
-      fbq("init", "4183888118531938", {
-        em: "email@email.com", // Will be hashed automatically by the pixel using SHA-256
-        ph: "1234567890",
-      });
+      // No advanced-matching data here: this runs for every visitor before we
+      // know who they are. A hardcoded email/phone told Meta that every
+      // visitor was the same person, which wrecked matching.
+      fbq("init", "4183888118531938");
       fbq("track", "PageView");
     </script>
     <!-- End Meta Pixel Code -->
