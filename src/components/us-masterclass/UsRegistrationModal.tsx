@@ -8,6 +8,7 @@ import {
   US_LEAD_STORAGE_KEY,
   PHONE_COUNTRIES,
   buildStripeUrl,
+  isUsTestMode,
   type UsPriceTier,
 } from "@/config/usMasterclass";
 
@@ -44,6 +45,8 @@ type FieldErrors = {
 };
 
 function trackPixel(event: string, data?: Record<string, unknown>) {
+  // Test runs (?test=1) must not reach Meta — they'd pollute ad reporting.
+  if (isUsTestMode()) return;
   try {
     const fbq = (window as unknown as { fbq?: (...a: unknown[]) => void }).fbq;
     if (typeof fbq === "function") fbq("track", event, data);
@@ -153,9 +156,11 @@ export const UsRegistrationModal = ({ isOpen, onClose, tier }: Props) => {
     const fullPhone = `${country.code}${digits}`;
     const now = new Date();
 
+    const testMode = isUsTestMode();
     const lead = {
       event: "us_masterclass_lead",
-      source: "us-masterclass-landing",
+      source: testMode ? "us-masterclass-landing-TEST" : "us-masterclass-landing",
+      test: testMode,
       lead_id: leadId,
       webinar_date: US_MASTERCLASS.startsAt,
       webinar_label: `${US_MASTERCLASS.dateLabel} · ${US_MASTERCLASS.timeLabel}`,

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { X } from "lucide-react";
-import { US_MASTERCLASS, US_PRICING } from "@/config/usMasterclass";
+import { US_MASTERCLASS, US_PRICING, isUsTestMode } from "@/config/usMasterclass";
 
 interface Props {
   /** Claim the offer — opens the registration form at the offer price. */
@@ -27,7 +27,8 @@ export const UsOfferPopup = ({ onClaim, suppressed, onVisibilityChange }: Props)
     if (suppressed) return;
     let seen = false;
     try {
-      seen = localStorage.getItem(SEEN_KEY) === "1";
+      // In test mode the popup shows every visit, so it can be tried again.
+      seen = !isUsTestMode() && localStorage.getItem(SEEN_KEY) === "1";
     } catch {
       /* ignore */
     }

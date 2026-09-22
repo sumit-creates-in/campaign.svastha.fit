@@ -60,6 +60,30 @@ export const US_PRICING = {
 
 export type UsPriceTier = keyof typeof US_PRICING;
 
+// ─── Test mode ────────────────────────────────────────────────────────────────
+/**
+ * Open the page with `?test=1` to run the whole funnel with no real money:
+ *   campaign.svastha.fit/us-masterclass?test=1
+ *
+ * Test mode swaps in Stripe *sandbox* links (the "For Claude" sandbox,
+ * product prod_VJ1n5S1T6zgpIB) — pay with card 4242 4242 4242 4242, any
+ * future date, any CVC. Everything downstream still runs (lead webhook,
+ * WhatsApp, sheets, email, CRM) but is marked "[TEST]", and no Meta Pixel
+ * events are sent, so ad reporting stays clean. Normal visitors never see it.
+ */
+export const US_TEST_LINKS: Record<UsPriceTier, string> = {
+  standard: "https://book.stripe.com/test_aFa3cwehV8cDdGx4JPgMw00",
+  offer: "https://book.stripe.com/test_3cI9AUddRakL9qhekpgMw01",
+};
+
+export function isUsTestMode(): boolean {
+  try {
+    return new URLSearchParams(window.location.search).get("test") === "1";
+  } catch {
+    return false;
+  }
+}
+
 /**
  * Builds the Stripe link with the email already filled in and the lead ID
  * attached, so every payment can be matched back to the lead it came from.
@@ -85,7 +109,8 @@ export function buildStripeUrl(
   } catch {
     /* no UTM tags is fine */
   }
-  return `${US_PRICING[tier].url}?${params.toString()}`;
+  const base = isUsTestMode() ? US_TEST_LINKS[tier] : US_PRICING[tier].url;
+  return `${base}?${params.toString()}`;
 }
 
 /**
