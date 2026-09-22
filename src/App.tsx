@@ -18,6 +18,8 @@ import Ultimate21DayChallenge from "./pages/Ultimate21DayChallenge";
 import MasterClass from "./pages/MasterClass";
 import MasterClassConfirmed from "./pages/MasterClassConfirmed";
 import MasterClassOffer from "./pages/MasterClassOffer";
+import UsMasterClass from "./pages/UsMasterClass";
+import UsMasterClassConfirmed from "./pages/UsMasterClassConfirmed";
 import Global21DayWeightLossChallenge from "./pages/Global21DayWeightLossChallenge";
 import International21DayWeightLossChallenge from "./pages/International21DayWeightLossChallenge";
 import TwentyOneDayTotalBodyTransformationProgram from "./pages/TwentyOneDayTotalBodyTransformationProgram";
@@ -74,6 +76,14 @@ function App() {
               {/* The offer page shared in the WhatsApp group after the class.
                   Master Class pricing switches itself off at the deadline in
                   src/config/masterclass.ts — no redeploy needed. */}
+              {/* US Master Class — $19 seat via Stripe, for Indians in the USA.
+                  Built from the International 21 Day Challenge page. Not
+                  geo-guarded, so it can be previewed from India. */}
+              <Route path="/us-masterclass" element={<UsMasterClass />} />
+              <Route path="/masterclass-usa" element={<UsMasterClass />} />
+              {/* Stripe redirects here after payment (set on both payment links). */}
+              <Route path="/us-masterclass-confirmed" element={<UsMasterClassConfirmed />} />
+
               <Route path="/join" element={<MasterClassOffer />} />
               <Route path="/Join" element={<MasterClassOffer />} />
               <Route path="/masterclass-offer" element={<MasterClassOffer />} />

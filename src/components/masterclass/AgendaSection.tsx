@@ -13,6 +13,8 @@ import { PRICING } from "@/config/masterclass";
 
 interface Props {
   onRegister: () => void;
+  /** Button price label. Defaults to the India ₹ price; the US page passes "$19". */
+  priceLabel?: string;
 }
 
 type Item = {
@@ -82,7 +84,7 @@ const AGENDA: Item[] = [
   },
 ];
 
-export const AgendaSection = ({ onRegister }: Props) => (
+export const AgendaSection = ({ onRegister, priceLabel = PRICING.price }: Props) => (
   <section className="bg-gradient-to-br from-gray-50 via-white to-emerald-50/40 px-4 py-20 md:py-28">
     <div className="container mx-auto max-w-5xl">
       <motion.div
@@ -151,7 +153,7 @@ export const AgendaSection = ({ onRegister }: Props) => (
           size="lg"
           className="no-heartbeat rounded-full bg-gradient-to-r from-green-600 to-lime-500 px-10 py-7 text-base font-bold text-white shadow-xl transition-all hover:scale-[1.02] hover:from-green-700 hover:to-lime-600"
         >
-          Reserve My Seat — {PRICING.price}
+          Reserve My Seat — {priceLabel}
         </Button>
       </div>
     </div>
