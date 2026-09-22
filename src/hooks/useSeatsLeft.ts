@@ -8,7 +8,7 @@ const supabase = createClient(
     "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN3Y3VidmVxdHZqaHF3YXdnY2tzIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTAwNzE4MDYsImV4cCI6MjA2NTY0NzgwNn0.KHkPNj7-685p_-LK-L_8JfO2mzvDrIDfgeiUlvOFBmo",
 );
 
-const TOTAL_REGISTRATIONS = 100;
+const TOTAL_REGISTRATIONS = 80;
 
 export const useSeatsLeft = () => {
   const [seatsLeft, setSeatsLeft] = useState<number | null>(null);
