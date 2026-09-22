@@ -67,11 +67,11 @@ export type UsPriceTier = keyof typeof US_PRICING;
  */
 export function buildStripeUrl(
   tier: UsPriceTier,
-  { email, leadId }: { email: string; leadId: string },
+  { email, leadId, phone, name }: { email: string; leadId: string; phone?: string; name?: string },
 ): string {
   const params = new URLSearchParams({
     prefilled_email: email.trim(),
-    client_reference_id: leadId,
+    client_reference_id: buildClientReference({ leadId, phone, name }),
   });
   // Pass UTM tags through — Stripe copies them onto the success-page URL.
   try {
@@ -86,6 +86,39 @@ export function buildStripeUrl(
     /* no UTM tags is fine */
   }
   return `${US_PRICING[tier].url}?${params.toString()}`;
+}
+
+/**
+ * Stripe hands `client_reference_id` back in the checkout.session.completed
+ * event, and it is the only per-customer field a Payment Link carries. Stripe
+ * has no field for the phone number, so we pack what the automator needs to
+ * send the WhatsApp confirmation into it:
+ *
+ *   <leadId>__<phone digits incl. country code>__<Name-In-Ascii>
+ *   us-mucb8xvg-xvfqzq__14155550123__Priya-Sharma
+ *
+ * Stripe silently DROPS the whole value if it contains anything other than
+ * A–Z, a–z, 0–9, "-" or "_", or exceeds 200 characters — so every part is
+ * reduced to exactly those characters.
+ */
+export function buildClientReference({
+  leadId,
+  phone,
+  name,
+}: {
+  leadId: string;
+  phone?: string;
+  name?: string;
+}): string {
+  const safeLead = leadId.replace(/[^A-Za-z0-9-]/g, "").slice(0, 60);
+  const digits = String(phone ?? "").replace(/\D/g, "").slice(0, 15);
+  const safeName = String(name ?? "")
+    .normalize("NFD")
+    .replace(/[^\x20-\x7E]/g, "")
+    .replace(/[^A-Za-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 60);
+  return [safeLead, digits, safeName].join("__").slice(0, 200);
 }
 
 // ─── Lead capture ─────────────────────────────────────────────────────────────

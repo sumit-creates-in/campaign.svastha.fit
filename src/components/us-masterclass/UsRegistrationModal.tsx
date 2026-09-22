@@ -228,7 +228,12 @@ export const UsRegistrationModal = ({ isOpen, onClose, tier }: Props) => {
     trackPixel("InitiateCheckout", { value: pricing.amount, currency: "USD" });
 
     // 3. Same-tab redirect to Stripe with the email prefilled.
-    window.location.href = buildStripeUrl(tier, { email: cleanEmail, leadId });
+    window.location.href = buildStripeUrl(tier, {
+      email: cleanEmail,
+      leadId,
+      phone: fullPhone,
+      name: cleanName,
+    });
   };
 
   const fieldClass = (hasError: boolean) =>
