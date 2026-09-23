@@ -136,8 +136,8 @@ export const CHAT_MESSAGE =
  */
 export const OFFER = {
   /** ISO 8601 with IST offset. After this instant, regular pricing shows. */
-  deadline: "2026-09-20T23:00:00+05:30",
-  deadlineLabel: "11:00 PM tonight",
+  deadline: "2026-09-24T19:30:00+05:30",
+  deadlineLabel: "7:30 PM tomorrow",
 } as const;
 
 export interface OfferPlan {
