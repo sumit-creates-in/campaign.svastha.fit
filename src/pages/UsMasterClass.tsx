@@ -23,7 +23,8 @@ import { UsMasterClassHero } from "@/components/us-masterclass/UsMasterClassHero
 import { UsRegistrationModal } from "@/components/us-masterclass/UsRegistrationModal";
 import { UsOfferPopup } from "@/components/us-masterclass/UsOfferPopup";
 import { UsRegisterCard, UsStickyBar } from "@/components/us-masterclass/UsRegisterBlocks";
-import { US_MASTERCLASS, US_PRICING, type UsPriceTier } from "@/config/usMasterclass";
+import { US_MASTERCLASS, US_PRICING, isUsTestMode, type UsPriceTier } from "@/config/usMasterclass";
+import { TestModeBar } from "@/components/us-masterclass/TestModeBar";
 
 /**
  * US Master Class — built from the International 21 Day Challenge page.
@@ -139,6 +140,9 @@ const UsMasterClass = () => {
       `}</style>
 
       <div className="ultimate-challenge-page min-h-screen overflow-x-hidden bg-gradient-to-b from-emerald-50 via-white to-teal-50 pb-20 md:pb-0">
+        {isUsTestMode() && (
+          <TestModeBar note="Stripe sandbox — pay with 4242 4242 4242 4242, any future date, any CVC." />
+        )}
         <UsMasterClassHero onRegister={register} />
 
         <div style={{ height: "150px" }} />

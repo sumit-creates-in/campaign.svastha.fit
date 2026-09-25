@@ -60,6 +60,30 @@ export const US_PRICING = {
 
 export type UsPriceTier = keyof typeof US_PRICING;
 
+// ─── Test mode ────────────────────────────────────────────────────────────────
+/**
+ * Open the page with `?test=1` to run the whole funnel with no real money:
+ *   campaign.svastha.fit/us-masterclass?test=1
+ *
+ * Test mode swaps in Stripe *sandbox* links (the "For Claude" sandbox,
+ * product prod_VJ1n5S1T6zgpIB) — pay with card 4242 4242 4242 4242, any
+ * future date, any CVC. Everything downstream still runs (lead webhook,
+ * WhatsApp, sheets, email, CRM) but is marked "[TEST]", and no Meta Pixel
+ * events are sent, so ad reporting stays clean. Normal visitors never see it.
+ */
+export const US_TEST_LINKS: Record<UsPriceTier, string> = {
+  standard: "https://book.stripe.com/test_aFa3cwehV8cDdGx4JPgMw00",
+  offer: "https://book.stripe.com/test_3cI9AUddRakL9qhekpgMw01",
+};
+
+export function isUsTestMode(): boolean {
+  try {
+    return new URLSearchParams(window.location.search).get("test") === "1";
+  } catch {
+    return false;
+  }
+}
+
 /**
  * Builds the Stripe link with the email already filled in and the lead ID
  * attached, so every payment can be matched back to the lead it came from.
@@ -67,11 +91,11 @@ export type UsPriceTier = keyof typeof US_PRICING;
  */
 export function buildStripeUrl(
   tier: UsPriceTier,
-  { email, leadId }: { email: string; leadId: string },
+  { email, leadId, phone, name }: { email: string; leadId: string; phone?: string; name?: string },
 ): string {
   const params = new URLSearchParams({
     prefilled_email: email.trim(),
-    client_reference_id: leadId,
+    client_reference_id: buildClientReference({ leadId, phone, name }),
   });
   // Pass UTM tags through — Stripe copies them onto the success-page URL.
   try {
@@ -85,7 +109,41 @@ export function buildStripeUrl(
   } catch {
     /* no UTM tags is fine */
   }
-  return `${US_PRICING[tier].url}?${params.toString()}`;
+  const base = isUsTestMode() ? US_TEST_LINKS[tier] : US_PRICING[tier].url;
+  return `${base}?${params.toString()}`;
+}
+
+/**
+ * Stripe hands `client_reference_id` back in the checkout.session.completed
+ * event, and it is the only per-customer field a Payment Link carries. Stripe
+ * has no field for the phone number, so we pack what the automator needs to
+ * send the WhatsApp confirmation into it:
+ *
+ *   <leadId>__<phone digits incl. country code>__<Name-In-Ascii>
+ *   us-mucb8xvg-xvfqzq__14155550123__Priya-Sharma
+ *
+ * Stripe silently DROPS the whole value if it contains anything other than
+ * A–Z, a–z, 0–9, "-" or "_", or exceeds 200 characters — so every part is
+ * reduced to exactly those characters.
+ */
+export function buildClientReference({
+  leadId,
+  phone,
+  name,
+}: {
+  leadId: string;
+  phone?: string;
+  name?: string;
+}): string {
+  const safeLead = leadId.replace(/[^A-Za-z0-9-]/g, "").slice(0, 60);
+  const digits = String(phone ?? "").replace(/\D/g, "").slice(0, 15);
+  const safeName = String(name ?? "")
+    .normalize("NFD")
+    .replace(/[^\x20-\x7E]/g, "")
+    .replace(/[^A-Za-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 60);
+  return [safeLead, digits, safeName].join("__").slice(0, 200);
 }
 
 // ─── Lead capture ─────────────────────────────────────────────────────────────

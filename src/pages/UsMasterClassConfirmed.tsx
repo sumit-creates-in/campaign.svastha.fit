@@ -2,6 +2,7 @@ import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Check, Calendar, Clock, Video, Languages, ArrowDown, MapPin } from "lucide-react";
 import { useMeta } from "@/hooks/useMeta";
+import { TestModeBar } from "@/components/us-masterclass/TestModeBar";
 import {
   US_MASTERCLASS,
   US_PRICING,
@@ -97,6 +98,8 @@ function calendarUrls() {
 const UsMasterClassConfirmed = () => {
   const params = useMemo(() => new URLSearchParams(window.location.search), []);
   const sessionId = params.get("session_id");
+  // Sandbox payments (from ?test=1) come back with test=1 — never report them to Meta.
+  const isTest = params.get("test") === "1";
   const lead = useMemo(readLead, []);
   const [yourTime, setYourTime] = useState<string | null>(null);
 
@@ -110,8 +113,8 @@ const UsMasterClassConfirmed = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
     setYourTime(localStartLabel());
-    trackPurchaseOnce(sessionId, amount);
-  }, [sessionId, amount]);
+    if (!isTest) trackPurchaseOnce(sessionId, amount);
+  }, [sessionId, amount, isTest]);
 
   useMeta({
     title: `You're registered — ${US_MASTERCLASS.subtitle} | ${US_MASTERCLASS.dateLabel}`,
@@ -141,6 +144,7 @@ const UsMasterClassConfirmed = () => {
         @media (prefers-reduced-motion: reduce) { .join-btn, .nudge { animation: none; } }
       `}</style>
 
+      {isTest && <TestModeBar note="Sandbox payment — no money moved, nothing sent to Meta." />}
       <div className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-b from-emerald-50 via-white to-white px-5 py-14">
         <div className="w-full max-w-lg">
           <motion.div
