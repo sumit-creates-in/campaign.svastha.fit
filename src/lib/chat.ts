@@ -52,10 +52,13 @@ export function detectPlatform(): Platform {
  *
  * Returns true if the message reached the clipboard.
  */
-export async function openChat(platform: Platform): Promise<boolean> {
+export async function openChat(
+  platform: Platform,
+  message: string = CHAT_MESSAGE,
+): Promise<boolean> {
   let copied = false;
   try {
-    await navigator.clipboard.writeText(CHAT_MESSAGE);
+    await navigator.clipboard.writeText(message);
     copied = true;
   } catch {
     /* clipboard can be blocked; opening the chat still works */

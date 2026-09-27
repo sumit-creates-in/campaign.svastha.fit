@@ -20,6 +20,8 @@ import MasterClassConfirmed from "./pages/MasterClassConfirmed";
 import MasterClassOffer from "./pages/MasterClassOffer";
 import UsMasterClass from "./pages/UsMasterClass";
 import UsMasterClassConfirmed from "./pages/UsMasterClassConfirmed";
+import NavFitChallenge from "./pages/NavFitChallenge";
+import NavFitChallengeConfirmed from "./pages/NavFitChallengeConfirmed";
 import Global21DayWeightLossChallenge from "./pages/Global21DayWeightLossChallenge";
 import International21DayWeightLossChallenge from "./pages/International21DayWeightLossChallenge";
 import TwentyOneDayTotalBodyTransformationProgram from "./pages/TwentyOneDayTotalBodyTransformationProgram";
@@ -84,6 +86,11 @@ function App() {
               {/* Stripe redirects here after payment (set on both payment links). */}
               <Route path="/us-masterclass-confirmed" element={<UsMasterClassConfirmed />} />
 
+              {/* Nav Fit Challenge — 9 day Navratri fasting program (Oct 2026) */}
+              <Route path="/nav-fit-challenge" element={<NavFitChallenge />} />
+              <Route path="/navfit" element={<NavFitChallenge />} />
+              <Route path="/navratri" element={<NavFitChallenge />} />
+              <Route path="/nav-fit-challenge-confirmed" element={<NavFitChallengeConfirmed />} />
               <Route path="/join" element={<MasterClassOffer />} />
               <Route path="/Join" element={<MasterClassOffer />} />
               <Route path="/masterclass-offer" element={<MasterClassOffer />} />

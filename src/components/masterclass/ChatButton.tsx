@@ -5,9 +5,11 @@ import { InstagramGlyph, MessengerGlyph } from "./ChatGlyphs";
 interface Props {
   /** Hide while a modal is open so it doesn't sit on top of the form. */
   hidden?: boolean;
+  /** Message copied to the clipboard. Defaults to the Master Class one. */
+  message?: string;
 }
 
-export const ChatButton = ({ hidden }: Props) => {
+export const ChatButton = ({ hidden, message }: Props) => {
   const [show, setShow] = useState(false);
   const [copied, setCopied] = useState(false);
   const platform = useMemo(detectPlatform, []);
@@ -33,7 +35,7 @@ export const ChatButton = ({ hidden }: Props) => {
   }, []);
 
   const handleClick = async () => {
-    const didCopy = await openChat(platform);
+    const didCopy = await openChat(platform, message);
     if (didCopy) {
       setCopied(true);
       setTimeout(() => setCopied(false), 4000);
