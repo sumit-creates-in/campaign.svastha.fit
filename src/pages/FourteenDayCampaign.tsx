@@ -1,29 +1,29 @@
 import { useEffect } from "react";
 import { useMeta } from "@/hooks/useMeta";
-import FourteenDayHero from "@/components/campaign/FourteenDayHero";
+import BioLinkHub from "@/components/campaign/BioLinkHub";
 
+/**
+ * campaign.svastha.fit/healthy-life-by-sumit — the link in Sumit's Instagram,
+ * Facebook and other social bios. (File name kept from the old 14-day page so
+ * the route in App.tsx is untouched; the old FourteenDayHero is no longer used.)
+ */
 const FourteenDayCampaign = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
 
-  // Set meta tags for 14-Day Campaign
   useMeta({
-    title: "14-Day Healthy Life Transformation | Sumit's Yoga Program",
-    description: "Transform your life in 14 days with Sumit's proven yoga and wellness program. Daily guidance, healthy habits, and sustainable lifestyle changes.",
-    ogTitle: "14-Day Healthy Life Transformation | Sumit's Program",
-    ogDescription: "Join Sumit's 14-day transformation program. Yoga, wellness, and healthy lifestyle changes that last a lifetime.",
-    ogImage: "/src/assets/sumit sharma.png",
-    twitterTitle: "14-Day Healthy Life Transformation | Sumit's Program",
-    twitterDescription: "Join Sumit's 14-day transformation program. Yoga, wellness, and healthy lifestyle changes that last a lifetime.",
-    twitterImage: "/src/assets/sumit sharma.png"
+    title: "Sumit Sharma — Weight Loss the Natural Way | Svastha",
+    description:
+      "Certified dietitian & yoga teacher Sumit Sharma. Join the Nav Fit Challenge (9 day guided Navratri fasting, 11–19 Oct) or book a consultation call.",
+    ogTitle: "Sumit Sharma — Svastha",
+    ogDescription:
+      "Nav Fit Challenge: guided Navratri fasting for maximum weight loss, 11–19 October. Or book a call with our weight-loss expert.",
+    ogImage: "https://campaign.svastha.fit/ads/navfit/navfit-right-way.jpg",
+    twitterImage: "https://campaign.svastha.fit/ads/navfit/navfit-right-way.jpg",
   });
 
-  return (
-    <div className="min-h-screen bg-white">
-      <FourteenDayHero />
-    </div>
-  );
+  return <BioLinkHub />;
 };
 
 export default FourteenDayCampaign;

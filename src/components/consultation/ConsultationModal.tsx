@@ -87,6 +87,13 @@ const ConsultationModal = ({ isOpen, onClose }: ConsultationModalProps) => {
         body: JSON.stringify(webhookPayload),
       });
 
+      try {
+        const fbq = (window as unknown as { fbq?: (...a: unknown[]) => void }).fbq;
+        if (typeof fbq === "function") fbq("track", "Lead", { content_name: "Consultation booking" });
+      } catch {
+        /* tracking must never block the visitor */
+      }
+
       onClose();
       setShowSuccessModal(true);
       setShowConfirmation(true); // Reset for next time
