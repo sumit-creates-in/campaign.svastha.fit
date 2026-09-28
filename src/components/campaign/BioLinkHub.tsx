@@ -132,7 +132,7 @@ const BioLinkHub = () => {
           </div>
           <h1 className="mt-4 text-2xl font-extrabold text-gray-900">Sumit Sharma</h1>
           <p className="mt-1 text-sm font-medium text-emerald-700">
-            Certified Dietitian · Yoga Teacher · Founder, Svastha
+            Yoga &amp; Nutrition Coach · Founder of SVASTHA
           </p>
           <p className="mx-auto mt-3 max-w-xs text-[15px] leading-relaxed text-gray-600">
             Lose weight naturally with home-cooked Indian food, the right way to fast, and

@@ -15,7 +15,7 @@ const FourteenDayCampaign = () => {
   useMeta({
     title: "Sumit Sharma — Weight Loss the Natural Way | Svastha",
     description:
-      "Certified dietitian & yoga teacher Sumit Sharma. Join the Nav Fit Challenge (9 day guided Navratri fasting, 11–19 Oct) or book a consultation call.",
+      "Sumit Sharma, Yoga & Nutrition Coach and Founder of SVASTHA. Join the Nav Fit Challenge (9 day guided Navratri fasting, 11–19 Oct) or book a consultation call.",
     ogTitle: "Sumit Sharma — Svastha",
     ogDescription:
       "Nav Fit Challenge: guided Navratri fasting for maximum weight loss, 11–19 October. Or book a call with our weight-loss expert.",
