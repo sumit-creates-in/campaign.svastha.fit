@@ -92,12 +92,6 @@ export const NavFitHero = ({ onRegister, priceLabel = NAVFIT_PRICING.standard.pr
           <p className="text-lg font-semibold text-gray-800 md:text-2xl">
             A 9-day weight loss plan that works — with or without the Navratri vrat
           </p>
-          <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-gray-600 md:text-lg">
-            Want to lose weight but never manage to stick to a diet? These 9 days
-            are your fresh start. Keep the vrat or don&apos;t — you get a simple
-            plan, 9 Golden Habits, daily live yoga and Sumit Sharma guiding you
-            from the orientation to the last day.
-          </p>
         </motion.div>
 
         {/* Two ways to follow it — answers "what if I don't fast?" up front */}
@@ -124,9 +118,6 @@ export const NavFitHero = ({ onRegister, priceLabel = NAVFIT_PRICING.standard.pr
               </p>
             </div>
           </div>
-          <p className="mt-3 text-center text-sm font-medium text-gray-700">
-            Same 9 Golden Habits · same daily yoga · same guidance
-          </p>
         </motion.div>
 
         <div className="mt-10 grid items-start gap-8 lg:grid-cols-2 lg:gap-12">
