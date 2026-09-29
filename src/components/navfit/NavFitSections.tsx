@@ -52,15 +52,16 @@ const SectionHeading = ({ eyebrow, title, sub }: { eyebrow?: string; title: Reac
 
 // ─── The problem ──────────────────────────────────────────────────────────────
 const USUAL = [
-  "Long hungry gaps, then a heavy fried meal at night",
-  "Kuttu puri, sabudana vada, aloo chips — all deep fried",
-  "Sweets and sugary drinks to “keep energy up”",
-  "Tired, bloated and irritable by day four",
-  "Weight goes up — and stays up after Dussehra",
+  "Crash diets and skipped meals, then overeating at night",
+  "Fried snacks and sweets — festival or not",
+  "Sugary drinks and chai to “keep energy up”",
+  "Tired, bloated and irritable within a few days",
+  "The weight comes back — and brings friends",
 ];
 const NAVFIT_WAY = [
+  "A plan that suits you — Navratri vrat or regular diet",
+  "Home-cooked food portioned for fat loss",
   "Clear fasting windows you can actually keep",
-  "Vrat foods cooked and portioned for fat loss",
   "9 Golden Habits you learn once and keep for life",
   "Daily live yoga to keep energy and metabolism up",
   "Daily guidance so you never guess what to eat next",
@@ -71,8 +72,8 @@ export const NavFitWhySection = ({ onRegister, priceLabel }: CtaProps) => (
     <div className="container mx-auto max-w-5xl">
       <SectionHeading
         eyebrow="Why Nav Fit"
-        title={<>The vrat isn&apos;t the problem. <span className="text-rose-600">The way we fast is.</span></>}
-        sub="Navratri is the one time of year millions of us already fast. Done right, those 9 days are the easiest weight loss window you'll get all year."
+        title={<>Tried diets before? <span className="text-rose-600">This time it&apos;s a plan you can keep.</span></>}
+        sub="Navratri is simply the perfect time to start. Whether you keep the vrat or not, you follow one simple 9-day plan built to make the weight come off — and stay off."
       />
 
       <div className="grid gap-5 md:grid-cols-2">
@@ -82,7 +83,7 @@ export const NavFitWhySection = ({ onRegister, priceLabel }: CtaProps) => (
           viewport={{ once: true }}
           className="rounded-3xl border-2 border-gray-200 bg-gray-50 p-6 md:p-8"
         >
-          <p className="text-sm font-bold uppercase tracking-wider text-gray-500">The usual Navratri</p>
+          <p className="text-sm font-bold uppercase tracking-wider text-gray-500">The usual way</p>
           <ul className="mt-4 space-y-3">
             {USUAL.map((t) => (
               <li key={t} className="flex items-start gap-3 text-gray-700">
@@ -137,7 +138,7 @@ const STEPS = [
     when: `${NAVFIT.startLabel} – ${NAVFIT.endLabel}`,
     time: "Day 1 to Day 9",
     title: "Follow the plan, every day",
-    desc: "The guided Navratri fasting plan, daily live yoga, and reminders and motivation in the WhatsApp group — every day until the last day of the challenge.",
+    desc: "Your diet plan (Navratri vrat or regular), daily live yoga, and reminders and motivation in the WhatsApp group — every day until the last day of the challenge.",
   },
 ];
 
@@ -182,12 +183,12 @@ const INCLUDED: { title: string; desc: string; image: string; extra?: string[] }
   },
   {
     title: `The ${NAVFIT.goldenHabits} Ultimate Golden Habits`,
-    desc: "Nine habits — one for each day of Navratri — that make the weight come off and stay off long after the festival.",
+    desc: "Nine habits — one for each day of the challenge — that make the weight come off and stay off long after the 9 days.",
     image: fastingImage,
   },
   {
-    title: "Guided Navratri fasting diet plan",
-    desc: "A day-by-day vrat plan built for maximum weight loss, with simple home-cooked vrat food. No supplements, no shakes.",
+    title: "Your 9-day weight loss diet plan — Navratri or regular",
+    desc: "Keeping the vrat? Follow the Navratri plan with simple vrat food. Not fasting? Follow the regular diet & fasting plan with everyday home food. Both are built for maximum weight loss. No supplements, no shakes.",
     image: dietImage,
   },
   {
@@ -212,7 +213,7 @@ const INCLUDED: { title: string; desc: string; image: string; extra?: string[] }
   },
   {
     title: "A group of highly motivated people",
-    desc: "Fast alongside people doing the same 9 days, with the same plan, cheering each other on.",
+    desc: "Lose weight alongside people doing the same 9 days, with the same plan, cheering each other on.",
     image: groupImage,
   },
 ];
@@ -317,7 +318,7 @@ export const NavFitHabitsSection = () => (
 const CARD_POINTS = [
   `Live orientation with Sumit — ${NAVFIT.orientationDateLabel}, ${NAVFIT.orientationTimeLabel}`,
   `The ${NAVFIT.goldenHabits} Ultimate Golden Habits`,
-  "Guided Navratri fasting diet plan — all 9 days",
+  "9-day weight loss diet plan — Navratri vrat or regular",
   "Daily live yoga classes (recordings shared)",
   "Daily guidance & motivation in the WhatsApp group",
   "Live leaderboard & Weight Loss Champ contest",
@@ -333,7 +334,7 @@ export const NavFitRegisterCard = ({ onRegister, priceLabel }: CtaProps) => (
         className="overflow-hidden rounded-3xl bg-white shadow-2xl"
       >
         <div className="bg-gradient-to-r from-rose-700 to-orange-500 px-6 py-6 text-center text-white">
-          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-amber-100">{NAVFIT.eventName}</p>
+          <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-amber-100">9 Day Weight Loss Challenge</p>
           <h3 className="mt-1 text-2xl font-extrabold">{NAVFIT.name}</h3>
           <p className="mt-1 text-sm font-medium">{NAVFIT.datesShort}</p>
         </div>
@@ -373,16 +374,16 @@ const FAQS = [
     a: "You land straight on a confirmation page with the link to the Nav Fit WhatsApp group. Please join it — the Zoom link for the orientation, the diet plan, the yoga class links and all daily guidance are shared there.",
   },
   {
+    q: "I don't keep the Navratri fast. Can I still join?",
+    a: "Yes, absolutely. This is a 9-day weight loss challenge, and there are two plans to choose from: the Navratri fasting plan with simple vrat food, or the regular diet & fasting plan with everyday home food. Both use the same 9 Golden Habits, the same daily yoga and the same guidance, and both are built for weight loss.",
+  },
+  {
     q: "Do I have to fast all 9 days?",
-    a: "The plan is built around the full 9 days of Navratri, and that's where the best results come from. Sumit explains in the orientation how to follow it around your own routine and your family's traditions.",
+    a: "Only if you want to keep the vrat. If you do, follow the Navratri plan. If you don't, follow the regular diet & fasting plan, which works around normal meals. Sumit explains both in the orientation so you can fit your plan around your own routine and your family's traditions.",
   },
   {
     q: "What will I eat?",
-    a: "Simple, home-cooked vrat food — the kind already in your kitchen during Navratri — planned and portioned for weight loss. No supplements, no meal-replacement shakes, no expensive products.",
-  },
-  {
-    q: "I don't usually keep the Navratri fast. Can I still join?",
-    a: "Yes. The plan works as a guided 9-day fasting and diet reset whether or not you observe the vrat for religious reasons.",
+    a: "Simple, home-cooked food — vrat food on the Navratri plan, everyday dal, roti and sabzi on the regular plan — planned and portioned for weight loss. No supplements, no meal-replacement shakes, no expensive products.",
   },
   {
     q: "I have diabetes, thyroid, PCOS or BP. Is this safe for me?",

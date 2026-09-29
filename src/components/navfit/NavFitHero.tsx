@@ -64,19 +64,68 @@ export const NavFitHero = ({ onRegister, priceLabel = NAVFIT_PRICING.standard.pr
           className="mx-auto mt-5 max-w-3xl text-center"
         >
           <p className="text-sm font-bold uppercase tracking-[0.22em] text-orange-600 md:text-base">
-            {NAVFIT.eventName}
+            9 Day Weight Loss Challenge
           </p>
           <h1 className="mt-2 bg-gradient-to-r from-rose-800 via-rose-600 to-orange-500 bg-clip-text text-5xl font-extrabold leading-[1.05] text-transparent sm:text-6xl md:text-7xl">
             {NAVFIT.name}
           </h1>
-          <p className="mt-3 text-lg font-semibold text-gray-800 md:text-2xl">
-            {NAVFIT.tagline}
+        </motion.div>
+
+        {/* The result — the first thing people should read after the name */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4, delay: 0.2 }}
+          className="mt-5 text-center"
+        >
+          <span className="inline-block rounded-full bg-yellow-300 px-7 py-2.5 text-2xl font-extrabold uppercase tracking-wide text-gray-900 shadow-xl ring-4 ring-white md:px-10 md:py-3 md:text-4xl">
+            Lose up to 5 Kg
+          </span>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.25 }}
+          className="mx-auto mt-5 max-w-3xl text-center"
+        >
+          <p className="text-lg font-semibold text-gray-800 md:text-2xl">
+            A 9-day weight loss plan that works — with or without the Navratri vrat
           </p>
           <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-gray-600 md:text-lg">
-            For a lot of people, Navratri ends with more weight, not less —
-            fried kuttu puris, sabudana vadas and sweets in the name of a vrat.
-            This year, fast the right way. 9 days, 9 Golden Habits, and Sumit Sharma
-            guiding you from the orientation to the last day.
+            Want to lose weight but never manage to stick to a diet? These 9 days
+            are your fresh start. Keep the vrat or don&apos;t — you get a simple
+            plan, 9 Golden Habits, daily live yoga and Sumit Sharma guiding you
+            from the orientation to the last day.
+          </p>
+        </motion.div>
+
+        {/* Two ways to follow it — answers "what if I don't fast?" up front */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mx-auto mt-7 max-w-3xl"
+        >
+          <p className="text-center text-xs font-bold uppercase tracking-[0.18em] text-gray-500">
+            Pick the plan that suits you
+          </p>
+          <div className="mt-3 grid gap-3 sm:grid-cols-2">
+            <div className="rounded-2xl border-2 border-amber-200 bg-white px-4 py-3.5 text-left shadow-sm">
+              <p className="font-extrabold text-gray-900">🪔 Keeping the Navratri vrat?</p>
+              <p className="mt-1 text-sm text-gray-600">
+                Follow the Navratri fasting plan — simple vrat food, planned for weight loss.
+              </p>
+            </div>
+            <div className="rounded-2xl border-2 border-emerald-200 bg-white px-4 py-3.5 text-left shadow-sm">
+              <p className="font-extrabold text-gray-900">🍽️ Not fasting for Navratri?</p>
+              <p className="mt-1 text-sm text-gray-600">
+                Follow the regular diet &amp; fasting plan — everyday home food, planned for weight loss.
+              </p>
+            </div>
+          </div>
+          <p className="mt-3 text-center text-sm font-medium text-gray-700">
+            Same 9 Golden Habits · same daily yoga · same guidance
           </p>
         </motion.div>
 

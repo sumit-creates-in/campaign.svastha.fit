@@ -51,9 +51,9 @@ const NavFitChallenge = () => {
   }, []);
 
   useMeta({
-    title: `${NAVFIT.name} — ${NAVFIT.tagline} | ${NAVFIT.datesShort} | Svastha`,
-    description: `A 9 day guided Navratri fasting program with Sumit Sharma, ${NAVFIT.datesShort}. Live orientation on ${NAVFIT.orientationDateLabel} at ${NAVFIT.orientationTimeLabel}, the 9 Ultimate Golden Habits, a Navratri fasting diet plan and daily live yoga. ${NAVFIT_PRICING.standard.price}.`,
-    ogTitle: `${NAVFIT.name} — ${NAVFIT.tagline}`,
+    title: `${NAVFIT.name} — 9 Day Weight Loss Challenge | ${NAVFIT.datesShort} | Svastha`,
+    description: `A 9 day weight loss challenge with Sumit Sharma, ${NAVFIT.datesShort} — with or without the Navratri vrat. Live orientation on ${NAVFIT.orientationDateLabel} at ${NAVFIT.orientationTimeLabel}, the 9 Ultimate Golden Habits, a Navratri or regular diet plan and daily live yoga. ${NAVFIT_PRICING.standard.price}.`,
+    ogTitle: `${NAVFIT.name} — 9 Day Weight Loss Challenge`,
     ogDescription: `9 days · ${NAVFIT.datesShort} · 9 Golden Habits · Daily live yoga · ${NAVFIT_PRICING.standard.price}`,
     ogImage: `https://img.youtube.com/vi/gBowL78VcXo/maxresdefault.jpg`,
     twitterImage: `https://img.youtube.com/vi/gBowL78VcXo/maxresdefault.jpg`,

@@ -229,7 +229,7 @@ export const NavFitRegistrationModal = ({ isOpen, onClose, tier }: Props) => {
             <h2 className="text-xl font-extrabold leading-snug text-gray-900 md:text-2xl">
               {NAVFIT.name}
             </h2>
-            <p className="text-sm font-semibold text-gray-600">{NAVFIT.tagline}</p>
+            <p className="text-sm font-semibold text-gray-600">9 Day Weight Loss Challenge · Navratri or regular plan</p>
             <p className="mt-2 text-sm text-gray-600">
               {NAVFIT.datesShort} · Orientation {NAVFIT.orientationDateLabel}, {NAVFIT.orientationTimeLabel}
             </p>

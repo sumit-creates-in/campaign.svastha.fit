@@ -67,9 +67,9 @@ export const MasterClassHero = ({ onRegister }: Props) => {
           className="mx-auto mt-5 max-w-3xl text-center"
         >
           <h1 className="text-[28px] leading-[1.15] font-extrabold text-gray-900 sm:text-4xl md:text-5xl">
-            You&apos;ve Fasted Before.{" "}
+            Tried Everything to Lose Weight?{" "}
             <span className="text-emerald-600">
-              So Why Did the Weight Come Back?
+              Here&apos;s the Plan That Actually Works.
             </span>
           </h1>
           <p className="mx-auto mt-4 max-w-2xl text-base text-gray-600 md:text-lg">
@@ -84,7 +84,7 @@ export const MasterClassHero = ({ onRegister }: Props) => {
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5, delay: 0.15 }}
-          className="mx-auto mt-8 max-w-3xl overflow-hidden rounded-2xl border-2 border-emerald-500 bg-gradient-to-r from-emerald-600 to-green-600 px-5 py-4 text-center shadow-lg"
+          className="mx-auto mt-8 max-w-3xl overflow-hidden rounded-2xl border-2 border-emerald-500 bg-gradient-to-r from-emerald-600 to-green-600 px-5 pb-9 pt-4 text-center shadow-lg md:pb-10"
         >
           <p className="text-sm font-bold uppercase tracking-[0.2em] text-emerald-100 md:text-base">
             {MASTERCLASS.eventName}
@@ -92,6 +92,18 @@ export const MasterClassHero = ({ onRegister }: Props) => {
           <p className="mt-1 text-2xl font-extrabold leading-tight text-white md:text-3xl">
             {MASTERCLASS.name}
           </p>
+        </motion.div>
+
+        {/* Result promise — pinned to the bottom edge of the event box */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.9 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.4, delay: 0.3 }}
+          className="relative z-10 -mt-5 text-center"
+        >
+          <span className="inline-block rounded-full bg-yellow-300 px-7 py-2.5 text-2xl font-extrabold uppercase tracking-wide text-gray-900 shadow-xl ring-4 ring-white md:px-10 md:py-3 md:text-4xl">
+            Lose up to 10 Kg
+          </span>
         </motion.div>
 
         {/* Session details + CTA + video */}
