@@ -155,7 +155,7 @@ const PLAN_DATA = {
 //   offer   → 11:00 AM Sun 4 Oct – 11:00 AM Mon 5 Oct: ₹1,000 off + 1 month extra + bonuses
 //   ended   → after that: regular prices
 // To run the next offer, change these three times and the prices/links below.
-const LIVE_START = Date.parse("2026-10-04T10:30:00+05:30");
+const LIVE_START = Date.parse("2026-10-03T11:00:00+05:30"); // live offer switched on early for testing (Sumit, 3 Oct)
 const LIVE_END = Date.parse("2026-10-04T11:00:00+05:30");
 const OFFER_END = Date.parse("2026-10-05T11:00:00+05:30");
 
@@ -634,10 +634,10 @@ function TimerStrip({ phase, now }: { phase: Phase; now: number }) {
     return (
       <div style={{ ...base, animation: "pulseBg 1.6s ease-in-out infinite", boxShadow: "0 3px 16px rgba(217,48,37,0.45)" }}>
         <div style={{ fontSize: 14, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase" }}>
-          <span style={{ animation: "blink 1s infinite" }}>🔴</span> Live Session Offer · Ends 11:00 AM
+          <span style={{ animation: "blink 1s infinite" }}>🔴</span> Live Session Offer · Ends Sun 4 Oct, 11:00 AM
         </div>
         <div style={{ fontSize: 12, opacity: 0.95, marginTop: 4, fontWeight: 700 }}>
-          ₹2,000 OFF + 2 Months FREE — only for the next 30 minutes
+          ₹2,000 OFF + 2 Months FREE — live session only
         </div>
         <Countdown seconds={secsTo(LIVE_END)} />
       </div>
@@ -760,6 +760,7 @@ function PlanCard({ planKey, planData, duration, phase, onConsult }: {
   phase: Phase;
   onConsult: () => void;
 }) {
+  const showConsult = phase === "offer" || phase === "ended";
   const { ref, visible } = useFadeUp();
   const [showAll, setShowAll] = useState(false);
   const isVIP = planKey === "personalGold";
@@ -878,8 +879,8 @@ function PlanCard({ planKey, planData, duration, phase, onConsult }: {
         Get {planData.name.replace(/[⭐👑💎]/g, '').trim()} →
       </a>
 
-      {/* Consultation button — only shown when no offer is running */}
-      {!onOffer && (
+      {/* Consultation button — hidden until the live offer is over, so live viewers buy instead */}
+      {showConsult && (
         <button
           onClick={onConsult}
           style={{
@@ -1136,7 +1137,8 @@ export default function WeightLossOffer() {
           <div style={{ textAlign: "center", color: "#666", fontSize: 14, marginBottom: 20 }}>See everything side by side</div>
           <CompareTable />
 
-          {/* CTA below compare table — always visible */}
+          {/* CTA below compare table — hidden until the live offer is over */}
+          {(phase === "offer" || phase === "ended") && (
           <div style={{ marginTop: 28, textAlign: "center" }}>
             <div style={{ fontSize: 14, color: "#555", marginBottom: 12 }}>
               Not sure which plan is right for you?
@@ -1175,6 +1177,7 @@ export default function WeightLossOffer() {
               Our expert will help you pick the best plan — no obligation
             </div>
           </div>
+          )}
         </section>
 
       </div>
