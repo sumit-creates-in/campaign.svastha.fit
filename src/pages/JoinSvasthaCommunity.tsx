@@ -148,24 +148,83 @@ const PLAN_DATA = {
   }
 };
 
-const NEW_LINKS = {
+// ── OFFER — Week 2 live of the 21 Day Challenge (Sun 4 Oct 2026) ─────────────
+// Phases (all IST):
+//   before  → until 10:30 AM Sun 4 Oct: regular prices
+//   live    → 10:30–11:00 AM Sun 4 Oct: ₹2,000 off + 2 months extra + bonuses
+//   offer   → 11:00 AM Sun 4 Oct – 11:00 AM Mon 5 Oct: ₹1,000 off + 1 month extra + bonuses
+//   ended   → after that: regular prices
+// To run the next offer, change these three times and the prices/links below.
+const LIVE_START = Date.parse("2026-10-04T10:30:00+05:30");
+const LIVE_END = Date.parse("2026-10-04T11:00:00+05:30");
+const OFFER_END = Date.parse("2026-10-05T11:00:00+05:30");
+
+type Phase = "before" | "live" | "offer" | "ended";
+type PlanKey = "group" | "personalSilver" | "personalGold";
+type Tier = Record<6 | 12, Record<PlanKey, { price: number; link: string }>>;
+
+function phaseAt(t: number): Phase {
+  if (t < LIVE_START) return "before";
+  if (t < LIVE_END) return "live";
+  if (t < OFFER_END) return "offer";
+  return "ended";
+}
+
+const RZP = (id: string) => `https://pages.razorpay.com/${id}/view`;
+
+/** Regular prices — shown before and after the offer. */
+const REGULAR: Tier = {
   12: {
-
-
-    group: "https://rzp.io/rzp/rwAlm54",
-    personalSilver: "https://rzp.io/rzp/euYWM5k",
-    personalGold: "https://rzp.io/rzp/eZ6OOmoH",
-
+    group: { price: 7990, link: "https://rzp.io/rzp/FmzKCdx" },
+    personalSilver: { price: 24990, link: "https://rzp.io/rzp/P3u4HHm7" },
+    personalGold: { price: 54990, link: "https://rzp.io/rzp/UaNRicm" },
   },
-
   6: {
-
-    group: "https://rzp.io/rzp/FmzKCdx",
-    personalSilver: "https://rzp.io/rzp/P3u4HHm7",
-    personalGold: "https://rzp.io/rzp/UaNRicm",
-
+    group: { price: 5990, link: "https://rzp.io/rzp/rwAlm54" },
+    personalSilver: { price: 14990, link: "https://rzp.io/rzp/euYWM5k" },
+    personalGold: { price: 34990, link: "https://rzp.io/rzp/eZ6OOmoH" },
   },
+};
 
+/** 24-hour offer — ₹1,000 off. */
+const OFFER_24H: Tier = {
+  12: {
+    group: { price: 6990, link: "https://rzp.io/rzp/gzYKXmHl" },
+    personalSilver: { price: 23990, link: "https://rzp.io/rzp/NBM0DyPd" },
+    personalGold: { price: 53990, link: "https://rzp.io/rzp/Zg4ilA1q" },
+  },
+  6: {
+    group: { price: 4990, link: "https://rzp.io/rzp/pMRx9dlC" },
+    personalSilver: { price: 13990, link: "https://rzp.io/rzp/gO7e1wT" },
+    personalGold: { price: 33990, link: RZP("pl_TjJwlcGOqWkSnA") },
+  },
+};
+
+/** Live-session offer — ₹2,000 off, 30 minutes only. */
+const OFFER_LIVE: Tier = {
+  12: {
+    group: { price: 5990, link: RZP("pl_TjJtlkpFujktdC") },
+    personalSilver: { price: 22990, link: RZP("pl_TjJwYc1ZNhgW3b") },
+    personalGold: { price: 52990, link: RZP("pl_TjJwb8h5wrpNKM") },
+  },
+  6: {
+    group: { price: 3990, link: RZP("pl_TjJwdcA0PZwTuZ") },
+    personalSilver: { price: 12990, link: RZP("pl_TjJwgJamZ6fiVK") },
+    personalGold: { price: 32990, link: RZP("pl_TjJwj1hqDgYPB8") },
+  },
+};
+
+const OFFER_DETAILS = {
+  live: { off: 2000, extraMonths: 2, tier: OFFER_LIVE },
+  offer: { off: 1000, extraMonths: 1, tier: OFFER_24H },
+} as const;
+
+/** The bonuses each plan gets during the offer (on top of the discount + extra months). */
+function bonusesFor(planKey: PlanKey): string[] {
+  const list: string[] = [];
+  if (planKey !== "personalGold") list.push("⚙️ Maintenance Plan — FREE");
+  if (planKey !== "group") list.push("📞 1 extra Direct Consultation with Sumit Sharma");
+  return list;
 }
 
 const COMPARE_ROWS = [
@@ -519,64 +578,128 @@ function ConsultModal({ onClose }: { onClose: () => void }) {
 
 // ── SUB-COMPONENTS ────────────────────────────────────────────────────────────
 
-function TimerStrip({ timeLeft, expired }: { timeLeft: number; expired: boolean }) {
-  const days = Math.floor(timeLeft / 86400);
-  const hours = Math.floor((timeLeft % 86400) / 3600);
-  const minutes = Math.floor((timeLeft % 3600) / 60);
-  const seconds = timeLeft % 60;
+function Countdown({ seconds }: { seconds: number }) {
+  const days = Math.floor(seconds / 86400);
+  const hours = Math.floor((seconds % 86400) / 3600);
+  const minutes = Math.floor((seconds % 3600) / 60);
+  const secs = seconds % 60;
+  const parts = [
+    ...(days > 0 ? [{ label: "Days", value: pad(days) }] : []),
+    ...(days > 0 || hours > 0 ? [{ label: "Hours", value: pad(hours) }] : []),
+    { label: "Mins", value: pad(minutes) },
+    { label: "Secs", value: pad(secs) },
+  ];
+  return (
+    <div style={{ display: "flex", justifyContent: "center", gap: 12, marginTop: 8 }}>
+      {parts.map(({ label, value }) => (
+        <div key={label} style={{ textAlign: "center" }}>
+          <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 24, fontWeight: 800, lineHeight: 1, letterSpacing: 1 }}>
+            {value}
+          </div>
+          <div style={{ fontSize: 9, opacity: 0.85, letterSpacing: 0.5, textTransform: "uppercase", marginTop: 2 }}>
+            {label}
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function TimerStrip({ phase, now }: { phase: Phase; now: number }) {
+  const secsTo = (t: number) => Math.max(0, Math.floor((t - now) / 1000));
+  const base = {
+    color: "white",
+    textAlign: "center" as const,
+    padding: "12px 16px",
+    position: "sticky" as const,
+    top: 0,
+    zIndex: 100,
+  };
+
+  if (phase === "before") {
+    return (
+      <div style={{ ...base, background: "linear-gradient(135deg, #1a7a4a 0%, #145c38 100%)", boxShadow: "0 3px 16px rgba(26,122,74,0.4)" }}>
+        <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase" }}>
+          🔴 Live today at 9:30 AM IST
+        </div>
+        <div style={{ fontSize: 12, opacity: 0.9, marginTop: 4 }}>
+          A special offer for live attendees unlocks at 10:30 AM
+        </div>
+        <Countdown seconds={secsTo(LIVE_START)} />
+      </div>
+    );
+  }
+
+  if (phase === "live") {
+    return (
+      <div style={{ ...base, animation: "pulseBg 1.6s ease-in-out infinite", boxShadow: "0 3px 16px rgba(217,48,37,0.45)" }}>
+        <div style={{ fontSize: 14, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase" }}>
+          <span style={{ animation: "blink 1s infinite" }}>🔴</span> Live Session Offer · Ends 11:00 AM
+        </div>
+        <div style={{ fontSize: 12, opacity: 0.95, marginTop: 4, fontWeight: 700 }}>
+          ₹2,000 OFF + 2 Months FREE — only for the next 30 minutes
+        </div>
+        <Countdown seconds={secsTo(LIVE_END)} />
+      </div>
+    );
+  }
+
+  if (phase === "offer") {
+    return (
+      <div style={{ ...base, background: "linear-gradient(135deg, #d93025 0%, #c0392b 100%)", boxShadow: "0 3px 16px rgba(217,48,37,0.4)" }}>
+        <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase" }}>
+          ⚡ 24-Hour Offer · Ends Mon 5 Oct, 11:00 AM IST
+        </div>
+        <div style={{ fontSize: 12, opacity: 0.95, marginTop: 4, fontWeight: 700 }}>
+          ₹1,000 OFF + 1 Month FREE + Bonuses
+        </div>
+        <Countdown seconds={secsTo(OFFER_END)} />
+      </div>
+    );
+  }
 
   return (
-    <div
-      style={{
-        background: expired
-          ? "linear-gradient(135deg, #555 0%, #333 100%)"
-          : "linear-gradient(135deg, #d93025 0%, #c0392b 100%)",
-        color: "white",
-        textAlign: "center",
-        padding: "12px 16px",
-        position: "sticky",
-        top: 0,
-        zIndex: 100,
-        boxShadow: expired
-          ? "0 3px 16px rgba(0,0,0,0.4)"
-          : "0 3px 16px rgba(217,48,37,0.4)",
-      }}
-    >
-      {expired ? (
-        <>
-          <div style={{ fontSize: 15, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase" }}>
-            ⏰ Offer Ended
-          </div>
-          <div style={{ fontSize: 11, opacity: 0.8, marginTop: 4, letterSpacing: 0.5 }}>
-            Prices have increased — new rates apply
-          </div>
-        </>
-      ) : (
-        <>
-          <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: 1, textTransform: "uppercase", opacity: 0.9 }}>
-            ⚡ Offer Ends — 6 September 2026 · 11:00 AM IST
-          </div>
-          <div style={{ display: "flex", justifyContent: "center", gap: 12, marginTop: 8 }}>
-            {[
-              { label: "Days", value: pad(days) },
-              { label: "Hours", value: pad(hours) },
-              { label: "Mins", value: pad(minutes) },
-              { label: "Secs", value: pad(seconds) },
-            ].map(({ label, value }) => (
-              <div key={label} style={{ textAlign: "center" }}>
-                <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 22, fontWeight: 800, lineHeight: 1, letterSpacing: 1 }}>
-                  {value}
-                </div>
-                <div style={{ fontSize: 9, opacity: 0.8, letterSpacing: 0.5, textTransform: "uppercase", marginTop: 2 }}>
-                  {label}
-                </div>
-              </div>
-            ))}
-          </div>
-          <div style={{ fontSize: 11, opacity: 0.8, marginTop: 6, letterSpacing: 0.5 }}>
-            After this, prices go back to normal
-          </div>
-        </>
+    <div style={{ ...base, background: "linear-gradient(135deg, #555 0%, #333 100%)", boxShadow: "0 3px 16px rgba(0,0,0,0.4)" }}>
+      <div style={{ fontSize: 15, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase" }}>
+        ⏰ Offer Ended
+      </div>
+      <div style={{ fontSize: 11, opacity: 0.8, marginTop: 4, letterSpacing: 0.5 }}>
+        Regular prices apply
+      </div>
+    </div>
+  );
+}
+
+/** What the offer includes — shown above the plans while an offer is on. */
+function OfferBox({ phase }: { phase: "live" | "offer" }) {
+  const d = OFFER_DETAILS[phase];
+  const live = phase === "live";
+  return (
+    <div style={{
+      margin: "0 0 18px",
+      borderRadius: 16,
+      padding: "16px 16px 14px",
+      background: live ? "linear-gradient(135deg, #fff4e5 0%, #ffe8e6 100%)" : "linear-gradient(135deg, #fffdf5 0%, #fff4e0 100%)",
+      border: `2px dashed ${live ? "#d93025" : "#f5a623"}`,
+      textAlign: "left",
+    }}>
+      <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 18, fontWeight: 800, color: live ? "#c0392b" : "#c07000", textAlign: "center" }}>
+        {live ? "🎁 Live Session Offer — for you, right now" : "🎁 Your 24-Hour Offer"}
+      </div>
+      <div style={{ marginTop: 10, display: "grid", gap: 6 }}>
+        {[
+          `💸 ₹${fmt(d.off)} OFF on every plan`,
+          `📅 ${d.extraMonths} ${d.extraMonths === 1 ? "Month" : "Months"} EXTRA validity — FREE`,
+          "⚙️ Maintenance Plan — FREE",
+          "📞 Transformation & VIP: 1 Direct Consultation with Sumit Sharma",
+        ].map((t) => (
+          <div key={t} style={{ fontSize: 14, fontWeight: 700, color: "#1a1a2e" }}>{t}</div>
+        ))}
+      </div>
+      {live && (
+        <div style={{ marginTop: 10, fontSize: 12, color: "#c0392b", fontWeight: 700, textAlign: "center" }}>
+          At 11:00 AM this drops to ₹1,000 off + 1 month extra.
+        </div>
       )}
     </div>
   );
@@ -627,27 +750,31 @@ function DurationToggle({ currentDuration, onSelect }) {
   );
 }
 
-function PlanCard({ planKey, planData, duration, expired, onConsult }: {
-  planKey: string;
+function PlanCard({ planKey, planData, duration, phase, onConsult }: {
+  planKey: PlanKey;
   planData: {
     name: string; sell: number; base: number; perMonth: number; link: string;
     featured?: boolean; badge?: string; features: string[];
   };
-  duration: number;
-  expired: boolean;
+  duration: 6 | 12;
+  phase: Phase;
   onConsult: () => void;
 }) {
   const { ref, visible } = useFadeUp();
   const [showAll, setShowAll] = useState(false);
   const isVIP = planKey === "personalGold";
 
-  const finalSell = expired ? planData.sell + 1000 : planData.sell;
+  const onOffer = phase === "live" || phase === "offer";
+  const regular = REGULAR[duration][planKey];
+  const current = onOffer ? OFFER_DETAILS[phase].tier[duration][planKey] : regular;
+  const extraMonths = onOffer ? OFFER_DETAILS[phase].extraMonths : 0;
 
-  const finalLink = expired ? NEW_LINKS[duration][planKey] : planData.link;
-
-  const finalPerMonth = Math.round(finalSell / duration);
-
-  const saving = planData.base - finalSell;
+  const finalSell = current.price;
+  const finalLink = current.link;
+  const finalPerMonth = Math.round(finalSell / (duration + extraMonths));
+  // On offer, compare with the regular price; otherwise with the list price.
+  const strikePrice = onOffer ? regular.price : planData.base;
+  const saving = strikePrice - finalSell;
 
 
   return (
@@ -683,16 +810,30 @@ function PlanCard({ planKey, planData, duration, expired, onConsult }: {
 
       <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: 12 }}>
         <div>
-          <div style={{ fontSize: 11, color: "#666", textDecoration: "line-through" }}>₹{fmt(planData.base)}</div>
+          <div style={{ fontSize: 11, color: "#666", textDecoration: "line-through" }}>₹{fmt(strikePrice)}</div>
           <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 26, fontWeight: 800, color: planData.featured ? "#c07000" : "#1a7a4a", lineHeight: 1 }}>
             ₹{fmt(finalSell)}
           </div>
           <div style={{ fontSize: 11, color: "#666", marginTop: 2 }}>₹{fmt(finalPerMonth)}/month</div>
         </div>
         <div style={{ background: "#ffeaea", color: "#d93025", fontSize: 11, fontWeight: 800, padding: "5px 10px", borderRadius: 20 }}>
-          Save ₹{fmt(saving)}!
+          {onOffer ? `₹${fmt(saving)} OFF` : `Save ₹${fmt(saving)}!`}
         </div>
       </div>
+
+      {onOffer && (
+        <div style={{ background: phase === "live" ? "#fff1ef" : "#fff8e6", borderRadius: 12, padding: "10px 12px", marginBottom: 12, border: `1px solid ${phase === "live" ? "#f5c2bd" : "#f5dca6"}` }}>
+          <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase", color: phase === "live" ? "#c0392b" : "#c07000", marginBottom: 4 }}>
+            🎁 Included in today&apos;s offer
+          </div>
+          <div style={{ fontSize: 12, fontWeight: 700, color: "#1a1a2e", marginBottom: 3 }}>
+            📅 {duration} + {extraMonths} {extraMonths === 1 ? "month" : "months"} FREE = {duration + extraMonths} months
+          </div>
+          {bonusesFor(planKey).map((b) => (
+            <div key={b} style={{ fontSize: 12, fontWeight: 700, color: "#1a1a2e", marginBottom: 3 }}>{b}</div>
+          ))}
+        </div>
+      )}
 
       <div style={{ marginBottom: planData.featured ? 12 : 6 }}>
         {(showAll ? planData.features : planData.features.slice(0, planData.featured ? 8 : 5)).map((feature) => (
@@ -737,8 +878,8 @@ function PlanCard({ planKey, planData, duration, expired, onConsult }: {
         Get {planData.name.replace(/[⭐👑💎]/g, '').trim()} →
       </a>
 
-      {/* Consultation button — only shown after offer expires */}
-      {expired && (
+      {/* Consultation button — only shown when no offer is running */}
+      {!onOffer && (
         <button
           onClick={onConsult}
           style={{
@@ -819,34 +960,18 @@ function CompareTable() {
 
 // ── MAIN COMPONENT ────────────────────────────────────────────────────────────
 export default function WeightLossOffer() {
-  // Fixed target: 6 September 2026, 11:00 AM IST (UTC+5:30) = 6 September 2026 05:30:00 UTC
-  const TARGET_UTC_MS = Date.UTC(2026, 8, 6, 5, 30, 0);
+  // Re-render every second so the countdown and the phase switch on their own.
+  const [now, setNow] = useState(() => Date.now());
+  useEffect(() => {
+    const id = setInterval(() => setNow(Date.now()), 1000);
+    return () => clearInterval(id);
+  }, []);
+  const phase = phaseAt(now);
 
-  // const TARGET_UTC_MS = Date.now() - 1000;
-
-
-
-  const getTimeUntilTarget = () =>
-    Math.max(0, Math.floor((TARGET_UTC_MS - Date.now()) / 1000));
-
-  const [timeLeft, setTimeLeft] = useState(getTimeUntilTarget);
-  const [expired, setExpired] = useState(() => getTimeUntilTarget() <= 0);
-  const [currentDuration, setCurrentDuration] = useState(12);
+  const [currentDuration, setCurrentDuration] = useState<6 | 12>(12);
   const [activeCard, setActiveCard] = useState(0);
   const [showConsultModal, setShowConsultModal] = useState(false);
   const cardsScrollRef = useRef<HTMLDivElement>(null);
-
-  // Countdown timer
-  useEffect(() => {
-    if (expired) return;
-    if (timeLeft <= 0) { setExpired(true); return; }
-    const id = setInterval(() => {
-      const remaining = getTimeUntilTarget();
-      setTimeLeft(remaining);
-      if (remaining <= 0) { setExpired(true); }
-    }, 1000);
-    return () => clearInterval(id);
-  }, [expired]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const plans = PLAN_DATA[currentDuration];
 
@@ -890,10 +1015,11 @@ export default function WeightLossOffer() {
 
       <div style={{ maxWidth: 720, margin: "0 auto", background: "#f4faf7", minHeight: "100vh", boxShadow: "0 0 60px rgba(0,0,0,0.15)", overflow: "hidden", fontFamily: "'Nunito', sans-serif" }}>
 
-        <TimerStrip timeLeft={timeLeft} expired={expired} />
+        <TimerStrip phase={phase} now={now} />
 
         {/* Duration Toggle */}
         <section style={{ padding: "20px 16px 0" }}>
+          {(phase === "live" || phase === "offer") && <OfferBox phase={phase} />}
           <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 22, fontWeight: 800, textAlign: "center", marginBottom: 6 }}> Choose Your Plan</div>
           <div style={{ textAlign: "center", color: "#666", fontSize: 14, marginBottom: 20 }}>Pick what suits you best</div>
           <div style={{ display: "flex", justifyContent: "center" }}>
@@ -922,9 +1048,9 @@ export default function WeightLossOffer() {
                 scrollbarWidth: "none",
               }}
             >
-              <PlanCard planKey="group" planData={plans.group} duration={currentDuration} expired={expired} onConsult={() => setShowConsultModal(true)} />
-              <PlanCard planKey="personalSilver" planData={plans.personalSilver} duration={currentDuration} expired={expired} onConsult={() => setShowConsultModal(true)} />
-              <PlanCard planKey="personalGold" planData={plans.personalGold} duration={currentDuration} expired={expired} onConsult={() => setShowConsultModal(true)} />
+              <PlanCard planKey="group" planData={plans.group} duration={currentDuration} phase={phase} onConsult={() => setShowConsultModal(true)} />
+              <PlanCard planKey="personalSilver" planData={plans.personalSilver} duration={currentDuration} phase={phase} onConsult={() => setShowConsultModal(true)} />
+              <PlanCard planKey="personalGold" planData={plans.personalGold} duration={currentDuration} phase={phase} onConsult={() => setShowConsultModal(true)} />
             </div>
 
             {/* Scroll hint label */}
