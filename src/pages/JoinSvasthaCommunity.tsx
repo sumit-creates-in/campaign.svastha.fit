@@ -969,7 +969,7 @@ export default function WeightLossOffer() {
   }, []);
   const phase = phaseAt(now);
 
-  const [currentDuration, setCurrentDuration] = useState<6 | 12>(12);
+  const [currentDuration, setCurrentDuration] = useState<6 | 12>(6);
   const [activeCard, setActiveCard] = useState(0);
   const [showConsultModal, setShowConsultModal] = useState(false);
   const cardsScrollRef = useRef<HTMLDivElement>(null);
