@@ -4,6 +4,55 @@
  * Change values here; every section on the page reads from this file.
  */
 
+// ─── Sessions ─────────────────────────────────────────────────────────────────
+/**
+ * Every Master Class in the current run, oldest first. The page always shows
+ * the NEXT session: a session stays "current" until 60 minutes after it starts
+ * (so late joiners still land in the right group), then the page rolls over to
+ * the following one by itself. No redeploy between sessions.
+ *
+ * Each session has its own WhatsApp group — the Zoom link and reminders go out
+ * there. The SVASTHA Automator "RazorPay Payment Captured" ₹49 branch sends the
+ * same group link, and is switched over at the same moment.
+ */
+export interface MasterClassSession {
+  /** ISO 8601 with IST offset. */
+  startsAt: string;
+  dateLabel: string;
+  whatsappGroupUrl: string;
+}
+
+export const SESSIONS: readonly MasterClassSession[] = [
+  {
+    startsAt: "2026-10-15T19:30:00+05:30",
+    dateLabel: "Thursday, 15 October 2026",
+    whatsappGroupUrl: "https://chat.whatsapp.com/LrLUN2UfvPI2G3vdtc8s3m",
+  },
+  {
+    startsAt: "2026-10-20T19:30:00+05:30",
+    dateLabel: "Tuesday, 20 October 2026",
+    whatsappGroupUrl: "https://chat.whatsapp.com/H3mAtQ9892O5LVjrG0xBxa",
+  },
+  {
+    startsAt: "2026-10-23T19:30:00+05:30",
+    dateLabel: "Friday, 23 October 2026",
+    whatsappGroupUrl: "https://chat.whatsapp.com/IA3YyxvU9vY5whmGDAaqL7",
+  },
+];
+
+/** How long after the start a session still counts as the current one. */
+const ROLLOVER_AFTER_MS = 60 * 60 * 1000;
+
+/** The session a visitor registering right now is joining. */
+export function currentSession(now: number = Date.now()): MasterClassSession {
+  return (
+    SESSIONS.find((s) => now < new Date(s.startsAt).getTime() + ROLLOVER_AFTER_MS) ??
+    SESSIONS[SESSIONS.length - 1]
+  );
+}
+
+const SESSION = currentSession();
+
 // ─── Session ──────────────────────────────────────────────────────────────────
 export const MASTERCLASS = {
   name: "Ultimate 21 Day Weight Loss Challenge",
@@ -11,17 +60,20 @@ export const MASTERCLASS = {
   /** Shown as the event-name banner under the headline. */
   eventName: "MASTER CLASS",
 
-  /** ISO 8601 with IST offset. Drives the countdown and all date displays. */
-  startsAt: "2026-09-25T19:30:00+05:30",
-  dateLabel: "Friday, 25 September 2026",
+  /** Drives the countdown and all date displays — from the current session. */
+  startsAt: SESSION.startsAt,
+  dateLabel: SESSION.dateLabel,
   timeLabel: "7:30 PM IST",
   durationLabel: "90 minutes",
   platformLabel: "LIVE on Zoom",
   languageLabel: "Hindi + English",
 
   /** Batch that the Master Class pitches into. */
-  challengeStartLabel: "27 September 2026",
+  challengeStartLabel: "25 October 2026",
 } as const;
+
+/** Short form used on the offer page ("Batch starts 25 October"). */
+export const BATCH_START_SHORT = "25 October";
 
 // ─── Pricing ──────────────────────────────────────────────────────────────────
 export const PRICING = {
@@ -119,8 +171,7 @@ export const SOCIAL = {
  * reminders go out here. Shown only on the confirmation page, which Razorpay
  * redirects to after a successful payment.
  */
-export const WHATSAPP_GROUP_URL =
-  "https://chat.whatsapp.com/GYmbtNxOGaiIdkkRG06dfb";
+export const WHATSAPP_GROUP_URL = SESSION.whatsappGroupUrl;
 
 export const CHAT_MESSAGE =
   "Hi, I want to know more about Ultimate 21 Day Weight Loss Challenge - Master Class.";
@@ -134,17 +185,20 @@ export const CHAT_MESSAGE =
  * regular payment links — no edit or redeploy needed. That switch is the whole
  * point: if the price is still there tomorrow, the deadline never works again.
  */
+/** Master Class pricing stays open for this long after each session starts. */
+const OFFER_WINDOW_MS = 24 * 60 * 60 * 1000;
+
 export const OFFER = {
-  /** ISO 8601 with IST offset. After this instant, regular pricing shows. */
-  deadline: "2026-09-25T23:00:00+05:30",
-  deadlineLabel: "11:00 PM tonight",
+  /** Live from the start of a session until 7:30 PM IST the next evening. */
+  windowHours: 24,
+  deadlineLabel: "7:30 PM tomorrow",
 } as const;
 
 export interface OfferPlan {
   id: "group" | "personalized";
   name: string;
   tagline: string;
-  /** Master Class price — live until OFFER.deadline. */
+  /** Master Class price — live within 24 h of each session (see isOfferLive). */
   earlyPrice: string;
   earlyUrl: string;
   /** Regular price — what the page shows afterwards. */
@@ -168,7 +222,7 @@ export const OFFER_PLANS: readonly OfferPlan[] = [
     // SHARED with UpgradeModal / ScrollPopupModal on the challenge page.
     // Re-pricing this link changes what those popups charge too.
     regularUrl: "https://pages.razorpay.com/pl_QHMrm9qAqyqcdA/view",
-    startLabel: "Batch starts 27 September",
+    startLabel: `Batch starts ${BATCH_START_SHORT}`,
     features: [
       "The full 21 day diet plan — 5 options for every meal",
       "Your intermittent fasting windows and fasting days",
@@ -179,7 +233,7 @@ export const OFFER_PLANS: readonly OfferPlan[] = [
     ],
     bestFor: [
       "You are generally healthy",
-      "You can start with the batch on 27 September",
+      `You can start with the batch on ${BATCH_START_SHORT}`,
       "You are happy following a set plan",
       "Budget matters right now",
     ],
@@ -203,14 +257,17 @@ export const OFFER_PLANS: readonly OfferPlan[] = [
     ],
     bestFor: [
       "You are managing thyroid, PCOS, sugar or BP",
-      "You want to start today, not in 11 days",
+      "You want to start today, not wait for the batch",
       "You have tried before and stalled",
       "You want someone accountable to you",
     ],
   },
 ] as const;
 
-/** True while Master Class pricing is still live. */
+/** True while Master Class pricing is live — within 24 h of any session's start. */
 export function isOfferLive(now: number = Date.now()): boolean {
-  return now < new Date(OFFER.deadline).getTime();
+  return SESSIONS.some((sess) => {
+    const start = new Date(sess.startsAt).getTime();
+    return now >= start && now < start + OFFER_WINDOW_MS;
+  });
 }

@@ -11,6 +11,7 @@ import { useMeta } from "@/hooks/useMeta";
 import { ChatButton } from "@/components/masterclass/ChatButton";
 import { TransformationsSection } from "@/components/challenge";
 import {
+  BATCH_START_SHORT,
   MASTERCLASS,
   OFFER_PLANS,
   isOfferLive,
@@ -21,7 +22,7 @@ import {
  * Ultimate 21 Day Weight Loss Challenge — the offer page.
  *
  * Shared in the WhatsApp group at the end of the Master Class. Master Class
- * pricing is live until OFFER.deadline; after that the page switches itself
+ * pricing is live for 24 h after each session starts; after that the page switches itself
  * over to the regular prices and the regular payment links. Nothing to edit,
  * nothing to redeploy — which is exactly what makes the deadline real.
  *
@@ -62,7 +63,7 @@ const COMPARISON = [
   { label: "Diet plan", group: "The batch plan, weekly", personal: "Built around your body" },
   { label: "Dietitian", group: "Group guidance", personal: "Your own, dedicated" },
   { label: "Your condition", group: "General guidance", personal: "Planned around it" },
-  { label: "Start date", group: "27 September", personal: "Today" },
+  { label: "Start date", group: BATCH_START_SHORT, personal: "Today" },
   { label: "Live yoga classes", group: true, personal: true },
   { label: "Leaderboard & contest", group: true, personal: true },
   { label: "WhatsApp support", group: "In the batch group", personal: "Direct with your dietitian" },
@@ -169,7 +170,7 @@ const MasterClassOffer = () => {
             /* Deliberately no clock and no closing time. Sumit tells the room
                the price closes soon without naming the hour, and the page has
                to say the same thing. The switch still happens by itself at
-               OFFER.deadline. */
+               the end of the 24 h window (isOfferLive). */
             <div className="rounded-2xl bg-red-600 px-5 py-5 text-center shadow-lg shadow-red-600/20">
               <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-red-100">
                 Offer ends soon
