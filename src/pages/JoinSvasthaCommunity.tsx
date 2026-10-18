@@ -148,16 +148,19 @@ const PLAN_DATA = {
   }
 };
 
-// ── OFFER — Week 2 live of the 21 Day Challenge (Sun 4 Oct 2026) ─────────────
+// ── OFFER — last Nav Fit Challenge live session (Sun 18 Oct 2026) ─────────────
 // Phases (all IST):
-//   before  → until 10:30 AM Sun 4 Oct: regular prices
-//   live    → 10:30–11:00 AM Sun 4 Oct: ₹2,000 off + 2 months extra + bonuses
-//   offer   → 11:00 AM Sun 4 Oct – 11:00 AM Mon 5 Oct: ₹1,000 off + 1 month extra + bonuses
+//   before  → until 9:30 AM Sun 18 Oct: regular prices
+//   live    → 9:30–11:30 AM Sun 18 Oct (the live session): today's offer
+//   offer   → 11:30 AM – 11:59 PM Sun 18 Oct: same offer, consultation button back
 //   ended   → after that: regular prices
+// Offer (Sumit, 18 Oct): Transformation Plan only — 6 months ₹9,990, 12 months ₹17,990.
+// Community and VIP stay at regular prices. No extra months / bonuses this time.
 // To run the next offer, change these three times and the prices/links below.
-const LIVE_START = Date.parse("2026-10-03T11:00:00+05:30"); // live offer switched on early for testing (Sumit, 3 Oct)
-const LIVE_END = Date.parse("2026-10-04T11:00:00+05:30");
-const OFFER_END = Date.parse("2026-10-05T11:00:00+05:30");
+const LIVE_START = Date.parse("2026-10-18T09:30:00+05:30");
+const LIVE_END = Date.parse("2026-10-18T11:30:00+05:30");
+const OFFER_END = Date.parse("2026-10-18T23:59:59+05:30");
+const OFFER_END_LABEL = "tonight, 11:59 PM IST";
 
 type Phase = "before" | "live" | "offer" | "ended";
 type PlanKey = "group" | "personalSilver" | "personalGold";
@@ -214,17 +217,34 @@ const OFFER_LIVE: Tier = {
   },
 };
 
+/** Razorpay pages for today's Transformation offer (expire tonight). */
+const TRANSFORM_OFFER_LINK = {
+  12: RZP("pl_TpCiyBVYngtRii"), // ₹17,990, expires 19 Oct 00:15 IST
+  6: RZP("pl_TpCj1Wb8E6kzbp"), // ₹9,990, expires 19 Oct 00:15 IST
+} as const;
+
+/** Today's offer — Transformation Plan only. */
+const OFFER_TODAY: Tier = {
+  12: {
+    group: REGULAR[12].group,
+    personalSilver: { price: 17990, link: TRANSFORM_OFFER_LINK[12] },
+    personalGold: REGULAR[12].personalGold,
+  },
+  6: {
+    group: REGULAR[6].group,
+    personalSilver: { price: 9990, link: TRANSFORM_OFFER_LINK[6] },
+    personalGold: REGULAR[6].personalGold,
+  },
+};
+
 const OFFER_DETAILS = {
-  live: { off: 2000, extraMonths: 2, tier: OFFER_LIVE },
-  offer: { off: 1000, extraMonths: 1, tier: OFFER_24H },
+  live: { extraMonths: 0, tier: OFFER_TODAY },
+  offer: { extraMonths: 0, tier: OFFER_TODAY },
 } as const;
 
 /** The bonuses each plan gets during the offer (on top of the discount + extra months). */
-function bonusesFor(planKey: PlanKey): string[] {
-  const list: string[] = [];
-  if (planKey !== "personalGold") list.push("⚙️ Maintenance Plan — FREE");
-  if (planKey !== "group") list.push("📞 1 extra Direct Consultation with Sumit Sharma");
-  return list;
+function bonusesFor(_planKey: PlanKey): string[] {
+  return []; // no extra bonuses in this offer
 }
 
 const COMPARE_ROWS = [
@@ -623,7 +643,7 @@ function TimerStrip({ phase, now }: { phase: Phase; now: number }) {
           🔴 Live today at 9:30 AM IST
         </div>
         <div style={{ fontSize: 12, opacity: 0.9, marginTop: 4 }}>
-          A special offer for live attendees unlocks at 10:30 AM
+          Today&apos;s special offer unlocks when the session starts
         </div>
         <Countdown seconds={secsTo(LIVE_START)} />
       </div>
@@ -634,12 +654,12 @@ function TimerStrip({ phase, now }: { phase: Phase; now: number }) {
     return (
       <div style={{ ...base, animation: "pulseBg 1.6s ease-in-out infinite", boxShadow: "0 3px 16px rgba(217,48,37,0.45)" }}>
         <div style={{ fontSize: 14, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase" }}>
-          <span style={{ animation: "blink 1s infinite" }}>🔴</span> Live Session Offer · Ends Sun 4 Oct, 11:00 AM
+          <span style={{ animation: "blink 1s infinite" }}>🔴</span> Live Session Offer · Today only
         </div>
         <div style={{ fontSize: 12, opacity: 0.95, marginTop: 4, fontWeight: 700 }}>
-          ₹2,000 OFF + 2 Months FREE — live session only
+          Transformation Plan: 6 months ₹9,990 · 12 months ₹17,990
         </div>
-        <Countdown seconds={secsTo(LIVE_END)} />
+        <Countdown seconds={secsTo(OFFER_END)} />
       </div>
     );
   }
@@ -648,10 +668,10 @@ function TimerStrip({ phase, now }: { phase: Phase; now: number }) {
     return (
       <div style={{ ...base, background: "linear-gradient(135deg, #d93025 0%, #c0392b 100%)", boxShadow: "0 3px 16px rgba(217,48,37,0.4)" }}>
         <div style={{ fontSize: 13, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase" }}>
-          ⚡ 24-Hour Offer · Ends Mon 5 Oct, 11:00 AM IST
+          ⚡ Today&apos;s Offer · Ends {OFFER_END_LABEL}
         </div>
         <div style={{ fontSize: 12, opacity: 0.95, marginTop: 4, fontWeight: 700 }}>
-          ₹1,000 OFF + 1 Month FREE + Bonuses
+          Transformation Plan: 6 months ₹9,990 · 12 months ₹17,990
         </div>
         <Countdown seconds={secsTo(OFFER_END)} />
       </div>
@@ -672,8 +692,12 @@ function TimerStrip({ phase, now }: { phase: Phase; now: number }) {
 
 /** What the offer includes — shown above the plans while an offer is on. */
 function OfferBox({ phase }: { phase: "live" | "offer" }) {
-  const d = OFFER_DETAILS[phase];
   const live = phase === "live";
+  const rows = ([6, 12] as const).map((m) => {
+    const was = REGULAR[m].personalSilver.price;
+    const now = OFFER_TODAY[m]["personalSilver"].price;
+    return `👑 ${m} months: ₹${fmt(now)} (was ₹${fmt(was)}) — save ₹${fmt(was - now)}`;
+  });
   return (
     <div style={{
       margin: "0 0 18px",
@@ -684,23 +708,19 @@ function OfferBox({ phase }: { phase: "live" | "offer" }) {
       textAlign: "left",
     }}>
       <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 18, fontWeight: 800, color: live ? "#c0392b" : "#c07000", textAlign: "center" }}>
-        {live ? "🎁 Live Session Offer — for you, right now" : "🎁 Your 24-Hour Offer"}
+        🎁 Today&apos;s Offer — Transformation Plan
       </div>
       <div style={{ marginTop: 10, display: "grid", gap: 6 }}>
-        {[
-          `💸 ₹${fmt(d.off)} OFF on every plan`,
-          `📅 ${d.extraMonths} ${d.extraMonths === 1 ? "Month" : "Months"} EXTRA validity — FREE`,
-          "⚙️ Maintenance Plan — FREE",
-          "📞 Transformation & VIP: 1 Direct Consultation with Sumit Sharma",
-        ].map((t) => (
+        {rows.map((t) => (
           <div key={t} style={{ fontSize: 14, fontWeight: 700, color: "#1a1a2e" }}>{t}</div>
         ))}
-      </div>
-      {live && (
-        <div style={{ marginTop: 10, fontSize: 12, color: "#c0392b", fontWeight: 700, textAlign: "center" }}>
-          At 11:00 AM this drops to ₹1,000 off + 1 month extra.
+        <div style={{ fontSize: 13, fontWeight: 600, color: "#444" }}>
+          Personal dietitian, personalized diet plan, weekly follow-up and a consultation with Sumit Sharma.
         </div>
-      )}
+      </div>
+      <div style={{ marginTop: 10, fontSize: 12, color: "#c0392b", fontWeight: 700, textAlign: "center" }}>
+        Offer ends {OFFER_END_LABEL}.
+      </div>
     </div>
   );
 }
@@ -765,10 +785,13 @@ function PlanCard({ planKey, planData, duration, phase, onConsult }: {
   const [showAll, setShowAll] = useState(false);
   const isVIP = planKey === "personalGold";
 
-  const onOffer = phase === "live" || phase === "offer";
+  const offerPhase = phase === "live" || phase === "offer";
   const regular = REGULAR[duration][planKey];
-  const current = onOffer ? OFFER_DETAILS[phase].tier[duration][planKey] : regular;
-  const extraMonths = onOffer ? OFFER_DETAILS[phase].extraMonths : 0;
+  const offered = offerPhase ? OFFER_DETAILS[phase].tier[duration][planKey] : regular;
+  // Only plans with a lower price today are shown "on offer"; the rest show regular pricing.
+  const onOffer = offerPhase && offered.price < regular.price;
+  const current = onOffer ? offered : regular;
+  const extraMonths: number = onOffer ? OFFER_DETAILS[phase].extraMonths : 0;
 
   const finalSell = current.price;
   const finalLink = current.link;
@@ -827,9 +850,15 @@ function PlanCard({ planKey, planData, duration, phase, onConsult }: {
           <div style={{ fontSize: 11, fontWeight: 800, letterSpacing: 0.5, textTransform: "uppercase", color: phase === "live" ? "#c0392b" : "#c07000", marginBottom: 4 }}>
             🎁 Included in today&apos;s offer
           </div>
-          <div style={{ fontSize: 12, fontWeight: 700, color: "#1a1a2e", marginBottom: 3 }}>
-            📅 {duration} + {extraMonths} {extraMonths === 1 ? "month" : "months"} FREE = {duration + extraMonths} months
-          </div>
+          {extraMonths > 0 ? (
+            <div style={{ fontSize: 12, fontWeight: 700, color: "#1a1a2e", marginBottom: 3 }}>
+              📅 {duration} + {extraMonths} {extraMonths === 1 ? "month" : "months"} FREE = {duration + extraMonths} months
+            </div>
+          ) : (
+            <div style={{ fontSize: 12, fontWeight: 700, color: "#1a1a2e", marginBottom: 3 }}>
+              💸 Special price — ends {OFFER_END_LABEL}
+            </div>
+          )}
           {bonusesFor(planKey).map((b) => (
             <div key={b} style={{ fontSize: 12, fontWeight: 700, color: "#1a1a2e", marginBottom: 3 }}>{b}</div>
           ))}
@@ -1049,9 +1078,13 @@ export default function WeightLossOffer() {
                 scrollbarWidth: "none",
               }}
             >
-              <PlanCard planKey="group" planData={plans.group} duration={currentDuration} phase={phase} onConsult={() => setShowConsultModal(true)} />
-              <PlanCard planKey="personalSilver" planData={plans.personalSilver} duration={currentDuration} phase={phase} onConsult={() => setShowConsultModal(true)} />
-              <PlanCard planKey="personalGold" planData={plans.personalGold} duration={currentDuration} phase={phase} onConsult={() => setShowConsultModal(true)} />
+              {/* During an offer, the plan on offer (Transformation) is shown first. */}
+              {((phase === "live" || phase === "offer")
+                ? (["personalSilver", "group", "personalGold"] as const)
+                : (["group", "personalSilver", "personalGold"] as const)
+              ).map((k) => (
+                <PlanCard key={k} planKey={k} planData={plans[k]} duration={currentDuration} phase={phase} onConsult={() => setShowConsultModal(true)} />
+              ))}
             </div>
 
             {/* Scroll hint label */}
