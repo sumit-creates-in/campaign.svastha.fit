@@ -150,17 +150,15 @@ const PLAN_DATA = {
 
 // ── OFFER — last Nav Fit Challenge live session (Sun 18 Oct 2026) ─────────────
 // Phases (all IST):
-//   before  → until 9:30 AM Sun 18 Oct: regular prices
-//   live    → 9:30–11:30 AM Sun 18 Oct (the live session): today's offer
-//   offer   → 11:30 AM – 11:59 PM Sun 18 Oct: same offer, consultation button back
-//   ended   → after that: regular prices
-// Offer (Sumit, 18 Oct): Transformation Plan only — 6 months ₹9,990, 12 months ₹17,990.
-// Community and VIP stay at regular prices. No extra months / bonuses this time.
+//   live    → from 8:00 AM until 11:30 AM Sun 18 Oct: today's offer (Sumit: "make it live now")
+//   ended   → after 11:30 AM: regular prices (no 24h offer this time)
+// Offer (Sumit, 18 Oct): Transformation 6m ₹9,990 / 12m ₹17,990; Community ₹1,000 off;
+// VIP ₹5,000 off. No extra months / bonuses.
 // To run the next offer, change these three times and the prices/links below.
-const LIVE_START = Date.parse("2026-10-18T09:30:00+05:30");
+const LIVE_START = Date.parse("2026-10-18T07:30:00+05:30");
 const LIVE_END = Date.parse("2026-10-18T11:30:00+05:30");
-const OFFER_END = Date.parse("2026-10-18T23:59:59+05:30");
-const OFFER_END_LABEL = "tonight, 11:59 PM IST";
+const OFFER_END = Date.parse("2026-10-18T11:30:00+05:30");
+const OFFER_END_LABEL = "today at 11:30 AM IST";
 
 type Phase = "before" | "live" | "offer" | "ended";
 type PlanKey = "group" | "personalSilver" | "personalGold";
@@ -217,23 +215,23 @@ const OFFER_LIVE: Tier = {
   },
 };
 
-/** Razorpay pages for today's Transformation offer (expire tonight). */
+/** Razorpay pages for today's offer (all expire 18 Oct 11:45 AM IST). */
 const TRANSFORM_OFFER_LINK = {
-  12: RZP("pl_TpCiyBVYngtRii"), // ₹17,990, expires 19 Oct 00:15 IST
-  6: RZP("pl_TpCj1Wb8E6kzbp"), // ₹9,990, expires 19 Oct 00:15 IST
+  12: RZP("pl_TpCiyBVYngtRii"), // ₹17,990
+  6: RZP("pl_TpCj1Wb8E6kzbp"), // ₹9,990
 } as const;
 
-/** Today's offer — Transformation Plan only. */
+/** Today's offer — Community ₹1,000 off, Transformation 9,990 / 17,990, VIP ₹5,000 off. */
 const OFFER_TODAY: Tier = {
   12: {
-    group: REGULAR[12].group,
+    group: OFFER_24H[12].group, // ₹6,990 (existing ₹1,000-off page)
     personalSilver: { price: 17990, link: TRANSFORM_OFFER_LINK[12] },
-    personalGold: REGULAR[12].personalGold,
+    personalGold: { price: 49990, link: RZP("pl_TpCtgRgHDcZkEL") },
   },
   6: {
-    group: REGULAR[6].group,
+    group: OFFER_24H[6].group, // ₹4,990 (existing ₹1,000-off page)
     personalSilver: { price: 9990, link: TRANSFORM_OFFER_LINK[6] },
-    personalGold: REGULAR[6].personalGold,
+    personalGold: { price: 29990, link: RZP("pl_TpCtibHe0frimh") },
   },
 };
 
@@ -654,10 +652,10 @@ function TimerStrip({ phase, now }: { phase: Phase; now: number }) {
     return (
       <div style={{ ...base, animation: "pulseBg 1.6s ease-in-out infinite", boxShadow: "0 3px 16px rgba(217,48,37,0.45)" }}>
         <div style={{ fontSize: 14, fontWeight: 800, letterSpacing: 1, textTransform: "uppercase" }}>
-          <span style={{ animation: "blink 1s infinite" }}>🔴</span> Live Session Offer · Today only
+          <span style={{ animation: "blink 1s infinite" }}>🔴</span> Live Session Offer · Ends 11:30 AM
         </div>
         <div style={{ fontSize: 12, opacity: 0.95, marginTop: 4, fontWeight: 700 }}>
-          Transformation Plan: 6 months ₹9,990 · 12 months ₹17,990
+          Transformation from ₹9,990 · Community ₹1,000 off · VIP ₹5,000 off
         </div>
         <Countdown seconds={secsTo(OFFER_END)} />
       </div>
@@ -671,7 +669,7 @@ function TimerStrip({ phase, now }: { phase: Phase; now: number }) {
           ⚡ Today&apos;s Offer · Ends {OFFER_END_LABEL}
         </div>
         <div style={{ fontSize: 12, opacity: 0.95, marginTop: 4, fontWeight: 700 }}>
-          Transformation Plan: 6 months ₹9,990 · 12 months ₹17,990
+          Transformation from ₹9,990 · Community ₹1,000 off · VIP ₹5,000 off
         </div>
         <Countdown seconds={secsTo(OFFER_END)} />
       </div>
@@ -693,10 +691,13 @@ function TimerStrip({ phase, now }: { phase: Phase; now: number }) {
 /** What the offer includes — shown above the plans while an offer is on. */
 function OfferBox({ phase }: { phase: "live" | "offer" }) {
   const live = phase === "live";
-  const rows = ([6, 12] as const).map((m) => {
-    const was = REGULAR[m].personalSilver.price;
-    const now = OFFER_TODAY[m]["personalSilver"].price;
-    return `👑 ${m} months: ₹${fmt(now)} (was ₹${fmt(was)}) — save ₹${fmt(was - now)}`;
+  const names: Record<PlanKey, string> = { group: "⭐ Community", personalSilver: "👑 Transformation", personalGold: "💎 VIP" };
+  const rows = (["personalSilver", "group", "personalGold"] as const).map((k) => {
+    const parts = ([6, 12] as const).map((m) => `${m}m ₹${fmt(OFFER_TODAY[m][k].price)}`).join(" · ");
+    const off6 = REGULAR[6][k].price - OFFER_TODAY[6][k].price;
+    const off12 = REGULAR[12][k].price - OFFER_TODAY[12][k].price;
+    const off = off6 === off12 ? `₹${fmt(off6)} off` : `up to ₹${fmt(Math.max(off6, off12))} off`;
+    return `${names[k]}: ${parts} (${off})`;
   });
   return (
     <div style={{
@@ -708,14 +709,14 @@ function OfferBox({ phase }: { phase: "live" | "offer" }) {
       textAlign: "left",
     }}>
       <div style={{ fontFamily: "'Baloo 2', cursive", fontSize: 18, fontWeight: 800, color: live ? "#c0392b" : "#c07000", textAlign: "center" }}>
-        🎁 Today&apos;s Offer — Transformation Plan
+        🎁 Today&apos;s Live Session Offer
       </div>
       <div style={{ marginTop: 10, display: "grid", gap: 6 }}>
         {rows.map((t) => (
           <div key={t} style={{ fontSize: 14, fontWeight: 700, color: "#1a1a2e" }}>{t}</div>
         ))}
         <div style={{ fontSize: 13, fontWeight: 600, color: "#444" }}>
-          Personal dietitian, personalized diet plan, weekly follow-up and a consultation with Sumit Sharma.
+          Best value: Transformation Plan — personal dietitian, personalized diet plan, weekly follow-up and a consultation with Sumit Sharma.
         </div>
       </div>
       <div style={{ marginTop: 10, fontSize: 12, color: "#c0392b", fontWeight: 700, textAlign: "center" }}>
