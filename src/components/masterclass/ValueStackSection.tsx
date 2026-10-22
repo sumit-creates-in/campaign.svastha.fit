@@ -22,7 +22,7 @@ const INCLUDED = [
   },
   {
     title: "The recording",
-    body: "Can't make 7:30 PM? Register anyway. The recording comes to you.",
+    body: `Can't make ${MASTERCLASS.timeLabel.replace(" IST", "")}? Register anyway. The recording comes to you.`,
   },
 ];
 

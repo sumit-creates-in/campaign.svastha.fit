@@ -34,8 +34,8 @@ export const SESSIONS: readonly MasterClassSession[] = [
     whatsappGroupUrl: "https://chat.whatsapp.com/H3mAtQ9892O5LVjrG0xBxa",
   },
   {
-    startsAt: "2026-10-23T19:30:00+05:30",
-    dateLabel: "Friday, 23 October 2026",
+    startsAt: "2026-10-25T09:30:00+05:30",
+    dateLabel: "Sunday, 25 October 2026",
     whatsappGroupUrl: "https://chat.whatsapp.com/IA3YyxvU9vY5whmGDAaqL7",
   },
 ];
@@ -63,17 +63,17 @@ export const MASTERCLASS = {
   /** Drives the countdown and all date displays — from the current session. */
   startsAt: SESSION.startsAt,
   dateLabel: SESSION.dateLabel,
-  timeLabel: "7:30 PM IST",
+  timeLabel: "9:30 AM IST",
   durationLabel: "90 minutes",
   platformLabel: "LIVE on Zoom",
   languageLabel: "Hindi + English",
 
   /** Batch that the Master Class pitches into. */
-  challengeStartLabel: "25 October 2026",
+  challengeStartLabel: "Monday, 26 October 2026",
 } as const;
 
-/** Short form used on the offer page ("Batch starts 25 October"). */
-export const BATCH_START_SHORT = "25 October";
+/** Short form used on the offer page ("Batch starts Monday, 26 October"). */
+export const BATCH_START_SHORT = "Monday, 26 October";
 
 // ─── Pricing ──────────────────────────────────────────────────────────────────
 export const PRICING = {
@@ -189,9 +189,9 @@ export const CHAT_MESSAGE =
 const OFFER_WINDOW_MS = 24 * 60 * 60 * 1000;
 
 export const OFFER = {
-  /** Live from the start of a session until 7:30 PM IST the next evening. */
+  /** Live from the start of a session until the same time the next day. */
   windowHours: 24,
-  deadlineLabel: "7:30 PM tomorrow",
+  deadlineLabel: "9:30 AM tomorrow",
 } as const;
 
 export interface OfferPlan {
