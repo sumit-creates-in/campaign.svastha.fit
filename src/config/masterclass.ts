@@ -36,7 +36,7 @@ export const SESSIONS: readonly MasterClassSession[] = [
   {
     startsAt: "2026-10-25T09:30:00+05:30",
     dateLabel: "Sunday, 25 October 2026",
-    whatsappGroupUrl: "https://chat.whatsapp.com/IA3YyxvU9vY5whmGDAaqL7",
+    whatsappGroupUrl: "https://chat.whatsapp.com/DkwXZLX6yDLIp3gTqtkDf9",
   },
 ];
 
