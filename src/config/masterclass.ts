@@ -207,8 +207,19 @@ const OFFER_WINDOW_MS = 24 * 60 * 60 * 1000;
 export const OFFER = {
   /** Live from the start of a session until the same time the next day. */
   windowHours: 24,
-  deadlineLabel: "9:30 AM tomorrow",
+  deadlineLabel: "midnight on Sunday",
 } as const;
+
+/**
+ * Fixed offer window for the B156 batch (Sumit, 23 Oct): the Master Class
+ * price is live NOW and closes at midnight on Sunday 25 Oct (IST), instead of
+ * 24 h after the session. Once this window has passed, the page stays on the
+ * regular price. For the next cycle, remove this or set new dates.
+ */
+const OFFER_FIXED_WINDOW = {
+  opensAt: Date.parse("2026-10-23T00:00:00+05:30"),
+  closesAt: Date.parse("2026-10-26T00:00:00+05:30"),
+};
 
 export interface OfferPlan {
   id: "group" | "personalized";
@@ -282,6 +293,7 @@ export const OFFER_PLANS: readonly OfferPlan[] = [
 
 /** True while Master Class pricing is live — within 24 h of any session's start. */
 export function isOfferLive(now: number = Date.now()): boolean {
+  if (now >= OFFER_FIXED_WINDOW.opensAt) return now < OFFER_FIXED_WINDOW.closesAt;
   return SESSIONS.some((sess) => {
     const start = new Date(sess.startsAt).getTime();
     return now >= start && now < start + OFFER_WINDOW_MS;

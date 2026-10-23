@@ -170,13 +170,13 @@ const MasterClassOffer = () => {
             /* Deliberately no clock and no closing time. Sumit tells the room
                the price closes soon without naming the hour, and the page has
                to say the same thing. The switch still happens by itself at
-               the end of the 24 h window (isOfferLive). */
+               the end of the offer window (isOfferLive). */
             <div className="rounded-2xl bg-red-600 px-5 py-5 text-center shadow-lg shadow-red-600/20">
               <p className="text-[11px] font-bold uppercase tracking-[0.2em] text-red-100">
                 Offer ends soon
               </p>
               <p className="mt-2 text-xl font-extrabold leading-snug text-white md:text-2xl">
-                This price is for the people who sat through the Master Class.
+                This price is only for our Master Class registrants.
               </p>
               <p className="mt-2 text-sm leading-relaxed text-red-100">
                 When it closes, this page goes back to the usual price. You
