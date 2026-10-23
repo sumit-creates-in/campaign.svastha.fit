@@ -1,6 +1,7 @@
 import { motion } from "framer-motion";
-import { CheckCircle, Phone, Mail, MessageCircle } from "lucide-react";
+import { CheckCircle, Phone, Mail, MessageCircle, Users } from "lucide-react";
 import { useEffect } from "react";
+import { INDIA_BATCH } from "@/config/masterclass";
 
 const U21DWLCPaymentConfirmation = ({ isGlobal = false }: { isGlobal?: boolean }) => {
     useEffect(() => {
@@ -96,6 +97,41 @@ const U21DWLCPaymentConfirmation = ({ isGlobal = false }: { isGlobal?: boolean }
                             </p>
                         </div>
                     </motion.div>
+
+                    {/* Join the batch group (India) */}
+                    {!isGlobal && (
+                        <motion.div
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ duration: 0.6, delay: 0.3 }}
+                            className="bg-white rounded-2xl shadow-lg p-6 md:p-12 mb-8 border-2 border-green-300"
+                        >
+                            <div className="flex items-start gap-3 mb-4">
+                                <Users className="w-8 h-8 md:w-10 md:h-10 text-green-600 flex-shrink-0" />
+                                <h2 className="text-xl md:text-2xl font-bold text-gray-900">
+                                    Join your batch WhatsApp group now
+                                </h2>
+                            </div>
+                            <div className="space-y-3 text-gray-700 text-lg">
+                                <p>
+                                    Your plan is personal, and you are also part of the batch: the live yoga classes, the
+                                    Sunday sessions with Sumit, the leaderboard and all reminders are shared in the group.
+                                </p>
+                                <p className="text-gray-600">
+                                    Starting session: <strong>{INDIA_BATCH.sessionDateLabel}, {INDIA_BATCH.sessionTimeLabel}</strong> on Zoom.
+                                    Day 1: <strong>{INDIA_BATCH.day1Label}</strong>.
+                                </p>
+                            </div>
+                            <a
+                                href={INDIA_BATCH.whatsappGroupUrl}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="mt-6 inline-flex w-full md:w-auto items-center justify-center gap-2 rounded-full bg-green-600 px-8 py-4 text-lg font-bold text-white shadow-md hover:bg-green-700"
+                            >
+                                <MessageCircle className="w-5 h-5" /> Join the WhatsApp Group
+                            </a>
+                        </motion.div>
+                    )}
 
                     {/* Support Section */}
                     <motion.div

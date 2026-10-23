@@ -1,3 +1,4 @@
+import { INDIA_BATCH } from "@/config/masterclass";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
@@ -164,7 +165,7 @@ const RegistrationConfirm21WLYC = ({
     const whatsappLink = isUsa
       ? "https://chat.whatsapp.com/FoGwXxLnNAsAHkp8BD5dmh"
       : isIndia
-        ? "https://chat.whatsapp.com/GL7HH2BqBneDt524AWzaxU?s=cl&p=a&mlu=4"
+        ? INDIA_BATCH.whatsappGroupUrl
         : isDetoxPage
           ? "https://chat.whatsapp.com/HBjqeFJhIvFLRbLAh05cGz?s=cl&p=a&ilr=4"
           : "https://chat.whatsapp.com/GL7HH2BqBneDt524AWzaxU?s=cl&p=a&mlu=4"
@@ -184,8 +185,8 @@ const RegistrationConfirm21WLYC = ({
     },
     {
       number: "3️⃣",
-      title: "Attend the orientation session on time",
-      description: `Join the Zoom call at ${sessionTime} on ${isUsa ? "27th September" : isDetoxPage ? "16th August" : "27th September"}`,
+      title: "Attend the starting session on time",
+      description: `Join the Zoom call at ${sessionTime} on ${isIndia ? INDIA_BATCH.sessionDateLabel : isUsa ? "27th September" : isDetoxPage ? "16th August" : "27th September"}`,
     },
   ];
 
@@ -275,7 +276,7 @@ const RegistrationConfirm21WLYC = ({
           >
             <h3 className="text-2xl font-bold text-gray-900 mb-8 flex items-center gap-2">
               <Calendar className="w-6 h-6 text-blue-600" />
-              Orientation Session Details
+              Starting Session Details
             </h3>
 
             <div className="space-y-6">
@@ -284,7 +285,7 @@ const RegistrationConfirm21WLYC = ({
                 <div>
                   <p className="text-sm text-gray-600 font-semibold">Date</p>
                   <p className="text-lg text-gray-900 font-bold">
-                    {(isUsa || isIndia) ? "27th September (Sunday)" : isDetoxPage ? "16th August (Sunday)" : "27th September (Sunday)"}
+                    {isIndia ? INDIA_BATCH.sessionDateLabel : isUsa ? "27th September (Sunday)" : isDetoxPage ? "16th August (Sunday)" : "27th September (Sunday)"}
                   </p>
                 </div>
               </div>

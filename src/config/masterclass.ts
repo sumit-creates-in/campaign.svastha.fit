@@ -75,6 +75,22 @@ export const MASTERCLASS = {
 /** Short form used on the offer page ("Batch starts Monday, 26 October"). */
 export const BATCH_START_SHORT = "Monday, 26 October";
 
+// ─── Current India 21 Day batch (what buyers join) ──────────────────────────
+/**
+ * Read by the post-payment pages for Group (/reg-confirm-group-21wlyc-india)
+ * and Personalized (/reg-confirm-personalised-21wlyc-india) buyers in India.
+ * Change these three values for every new batch.
+ */
+export const INDIA_BATCH = {
+  name: "B156",
+  whatsappGroupUrl: "https://chat.whatsapp.com/EO5B16iDNpC3CmxkKPTBUl",
+  /** Starting session (the Sunday live with Sumit). */
+  sessionDateLabel: "25th October (Sunday)",
+  sessionTimeLabel: "9:30 AM (India Time)",
+  /** Day 1 of the batch. */
+  day1Label: "Monday, 26th October",
+} as const;
+
 // ─── Pricing ──────────────────────────────────────────────────────────────────
 export const PRICING = {
   anchor: "₹999",
