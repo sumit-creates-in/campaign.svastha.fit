@@ -17,6 +17,7 @@ import {
   isOfferLive,
   type OfferPlan,
 } from "@/config/masterclass";
+import { useFlashOffer, formatMmSs } from "@/hooks/useFlashOffer";
 
 /**
  * Ultimate 21 Day Weight Loss Challenge — the offer page.
@@ -94,6 +95,7 @@ const FAQS = [
 
 const MasterClassOffer = () => {
   const live = useOfferLiveNow();
+  const flash = useFlashOffer(live);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -110,8 +112,10 @@ const MasterClassOffer = () => {
     twitterImage: "https://campaign.svastha.fit/masterclass-og.jpg",
   });
 
-  const priceOf = (p: OfferPlan) => (live ? p.earlyPrice : p.regularPrice);
-  const urlOf = (p: OfferPlan) => (live ? p.earlyUrl : p.regularUrl);
+  const priceOf = (p: OfferPlan) =>
+    flash.active ? p.flashPrice : live ? p.earlyPrice : p.regularPrice;
+  const urlOf = (p: OfferPlan) =>
+    flash.active ? p.flashUrl : live ? p.earlyUrl : p.regularUrl;
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-white pb-28">
@@ -139,7 +143,7 @@ const MasterClassOffer = () => {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
               </span>
-              Master Class price — closing soon
+              {flash.active ? "Live flash price — ends in " + formatMmSs(flash.secondsLeft) : "Master Class price — closing soon"}
             </span>
           ) : (
             <span className="inline-flex items-center rounded-full bg-emerald-50 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-emerald-700 ring-1 ring-emerald-200">
@@ -166,7 +170,21 @@ const MasterClassOffer = () => {
           transition={{ duration: 0.5, delay: 0.15 }}
           className="mx-auto mt-7 max-w-2xl"
         >
-          {live ? (
+          {flash.active ? (
+            /* The one place with a clock: Sumit's live 15-minute flash offer. */
+            <div className="rounded-2xl bg-amber-400 px-5 py-5 text-center shadow-lg shadow-amber-400/30">
+              <p className="text-[11px] font-extrabold uppercase tracking-[0.2em] text-amber-900">
+                ⚡ Live flash offer
+              </p>
+              <p className="mt-2 text-xl font-extrabold leading-snug text-gray-950 md:text-2xl">
+                Ends in <span className="tabular-nums">{formatMmSs(flash.secondsLeft)}</span>
+              </p>
+              <p className="mt-2 text-sm leading-relaxed text-amber-950">
+                Only for the people in the live session right now. When the timer
+                hits zero, the price goes back up.
+              </p>
+            </div>
+          ) : live ? (
             /* Deliberately no clock and no closing time. Sumit tells the room
                the price closes soon without naming the hour, and the page has
                to say the same thing. The switch still happens by itself at
@@ -261,7 +279,7 @@ const MasterClassOffer = () => {
                     }`}
                   >
                     {plan.startLabel}
-                    {live && " · Master Class price"}
+                    {flash.active ? " · Live flash price" : live && " · Master Class price"}
                   </p>
 
                   {/* CTA */}
@@ -460,14 +478,14 @@ const MasterClassOffer = () => {
       </section>
 
       {/* ── Sticky bar ────────────────────────────────────────────────────── */}
-      <StickyOfferBar live={live} />
+      <StickyOfferBar live={live} flash={flash.active} />
       <ChatButton />
     </div>
   );
 };
 
 /** Two-button sticky bar — appears once the plan cards scroll past. */
-const StickyOfferBar = ({ live }: { live: boolean }) => {
+const StickyOfferBar = ({ live, flash }: { live: boolean; flash: boolean }) => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -483,8 +501,8 @@ const StickyOfferBar = ({ live }: { live: boolean }) => {
     <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-gray-800 bg-gray-950/95 px-3 py-3 backdrop-blur">
       <div className="mx-auto flex max-w-3xl gap-2.5">
         {OFFER_PLANS.map((plan) => {
-          const price = live ? plan.earlyPrice : plan.regularPrice;
-          const url = live ? plan.earlyUrl : plan.regularUrl;
+          const price = flash ? plan.flashPrice : live ? plan.earlyPrice : plan.regularPrice;
+          const url = flash ? plan.flashUrl : live ? plan.earlyUrl : plan.regularUrl;
           return (
             <a
               key={plan.id}

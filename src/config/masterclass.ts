@@ -228,6 +228,9 @@ export interface OfferPlan {
   /** Master Class price — live within 24 h of each session (see isOfferLive). */
   earlyPrice: string;
   earlyUrl: string;
+  /** 15-minute live flash price (started by Sumit's button) — see FLASH_OFFER. */
+  flashPrice: string;
+  flashUrl: string;
   /** Regular price — what the page shows afterwards. */
   regularPrice: string;
   regularUrl: string;
@@ -245,6 +248,9 @@ export const OFFER_PLANS: readonly OfferPlan[] = [
     // Amount is set at the Razorpay end — this link was ₹790 on 16 Sep and
     // was re-priced to ₹1,490 for 18 Sep. Used ONLY by this page.
     earlyUrl: "https://rzp.io/rzp/29j50yv8",
+    flashPrice: "₹1,290",
+    // pl_TrgT4iq2FuRZaa — created 24 Oct for the live flash offer only.
+    flashUrl: "https://pages.razorpay.com/pl_TrgT4iq2FuRZaa/view",
     regularPrice: "₹1,990",
     // SHARED with UpgradeModal / ScrollPopupModal on the challenge page.
     // Re-pricing this link changes what those popups charge too.
@@ -271,6 +277,9 @@ export const OFFER_PLANS: readonly OfferPlan[] = [
     tagline: "A dietitian builds it around you",
     earlyPrice: "₹2,490",
     earlyUrl: "https://rzp.io/rzp/2EBxuXvN",
+    flashPrice: "₹2,290",
+    // pl_TrgT9LUtmZLFtU — created 24 Oct for the live flash offer only.
+    flashUrl: "https://pages.razorpay.com/pl_TrgT9LUtmZLFtU/view",
     regularPrice: "₹2,990",
     regularUrl: "https://pages.razorpay.com/pl_QHMy1AvL4XDeqQ/view",
     startLabel: "You can start today",
@@ -290,6 +299,15 @@ export const OFFER_PLANS: readonly OfferPlan[] = [
     ],
   },
 ] as const;
+
+/**
+ * Live flash offer (Sumit, 24 Oct): when Sumit presses Start on his control
+ * page, the flash prices show for 15 minutes on /join, then the page goes back
+ * to the Master Class prices above. State: Supabase row campaign_flash_offers
+ * id "b156" (read through the public view campaign_flash_offer_status).
+ * Only honoured while isOfferLive() is true.
+ */
+export const FLASH_OFFER = { id: "b156", minutes: 15 } as const;
 
 /** True while Master Class pricing is live — within 24 h of any session's start. */
 export function isOfferLive(now: number = Date.now()): boolean {
