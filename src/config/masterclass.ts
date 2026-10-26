@@ -38,6 +38,11 @@ export const SESSIONS: readonly MasterClassSession[] = [
     dateLabel: "Sunday, 25 October 2026",
     whatsappGroupUrl: "https://chat.whatsapp.com/DkwXZLX6yDLIp3gTqtkDf9",
   },
+  {
+    startsAt: "2026-11-22T09:30:00+05:30",
+    dateLabel: "Sunday, 22 November 2026",
+    whatsappGroupUrl: "https://chat.whatsapp.com/CuLcTIYGt3mKxz4Hj01Kic",
+  },
 ];
 
 /** How long after the start a session still counts as the current one. */
@@ -69,11 +74,11 @@ export const MASTERCLASS = {
   languageLabel: "Hindi + English",
 
   /** Batch that the Master Class pitches into. */
-  challengeStartLabel: "Monday, 26 October 2026",
+  challengeStartLabel: "Monday, 23 November 2026",
 } as const;
 
 /** Short form used on the offer page ("Batch starts Monday, 26 October"). */
-export const BATCH_START_SHORT = "Monday, 26 October";
+export const BATCH_START_SHORT = "Monday, 23 November";
 
 // ─── Current India 21 Day batch (what buyers join) ──────────────────────────
 /**
@@ -82,13 +87,13 @@ export const BATCH_START_SHORT = "Monday, 26 October";
  * Change these three values for every new batch.
  */
 export const INDIA_BATCH = {
-  name: "B156",
-  whatsappGroupUrl: "https://chat.whatsapp.com/EO5B16iDNpC3CmxkKPTBUl",
+  name: "B157",
+  whatsappGroupUrl: "https://chat.whatsapp.com/FUUXmqPXrqb6fb4BEAh0ca",
   /** Starting session (the Sunday live with Sumit). */
-  sessionDateLabel: "25th October (Sunday)",
+  sessionDateLabel: "22nd November (Sunday)",
   sessionTimeLabel: "9:30 AM (India Time)",
   /** Day 1 of the batch. */
-  day1Label: "Monday, 26th October",
+  day1Label: "Monday, 23rd November",
 } as const;
 
 // ─── Pricing ──────────────────────────────────────────────────────────────────
@@ -211,14 +216,14 @@ export const OFFER = {
 } as const;
 
 /**
- * Fixed offer window for the B156 batch (Sumit, 23 Oct): the Master Class
- * price is live NOW and closes at midnight on Sunday 25 Oct (IST), instead of
- * 24 h after the session. Once this window has passed, the page stays on the
- * regular price. For the next cycle, remove this or set new dates.
+ * Fixed offer window for the B157 batch (same pattern Sumit set for B156 on
+ * 23 Oct): the Master Class price opens Friday 20 Nov and closes at midnight
+ * on Sunday 22 Nov (IST), instead of 24 h after the session. Before and after
+ * this window the page shows the regular price. Set new dates every cycle.
  */
 const OFFER_FIXED_WINDOW = {
-  opensAt: Date.parse("2026-10-23T00:00:00+05:30"),
-  closesAt: Date.parse("2026-10-26T00:00:00+05:30"),
+  opensAt: Date.parse("2026-11-20T00:00:00+05:30"),
+  closesAt: Date.parse("2026-11-23T00:00:00+05:30"),
 };
 
 export interface OfferPlan {
