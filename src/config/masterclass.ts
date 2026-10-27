@@ -19,6 +19,8 @@ export interface MasterClassSession {
   /** ISO 8601 with IST offset. */
   startsAt: string;
   dateLabel: string;
+  /** Optional — defaults to "9:30 AM IST" (the Sunday-morning slot). */
+  timeLabel?: string;
   whatsappGroupUrl: string;
 }
 
@@ -37,6 +39,14 @@ export const SESSIONS: readonly MasterClassSession[] = [
     startsAt: "2026-10-25T09:30:00+05:30",
     dateLabel: "Sunday, 25 October 2026",
     whatsappGroupUrl: "https://chat.whatsapp.com/DkwXZLX6yDLIp3gTqtkDf9",
+  },
+  {
+    // Extra weekday-evening Master Class (Sumit, 27 Oct). Same WhatsApp group
+    // as the 22 Nov session (B111); registrants also keep a seat for 22 Nov.
+    startsAt: "2026-10-30T19:30:00+05:30",
+    dateLabel: "Friday, 30 October 2026",
+    timeLabel: "7:30 PM IST",
+    whatsappGroupUrl: "https://chat.whatsapp.com/CuLcTIYGt3mKxz4Hj01Kic",
   },
   {
     startsAt: "2026-11-22T09:30:00+05:30",
@@ -68,7 +78,7 @@ export const MASTERCLASS = {
   /** Drives the countdown and all date displays — from the current session. */
   startsAt: SESSION.startsAt,
   dateLabel: SESSION.dateLabel,
-  timeLabel: "9:30 AM IST",
+  timeLabel: SESSION.timeLabel ?? "9:30 AM IST",
   durationLabel: "90 minutes",
   platformLabel: "LIVE on Zoom",
   languageLabel: "Hindi + English",
@@ -206,8 +216,6 @@ export const CHAT_MESSAGE =
  * regular payment links — no edit or redeploy needed. That switch is the whole
  * point: if the price is still there tomorrow, the deadline never works again.
  */
-/** Master Class pricing stays open for this long after each session starts. */
-const OFFER_WINDOW_MS = 24 * 60 * 60 * 1000;
 
 export const OFFER = {
   /** Live from the start of a session until the same time the next day. */
@@ -316,9 +324,7 @@ export const FLASH_OFFER = { id: "b156", minutes: 15 } as const;
 
 /** True while Master Class pricing is live — within 24 h of any session's start. */
 export function isOfferLive(now: number = Date.now()): boolean {
-  if (now >= OFFER_FIXED_WINDOW.opensAt) return now < OFFER_FIXED_WINDOW.closesAt;
-  return SESSIONS.some((sess) => {
-    const start = new Date(sess.startsAt).getTime();
-    return now >= start && now < start + OFFER_WINDOW_MS;
-  });
+  // Only the fixed window counts (27 Oct): extra Master Classes such as 30 Oct
+  // must NOT switch /join to the Master Class price on their own.
+  return now >= OFFER_FIXED_WINDOW.opensAt && now < OFFER_FIXED_WINDOW.closesAt;
 }
