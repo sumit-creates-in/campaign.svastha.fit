@@ -98,7 +98,7 @@ export const BATCH_START_SHORT = "Monday, 23 November";
  */
 export const INDIA_BATCH = {
   name: "B157",
-  whatsappGroupUrl: "https://chat.whatsapp.com/FUUXmqPXrqb6fb4BEAh0ca",
+  whatsappGroupUrl: "https://chat.whatsapp.com/HpDgEeX7DtE22BsX4y4h4X",
   /** Starting session (the Sunday live with Sumit). */
   sessionDateLabel: "22nd November (Sunday)",
   sessionTimeLabel: "9:30 AM (India Time)",
