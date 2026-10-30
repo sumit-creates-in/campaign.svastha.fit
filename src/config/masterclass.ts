@@ -229,10 +229,20 @@ export const OFFER = {
  * on Sunday 22 Nov (IST), instead of 24 h after the session. Before and after
  * this window the page shows the regular price. Set new dates every cycle.
  */
-const OFFER_FIXED_WINDOW = {
-  opensAt: Date.parse("2026-11-20T00:00:00+05:30"),
-  closesAt: Date.parse("2026-11-23T00:00:00+05:30"),
-};
+const OFFER_FIXED_WINDOWS = [
+  // Fri 30 Oct extra Master Class (Sumit, 30 Oct): same Group + Personalized
+  // offer as B156 — Group joins B157 (22 Nov). Open now, closes at midnight
+  // on Friday 30 Oct (IST).
+  {
+    opensAt: Date.parse("2026-10-30T00:00:00+05:30"),
+    closesAt: Date.parse("2026-10-31T00:00:00+05:30"),
+  },
+  // Sun 22 Nov Master Class + B157 starting session.
+  {
+    opensAt: Date.parse("2026-11-20T00:00:00+05:30"),
+    closesAt: Date.parse("2026-11-23T00:00:00+05:30"),
+  },
+];
 
 export interface OfferPlan {
   id: "group" | "personalized";
@@ -326,5 +336,5 @@ export const FLASH_OFFER = { id: "b156", minutes: 15 } as const;
 export function isOfferLive(now: number = Date.now()): boolean {
   // Only the fixed window counts (27 Oct): extra Master Classes such as 30 Oct
   // must NOT switch /join to the Master Class price on their own.
-  return now >= OFFER_FIXED_WINDOW.opensAt && now < OFFER_FIXED_WINDOW.closesAt;
+  return OFFER_FIXED_WINDOWS.some((w) => now >= w.opensAt && now < w.closesAt);
 }
