@@ -125,9 +125,9 @@ const Ultimate21DayChallenge = () => {
 
   useMeta({
     title: "Ultimate 21 Day Weight Loss Challenge | Lose up to 10 Kg | Svastha",
-    description: "Join the Ultimate 21 Day Weight Loss Challenge. 4067+ transformations, 7.5 kg average loss, 98% success rate. Expert guidance, diet plans, yoga classes. Register for ₹890.",
+    description: "Join the Ultimate 21 Day Weight Loss Challenge — next batch starts Sunday 22 November 2026. Diet and intermittent fasting plan, live yoga classes, WhatsApp guidance with Sumit Sharma.",
     ogTitle: "Ultimate 21 Day Weight Loss Challenge | Svastha",
-    ogDescription: "Transform your body in 21 days. Proven system with 4067+ success stories. Diet plan + Yoga + WhatsApp support. Register now for ₹890.",
+    ogDescription: "Next batch starts Sunday 22 November 2026. Diet plan + intermittent fasting + live yoga + WhatsApp support.",
     ogImage: "/src/assets/hero-yoga.jpg",
   });
 
@@ -247,12 +247,12 @@ const Ultimate21DayChallenge = () => {
           onClose={() => setIsModalOpen(false)}
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
-          startDateText="27th September 2026"
+          startDateText="22nd November 2026"
         />
         <ScrollPopupModal
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
-          startDateText="27th September 2026"
+          startDateText="22nd November 2026"
           onVisibilityChange={setIsScrollModalOpen}
         />
         <StickyBottomBar onRegisterClick={scrollToRegistration} />
