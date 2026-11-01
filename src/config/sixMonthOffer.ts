@@ -3,10 +3,10 @@
  * Challenge Group Plan members in the Week 2 live session (B156, Sun 1 Nov
  * 2026). Prices from the Svastha app's pricing page (packages table), with
  * Sumit's usual offer: ₹1,000 off + 1 month extra, and a 15-minute live flash
- * (₹2,000 off) that Sumit starts with his Flash Offer Button.
+ * (₹4,990 / ₹9,990, Sumit 1 Nov) that Sumit starts with his Flash Offer Button.
  *
- *   Sumit's Community, 6 months         — regular ₹7,999,  offer ₹6,999,  flash ₹5,999
- *   Personalized (Human Coach + Group),  — regular ₹11,999, offer ₹10,999, flash ₹9,999
+ *   Sumit's Community, 6 months         — regular ₹7,999,  offer ₹6,999,  flash ₹4,990
+ *   Personalized (Human Coach + Group),  — regular ₹11,999, offer ₹10,999, flash ₹9,990
  *   6 months
  *
  * Every Razorpay page carries a required plan field whose key marks the plan
@@ -49,8 +49,8 @@ export const SIX_MONTH_PLANS: readonly SixMonthPlan[] = [
     regularPage: "https://pages.razorpay.com/pl_TulGYMVbUc9wbM/view",
     offerPrice: "₹6,999",
     offerPage: "https://pages.razorpay.com/pl_TulGKmezH6NYC6/view",
-    flashPrice: "₹5,999",
-    flashPage: "https://pages.razorpay.com/pl_TulGX47ujWIifl/view",
+    flashPrice: "₹4,990",
+    flashPage: "https://pages.razorpay.com/pl_TulfbMw51mg1F0/view",
     features: [
       "Live group yoga classes + recordings",
       "Group weekly diet plan",
@@ -77,8 +77,8 @@ export const SIX_MONTH_PLANS: readonly SixMonthPlan[] = [
     regularPage: "https://pages.razorpay.com/pl_TulGcgTx03oNTu/view",
     offerPrice: "₹10,999",
     offerPage: "https://pages.razorpay.com/pl_TulGZoFw4K9SE1/view",
-    flashPrice: "₹9,999",
-    flashPage: "https://pages.razorpay.com/pl_TulGbBC3CmHijV/view",
+    flashPrice: "₹9,990",
+    flashPage: "https://pages.razorpay.com/pl_Tulg1I1tGYCyS5/view",
     features: [
       "A dedicated dietitian from the Svastha team",
       "Personalized weekly diet plans, built around you",
