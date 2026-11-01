@@ -22,7 +22,7 @@ export interface FlashState {
   secondsLeft: number;
 }
 
-export function useFlashOffer(enabled: boolean): FlashState {
+export function useFlashOffer(enabled: boolean, offerId: string = FLASH_OFFER.id): FlashState {
   const [endsAt, setEndsAt] = useState<number | null>(null);
   const [, tick] = useState(0);
   const timer = useRef<number | null>(null);
@@ -37,7 +37,7 @@ export function useFlashOffer(enabled: boolean): FlashState {
       try {
         const res = await fetch(
           `${SUPABASE_URL}/rest/v1/campaign_flash_offer_status?id=eq.${encodeURIComponent(
-            FLASH_OFFER.id,
+            offerId,
           )}&select=seconds_left`,
           {
             headers: { apikey: SUPABASE_PUBLISHABLE_KEY },
@@ -61,7 +61,7 @@ export function useFlashOffer(enabled: boolean): FlashState {
       window.clearInterval(poll);
       document.removeEventListener("visibilitychange", onVis);
     };
-  }, [enabled]);
+  }, [enabled, offerId]);
 
   // 1 s ticker only while a flash is running.
   useEffect(() => {

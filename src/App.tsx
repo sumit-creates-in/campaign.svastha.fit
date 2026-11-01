@@ -20,6 +20,8 @@ import MasterClassConfirmed from "./pages/MasterClassConfirmed";
 import MasterClassOffer from "./pages/MasterClassOffer";
 import PersonalizedOffer from "./pages/PersonalizedOffer";
 import AiCoachPaymentConfirmation from "./pages/AiCoachPaymentConfirmation";
+import SixMonthOffer from "./pages/SixMonthOffer";
+import SixMonthConfirmation from "./pages/SixMonthConfirmation";
 import UsMasterClass from "./pages/UsMasterClass";
 import UsMasterClassConfirmed from "./pages/UsMasterClassConfirmed";
 import NavFitChallenge from "./pages/NavFitChallenge";
@@ -97,6 +99,9 @@ function App() {
               <Route path="/join-personalized" element={<PersonalizedOffer />} />
               <Route path="/personalized-offer" element={<PersonalizedOffer />} />
               <Route path="/reg-confirm-ai-coach" element={<AiCoachPaymentConfirmation />} />
+              <Route path="/6-month-offer" element={<SixMonthOffer />} />
+              <Route path="/6-months" element={<SixMonthOffer />} />
+              <Route path="/6-month-confirm" element={<SixMonthConfirmation />} />
               <Route path="/Join" element={<MasterClassOffer />} />
               <Route path="/masterclass-offer" element={<MasterClassOffer />} />
               <Route
