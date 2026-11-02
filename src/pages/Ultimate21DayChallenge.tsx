@@ -252,6 +252,9 @@ const Ultimate21DayChallenge = () => {
         />
         <ScrollPopupModal
           onUpgrade={handleUpgrade}
+          upgradeUrl="https://pages.razorpay.com/pl_TciWVzv0619TOd/view"
+          personalDiscountText="Rs. 500 off"
+          personalPriceText="Rs. 2490"
           onJoinGroup={handleJoinGroup}
           startDateText="22nd November 2026"
           onVisibilityChange={setIsScrollModalOpen}
