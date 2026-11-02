@@ -7,6 +7,7 @@ import { BeforeAfterDashboardCard } from "@/components/gamification/BeforeAfterD
 import sumitSharmaImage from "@/assets/sumit sharma.png";
 import svasthaLogo from "@/assets/svastha.png";
 import { MASTERCLASS, PRICING, PROOF, currentSession } from "@/config/masterclass";
+import { CHALLENGE_PLANS, EARLY_BIRD, GROUP_SCHEDULE, isEarlyBird } from "@/config/challengeOffer";
 
 /**
  * Link-in-bio hub — campaign.svastha.fit/healthy-life-by-sumit
@@ -14,7 +15,8 @@ import { MASTERCLASS, PRICING, PROOF, currentSession } from "@/config/masterclas
  * Shared from Instagram, Facebook and other profiles, so every visitor is new
  * and on a phone. Kept deliberately simple:
  *   1. Who is this?          → photo, name, one line
- *   2. What should I do?     → ONE featured action: the ₹49 Master Class
+ *   2. What should I do?     → start now: the 21 Day Challenge (Group / Personalized),
+ *                               then the ₹49 Master Class
  *   3. Other ways in         → consultation call, WhatsApp (as quiet link rows)
  *   4. Can I trust it?       → transformations, then the Master Class button again
  *
@@ -102,6 +104,12 @@ const BioLinkHub = () => {
     navigate(withTracking("/masterclass"));
   };
 
+  const goToChallenge = (placement: string) => {
+    trackPixel("ViewContent", { content_name: "21 Day Challenge", content_category: `bio_link_${placement}` });
+    navigate(withTracking("/21-day-challenge"));
+  };
+  const early = isEarlyBird(now);
+
   const openConsult = () => {
     trackPixel("ViewContent", { content_name: "Consultation form", content_category: "bio_link" });
     setIsConsultOpen(true);
@@ -151,12 +159,47 @@ const BioLinkHub = () => {
           </p>
         </motion.header>
 
+        {/* ── 2a. Start now: the 21 Day Challenge (Sumit, 2 Nov 2026) ────── */}
+        <motion.article
+          initial={{ opacity: 0, y: 14 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.4, delay: 0.04 }}
+          className="mt-8 overflow-hidden rounded-3xl bg-gray-950 shadow-lg shadow-emerald-900/10"
+        >
+          <button
+            type="button"
+            onClick={() => goToChallenge("card")}
+            className="block w-full px-5 pb-5 pt-5 text-left"
+            aria-label="Open the 21 Day Challenge page"
+          >
+            <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-emerald-400">
+              {early ? `Early-bird price till ${EARLY_BIRD.closesLabel}` : "Join now"}
+            </span>
+            <h2 className="mt-2 text-[22px] font-extrabold leading-tight text-white">
+              Ultimate 21 Day Weight Loss Challenge
+            </h2>
+            <div className="mt-4 grid grid-cols-2 gap-2.5">
+              {CHALLENGE_PLANS.map((p) => (
+                <div key={p.id} className="rounded-2xl bg-white/5 p-3 ring-1 ring-white/10">
+                  <p className="text-[11px] font-bold uppercase tracking-wider text-gray-400">{p.label}</p>
+                  <p className="mt-1 text-xl font-extrabold text-white">{early ? p.earlyPrice : p.regularPrice}</p>
+                  <p className="mt-0.5 text-xs text-gray-400">{p.id === "group" ? GROUP_SCHEDULE.shortStart : "Start now"}</p>
+                </div>
+              ))}
+            </div>
+            <span className="mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-emerald-500 px-6 py-3.5 text-base font-bold text-white">
+              See the plans
+              <ArrowRight className="h-5 w-5" />
+            </span>
+          </button>
+        </motion.article>
+
         {/* ── 2. The one thing to do: Master Class ───────────────────────── */}
         <motion.article
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.4, delay: 0.08 }}
-          className="mt-8 overflow-hidden rounded-3xl bg-white shadow-lg shadow-emerald-900/5 ring-1 ring-gray-100"
+          className="mt-4 overflow-hidden rounded-3xl bg-white shadow-lg shadow-emerald-900/5 ring-1 ring-gray-100"
         >
           <button
             type="button"
@@ -182,7 +225,7 @@ const BioLinkHub = () => {
               {MASTERCLASS.name}
             </h2>
             <span className="mt-3 inline-block rounded-full bg-yellow-300 px-3.5 py-1 text-sm font-extrabold uppercase tracking-wide text-gray-900">
-              Lose up to 10 kg
+              ₹49 live class with Sumit
             </span>
           </button>
 

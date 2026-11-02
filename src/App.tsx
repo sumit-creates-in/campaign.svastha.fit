@@ -15,6 +15,7 @@ import RegistrationConfirm14WLYC from "./pages/RegistrationConfirm14WLYC";
 import RegistrationConfirm14WLYCInt from "./pages/RegistrationConfirm14WLYCInt";
 import RegistrationConfirm21WLYC from "./pages/RegistrationConfirm21WLYC";
 import Ultimate21DayChallenge from "./pages/Ultimate21DayChallenge";
+import ChallengeOffer from "./pages/ChallengeOffer";
 import MasterClass from "./pages/MasterClass";
 import MasterClassConfirmed from "./pages/MasterClassConfirmed";
 import MasterClassOffer from "./pages/MasterClassOffer";
@@ -60,7 +61,10 @@ function App() {
                 element={<Navigate to="/Ultimate-21-day-weight-loss-challenge" replace />}
               />
 
-              <Route path="/Ultimate-21-day-weight-loss-challenge" element={<Ultimate21DayChallenge />} />
+              <Route path="/Ultimate-21-day-weight-loss-challenge" element={<ChallengeOffer />} />
+              <Route path="/21-day-challenge" element={<ChallengeOffer />} />
+              {/* The previous design, kept so it can be switched back (2 Nov 2026). */}
+              <Route path="/Ultimate-21-day-weight-loss-challenge-old" element={<Ultimate21DayChallenge />} />
 
               {/* Master Class — ₹49 paid webinar funnel.
                   Deliberately NOT geo-redirected: 7:30 PM IST works across the
