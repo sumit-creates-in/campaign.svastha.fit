@@ -186,7 +186,7 @@ const Ultimate21DayChallenge = () => {
         }
       `}</style>
       <div className="ultimate-challenge-page min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">
-        <HeroSection scrollToRegistration={scrollToRegistration} showLanguageToggle={true} />
+        <HeroSection scrollToRegistration={scrollToRegistration} showLanguageToggle={true} hideScarcity />
         <div style={{ height: "150px" }} />
         {isStartPage && (
           <AanchalTestimonialSection
@@ -239,7 +239,7 @@ const Ultimate21DayChallenge = () => {
         <div style={{ height: "150px" }} />
         <YogaTeachersSection />
         <div style={{ height: "150px" }} />
-        <RegisterHereSection onRegister={scrollToRegistration} />
+        <RegisterHereSection onRegister={scrollToRegistration} hideScarcity />
         <div style={{ height: "150px" }} />
         <FAQSection />
         <UpgradeModal
@@ -248,14 +248,16 @@ const Ultimate21DayChallenge = () => {
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
           startDateText="22nd November 2026"
+          hideScarcity
         />
         <ScrollPopupModal
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
           startDateText="22nd November 2026"
           onVisibilityChange={setIsScrollModalOpen}
+          hideScarcity
         />
-        <StickyBottomBar onRegisterClick={scrollToRegistration} />
+        <StickyBottomBar onRegisterClick={scrollToRegistration} hideScarcity />
         <WhatsAppFloatingButton showImmediately={true} isModalOpen={isModalOpen || isScrollModalOpen} />
       </div>
     </>

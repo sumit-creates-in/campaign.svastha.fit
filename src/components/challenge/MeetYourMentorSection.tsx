@@ -117,8 +117,7 @@ export const MeetYourMentorSection = ({
               <div className="text-xs text-gray-700 space-y-1 mb-3">
                 <div className="flex items-center gap-1">
                   <span>⚖️ Weight Loss Expert |</span>
-                  <span>🥗 Dietitian |</span>
-                  <span>🧘 Yoga Teacher</span>
+                  <span>🥗 Nutrition &amp; 🧘 Yoga Coach</span>
                 </div>
                 <div>
                   💪 Follow me to learn secrets of weight loss & intermittent
@@ -168,8 +167,8 @@ export const MeetYourMentorSection = ({
                 Sumit Sharma
               </h3>
               <p className="text-sm text-teal-600 font-medium mb-4">
-                Certified Dietitian | Yoga Teacher | Lifestyle Coach |
-                Intermittent Fasting Expert | Founder: Svastha
+                Yoga &amp; Nutrition Coach | Intermittent Fasting Expert |
+                Founder of SVASTHA
               </p>
               <div className="flex items-center gap-2 mb-4">
                 <span className="text-green-600 text-lg">⭐</span>

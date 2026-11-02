@@ -6,12 +6,15 @@ interface StickyBottomBarProps {
   onRegisterClick: () => void;
   feeText?: string;
   registerButtonText?: string;
+  /** Hide the seats-left counter (Sumit, 2 Nov 2026). */
+  hideScarcity?: boolean;
 }
 
 export const StickyBottomBar = ({
   onRegisterClick,
   feeText = "Rs.1990/-",
   registerButtonText = "Register Now",
+  hideScarcity = false,
 }: StickyBottomBarProps) => {
   const { displaySeats } = useSeatsLeft();
   return (
@@ -36,10 +39,12 @@ export const StickyBottomBar = ({
           >
             {registerButtonText}
           </Button>
-          <div className="flex items-center gap-1 mr-5 text-xs text-gray-600">
-            <Users className="w-3 h-3" />
-            <span>{displaySeats} Seats Left. Hurry Up!</span>
-          </div>
+          {!hideScarcity && (
+            <div className="flex items-center gap-1 mr-5 text-xs text-gray-600">
+              <Users className="w-3 h-3" />
+              <span>{displaySeats} Seats Left. Hurry Up!</span>
+            </div>
+          )}
         </div>
       </div>
     </div>

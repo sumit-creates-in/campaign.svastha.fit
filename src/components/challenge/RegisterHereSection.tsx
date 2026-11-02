@@ -8,6 +8,8 @@ interface RegisterHereSectionProps {
   originalPrice?: string;
   discountedPrice?: string;
   registerButtonText?: string;
+  /** Hide the seats-left counter (Sumit, 2 Nov 2026). */
+  hideScarcity?: boolean;
 }
 
 export const RegisterHereSection = ({
@@ -15,6 +17,7 @@ export const RegisterHereSection = ({
   originalPrice = "₹ 2900/-",
   discountedPrice = "₹1990-",
   registerButtonText = "Register Now",
+  hideScarcity = false,
 }: RegisterHereSectionProps) => {
   const { displaySeats, loading } = useSeatsLeft();
 
@@ -92,12 +95,14 @@ export const RegisterHereSection = ({
             </Button>
 
             {/* Seats Left. Hurry Up! */}
-            <div className="flex items-center justify-center gap-2 text-gray-600">
-              <Users className="w-4 h-4" />
-              <p className="text-xs font-medium">
-                {loading ? "Loading..." : `${displaySeats} Seats Left. Hurry Up!`}
-              </p>
-            </div>
+            {!hideScarcity && (
+              <div className="flex items-center justify-center gap-2 text-gray-600">
+                <Users className="w-4 h-4" />
+                <p className="text-xs font-medium">
+                  {loading ? "Loading..." : `${displaySeats} Seats Left. Hurry Up!`}
+                </p>
+              </div>
+            )}
           </div>
         </motion.div>
       </div>

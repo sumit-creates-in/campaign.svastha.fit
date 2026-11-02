@@ -16,6 +16,8 @@ interface UpgradeModalProps {
   isGlobal?: boolean;
   startDateText?: string;
   timerEndDate?: string;
+  /** Hide the seats-left counter (Sumit, 2 Nov 2026). */
+  hideScarcity?: boolean;
   hideTimer?: boolean;
   UpgradePay?: string;
 }
@@ -33,6 +35,7 @@ export const UpgradeModal = ({
   isGlobal = false,
   startDateText = "27th September 2026",
   timerEndDate,
+  hideScarcity = false,
   hideTimer = false,
   UpgradePay = "Upgrade & Pay"
 }: UpgradeModalProps) => {
@@ -181,10 +184,12 @@ export const UpgradeModal = ({
           >
             {joinGroupButtonText ?? `Join Group Plan - ${groupPriceText}`}
           </Button>
-          <div className="text-red-600 mt-6 text-lg text-center flex items-center justify-center gap-2">
-            <Users className="w-6 h-6" />
-            {displaySeatsPlus} Seats Left. Hurry Up!
-          </div>
+          {!hideScarcity && (
+            <div className="text-red-600 mt-6 text-lg text-center flex items-center justify-center gap-2">
+              <Users className="w-6 h-6" />
+              {displaySeatsPlus} Seats Left. Hurry Up!
+            </div>
+          )}
         </div>
       </div>
     </div>

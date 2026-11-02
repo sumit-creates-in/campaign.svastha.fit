@@ -61,10 +61,8 @@ function App() {
                 element={<Navigate to="/Ultimate-21-day-weight-loss-challenge" replace />}
               />
 
-              <Route path="/Ultimate-21-day-weight-loss-challenge" element={<ChallengeOffer />} />
+              <Route path="/Ultimate-21-day-weight-loss-challenge" element={<Ultimate21DayChallenge />} />
               <Route path="/21-day-challenge" element={<ChallengeOffer />} />
-              {/* The previous design, kept so it can be switched back (2 Nov 2026). */}
-              <Route path="/Ultimate-21-day-weight-loss-challenge-old" element={<Ultimate21DayChallenge />} />
 
               {/* Master Class — ₹49 paid webinar funnel.
                   Deliberately NOT geo-redirected: 7:30 PM IST works across the

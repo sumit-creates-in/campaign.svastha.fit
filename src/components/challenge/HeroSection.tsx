@@ -11,6 +11,8 @@ interface HeroSectionProps {
   locationText?: string;
   videoId?: string;
   showLanguageToggle?: boolean;
+  /** Hide the "only 100 people" line and the seats-left counter (Sumit, 2 Nov 2026). */
+  hideScarcity?: boolean;
   timerEndDate?: string;
   registerButtonText?: string;
   headline?: string;
@@ -23,6 +25,7 @@ export const HeroSection = ({
   locationText,
   videoId = "0zkAOy4AP38",
   showLanguageToggle = false,
+  hideScarcity = false,
   timerEndDate,
   registerButtonText = "Register Now",
   headline = "Lose up to 10 Kg's",
@@ -90,15 +93,19 @@ export const HeroSection = ({
             </h3>
             <hr className="border-t-2 border-gray-300 my-4 mx-auto w-full mt-6" />
 
-            <h5 className="text-4xl md:text-6xl font-bold text-black-500 mt-6">
-              Creating an Exclusive Group of Only 100 People
-            </h5>
+            {!hideScarcity && (
+              <>
+                <h5 className="text-4xl md:text-6xl font-bold text-black-500 mt-6">
+                  Creating an Exclusive Group of Only 100 People
+                </h5>
 
-            <hr className="border-t-2 border-gray-300 my-4 mx-auto w-full mt-6" />
+                <hr className="border-t-2 border-gray-300 my-4 mx-auto w-full mt-6" />
 
-            <h5 className="text-4xl md:text-6xl font-bold text-black-500 mt-6">
-              Who are Serious About Losing Weight
-            </h5>
+                <h5 className="text-4xl md:text-6xl font-bold text-black-500 mt-6">
+                  Who are Serious About Losing Weight
+                </h5>
+              </>
+            )}
 
 
             {isGlobal && (
@@ -217,13 +224,15 @@ export const HeroSection = ({
                   Fee: {feeText}
                   {feeText !== "FREE" && " only"}
                 </p>
-                <p
-                  className="text-center md:text-left text-sm text-emerald-600 font-medium flex items-center justify-center md:justify-start gap-2 md:pl-2"
-                  style={{ marginTop: "15px" }}
-                >
-                  <Users className="w-4 h-4" />
-                  {displaySeats} Seats Left. Hurry Up!
-                </p>
+                {!hideScarcity && (
+                  <p
+                    className="text-center md:text-left text-sm text-emerald-600 font-medium flex items-center justify-center md:justify-start gap-2 md:pl-2"
+                    style={{ marginTop: "15px" }}
+                  >
+                    <Users className="w-4 h-4" />
+                    {displaySeats} Seats Left. Hurry Up!
+                  </p>
+                )}
               </div>
             </motion.div>
 

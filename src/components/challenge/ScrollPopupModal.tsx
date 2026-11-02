@@ -17,6 +17,8 @@ interface ScrollPopupModalProps {
   hideGroupPlan?: boolean;
   startDateText?: string;
   timerEndDate?: string;
+  /** Hide the seats-left counter (Sumit, 2 Nov 2026). */
+  hideScarcity?: boolean;
   hideTimer?: boolean;
   onVisibilityChange?: (isVisible: boolean) => void;
 }
@@ -35,6 +37,7 @@ export const ScrollPopupModal = ({
   hideGroupPlan = false,
   startDateText = "27th September 2026",
   timerEndDate,
+  hideScarcity = false,
   hideTimer = false,
   onVisibilityChange,
 }: ScrollPopupModalProps) => {
@@ -250,10 +253,12 @@ export const ScrollPopupModal = ({
             </>
           )}
 
-          <div className="text-red-600 mt-6 text-lg text-center flex items-center justify-center gap-2">
-            <Users className="w-6 h-6" />
-            {displaySeatsPlus} Seats Left. Hurry Up!
-          </div>
+          {!hideScarcity && (
+            <div className="text-red-600 mt-6 text-lg text-center flex items-center justify-center gap-2">
+              <Users className="w-6 h-6" />
+              {displaySeatsPlus} Seats Left. Hurry Up!
+            </div>
+          )}
         </div>
       </div>
     </div>
