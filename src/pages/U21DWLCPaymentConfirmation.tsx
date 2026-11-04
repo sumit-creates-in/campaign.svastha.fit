@@ -1,6 +1,8 @@
 import { motion } from "framer-motion";
 import { CheckCircle, Phone, Mail, MessageCircle } from "lucide-react";
 import { useEffect } from "react";
+import { isEarlyBird } from "@/config/challengeOffer";
+import { trackPurchaseOnce } from "@/lib/trackPurchase";
 
 const U21DWLCPaymentConfirmation = ({ isGlobal = false }: { isGlobal?: boolean }) => {
     useEffect(() => {
@@ -28,6 +30,13 @@ const U21DWLCPaymentConfirmation = ({ isGlobal = false }: { isGlobal?: boolean }
 
         w.fbq("init", "4183888118531938");
         w.fbq("track", "PageView");
+        if (!isGlobal) {
+            trackPurchaseOnce(
+                "purchase_u21_personalized_india",
+                isEarlyBird() ? 2490 : 2990,
+                "21 Day Challenge - Personalized (India)",
+            );
+        }
     }, []);
 
     const handleWhatsApp = () => {

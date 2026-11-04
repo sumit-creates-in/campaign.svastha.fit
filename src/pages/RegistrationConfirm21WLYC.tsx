@@ -12,6 +12,8 @@ import {
 } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { useMeta } from "@/hooks/useMeta";
+import { isEarlyBird } from "@/config/challengeOffer";
+import { trackPurchaseOnce } from "@/lib/trackPurchase";
 
 function formatTime12h(hour24: number): string {
   let h = ((hour24 % 24) + 24) % 24;
@@ -136,6 +138,13 @@ const RegistrationConfirm21WLYC = ({
 
     w.fbq("init", "4183888118531938");
     w.fbq("track", "PageView");
+    if (isIndia) {
+      trackPurchaseOnce(
+        "purchase_u21_group_india",
+        isEarlyBird() ? 1490 : 1990,
+        "21 Day Challenge - Group (India)",
+      );
+    }
   }, []);
 
   // Set meta tags based on page type
