@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Check, Minus, ArrowRight } from "lucide-react";
 import {
@@ -13,7 +13,7 @@ import { TransformationsSection } from "@/components/challenge";
 import {
   BATCH_START_SHORT,
   MASTERCLASS,
-  OFFER_PLANS,
+  offerPlansAt,
   isOfferLive,
   type OfferPlan,
 } from "@/config/masterclass";
@@ -111,6 +111,9 @@ const MasterClassOffer = () => {
     ogImage: "https://campaign.svastha.fit/masterclass-og.jpg",
     twitterImage: "https://campaign.svastha.fit/masterclass-og.jpg",
   });
+
+  // Re-read when the offer window opens or closes (live flips every 15 s check).
+  const plans = useMemo(() => offerPlansAt(), [live]);
 
   const priceOf = (p: OfferPlan) =>
     flash.active ? p.flashPrice : live ? p.earlyPrice : p.regularPrice;
@@ -217,7 +220,7 @@ const MasterClassOffer = () => {
       {/* ── The two plans ─────────────────────────────────────────────────── */}
       <section id="plans" className="scroll-mt-4 px-5 pb-4">
         <div className="mx-auto grid max-w-5xl gap-5 md:grid-cols-2 md:gap-6">
-          {OFFER_PLANS.map((plan, i) => {
+          {plans.map((plan, i) => {
             const isPersonal = plan.id === "personalized";
             return (
               <motion.div
@@ -449,7 +452,7 @@ const MasterClassOffer = () => {
           </p>
 
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
-            {OFFER_PLANS.map((plan) => (
+            {plans.map((plan) => (
               <a
                 key={plan.id}
                 href={urlOf(plan)}
@@ -478,14 +481,22 @@ const MasterClassOffer = () => {
       </section>
 
       {/* ── Sticky bar ────────────────────────────────────────────────────── */}
-      <StickyOfferBar live={live} flash={flash.active} />
+      <StickyOfferBar plans={plans} live={live} flash={flash.active} />
       <ChatButton />
     </div>
   );
 };
 
 /** Two-button sticky bar — appears once the plan cards scroll past. */
-const StickyOfferBar = ({ live, flash }: { live: boolean; flash: boolean }) => {
+const StickyOfferBar = ({
+  plans,
+  live,
+  flash,
+}: {
+  plans: OfferPlan[];
+  live: boolean;
+  flash: boolean;
+}) => {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
@@ -500,7 +511,7 @@ const StickyOfferBar = ({ live, flash }: { live: boolean; flash: boolean }) => {
   return (
     <div className="fixed bottom-0 left-0 right-0 z-40 border-t border-gray-800 bg-gray-950/95 px-3 py-3 backdrop-blur">
       <div className="mx-auto flex max-w-3xl gap-2.5">
-        {OFFER_PLANS.map((plan) => {
+        {plans.map((plan) => {
           const price = flash ? plan.flashPrice : live ? plan.earlyPrice : plan.regularPrice;
           const url = flash ? plan.flashUrl : live ? plan.earlyUrl : plan.regularUrl;
           return (

@@ -49,6 +49,13 @@ export const SESSIONS: readonly MasterClassSession[] = [
     whatsappGroupUrl: "https://chat.whatsapp.com/CuLcTIYGt3mKxz4Hj01Kic",
   },
   {
+    // Extra Sunday Master Class (Sumit, 10 Nov): own WhatsApp group. Sells the
+    // early-bird into B157 (22 Nov) with a lower class price (see OFFER windows).
+    startsAt: "2026-11-15T09:30:00+05:30",
+    dateLabel: "Sunday, 15 November 2026",
+    whatsappGroupUrl: "https://chat.whatsapp.com/JQCVTG8WvMc8T5GqbKsGCh",
+  },
+  {
     startsAt: "2026-11-22T09:30:00+05:30",
     dateLabel: "Sunday, 22 November 2026",
     whatsappGroupUrl: "https://chat.whatsapp.com/CuLcTIYGt3mKxz4Hj01Kic",
@@ -229,7 +236,42 @@ export const OFFER = {
  * on Sunday 22 Nov (IST), instead of 24 h after the session. Before and after
  * this window the page shows the regular price. Set new dates every cycle.
  */
-const OFFER_FIXED_WINDOWS = [
+type PriceOverride = Partial<
+  Pick<OfferPlan, "earlyPrice" | "earlyUrl" | "flashPrice" | "flashUrl">
+>;
+
+interface OfferWindow {
+  opensAt: number;
+  closesAt: number;
+  /** Optional per-window prices; anything not given uses OFFER_PLANS. */
+  prices?: Partial<Record<OfferPlan["id"], PriceOverride>>;
+}
+
+const OFFER_FIXED_WINDOWS: OfferWindow[] = [
+  // Sun 15 Nov extra Master Class (Sumit, 10 Nov): class price Group ₹1,290 /
+  // Personalized ₹2,290 until midnight; 15-min flash ₹990 / ₹1,990.
+  // The ₹1,990 Personalized page is the Human Coach page — its required
+  // plan_human_coach field keeps the Automator from treating ₹1,990 as Group.
+  {
+    opensAt: Date.parse("2026-11-15T00:00:00+05:30"),
+    closesAt: Date.parse("2026-11-16T00:00:00+05:30"),
+    prices: {
+      group: {
+        earlyPrice: "₹1,290",
+        earlyUrl: "https://pages.razorpay.com/pl_TrgT4iq2FuRZaa/view",
+        flashPrice: "₹990",
+        // pl_TyMfI09EM3qcvG — created 10 Nov for the 15 Nov flash.
+        flashUrl: "https://pages.razorpay.com/pl_TyMfI09EM3qcvG/view",
+      },
+      personalized: {
+        earlyPrice: "₹2,290",
+        earlyUrl: "https://pages.razorpay.com/pl_TrgT9LUtmZLFtU/view",
+        flashPrice: "₹1,990",
+        flashUrl:
+          "https://pages.razorpay.com/pl_TspnaK0HgnttUb/view?plan_human_coach=Human%20Coach%20Plan",
+      },
+    },
+  },
   // Fri 30 Oct extra Master Class (Sumit, 30 Oct): same Group + Personalized
   // offer as B156 — Group joins B157 (22 Nov). Open now, closes at midnight
   // on Friday 30 Oct (IST).
@@ -331,6 +373,12 @@ export const OFFER_PLANS: readonly OfferPlan[] = [
  * Only honoured while isOfferLive() is true.
  */
 export const FLASH_OFFER = { id: "b156", minutes: 15 } as const;
+
+/** The offer plans with any price overrides of the window open at `now`. */
+export function offerPlansAt(now: number = Date.now()): OfferPlan[] {
+  const w = OFFER_FIXED_WINDOWS.find((x) => now >= x.opensAt && now < x.closesAt);
+  return OFFER_PLANS.map((p) => ({ ...p, ...(w?.prices?.[p.id] ?? {}) }));
+}
 
 /** True while Master Class pricing is live — within 24 h of any session's start. */
 export function isOfferLive(now: number = Date.now()): boolean {
