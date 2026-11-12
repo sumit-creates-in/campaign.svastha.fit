@@ -1,3 +1,5 @@
+import { applyMetaUserData } from "@/lib/metaUserData";
+
 /**
  * Fire a Meta Pixel Purchase once per browser session on a payment
  * confirmation page. The Razorpay payment pages for the 21 Day Challenge
@@ -13,6 +15,7 @@ export function trackPurchaseOnce(key: string, value: number, contentName: strin
   }
   const w = window as any;
   if (typeof w.fbq !== "function") return;
+  applyMetaUserData(); // email + phone if this browser registered for the Master Class
   const pid = new URLSearchParams(window.location.search).get("razorpay_payment_id");
   const data = { currency: "INR", value, content_name: contentName };
   if (pid) w.fbq("track", "Purchase", data, { eventID: pid });

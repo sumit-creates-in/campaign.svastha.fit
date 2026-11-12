@@ -2,6 +2,7 @@ import { useEffect } from "react";
 import { motion } from "framer-motion";
 import { Check, Calendar, Clock, Video, Languages, ArrowDown } from "lucide-react";
 import { useMeta } from "@/hooks/useMeta";
+import { applyMetaUserData } from "@/lib/metaUserData";
 import {
   MASTERCLASS,
   PRICING,
@@ -19,11 +20,15 @@ function trackPurchase() {
   try {
     const fbq = (window as unknown as { fbq?: (...a: unknown[]) => void }).fbq;
     if (typeof fbq === "function") {
-      fbq("track", "Purchase", {
+      applyMetaUserData(); // email + phone from the registration form (hashed by the Pixel)
+      const pid = new URLSearchParams(window.location.search).get("razorpay_payment_id");
+      const data = {
         value: PRICING.priceNumeric,
         currency: "INR",
         content_name: "Master Class Registration",
-      });
+      };
+      if (pid) fbq("track", "Purchase", data, { eventID: pid });
+      else fbq("track", "Purchase", data);
     }
   } catch {
     /* tracking must never break the page */

@@ -2,6 +2,7 @@ import { useRef, useState } from "react";
 import { X, Loader2, ShieldCheck, AlertCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MASTERCLASS, PRICING, buildRazorpayUrl } from "@/config/masterclass";
+import { applyMetaUserData, saveMetaUserData } from "@/lib/metaUserData";
 
 interface Props {
   isOpen: boolean;
@@ -178,6 +179,11 @@ export const MasterClassRegistrationModal = ({ isOpen, onClose }: Props) => {
     } catch {
       // Webhook failure must never block the user from paying.
     }
+
+    // Advanced matching: keep email/phone on this device for the Purchase
+    // event on the confirmation page, and send them with Lead/InitiateCheckout.
+    saveMetaUserData({ name: cleanName, email: cleanEmail, phone: digits });
+    applyMetaUserData();
 
     trackPixel("Lead", { content_name: "Master Class Registration" });
     trackPixel("InitiateCheckout", {
