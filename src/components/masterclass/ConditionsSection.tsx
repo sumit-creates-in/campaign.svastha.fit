@@ -90,9 +90,8 @@ export const ConditionsSection = ({ onRegister, priceLabel = PRICING.price }: Pr
         <p className="mx-auto mt-4 max-w-2xl text-base leading-relaxed text-gray-700 md:text-lg">
           This is the question we&apos;re asked most — and here is the honest
           answer: people managing a health condition aren&apos;t a special case
-          for us, they are <strong>most of who we work with</strong>. Sumit is a
-          certified dietitian, and the plan was shaped around exactly these
-          situations.
+          for us, they are <strong>most of who we work with</strong>. Sumit and our
+          dietitian team shaped the plan around exactly these situations.
         </p>
       </motion.div>
 

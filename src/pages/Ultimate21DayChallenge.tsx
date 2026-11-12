@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useMeta } from "@/hooks/useMeta";
 import { toast } from "sonner";
+import { CHALLENGE_PLANS, EARLY_BIRD, isEarlyBird } from "@/config/challengeOffer";
 
 // Import all sections
 import {
@@ -131,6 +132,19 @@ const Ultimate21DayChallenge = () => {
     ogImage: "/src/assets/hero-yoga.jpg",
   });
 
+  // Early-bird pricing (Sumit, 12 Nov): same plans, prices and Razorpay pages as
+  // /21-day-challenge — early-bird until EARLY_BIRD.closesAt, regular after.
+  const earlyBird = isEarlyBird();
+  const groupPlan = CHALLENGE_PLANS.find((p) => p.id === "group")!;
+  const personalPlan = CHALLENGE_PLANS.find((p) => p.id === "personalized")!;
+  const groupPrice = earlyBird ? groupPlan.earlyPrice : groupPlan.regularPrice;
+  const groupPage = earlyBird ? groupPlan.earlyPage : groupPlan.regularPage;
+  const personalPrice = earlyBird ? personalPlan.earlyPrice : personalPlan.regularPrice;
+  const personalPage = earlyBird ? personalPlan.earlyPage : personalPlan.regularPage;
+  const groupFeeText = earlyBird
+    ? `${groupPrice}/- (early-bird till ${EARLY_BIRD.closesLabel})`
+    : `${groupPrice}/-`;
+
   const scrollToRegistration = () => {
     setIsModalOpen(true);
   };
@@ -186,7 +200,7 @@ const Ultimate21DayChallenge = () => {
         }
       `}</style>
       <div className="ultimate-challenge-page min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">
-        <HeroSection scrollToRegistration={scrollToRegistration} showLanguageToggle={true} hideScarcity />
+        <HeroSection scrollToRegistration={scrollToRegistration} showLanguageToggle={true} hideScarcity feeText={groupFeeText} />
         <div style={{ height: "150px" }} />
         {isStartPage && (
           <AanchalTestimonialSection
@@ -239,10 +253,19 @@ const Ultimate21DayChallenge = () => {
         <div style={{ height: "150px" }} />
         <YogaTeachersSection />
         <div style={{ height: "150px" }} />
-        <RegisterHereSection onRegister={scrollToRegistration} hideScarcity />
+        <RegisterHereSection
+          onRegister={scrollToRegistration}
+          hideScarcity
+          originalPrice={earlyBird ? `${groupPlan.regularPrice}/-` : "₹ 2900/-"}
+          discountedPrice={`${groupPrice}/-`}
+        />
         <div style={{ height: "150px" }} />
         <FAQSection />
         <UpgradeModal
+          joinGroupUrl={groupPage}
+          groupPriceText={groupPrice}
+          upgradeUrl={personalPage}
+          upgradePriceText={personalPrice}
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
           onUpgrade={handleUpgrade}
@@ -260,7 +283,7 @@ const Ultimate21DayChallenge = () => {
           onVisibilityChange={setIsScrollModalOpen}
           hideScarcity
         />
-        <StickyBottomBar onRegisterClick={scrollToRegistration} hideScarcity />
+        <StickyBottomBar onRegisterClick={scrollToRegistration} hideScarcity feeText={groupFeeText} />
         <WhatsAppFloatingButton showImmediately={true} isModalOpen={isModalOpen || isScrollModalOpen} />
       </div>
     </>

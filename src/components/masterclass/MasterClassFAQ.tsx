@@ -15,7 +15,7 @@ const FAQS = [
     question:
       "I have PCOS / thyroid / diabetes / fatty liver / BP. Is this suitable for me?",
     answer:
-      "Yes — and you will be in the majority, not the minority. People managing these conditions are most of who we work with, and Sumit is a certified dietitian, so the plan was shaped around exactly these situations rather than adapted for them afterwards.\n\nThe registration form asks what you're dealing with, and that answer reaches our dietitian team before the session. Two things to be clear about: nothing here asks you to stop or change any medication, and this is nutrition, fasting and yoga guidance rather than medical treatment. Keep taking what your doctor prescribed and keep them in the loop.",
+      "Yes — and you will be in the majority, not the minority. People managing these conditions are most of who we work with, and Sumit and our dietitian team shaped the plan around exactly these situations rather than adapting it for them afterwards.\n\nThe registration form asks what you're dealing with, and that answer reaches our dietitian team before the session. Two things to be clear about: nothing here asks you to stop or change any medication, and this is nutrition, fasting and yoga guidance rather than medical treatment. Keep taking what your doctor prescribed and keep them in the loop.",
   },
   {
     question: "Is this really live, or a recording?",

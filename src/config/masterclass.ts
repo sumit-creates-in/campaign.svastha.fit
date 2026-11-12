@@ -58,7 +58,9 @@ export const SESSIONS: readonly MasterClassSession[] = [
   {
     startsAt: "2026-11-22T09:30:00+05:30",
     dateLabel: "Sunday, 22 November 2026",
-    whatsappGroupUrl: "https://chat.whatsapp.com/CuLcTIYGt3mKxz4Hj01Kic",
+    // INTERIM (12 Nov): B111 is the finished 30 Oct group — Sumit doesn't want new
+    // people there. Until he creates the 22 Nov group, use the 15 Nov group (B112).
+    whatsappGroupUrl: "https://chat.whatsapp.com/JQCVTG8WvMc8T5GqbKsGCh",
   },
 ];
 
