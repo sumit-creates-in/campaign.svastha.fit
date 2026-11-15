@@ -14,7 +14,6 @@ import {
   PersonalizedOfferPopup,
   PersonalizedStartNowSection,
 } from "@/components/masterclass/PersonalizedStartNow";
-import { StartChoiceModal } from "@/components/masterclass/StartChoiceModal";
 import {
   PersonalizedLeadModal,
   type PersonalizedOffer,
@@ -77,8 +76,13 @@ const MasterClass = () => {
   overlayRef.current = overlay;
   const close = () => setOverlay(null);
 
-  /** Every "Reserve seat" button: first ask how they want to start (Sumit, 15 Nov). */
-  const openModal = () => setOverlay("choose");
+  /**
+   * Every "Reserve seat" button opens the ₹49 form directly. (A "how would you
+   * like to start?" choice screen ran on 15 Nov; nobody picked the dietitian
+   * path and it added a step before the ₹49 payment, so Sumit removed it.)
+   * The start-now section, the ₹500-off popup and the free-call popup stay.
+   */
+  const openModal = () => setOverlay("masterclass-direct");
   const startPersonalized = (o: PersonalizedOffer, fromChoice: boolean) => {
     setOffer(o);
     setOverlay(fromChoice ? "personalized" : "personalized-direct");
@@ -184,18 +188,6 @@ const MasterClass = () => {
 
       <MasterClassStickyBar onRegister={openModal} hidden={isModalOpen} />
       <ChatButton hidden={isModalOpen} />
-
-      {overlay === "choose" && (
-        <StartChoiceModal
-          onClose={close}
-          onPersonalized={() => startPersonalized("regular", true)}
-          onMasterClass={() => setOverlay("masterclass")}
-          onConsultation={() => {
-            markSeen(CONSULT_SEEN_KEY);
-            setOverlay("consult");
-          }}
-        />
-      )}
 
       <MasterClassRegistrationModal
         isOpen={overlay === "masterclass" || overlay === "masterclass-direct"}
