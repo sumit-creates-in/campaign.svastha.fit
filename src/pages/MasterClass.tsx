@@ -10,6 +10,10 @@ import { MasterClassFAQ } from "@/components/masterclass/MasterClassFAQ";
 import { MasterClassStickyBar } from "@/components/masterclass/MasterClassStickyBar";
 import { MasterClassRegistrationModal } from "@/components/masterclass/MasterClassRegistrationModal";
 import { ChatButton } from "@/components/masterclass/ChatButton";
+import {
+  PersonalizedStartNowPopup,
+  PersonalizedStartNowSection,
+} from "@/components/masterclass/PersonalizedStartNow";
 
 import {
   JyotiTestimonialSection,
@@ -63,6 +67,10 @@ const MasterClass = () => {
       <ConditionsSection onRegister={openModal} />
       <Gap />
 
+      {/* Second path (Sumit, 15 Nov): start the Personalized plan without the class */}
+      <PersonalizedStartNowSection />
+      <Gap />
+
       {/* What you actually do every day, and who you'll do it with */}
       <DailyYogaSection />
       <Gap />
@@ -83,6 +91,8 @@ const MasterClass = () => {
 
       <MasterClassStickyBar onRegister={openModal} hidden={isModalOpen} />
       <ChatButton hidden={isModalOpen} />
+
+      <PersonalizedStartNowPopup suppressed={isModalOpen} />
 
       <MasterClassRegistrationModal
         isOpen={isModalOpen}

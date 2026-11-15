@@ -3,6 +3,21 @@ import { CheckCircle, Phone, Mail, MessageCircle } from "lucide-react";
 import { useEffect } from "react";
 import { isEarlyBird } from "@/config/challengeOffer";
 import { trackPurchaseOnce } from "@/lib/trackPurchase";
+import { PERSONALIZED_VALUE_KEY } from "@/config/masterclass";
+
+/** Amount the buyer chose on /masterclass (₹1,990 or ₹2,490), if within the last day. */
+function rememberedPersonalizedValue(): number | null {
+    try {
+        const raw = localStorage.getItem(PERSONALIZED_VALUE_KEY);
+        if (!raw) return null;
+        const v = JSON.parse(raw) as { value?: number; at?: number };
+        if (!v.value || !v.at || Date.now() - v.at > 24 * 60 * 60 * 1000) return null;
+        localStorage.removeItem(PERSONALIZED_VALUE_KEY);
+        return v.value;
+    } catch {
+        return null;
+    }
+}
 
 const U21DWLCPaymentConfirmation = ({ isGlobal = false }: { isGlobal?: boolean }) => {
     useEffect(() => {
@@ -33,7 +48,7 @@ const U21DWLCPaymentConfirmation = ({ isGlobal = false }: { isGlobal?: boolean }
         if (!isGlobal) {
             trackPurchaseOnce(
                 "purchase_u21_personalized_india",
-                isEarlyBird() ? 2490 : 2990,
+                rememberedPersonalizedValue() ?? (isEarlyBird() ? 2490 : 2990),
                 "21 Day Challenge - Personalized (India)",
             );
         }

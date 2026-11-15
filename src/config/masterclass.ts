@@ -56,11 +56,19 @@ export const SESSIONS: readonly MasterClassSession[] = [
     whatsappGroupUrl: "https://chat.whatsapp.com/JQCVTG8WvMc8T5GqbKsGCh",
   },
   {
+    // Extra Wednesday-evening Master Class (Sumit, 15 Nov). Its own WhatsApp
+    // group; registrants also keep a seat for the 22 Nov class.
+    startsAt: "2026-11-18T19:30:00+05:30",
+    dateLabel: "Wednesday, 18 November 2026",
+    timeLabel: "7:30 PM IST",
+    whatsappGroupUrl: "https://chat.whatsapp.com/KmV3SWAXavGENm1xz7KDgL",
+  },
+  {
+    // Master Class + B157 Orientation (Sumit, 15 Nov). Same WhatsApp group as
+    // the Wed 18 Nov class until Sumit sends a separate one.
     startsAt: "2026-11-22T09:30:00+05:30",
     dateLabel: "Sunday, 22 November 2026",
-    // INTERIM (12 Nov): B111 is the finished 30 Oct group — Sumit doesn't want new
-    // people there. Until he creates the 22 Nov group, use the 15 Nov group (B112).
-    whatsappGroupUrl: "https://chat.whatsapp.com/JQCVTG8WvMc8T5GqbKsGCh",
+    whatsappGroupUrl: "https://chat.whatsapp.com/KmV3SWAXavGENm1xz7KDgL",
   },
 ];
 
@@ -274,6 +282,27 @@ const OFFER_FIXED_WINDOWS: OfferWindow[] = [
       },
     },
   },
+  // Wed 18 Nov extra Master Class (Sumit, 15 Nov): same ladder as 15 Nov —
+  // 15-min flash ₹990 / ₹1,990, then ₹1,290 / ₹2,290 until midnight.
+  {
+    opensAt: Date.parse("2026-11-18T00:00:00+05:30"),
+    closesAt: Date.parse("2026-11-19T00:00:00+05:30"),
+    prices: {
+      group: {
+        earlyPrice: "₹1,290",
+        earlyUrl: "https://pages.razorpay.com/pl_TrgT4iq2FuRZaa/view",
+        flashPrice: "₹990",
+        flashUrl: "https://pages.razorpay.com/pl_TyMfI09EM3qcvG/view",
+      },
+      personalized: {
+        earlyPrice: "₹2,290",
+        earlyUrl: "https://pages.razorpay.com/pl_TrgT9LUtmZLFtU/view",
+        flashPrice: "₹1,990",
+        flashUrl:
+          "https://pages.razorpay.com/pl_TspnaK0HgnttUb/view?plan_human_coach=Human%20Coach%20Plan",
+      },
+    },
+  },
   // Fri 30 Oct extra Master Class (Sumit, 30 Oct): same Group + Personalized
   // offer as B156 — Group joins B157 (22 Nov). Open now, closes at midnight
   // on Friday 30 Oct (IST).
@@ -388,3 +417,32 @@ export function isOfferLive(now: number = Date.now()): boolean {
   // must NOT switch /join to the Master Class price on their own.
   return OFFER_FIXED_WINDOWS.some((w) => now >= w.opensAt && now < w.closesAt);
 }
+
+// ─── "Start now" Personalized offer on the Master Class page ────────────────
+/**
+ * Sumit, 15 Nov: visitors who don't want to wait for (or sit through) the live
+ * class can start the Personalized 21-day plan straight away. A section on
+ * /masterclass shows ₹2,490 (regular ₹2,990); once per visitor, a popup at 60%
+ * scroll offers ₹500 off → ₹1,990 — the same as the live flash price, so nobody
+ * gets a better deal than the live room.
+ *
+ * The ₹1,990 page is the Human Coach page: its plan_human_coach field keeps the
+ * Automator and the app's payment rules from treating ₹1,990 as a Group sale.
+ */
+export const PERSONALIZED_START_NOW = {
+  regularPrice: "₹2,990",
+  price: "₹2,490",
+  priceNumeric: 2490,
+  // pl_TciWVzv0619TOd — ₹2,490 Personalized (redirects to the Personalized confirmation).
+  url: "https://pages.razorpay.com/pl_TciWVzv0619TOd/view",
+  popupPrice: "₹1,990",
+  popupPriceNumeric: 1990,
+  popupDiscount: "₹500 off",
+  popupUrl:
+    "https://pages.razorpay.com/pl_TspnaK0HgnttUb/view?plan_human_coach=Human%20Coach%20Plan",
+  /** Fraction of the page scrolled before the popup shows (once per visitor). */
+  popupAtScroll: 0.6,
+} as const;
+
+/** Remembered on click so the Personalized confirmation page reports the real amount to Meta. */
+export const PERSONALIZED_VALUE_KEY = "svastha_pers_value";
