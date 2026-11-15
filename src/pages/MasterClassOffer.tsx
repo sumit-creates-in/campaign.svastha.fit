@@ -1,3 +1,4 @@
+import { rememberPlanValue, rupees } from "@/lib/planValue";
 import { useEffect, useMemo, useState } from "react";
 import { motion } from "framer-motion";
 import { Check, Minus, ArrowRight } from "lucide-react";
@@ -46,6 +47,8 @@ function useOfferLiveNow(): boolean {
 
 /** Meta Pixel — fires when someone leaves for Razorpay. */
 function trackCheckout(plan: OfferPlan, price: string) {
+  // The confirmation page reads this back so Meta gets the real amount paid.
+  rememberPlanValue(plan.id, rupees(price));
   try {
     const fbq = (window as unknown as { fbq?: (...a: unknown[]) => void }).fbq;
     if (typeof fbq === "function") {
