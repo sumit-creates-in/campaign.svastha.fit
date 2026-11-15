@@ -1,5 +1,5 @@
 import { useRef, useState } from "react";
-import { X, Loader2, ShieldCheck, AlertCircle } from "lucide-react";
+import { X, Loader2, ShieldCheck, AlertCircle, ArrowLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { MASTERCLASS, PRICING, buildRazorpayUrl } from "@/config/masterclass";
 import { applyMetaUserData, saveMetaUserData } from "@/lib/metaUserData";
@@ -7,6 +7,8 @@ import { applyMetaUserData, saveMetaUserData } from "@/lib/metaUserData";
 interface Props {
   isOpen: boolean;
   onClose: () => void;
+  /** Shown as "← Back to options" when the visitor came from the choice screen. */
+  onBack?: () => void;
 }
 
 const GOALS = [
@@ -44,7 +46,7 @@ function trackPixel(event: string, data?: Record<string, unknown>) {
   }
 }
 
-export const MasterClassRegistrationModal = ({ isOpen, onClose }: Props) => {
+export const MasterClassRegistrationModal = ({ isOpen, onClose, onBack }: Props) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [phone, setPhone] = useState("");
@@ -225,6 +227,15 @@ export const MasterClassRegistrationModal = ({ isOpen, onClose }: Props) => {
         </button>
 
         <div className="px-5 py-6 md:px-7 md:py-7">
+          {onBack && (
+            <button
+              type="button"
+              onClick={onBack}
+              className="no-heartbeat mb-2 inline-flex items-center gap-1 text-xs font-semibold text-gray-500 hover:text-gray-900"
+            >
+              <ArrowLeft className="h-3.5 w-3.5" /> Back to options
+            </button>
+          )}
           <div className="mb-5 text-center">
             <p className="mb-1 text-[11px] font-bold uppercase tracking-wider text-emerald-600">
               Reserve your seat

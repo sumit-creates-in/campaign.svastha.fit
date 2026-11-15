@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useMeta } from "@/hooks/useMeta";
 
 import { MasterClassHero } from "@/components/masterclass/MasterClassHero";
@@ -11,9 +11,15 @@ import { MasterClassStickyBar } from "@/components/masterclass/MasterClassSticky
 import { MasterClassRegistrationModal } from "@/components/masterclass/MasterClassRegistrationModal";
 import { ChatButton } from "@/components/masterclass/ChatButton";
 import {
-  PersonalizedStartNowPopup,
+  PersonalizedOfferPopup,
   PersonalizedStartNowSection,
 } from "@/components/masterclass/PersonalizedStartNow";
+import { StartChoiceModal } from "@/components/masterclass/StartChoiceModal";
+import {
+  PersonalizedLeadModal,
+  type PersonalizedOffer,
+} from "@/components/masterclass/PersonalizedLeadModal";
+import { FreeConsultationModal } from "@/components/masterclass/FreeConsultationModal";
 
 import {
   JyotiTestimonialSection,
@@ -22,7 +28,41 @@ import {
   WhoIsThisForSection,
 } from "@/components/challenge";
 
-import { MASTERCLASS, PRICING } from "@/config/masterclass";
+import {
+  FREE_CONSULTATION,
+  MASTERCLASS,
+  PERSONALIZED_START_NOW,
+  PRICING,
+} from "@/config/masterclass";
+
+const OFFER_SEEN_KEY = "svastha_pers_popup_seen";
+const CONSULT_SEEN_KEY = "svastha_consult_popup_seen";
+
+function seen(key: string) {
+  try {
+    return !!localStorage.getItem(key);
+  } catch {
+    return false;
+  }
+}
+function markSeen(key: string) {
+  try {
+    localStorage.setItem(key, String(Date.now()));
+  } catch {
+    /* ignore */
+  }
+}
+
+/** Which popup is on screen. Only one at a time. */
+type Overlay =
+  | null
+  | "choose"
+  | "masterclass"
+  | "masterclass-direct"
+  | "personalized"
+  | "personalized-direct"
+  | "offer"
+  | "consult";
 
 /**
  * Breathing room between sections. Sumit's note was that the page felt
@@ -31,12 +71,65 @@ import { MASTERCLASS, PRICING } from "@/config/masterclass";
 const Gap = () => <div className="h-10 bg-white md:h-16" aria-hidden="true" />;
 
 const MasterClass = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
-  const openModal = () => setIsModalOpen(true);
+  const [overlay, setOverlay] = useState<Overlay>(null);
+  const [offer, setOffer] = useState<PersonalizedOffer>("regular");
+  const overlayRef = useRef<Overlay>(null);
+  overlayRef.current = overlay;
+  const close = () => setOverlay(null);
+
+  /** Every "Reserve seat" button: first ask how they want to start (Sumit, 15 Nov). */
+  const openModal = () => setOverlay("choose");
+  const startPersonalized = (o: PersonalizedOffer, fromChoice: boolean) => {
+    setOffer(o);
+    setOverlay(fromChoice ? "personalized" : "personalized-direct");
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
+
+  /*
+   * Two one-time popups, driven by scrolling:
+   *  - the ₹500-off offer after 60% of the page;
+   *  - "Book a free consultation call" when someone has reached the bottom and
+   *    then scrolls back up (they read everything and are still unsure).
+   * Neither interrupts another popup or the registration form.
+   */
+  useEffect(() => {
+    let reachedBottomAt: number | null = null;
+    const onScroll = () => {
+      const max = document.documentElement.scrollHeight - window.innerHeight;
+      if (max <= 0) return;
+      const y = window.scrollY;
+      const ratio = y / max;
+      const busy = overlayRef.current !== null;
+
+      if (ratio >= FREE_CONSULTATION.bottomAt) {
+        reachedBottomAt = Math.max(reachedBottomAt ?? 0, y);
+      }
+
+      if (busy) return;
+
+      if (ratio >= PERSONALIZED_START_NOW.popupAtScroll && !seen(OFFER_SEEN_KEY)) {
+        markSeen(OFFER_SEEN_KEY);
+        setOverlay("offer");
+        return;
+      }
+
+      if (
+        reachedBottomAt !== null &&
+        y < reachedBottomAt - FREE_CONSULTATION.scrollUpPx &&
+        !seen(CONSULT_SEEN_KEY)
+      ) {
+        markSeen(CONSULT_SEEN_KEY);
+        setOverlay("consult");
+      }
+    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+
+  const isModalOpen = overlay !== null;
 
   useMeta({
     title: `${MASTERCLASS.name} — ${MASTERCLASS.subtitle} | ${MASTERCLASS.dateLabel}`,
@@ -68,7 +161,7 @@ const MasterClass = () => {
       <Gap />
 
       {/* Second path (Sumit, 15 Nov): start the Personalized plan without the class */}
-      <PersonalizedStartNowSection />
+      <PersonalizedStartNowSection onStart={() => startPersonalized("regular", false)} />
       <Gap />
 
       {/* What you actually do every day, and who you'll do it with */}
@@ -92,12 +185,41 @@ const MasterClass = () => {
       <MasterClassStickyBar onRegister={openModal} hidden={isModalOpen} />
       <ChatButton hidden={isModalOpen} />
 
-      <PersonalizedStartNowPopup suppressed={isModalOpen} />
+      {overlay === "choose" && (
+        <StartChoiceModal
+          onClose={close}
+          onPersonalized={() => startPersonalized("regular", true)}
+          onMasterClass={() => setOverlay("masterclass")}
+          onConsultation={() => {
+            markSeen(CONSULT_SEEN_KEY);
+            setOverlay("consult");
+          }}
+        />
+      )}
 
       <MasterClassRegistrationModal
-        isOpen={isModalOpen}
-        onClose={() => setIsModalOpen(false)}
+        isOpen={overlay === "masterclass" || overlay === "masterclass-direct"}
+        onClose={close}
+        onBack={overlay === "masterclass" ? () => setOverlay("choose") : undefined}
       />
+
+      {(overlay === "personalized" || overlay === "personalized-direct") && (
+        <PersonalizedLeadModal
+          offer={offer}
+          onClose={close}
+          onBack={overlay === "personalized" ? () => setOverlay("choose") : undefined}
+        />
+      )}
+
+      {overlay === "offer" && (
+        <PersonalizedOfferPopup
+          onClose={close}
+          onAccept={() => startPersonalized("popup", false)}
+          onMasterClass={() => setOverlay("masterclass-direct")}
+        />
+      )}
+
+      {overlay === "consult" && <FreeConsultationModal onClose={close} />}
     </div>
   );
 };

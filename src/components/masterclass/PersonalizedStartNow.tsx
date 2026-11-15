@@ -1,11 +1,8 @@
-import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import { CalendarCheck, UserRound, MessageCircle, X } from "lucide-react";
+import { CalendarCheck, UserRound, MessageCircle, Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  PERSONALIZED_START_NOW as P,
-  PERSONALIZED_VALUE_KEY,
-} from "@/config/masterclass";
+import { MASTERCLASS, PRICING, PERSONALIZED_START_NOW as P } from "@/config/masterclass";
+import { Overlay } from "./leadFormBits";
 
 /**
  * "Don't want to wait for the class?" — Sumit, 15 Nov 2026.
@@ -13,45 +10,13 @@ import {
  * path for visitors who would rather start the Personalized plan now.
  */
 
-const POPUP_SEEN_KEY = "svastha_pers_popup_seen";
-
-function rememberValue(value: number) {
-  try {
-    localStorage.setItem(
-      PERSONALIZED_VALUE_KEY,
-      JSON.stringify({ value, at: Date.now() }),
-    );
-  } catch {
-    /* storage blocked: Meta gets the page's default value */
-  }
-}
-
-function trackCheckout(value: number, source: string) {
-  const w = window as unknown as { fbq?: (...a: unknown[]) => void };
-  try {
-    w.fbq?.("track", "InitiateCheckout", {
-      value,
-      currency: "INR",
-      content_name: `21 Day Personalized - ${source}`,
-    });
-  } catch {
-    /* tracking must never block the payment */
-  }
-}
-
-function goToPayment(url: string, value: number, source: string) {
-  rememberValue(value);
-  trackCheckout(value, source);
-  window.location.href = url;
-}
-
 const POINTS = [
   { icon: UserRound, text: "Your own dietitian builds the plan around your body, routine and home food" },
   { icon: CalendarCheck, text: "Start within 24–48 hours — no waiting for the batch" },
   { icon: MessageCircle, text: "Direct WhatsApp access to your dietitian for all 21 days" },
 ];
 
-export const PersonalizedStartNowSection = () => (
+export const PersonalizedStartNowSection = ({ onStart }: { onStart: () => void }) => (
   <section className="bg-white px-4 py-10 md:py-14">
     <motion.div
       initial={{ opacity: 0, y: 16 }}
@@ -67,7 +32,7 @@ export const PersonalizedStartNowSection = () => (
       </h2>
       <p className="mt-3 text-base leading-relaxed text-gray-700">
         The Master Class is the best place to start. But if you already know you
-        want help — or a 2-hour class doesn&apos;t fit your week — you can begin
+        want help — or a live class doesn&apos;t fit your week — you can begin
         the Ultimate 21 Day Weight Loss Challenge with your own dietitian.
       </p>
       <ul className="mt-5 space-y-3">
@@ -86,7 +51,7 @@ export const PersonalizedStartNowSection = () => (
         <Button
           size="lg"
           className="w-full bg-teal-600 font-bold text-white hover:bg-teal-700 sm:w-auto"
-          onClick={() => goToPayment(P.url, P.priceNumeric, "start-now section")}
+          onClick={onStart}
         >
           Start my Personalized plan — {P.price}
         </Button>
@@ -98,94 +63,92 @@ export const PersonalizedStartNowSection = () => (
   </section>
 );
 
+const OFFER_POINTS = [
+  "Start any day (priority onboarding)",
+  "Your own dedicated dietitian",
+  "Personalized diet plan with home food",
+  "Personalized intermittent fasting",
+  "Call & WhatsApp support",
+  "Root-cause analysis of your weight gain",
+  "Higher chances of results",
+];
+
 /**
- * Once per visitor, when they have scrolled past 60% of the page, offer ₹500 off
- * the Personalized plan. Not shown while the ₹49 registration form is open.
- * No countdown and no deadline (Sumit removed fake urgency on 2 Nov).
+ * The one-time ₹500-off offer, shown once per visitor after 60% of the page
+ * (Sumit, 15 Nov: "more urgency and FOMO", modelled on his app's upsell).
+ * Every urgency line is true: it really is shown only once, and after it is
+ * closed the page only offers the ₹2,490 price. No countdown, no fake deadline.
  */
-export const PersonalizedStartNowPopup = ({ suppressed }: { suppressed: boolean }) => {
-  const [open, setOpen] = useState(false);
+export const PersonalizedOfferPopup = ({
+  onClose,
+  onAccept,
+  onMasterClass,
+}: {
+  onClose: () => void;
+  onAccept: () => void;
+  onMasterClass: () => void;
+}) => (
+  <Overlay onClose={onClose} labelledBy="pers-popup-title">
+    <div className="px-5 pb-6 pt-7 text-center md:px-8">
+      <div className="text-5xl leading-none" aria-hidden="true">🚨</div>
+      <p className="mt-3 text-xl font-extrabold text-red-600 md:text-2xl">
+        If You Close It, You Will Lose It!
+      </p>
+      <h2 id="pers-popup-title" className="mt-2 text-2xl font-extrabold text-gray-900 md:text-3xl">
+        🎉 Discount Unlocked 🥳
+      </h2>
+      <p className="mt-3 text-base font-bold text-gray-900 md:text-lg">
+        Start your Personalized 21-Day Plan today and get:
+      </p>
+      <ul className="mx-auto mt-3 inline-block space-y-1.5 text-left">
+        {OFFER_POINTS.map((t) => (
+          <li key={t} className="flex items-center gap-2 text-[15px] text-gray-800">
+            <span className="flex h-5 w-5 flex-shrink-0 items-center justify-center rounded-full bg-cyan-500">
+              <Check className="h-3.5 w-3.5 text-white" strokeWidth={3.5} />
+            </span>
+            {t}
+          </li>
+        ))}
+      </ul>
 
-  useEffect(() => {
-    let seen = false;
-    try {
-      seen = !!localStorage.getItem(POPUP_SEEN_KEY);
-    } catch {
-      seen = false;
-    }
-    if (seen) return;
+      <div className="mt-4">
+        <p className="text-lg font-extrabold text-red-500">{P.popupDiscount} — only on this screen</p>
+        <p className="mt-0.5 text-sm text-gray-600">
+          <span className="line-through">{P.price}</span>{" "}
+          <span className="font-extrabold text-gray-900">{P.popupPrice}</span> · Start today or tomorrow
+        </p>
+      </div>
 
-    const onScroll = () => {
-      const max = document.documentElement.scrollHeight - window.innerHeight;
-      if (max <= 0) return;
-      if (window.scrollY / max >= P.popupAtScroll) {
-        window.removeEventListener("scroll", onScroll);
-        try {
-          localStorage.setItem(POPUP_SEEN_KEY, String(Date.now()));
-        } catch {
-          /* ignore */
-        }
-        setOpen(true);
-      }
-    };
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  if (!open || suppressed) return null;
-
-  return (
-    <div
-      className="fixed inset-0 z-[60] flex items-end justify-center bg-black/50 p-3 sm:items-center"
-      role="dialog"
-      aria-modal="true"
-      aria-labelledby="pers-popup-title"
-      onClick={() => setOpen(false)}
-    >
-      <div
-        className="relative w-full max-w-md rounded-3xl bg-white p-6 shadow-2xl"
-        onClick={(e) => e.stopPropagation()}
+      <button
+        type="button"
+        onClick={onAccept}
+        className="mt-3 w-full rounded-full bg-gradient-to-r from-green-600 to-lime-400 px-4 py-3.5 text-lg font-extrabold leading-tight text-white shadow-lg transition-transform hover:scale-[1.02]"
       >
+        Claim ₹500 Off — Start My Plan
+        <span className="block text-base">{P.popupPrice}</span>
+      </button>
+
+      <button
+        type="button"
+        onClick={onClose}
+        className="no-heartbeat mt-4 inline-flex items-center gap-2 text-base font-bold text-gray-900 hover:underline"
+      >
+        <X className="h-5 w-5 text-red-500" strokeWidth={3} /> No, I don&apos;t want ₹500 off
+      </button>
+
+      <div className="mt-4 border-t border-gray-100 pt-4">
+        <p className="text-sm text-gray-600">
+          Prefer to learn first? Live Master Class · {MASTERCLASS.dateLabel}
+        </p>
         <button
           type="button"
-          aria-label="Close"
-          className="absolute right-3 top-3 rounded-full p-2 text-gray-500 hover:bg-gray-100"
-          onClick={() => setOpen(false)}
+          onClick={onMasterClass}
+          className="no-heartbeat mt-2 w-full rounded-full border-2 border-emerald-600 bg-white px-4 py-3 text-base font-bold text-emerald-700 hover:bg-emerald-50"
         >
-          <X className="h-5 w-5" />
-        </button>
-        <span className="inline-block rounded-full bg-teal-50 px-3 py-1 text-xs font-bold uppercase tracking-wider text-teal-700">
-          {P.popupDiscount} · Personalized plan
-        </span>
-        <h2 id="pers-popup-title" className="mt-3 text-xl font-extrabold text-gray-900">
-          Start with your own dietitian — no need to wait
-        </h2>
-        <p className="mt-2 text-sm leading-relaxed text-gray-700">
-          Your Personalized 21-day plan, built around your body and home food.
-          Your dietitian starts within 24–48 hours.
-        </p>
-        <div className="mt-4 flex items-baseline gap-2">
-          <span className="text-lg text-gray-400 line-through">{P.price}</span>
-          <span className="text-3xl font-extrabold text-gray-900">{P.popupPrice}</span>
-        </div>
-        <p className="mt-1 text-xs text-gray-500">
-          Same price as the live Master Class offer.
-        </p>
-        <Button
-          size="lg"
-          className="mt-5 w-full bg-teal-600 font-bold text-white hover:bg-teal-700"
-          onClick={() => goToPayment(P.popupUrl, P.popupPriceNumeric, "60% popup")}
-        >
-          Start my plan — {P.popupPrice}
-        </Button>
-        <button
-          type="button"
-          className="mt-3 w-full text-center text-sm font-semibold text-gray-500 underline-offset-2 hover:underline"
-          onClick={() => setOpen(false)}
-        >
-          No thanks, I&apos;ll join the Master Class first
+          Join the Master Class — {PRICING.price}
         </button>
       </div>
+      <p className="mt-3 text-[11px] text-gray-400">This offer is shown only once on this page.</p>
     </div>
-  );
-};
+  </Overlay>
+);

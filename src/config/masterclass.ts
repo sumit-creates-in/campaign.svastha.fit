@@ -446,3 +446,29 @@ export const PERSONALIZED_START_NOW = {
 
 /** Remembered on click so the Personalized confirmation page reports the real amount to Meta. */
 export const PERSONALIZED_VALUE_KEY = "svastha_pers_value";
+
+// ─── Lead capture to the SVASTHA CRM (Sumit, 15 Nov 2026) ─────────────────────
+/**
+ * Automator workflow "Capture Lead from Nav Fit Challenge": it is a generic
+ * lead hook (lead sheet + SVASTHA CRM) that passes our `source` through, so the
+ * Master Class page reuses it instead of a new secret-bearing workflow.
+ * Body: { name, phone (10 digits), email, source, goal (= CRM details),
+ *         submitted_date (= CRM call date), submitted_time (= CRM call time) }.
+ */
+export const CRM_LEAD_WEBHOOK_URL =
+  "https://svastha-automator-webhook-production.up.railway.app/api/webhooks/brb2NTzvcw-fnhlDIDmcMB";
+
+export const LEAD_SOURCES = {
+  startNow: "masterclass-start-now",
+  consultation: "masterclass-free-consultation",
+} as const;
+
+/** "Book a free consultation call" — shown once, after reaching the bottom and scrolling back up. */
+export const FREE_CONSULTATION = {
+  /** Fraction of the page that counts as "reached the bottom". */
+  bottomAt: 0.93,
+  /** How far back up (px) before the offer appears. */
+  scrollUpPx: 900,
+  durationLabel: "15-minute",
+  slots: ["10:00 AM", "12:00 PM", "2:00 PM", "4:00 PM", "6:00 PM", "8:00 PM"],
+} as const;
