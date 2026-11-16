@@ -411,6 +411,21 @@ export function offerPlansAt(now: number = Date.now()): OfferPlan[] {
   return OFFER_PLANS.map((p) => ({ ...p, ...(w?.prices?.[p.id] ?? {}) }));
 }
 
+/**
+ * Dietitian onboarding (Nov 2026): every Personalized payment carries the plan field `plan_human_coach`, so the
+ * Svastha app knows a personal dietitian was bought (never guessed from the amount: Rs 1,290 / 1,990 are also Group
+ * prices) and sends the buyer the "Set up your plan" link. The Razorpay page must have a field with the key
+ * `plan_human_coach` for Razorpay to keep it; full pages.razorpay.com links only (rzp.io short links drop the query).
+ */
+export const PERSONALIZED_PLAN_FIELD = "plan_human_coach";
+export const PERSONALIZED_PLAN_VALUE = "Human Coach Plan";
+
+export function offerCheckoutUrl(plan: Pick<OfferPlan, "id">, url: string): string {
+  if (plan.id !== "personalized" || !url.includes("pages.razorpay.com") || url.includes(`${PERSONALIZED_PLAN_FIELD}=`)) return url;
+  // encodeURIComponent (%20), not URLSearchParams (+): Razorpay shows "+" literally.
+  return `${url}${url.includes("?") ? "&" : "?"}${PERSONALIZED_PLAN_FIELD}=${encodeURIComponent(PERSONALIZED_PLAN_VALUE)}`;
+}
+
 /** True while Master Class pricing is live — within 24 h of any session's start. */
 export function isOfferLive(now: number = Date.now()): boolean {
   // Only the fixed window counts (27 Oct): extra Master Classes such as 30 Oct

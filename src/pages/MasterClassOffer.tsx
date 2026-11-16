@@ -15,6 +15,7 @@ import {
   BATCH_START_SHORT,
   MASTERCLASS,
   offerPlansAt,
+  offerCheckoutUrl,
   isOfferLive,
   type OfferPlan,
 } from "@/config/masterclass";
@@ -121,7 +122,7 @@ const MasterClassOffer = () => {
   const priceOf = (p: OfferPlan) =>
     flash.active ? p.flashPrice : live ? p.earlyPrice : p.regularPrice;
   const urlOf = (p: OfferPlan) =>
-    flash.active ? p.flashUrl : live ? p.earlyUrl : p.regularUrl;
+    offerCheckoutUrl(p, flash.active ? p.flashUrl : live ? p.earlyUrl : p.regularUrl);
 
   return (
     <div className="min-h-screen overflow-x-hidden bg-white pb-28">
@@ -516,7 +517,7 @@ const StickyOfferBar = ({
       <div className="mx-auto flex max-w-3xl gap-2.5">
         {plans.map((plan) => {
           const price = flash ? plan.flashPrice : live ? plan.earlyPrice : plan.regularPrice;
-          const url = flash ? plan.flashUrl : live ? plan.earlyUrl : plan.regularUrl;
+          const url = offerCheckoutUrl(plan, flash ? plan.flashUrl : live ? plan.earlyUrl : plan.regularUrl);
           return (
             <a
               key={plan.id}
