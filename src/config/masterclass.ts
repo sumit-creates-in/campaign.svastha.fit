@@ -449,7 +449,7 @@ export const PERSONALIZED_START_NOW = {
   price: "₹2,490",
   priceNumeric: 2490,
   // pl_TciWVzv0619TOd — ₹2,490 Personalized (redirects to the Personalized confirmation).
-  url: "https://pages.razorpay.com/pl_TciWVzv0619TOd/view",
+  url: "https://pages.razorpay.com/pl_TciWVzv0619TOd/view?plan_human_coach=Human%20Coach%20Plan",
   popupPrice: "₹1,990",
   popupPriceNumeric: 1990,
   popupDiscount: "₹500 off",

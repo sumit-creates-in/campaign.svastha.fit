@@ -85,9 +85,9 @@ export const CHALLENGE_PLANS: readonly ChallengePlan[] = [
     tagline: "Your own dietitian builds the plan around you",
     startLine: "Start within 48 hours — no waiting for a batch. Our team calls you after you join.",
     earlyPrice: "₹2,490",
-    earlyPage: "https://pages.razorpay.com/pl_TciWVzv0619TOd/view",
+    earlyPage: "https://pages.razorpay.com/pl_TciWVzv0619TOd/view?plan_human_coach=Human%20Coach%20Plan",
     regularPrice: "₹2,990",
-    regularPage: "https://pages.razorpay.com/pl_QHMy1AvL4XDeqQ/view",
+    regularPage: "https://pages.razorpay.com/pl_QHMy1AvL4XDeqQ/view?plan_human_coach=Human%20Coach%20Plan",
     features: [
       "A dedicated dietitian from the Svastha team",
       "A 21 day diet and fasting plan built around your body, routine and food habits",

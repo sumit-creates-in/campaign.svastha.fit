@@ -275,7 +275,7 @@ const Ultimate21DayChallenge = () => {
         />
         <ScrollPopupModal
           onUpgrade={handleUpgrade}
-          upgradeUrl="https://pages.razorpay.com/pl_TciWVzv0619TOd/view"
+          upgradeUrl="https://pages.razorpay.com/pl_TciWVzv0619TOd/view?plan_human_coach=Human%20Coach%20Plan"
           personalDiscountText="Rs. 500 off"
           personalPriceText="Rs. 2490"
           onJoinGroup={handleJoinGroup}

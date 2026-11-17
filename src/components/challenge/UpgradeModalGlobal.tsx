@@ -24,7 +24,7 @@ export const UpgradeModalGlobal = ({
     onClose,
     onUpgrade,
     onJoinGroup,
-    upgradeUrl = "https://pages.razorpay.com/pl_QHMy1AvL4XDeqQ/view",
+    upgradeUrl = "https://pages.razorpay.com/pl_QHMy1AvL4XDeqQ/view?plan_human_coach=Human%20Coach%20Plan",
     joinGroupUrl = "https://pages.razorpay.com/pl_QHMrm9qAqyqcdA/view",
     upgradePriceText = "Rs. 2990",
     groupPriceText = "Rs.1990",
