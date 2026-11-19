@@ -12,7 +12,7 @@
  * the following one by itself. No redeploy between sessions.
  *
  * Each session has its own WhatsApp group — the Zoom link and reminders go out
- * there. The SVASTHA Automator "RazorPay Payment Captured" ₹49 branch sends the
+ * there. The SVASTHA Automator "RazorPay Payment Captured" Master Class (₹49–₹99) branch sends the
  * same group link, and is switched over at the same moment.
  */
 export interface MasterClassSession {
@@ -64,11 +64,11 @@ export const SESSIONS: readonly MasterClassSession[] = [
     whatsappGroupUrl: "https://chat.whatsapp.com/KmV3SWAXavGENm1xz7KDgL",
   },
   {
-    // Master Class + B157 Orientation (Sumit, 15 Nov). Same WhatsApp group as
-    // the Wed 18 Nov class until Sumit sends a separate one.
+    // Master Class + B157 Orientation (Sumit, 15 Nov). Its own WhatsApp group
+    // from 19 Nov (Sumit); earlier registrants are in the 15 / 18 Nov groups.
     startsAt: "2026-11-22T09:30:00+05:30",
     dateLabel: "Sunday, 22 November 2026",
-    whatsappGroupUrl: "https://chat.whatsapp.com/KmV3SWAXavGENm1xz7KDgL",
+    whatsappGroupUrl: "https://chat.whatsapp.com/KHRPiO51puTDhLhEvZv3Wu",
   },
 ];
 
@@ -126,20 +126,23 @@ export const INDIA_BATCH = {
 // ─── Pricing ──────────────────────────────────────────────────────────────────
 export const PRICING = {
   anchor: "₹999",
-  price: "₹49",
-  priceNumeric: 49,
+  // ₹49 until 19 Nov 2026; Sumit raised the registration fee to ₹99 from the
+  // 22 Nov class. The Automator registration branch accepts ₹49 to ₹99.
+  price: "₹99",
+  priceNumeric: 99,
 } as const;
 
 // ─── Payment ──────────────────────────────────────────────────────────────────
 /**
- * The Razorpay Payment Page for the ₹49 Master Class registration.
+ * The Razorpay Payment Page for the ₹99 Master Class registration.
  *
  * IMPORTANT — use the full pages.razorpay.com URL, never the rzp.io short link.
  * Verified in a real browser on 14 Sep 2026: rzp.io/rzp/zWaRqQT redirects here
  * but DROPS the entire query string, so every prefill value is lost. That was
  * why registrants had to retype their details.
  */
-export const RAZORPAY_URL = "https://pages.razorpay.com/pl_TOmYLhPmv9SfhQ/view";
+export const RAZORPAY_URL = "https://pages.razorpay.com/pl_U25cQ5uz3bHL3v/view";
+// Previous ₹49 page (still active, not linked any more): pl_TOmYLhPmv9SfhQ.
 
 export interface PrefillDetails {
   name: string;

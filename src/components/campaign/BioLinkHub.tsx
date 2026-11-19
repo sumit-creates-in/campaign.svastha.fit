@@ -16,7 +16,7 @@ import { CHALLENGE_PLANS, EARLY_BIRD, GROUP_SCHEDULE, isEarlyBird } from "@/conf
  * and on a phone. Kept deliberately simple:
  *   1. Who is this?          → photo, name, one line
  *   2. What should I do?     → start now: the 21 Day Challenge (Group / Personalized),
- *                               then the ₹49 Master Class
+ *                               then the paid Master Class
  *   3. Other ways in         → consultation call, WhatsApp (as quiet link rows)
  *   4. Can I trust it?       → transformations, then the Master Class button again
  *
@@ -225,7 +225,7 @@ const BioLinkHub = () => {
               {MASTERCLASS.name}
             </h2>
             <span className="mt-3 inline-block rounded-full bg-yellow-300 px-3.5 py-1 text-sm font-extrabold uppercase tracking-wide text-gray-900">
-              ₹49 live class with Sumit
+              {PRICING.price} live class with Sumit
             </span>
           </button>
 
