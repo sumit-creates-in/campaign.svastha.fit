@@ -24,6 +24,7 @@ import AiCoachPaymentConfirmation from "./pages/AiCoachPaymentConfirmation";
 import SixMonthOffer from "./pages/SixMonthOffer";
 import SixMonthConfirmation from "./pages/SixMonthConfirmation";
 import UsMasterClass from "./pages/UsMasterClass";
+import UsWomenMasterClass from "./pages/UsWomenMasterClass";
 import UsMasterClassConfirmed from "./pages/UsMasterClassConfirmed";
 import NavFitChallenge from "./pages/NavFitChallenge";
 import NavFitChallengeConfirmed from "./pages/NavFitChallengeConfirmed";
@@ -87,8 +88,11 @@ function App() {
               {/* US Master Class — $19 seat via Stripe, for Indians in the USA.
                   Built from the International 21 Day Challenge page. Not
                   geo-guarded, so it can be previewed from India. */}
-              <Route path="/us-masterclass" element={<UsMasterClass />} />
-              <Route path="/masterclass-usa" element={<UsMasterClass />} />
+              {/* 20 Nov 2026: women-only US Master Class (India /masterclass design). The Sept page stays at /us-masterclass-2026-09. */}
+              <Route path="/us-masterclass" element={<UsWomenMasterClass />} />
+              <Route path="/masterclass-usa" element={<UsWomenMasterClass />} />
+              <Route path="/us-masterclass-women" element={<UsWomenMasterClass />} />
+              <Route path="/us-masterclass-2026-09" element={<UsMasterClass />} />
               {/* Stripe redirects here after payment (set on both payment links). */}
               <Route path="/us-masterclass-confirmed" element={<UsMasterClassConfirmed />} />
 

@@ -10,25 +10,28 @@
 export const US_MASTERCLASS = {
   name: "Ultimate 21 Day Weight Loss Challenge",
   subtitle: "Master Class",
-  eventName: "LIVE MASTER CLASS",
+  eventName: "LIVE MASTER CLASS FOR WOMEN",
+  /** Who the session is for (Sumit, 20 Nov 2026: women of Indian origin, 35–54). */
+  audienceLabel: "For Indian women in the USA & Canada",
 
   /**
-   * ISO 8601 with IST offset. Sunday 27 Sep 2026, 9:30 PM IST
-   *   = 12:00 PM EDT (New York) = 9:00 AM PDT (Los Angeles).
-   * US clocks change on 1 Nov 2026 — after that, 9:30 PM IST is 11:00 AM EST.
+   * ISO 8601 with IST offset. Sunday 29 Nov 2026, 8:00 PM IST
+   *   = 9:30 AM EST (New York) = 8:30 AM CST = 6:30 AM PST (Los Angeles).
+   * (Sumit, 20 Nov 2026: first women-only US Master Class.)
+   * Previous session: Sunday 27 Sep 2026, 9:30 PM IST.
    */
-  startsAt: "2026-09-27T21:30:00+05:30",
+  startsAt: "2026-11-29T20:00:00+05:30",
   durationMinutes: 90,
 
   /** Shown everywhere a date is needed. US order: weekday, month day. */
-  dateLabel: "Sunday, September 27",
+  dateLabel: "Sunday, November 29",
   /** Primary time line — Eastern first, Pacific second. */
-  timeLabel: "12:00 PM ET · 9:00 AM PT",
+  timeLabel: "9:30 AM ET · 6:30 AM PT",
   /** Longer form used in the details list and on the confirmation page. */
-  timeLabelLong: "12:00 PM Eastern · 11:00 AM Central · 9:00 AM Pacific",
+  timeLabelLong: "9:30 AM Eastern · 8:30 AM Central · 6:30 AM Pacific",
   durationLabel: "90 minutes",
   platformLabel: "LIVE on Zoom",
-  languageLabel: "English + Hindi",
+  languageLabel: "English (with a little Hindi)",
 } as const;
 
 // ─── Pricing & payment ────────────────────────────────────────────────────────

@@ -16,7 +16,7 @@ export type Transformation = {
   text: string;
 };
 
-const defaultTransformations: Transformation[] = [
+export const defaultTransformations: Transformation[] = [
   // ── Before/After cards (real user data) ──
   {
     beforeImage:
