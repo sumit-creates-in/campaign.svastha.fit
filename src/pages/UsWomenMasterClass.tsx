@@ -107,7 +107,13 @@ const UsWomenMasterClass = () => {
       <Gap />
 
       <AanchalTestimonialSection
-        heading="Hear What Kavitha, Saritha & Veena Have to Say"
+        heading={
+          <>
+            Hear What Kavitha, Saritha &amp; Veena from{" "}
+            <ReactCountryFlag countryCode="US" svg style={{ width: "0.9em", height: "0.9em" }} />{" "}
+            USA Have to Say
+          </>
+        }
         subHeading=""
         videoUrl="https://www.youtube.com/embed/o-H24IM-emE"
       />

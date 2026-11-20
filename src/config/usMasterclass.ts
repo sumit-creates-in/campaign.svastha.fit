@@ -166,7 +166,7 @@ export const PHONE_COUNTRIES = [
 // ─── Post-payment ─────────────────────────────────────────────────────────────
 /** The WhatsApp group every paid US registrant joins. Zoom link goes here. */
 export const US_WHATSAPP_GROUP_URL =
-  "https://chat.whatsapp.com/EJkcq8ecZVyKd8tsTbmeKK";
+  "https://chat.whatsapp.com/LKXLbh0st2887lx5ysaBxF"; // 29 Nov women class (Sumit, 20 Nov). Sept group: EJkcq8ecZVyKd8tsTbmeKK
 
 /** Local storage key used to hand the lead from the form to the success page. */
 export const US_LEAD_STORAGE_KEY = "svastha_us_mc_lead";
