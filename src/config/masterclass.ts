@@ -313,7 +313,30 @@ const OFFER_FIXED_WINDOWS: OfferWindow[] = [
     opensAt: Date.parse("2026-10-30T00:00:00+05:30"),
     closesAt: Date.parse("2026-10-31T00:00:00+05:30"),
   },
-  // Sun 22 Nov Master Class + B157 starting session.
+  // Sun 22 Nov Master Class + B157 starting session (Sumit, 22 Nov morning):
+  // same ladder as 15 / 18 Nov on the day — 15-min flash ₹990 / ₹1,990, then
+  // ₹1,290 / ₹2,290 until midnight. Listed before the 20–23 Nov window so it
+  // wins on 22 Nov (offerPlansAt takes the first match).
+  {
+    opensAt: Date.parse("2026-11-22T00:00:00+05:30"),
+    closesAt: Date.parse("2026-11-23T00:00:00+05:30"),
+    prices: {
+      group: {
+        earlyPrice: "₹1,290",
+        earlyUrl: "https://pages.razorpay.com/pl_TrgT4iq2FuRZaa/view",
+        flashPrice: "₹990",
+        flashUrl: "https://pages.razorpay.com/pl_TyMfI09EM3qcvG/view",
+      },
+      personalized: {
+        earlyPrice: "₹2,290",
+        earlyUrl: "https://pages.razorpay.com/pl_TrgT9LUtmZLFtU/view",
+        flashPrice: "₹1,990",
+        flashUrl:
+          "https://pages.razorpay.com/pl_TspnaK0HgnttUb/view?plan_human_coach=Human%20Coach%20Plan",
+      },
+    },
+  },
+  // 20–21 Nov: Master Class price ₹1,490 / ₹2,490 (OFFER_PLANS defaults).
   {
     opensAt: Date.parse("2026-11-20T00:00:00+05:30"),
     closesAt: Date.parse("2026-11-23T00:00:00+05:30"),
