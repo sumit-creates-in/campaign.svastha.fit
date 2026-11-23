@@ -275,6 +275,10 @@ const YogaWithSumit = () => {
                   <Clock className="text-orange-500" size={20} />
                   <span className="font-semibold">8:30 AM</span>
                 </div>
+                <div className="flex items-center gap-3 text-lg">
+                  <Clock className="text-orange-500" size={20} />
+                  <span className="font-semibold">9:30 AM</span>
+                </div>
               </div>
             </div>
 
@@ -291,6 +295,10 @@ const YogaWithSumit = () => {
                 <div className="flex items-center gap-3 text-lg">
                   <Clock className="text-purple-500" size={20} />
                   <span className="font-semibold">6:30 PM</span>
+                </div>
+                <div className="flex items-center gap-3 text-lg">
+                  <Clock className="text-purple-500" size={20} />
+                  <span className="font-semibold">7:30 PM</span>
                 </div>
               </div>
             </div>

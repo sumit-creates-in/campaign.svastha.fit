@@ -90,7 +90,7 @@ export const NAVFIT_VIDEO_ID = "gBowL78VcXo";
 
 // ─── Daily live yoga (same classes as the 21 Day Challenge) ──────────────────
 export const NAVFIT_YOGA = {
-  morning: "5:30, 6:30, 7:30, 8:30 & 9:30 AM",
-  evening: "4:30, 5:30 & 6:30 PM",
+  morning: "6:30, 7:30, 8:30 & 9:30 AM",
+  evening: "5:30, 6:30 & 7:30 PM",
   days: "Monday to Friday",
 } as const;

@@ -118,8 +118,8 @@ const ScheduleSection = () => {
     }
   };
 
-  const morningBatches = ["5:30 AM", "6:15 AM", "7:00 AM", "8:30 AM"];
-  const eveningBatches = ["4:30 PM", "5:30 PM", "6:30 PM", "7:15 PM"];
+  const morningBatches = ["6:30 AM", "7:30 AM", "8:30 AM", "9:30 AM"];
+  const eveningBatches = ["5:30 PM", "6:30 PM", "7:30 PM"];
 
   const details = [
     { icon: MapPin, label: "Venue", value: "Online (Zoom)" },

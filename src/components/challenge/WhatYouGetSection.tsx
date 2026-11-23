@@ -21,8 +21,8 @@ interface WhatYouGetSectionProps {
 }
 
 // IST base times (24h format) for yoga classes
-const IST_MORNING_HOURS = [5.5, 6.5, 7.5, 8.5, 9.5]; // 5:30 AM - 9:30 AM IST
-const IST_EVENING_HOURS = [16.5, 17.5, 18.5]; // 4:30 PM - 6:30 PM IST
+const IST_MORNING_HOURS = [6.5, 7.5, 8.5, 9.5]; // 6:30 AM - 9:30 AM IST (since 2 Nov 2026)
+const IST_EVENING_HOURS = [17.5, 18.5, 19.5]; // 5:30 PM - 7:30 PM IST
 
 function formatTime12h(hour24: number): string {
   // Normalize to 0-24 range
@@ -134,10 +134,10 @@ export const WhatYouGetSection = ({
   const slot2Label = isUltimate ? "Evening Classes" : getSlotLabel(IST_EVENING_HOURS[0], tzInfo.offsetFromIST);
 
   const morningStr = isUltimate
-    ? "5:30 am, 6:30 am, 7:30 am, 8:30 am & 9:30 am"
+    ? "6:30 am, 7:30 am, 8:30 am & 9:30 am"
     : morningLocal.slice(0, -1).join(", ") + " & " + morningLocal[morningLocal.length - 1];
   const eveningStr = isUltimate
-    ? "4:30 pm, 5:30 pm & 6:30 pm"
+    ? "5:30 pm, 6:30 pm & 7:30 pm"
     : eveningLocal.slice(0, -1).join(", ") + " & " + eveningLocal[eveningLocal.length - 1];
 
   const benefits = [
@@ -190,8 +190,8 @@ export const WhatYouGetSection = ({
             "Recordings of the classes will be provided.",
           ]
           : [
-            "Morning Classes: 5:30 am, 6:30 am, 7:30 am, 8:30 am & 9:30 am",
-            "Evening Classes: 4:30 pm, 5:30 pm & 6:30 pm",
+            "Morning Classes: 6:30 am, 7:30 am, 8:30 am & 9:30 am",
+            "Evening Classes: 5:30 pm, 6:30 pm & 7:30 pm",
             "(Mon to Fri)",
             "Recordings of the classes will be provided.",
           ],
