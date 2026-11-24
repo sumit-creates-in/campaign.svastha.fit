@@ -1,26 +1,39 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X } from "lucide-react";
-import { US_MASTERCLASS, US_PRICING, isUsTestMode } from "@/config/usMasterclass";
+import { X, Video, Sparkles } from "lucide-react";
+import {
+  US_MASTERCLASS,
+  US_PRICING,
+  US_PERSONAL_PRICING,
+  isUsTestMode,
+  type UsPlan,
+} from "@/config/usMasterclass";
 
 interface Props {
-  /** Claim the offer — opens the registration form at the offer price. */
-  onClaim: () => void;
+  /**
+   * Claim an offer — opens the registration form for that option at the offer
+   * price. Called with no argument by older pages (= the Master Class seat).
+   */
+  onClaim: (plan?: Extract<UsPlan, "masterclass" | "personalized">) => void;
   /**
    * True once the visitor has opened the registration form. Anyone who got
-   * that far was ready to pay $19, so they never see the discount.
+   * that far was ready to pay full price, so they never see the discount.
    */
   suppressed: boolean;
   onVisibilityChange?: (visible: boolean) => void;
+  /** Also offer $10 off the 21-Day Personalized Plan (women page, 24 Nov 2026). */
+  withPersonal?: boolean;
 }
 
 const SEEN_KEY = "svastha_us_mc_offer_seen";
 
 /**
- * One-time $5-off offer for people who have read most of the page without
- * registering. Shown once per browser, never to someone already in the form.
+ * One-time scroll offer for people who have read most of the page without
+ * registering: $5 off the Master Class seat ($14) and — on the women page —
+ * $10 off the 21-Day Personalized Plan ($49). Shown once per browser, never to
+ * someone already in the form. Same pattern as the India 21-day challenge page.
  */
-export const UsOfferPopup = ({ onClaim, suppressed, onVisibilityChange }: Props) => {
+export const UsOfferPopup = ({ onClaim, suppressed, onVisibilityChange, withPersonal = false }: Props) => {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
@@ -61,6 +74,12 @@ export const UsOfferPopup = ({ onClaim, suppressed, onVisibilityChange }: Props)
   }, [open, onVisibilityChange]);
 
   const { offer } = US_PRICING;
+  const pOffer = US_PERSONAL_PRICING.offer;
+
+  const claim = (plan: "masterclass" | "personalized") => {
+    setOpen(false);
+    onClaim(plan);
+  };
 
   return (
     <AnimatePresence>
@@ -93,40 +112,91 @@ export const UsOfferPopup = ({ onClaim, suppressed, onVisibilityChange }: Props)
                 Still thinking about it?
               </p>
               <p className="mt-2 text-2xl font-extrabold leading-tight">
-                Here&apos;s {offer.saving} off your seat
+                {withPersonal ? "A little extra to help you start" : <>Here&apos;s {offer.saving} off your seat</>}
               </p>
             </div>
 
-            <div className="px-6 pb-6 pt-5 text-center">
-              <div className="flex items-baseline justify-center gap-3">
-                <span className="text-xl font-semibold text-gray-400 line-through">{offer.was}</span>
-                <span className="text-5xl font-extrabold tracking-tight text-gray-950">
-                  {offer.price}
-                </span>
+            {withPersonal ? (
+              <div className="space-y-3 px-5 pb-6 pt-5">
+                <button
+                  onClick={() => claim("masterclass")}
+                  className="no-heartbeat w-full rounded-2xl border-2 border-emerald-500 bg-emerald-50 p-4 text-left transition-transform hover:scale-[1.01]"
+                >
+                  <div className="flex items-center gap-3">
+                    <Video className="h-6 w-6 flex-shrink-0 text-emerald-600" />
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-bold text-gray-900">Live Master Class</p>
+                      <p className="text-[11px] text-gray-600">
+                        {US_MASTERCLASS.dateLabel} · {US_MASTERCLASS.timeLabel}
+                      </p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xs font-semibold text-gray-400 line-through">{offer.was}</p>
+                      <p className="text-2xl font-extrabold text-gray-950">{offer.price}</p>
+                    </div>
+                  </div>
+                  <p className="mt-3 rounded-full bg-gradient-to-r from-green-600 to-lime-500 py-2.5 text-center text-sm font-extrabold text-white">
+                    Claim My {offer.price} Seat
+                  </p>
+                </button>
+
+                <button
+                  onClick={() => claim("personalized")}
+                  className="no-heartbeat w-full rounded-2xl border-2 border-gray-200 bg-white p-4 text-left transition-all hover:border-emerald-400"
+                >
+                  <div className="flex items-center gap-3">
+                    <Sparkles className="h-6 w-6 flex-shrink-0 text-amber-500" />
+                    <div className="min-w-0 flex-1">
+                      <p className="text-sm font-bold text-gray-900">21-Day Personalized Plan</p>
+                      <p className="text-[11px] text-gray-600">Your own coach · start today</p>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-xs font-semibold text-gray-400 line-through">{pOffer.was}</p>
+                      <p className="text-2xl font-extrabold text-gray-950">{pOffer.price}</p>
+                    </div>
+                  </div>
+                  <p className="mt-3 rounded-full bg-gray-900 py-2.5 text-center text-sm font-extrabold text-white">
+                    Start My Plan for {pOffer.price}
+                  </p>
+                </button>
+
+                <div className="text-center">
+                  <button
+                    onClick={() => setOpen(false)}
+                    className="no-heartbeat mt-1 text-xs font-medium text-gray-400 underline-offset-2 hover:underline"
+                  >
+                    No thanks
+                  </button>
+                  <p className="mt-2 text-[11px] text-gray-400">This offer is only shown once.</p>
+                </div>
               </div>
-              <p className="mt-2 text-sm text-gray-600">
-                {US_MASTERCLASS.subtitle} · {US_MASTERCLASS.dateLabel}
-                <br />
-                {US_MASTERCLASS.timeLabel}
-              </p>
+            ) : (
+              <div className="px-6 pb-6 pt-5 text-center">
+                <div className="flex items-baseline justify-center gap-3">
+                  <span className="text-xl font-semibold text-gray-400 line-through">{offer.was}</span>
+                  <span className="text-5xl font-extrabold tracking-tight text-gray-950">{offer.price}</span>
+                </div>
+                <p className="mt-2 text-sm text-gray-600">
+                  {US_MASTERCLASS.subtitle} · {US_MASTERCLASS.dateLabel}
+                  <br />
+                  {US_MASTERCLASS.timeLabel}
+                </p>
 
-              <button
-                onClick={() => {
-                  setOpen(false);
-                  onClaim();
-                }}
-                className="no-heartbeat mt-5 w-full rounded-full bg-gradient-to-r from-green-600 to-lime-500 px-6 py-4 text-base font-extrabold text-white shadow-lg transition-transform hover:scale-[1.02]"
-              >
-                Claim My {offer.price} Seat
-              </button>
-              <button
-                onClick={() => setOpen(false)}
-                className="no-heartbeat mt-3 text-xs font-medium text-gray-400 underline-offset-2 hover:underline"
-              >
-                No thanks
-              </button>
-              <p className="mt-3 text-[11px] text-gray-400">This offer is only shown once.</p>
-            </div>
+                <button
+                  onClick={() => claim("masterclass")}
+                  className="no-heartbeat mt-5 w-full rounded-full bg-gradient-to-r from-green-600 to-lime-500 px-6 py-4 text-base font-extrabold text-white shadow-lg transition-transform hover:scale-[1.02]"
+                >
+                  Claim My {offer.price} Seat
+                </button>
+                <button
+                  onClick={() => setOpen(false)}
+                  className="no-heartbeat mt-3 text-xs font-medium text-gray-400 underline-offset-2 hover:underline"
+                >
+                  No thanks
+                </button>
+                <p className="mt-3 text-[11px] text-gray-400">This offer is only shown once.</p>
+              </div>
+            )}
           </motion.div>
         </motion.div>
       )}

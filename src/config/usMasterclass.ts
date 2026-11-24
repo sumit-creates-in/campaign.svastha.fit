@@ -63,6 +63,54 @@ export const US_PRICING = {
 
 export type UsPriceTier = keyof typeof US_PRICING;
 
+/**
+ * 21-Day Personalized Plan for the US (Sumit, 24 Nov 2026): the "start today"
+ * option next to the Master Class. Own SVASTHA coach, starts within 24 h.
+ * $59 (the app's 1-month personal plan is $69.99); $10 off = $49 through the
+ * one-time scroll offer. Stripe product prod_VgdA0TRvRnLi3d (StrongByYoga LLC,
+ * live), metadata funnel=us-personalized. Both links redirect to
+ * /us-personal-plan-confirmed?amount=59|49&session_id=…
+ * No sandbox copy exists, so test mode (?test=1) stops before Stripe.
+ */
+export const US_PERSONAL_PRICING = {
+  standard: {
+    price: "$59",
+    amount: 59,
+    url: "https://buy.stripe.com/6oUdR9fBmbv2e03ajS5c41p",
+  },
+  offer: {
+    price: "$49",
+    amount: 49,
+    was: "$59",
+    saving: "$10",
+    url: "https://buy.stripe.com/bJe28r2OAbv27BF4Zy5c41q",
+  },
+} as const;
+
+/** What the visitor picked in the registration modal. */
+export type UsPlan = "masterclass" | "personalized" | "call";
+
+/**
+ * Free consultation call (Sumit, 24 Nov 2026). Samiksha calls US leads
+ * 9 AM – 10 PM IST every day. In US time that is 10:30 PM – 11:30 AM ET
+ * (7:30 PM – 8:30 AM PT), so we offer the two windows that are awake-time
+ * on both coasts. Labels are shown as-is; the IST range goes to the CRM.
+ */
+export const US_CALL_WINDOWS = [
+  {
+    id: "morning",
+    label: "Morning",
+    us: "8:30 – 11:30 AM ET · 5:30 – 8:30 AM PT",
+    ist: "7:00 – 10:00 PM IST",
+  },
+  {
+    id: "evening",
+    label: "Evening",
+    us: "10:30 PM – 12:00 AM ET · 7:30 – 9:00 PM PT",
+    ist: "9:00 – 10:30 AM IST (next day)",
+  },
+] as const;
+
 // ─── Test mode ────────────────────────────────────────────────────────────────
 /**
  * Open the page with `?test=1` to run the whole funnel with no real money:
@@ -94,8 +142,10 @@ export function isUsTestMode(): boolean {
  */
 export function buildStripeUrl(
   tier: UsPriceTier,
-  { email, leadId, phone, name }: { email: string; leadId: string; phone?: string; name?: string },
+  who: { email: string; leadId: string; phone?: string; name?: string },
+  plan: "masterclass" | "personalized" = "masterclass",
 ): string {
+  const { email, leadId, phone, name } = who;
   const params = new URLSearchParams({
     prefilled_email: email.trim(),
     client_reference_id: buildClientReference({ leadId, phone, name }),
@@ -112,7 +162,12 @@ export function buildStripeUrl(
   } catch {
     /* no UTM tags is fine */
   }
-  const base = isUsTestMode() ? US_TEST_LINKS[tier] : US_PRICING[tier].url;
+  const base =
+    plan === "personalized"
+      ? US_PERSONAL_PRICING[tier].url
+      : isUsTestMode()
+        ? US_TEST_LINKS[tier]
+        : US_PRICING[tier].url;
   return `${base}?${params.toString()}`;
 }
 

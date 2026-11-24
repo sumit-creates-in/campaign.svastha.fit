@@ -23,7 +23,13 @@ import { UsWomenWhoIsThisFor } from "@/components/us-women-mc/UsWomenWhoIsThisFo
 import { UsWomenValueStack } from "@/components/us-women-mc/UsWomenValueStack";
 import { UsWomenFAQ } from "@/components/us-women-mc/UsWomenFAQ";
 
-import { US_MASTERCLASS, US_PRICING, isUsTestMode, type UsPriceTier } from "@/config/usMasterclass";
+import {
+  US_MASTERCLASS,
+  US_PRICING,
+  isUsTestMode,
+  type UsPriceTier,
+  type UsPlan,
+} from "@/config/usMasterclass";
 
 /**
  * US Master Class for women (Sumit, 20 Nov 2026).
@@ -33,6 +39,8 @@ import { US_MASTERCLASS, US_PRICING, isUsTestMode, type UsPriceTier } from "@/co
  * women living in the USA & Canada, in English, with US times and Stripe in
  * dollars. Registration, the $14 scroll offer and the sticky bar are the US
  * funnel pieces built on 22 Sep (Stripe Payment Links + automator webhooks).
+ * 24 Nov 2026: Register now offers three choices — the Master Class ($19/$14),
+ * a 21-Day Personalized Plan that starts now ($59/$49) or a free call.
  *
  * Left out on purpose: the India daily-yoga timings, the ₹ Personalized
  * start-now section and popups, the seat counter (it reads India numbers),
@@ -49,9 +57,12 @@ const Gap = () => <div className="h-10 bg-white md:h-16" aria-hidden="true" />;
 const UsWomenMasterClass = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [tier, setTier] = useState<UsPriceTier>("standard");
+  const [personalTier, setPersonalTier] = useState<UsPriceTier>("standard");
+  const [initialPlan, setInitialPlan] = useState<UsPlan | undefined>(undefined);
   const [hasOpenedForm, setHasOpenedForm] = useState(false);
   const [isOfferOpen, setIsOfferOpen] = useState(false);
-  // Once someone claims the $14 offer, every button honours it for the visit.
+  // Once someone claims a scroll offer, both discounts are honoured for the
+  // rest of the visit ($14 seat, $49 personalized plan).
   const [offerClaimed, setOfferClaimed] = useState(false);
 
   useEffect(() => {
@@ -67,12 +78,16 @@ const UsWomenMasterClass = () => {
     twitterImage: "https://campaign.svastha.fit/masterclass-og.jpg",
   });
 
-  const openRegistration = useCallback((nextTier: UsPriceTier = "standard") => {
+  const openRegistration = useCallback((nextTier: UsPriceTier = "standard", plan?: UsPlan) => {
     setTier(nextTier);
+    setPersonalTier(nextTier);
+    setInitialPlan(plan);
     setHasOpenedForm(true);
     setIsModalOpen(true);
   }, []);
 
+  // Every Register button opens the three choices: Master Class, start a
+  // personalized plan today, or a free call (Sumit, 24 Nov 2026).
   const register = () => openRegistration(offerClaimed ? "offer" : "standard");
   const price = offerClaimed ? US_PRICING.offer.price : US_PRICING.standard.price;
   const busy = isModalOpen || isOfferOpen;
@@ -139,13 +154,21 @@ const UsWomenMasterClass = () => {
 
       <UsWomenFAQ />
 
-      <UsRegistrationModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} tier={tier} />
+      <UsRegistrationModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        tier={tier}
+        personalTier={personalTier}
+        withChoices
+        initialPlan={initialPlan}
+      />
 
       <UsOfferPopup
         suppressed={hasOpenedForm}
-        onClaim={() => {
+        withPersonal
+        onClaim={(plan = "masterclass") => {
           setOfferClaimed(true);
-          openRegistration("offer");
+          openRegistration("offer", plan);
         }}
         onVisibilityChange={setIsOfferOpen}
       />
