@@ -64,6 +64,33 @@ function go(url: string) {
   window.open(url, "_blank");
 }
 
+/**
+ * "Started checkout" signal for Meta (Sumit, 25 Nov 2026): fired when someone
+ * taps a plan button, so the ads learn from people about to pay, not only from
+ * the few who finish. Never blocks the click.
+ */
+function trackCheckout(plan: "personal" | "group", price: string, mode: "register" | "offer") {
+  try {
+    const fbq = (window as unknown as { fbq?: (...a: unknown[]) => void }).fbq;
+    if (typeof fbq !== "function") return;
+    const value = Number(price.replace(/[^\d]/g, "")) || undefined;
+    fbq(
+      "track",
+      "InitiateCheckout",
+      {
+        value,
+        currency: "INR",
+        content_name: plan === "personal" ? "21 Day Challenge - Personalized (India)" : "21 Day Challenge - Group (India)",
+        content_category: mode === "offer" ? "scroll_offer" : "register_window",
+        num_items: 1,
+      },
+      { eventID: `ic_${plan}_${Date.now()}` },
+    );
+  } catch {
+    /* tracking must never break the page */
+  }
+}
+
 export const U21PlanChooser = ({
   mode,
   isOpen: isOpenProp,
@@ -259,6 +286,7 @@ export const U21PlanChooser = ({
                         </div>
                         <button
                           onClick={() => {
+                            trackCheckout(c.key === "personal" ? "personal" : "group", price, mode);
                             close();
                             go(url);
                           }}

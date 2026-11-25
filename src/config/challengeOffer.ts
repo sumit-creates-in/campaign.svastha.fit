@@ -12,6 +12,10 @@ import { INDIA_BATCH } from "@/config/masterclass";
  * 6 Dec midnight (IST), regular price after:
  *   Group        ₹1,290 (scroll popup ₹990)   → ₹1,990
  *   Personalized ₹2,990 (scroll popup ₹2,690) → ₹2,990
+ * Changed the same evening (Sumit, 25 Nov 2026 ~7:30 PM) — "first 20 sign-ups"
+ * offer, NOT mentioned on the page; review after 20 sign-ups:
+ *   Group        ₹990   (scroll popup ₹790,   ₹200 off) → ₹1,990
+ *   Personalized ₹2,990 (scroll popup ₹2,790, ₹200 off) → ₹2,990
  * (Before: early-bird ₹1,490 / ₹2,490 until 15 Nov.)
  *
  * The Razorpay pages are the existing ones (same as /join), so the Automator,
@@ -69,11 +73,12 @@ export const CHALLENGE_PLANS: readonly ChallengePlan[] = [
     label: "Group Plan",
     tagline: "Do the 21 days with Sumit and the batch",
     startLine: `Starting session live with Sumit: ${INDIA_BATCH.sessionDateLabel}, ${INDIA_BATCH.sessionTimeLabel}. Day 1: ${INDIA_BATCH.day1Label}.`,
-    earlyPrice: "₹1,290",
-    earlyPage: "https://pages.razorpay.com/pl_TrgT4iq2FuRZaa/view",
-    popupPrice: "₹990",
-    popupPage: "https://pages.razorpay.com/pl_TyMfI09EM3qcvG/view",
-    popupSaving: "₹300 off",
+    // First-20 offer (Sumit, 25 Nov 2026). Before: ₹1,290 pl_TrgT4iq2FuRZaa, popup ₹990.
+    earlyPrice: "₹990",
+    earlyPage: "https://pages.razorpay.com/pl_TyMfI09EM3qcvG/view",
+    popupPrice: "₹790",
+    popupPage: "https://pages.razorpay.com/pl_U4QmZHiHgH4KXx/view",
+    popupSaving: "₹200 off",
     regularPrice: "₹1,990",
     regularPage: "https://pages.razorpay.com/pl_QHMrm9qAqyqcdA/view",
     features: [
@@ -97,10 +102,11 @@ export const CHALLENGE_PLANS: readonly ChallengePlan[] = [
     startLine: "Start within 48 hours — no waiting for a batch. Our team calls you after you join.",
     earlyPrice: "₹2,990",
     earlyPage: "https://pages.razorpay.com/pl_QHMy1AvL4XDeqQ/view?plan_human_coach=Human%20Coach%20Plan",
-    // Scroll offer: ₹300 off, same as the Group Plan (Sumit, 25 Nov 2026).
-    popupPrice: "₹2,690",
-    popupPage: "https://pages.razorpay.com/pl_U4QRvV0SdWkdE4/view",
-    popupSaving: "₹300 off",
+    // Scroll offer: ₹200 off, same as the Group Plan (Sumit, 25 Nov 2026 evening).
+    // (₹2,690 page pl_U4QRvV0SdWkdE4 exists but is not used now.)
+    popupPrice: "₹2,790",
+    popupPage: "https://pages.razorpay.com/pl_QHfwHt0q52MdOJ/view",
+    popupSaving: "₹200 off",
     regularPrice: "₹2,990",
     regularPage: "https://pages.razorpay.com/pl_QHMy1AvL4XDeqQ/view?plan_human_coach=Human%20Coach%20Plan",
     features: [

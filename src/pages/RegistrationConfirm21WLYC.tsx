@@ -144,7 +144,7 @@ const RegistrationConfirm21WLYC = ({
       paidPlanValue("group").then((value) =>
         trackPurchaseOnce(
           "purchase_u21_group_india",
-          value || (isEarlyBird() ? 1290 : 1990),
+          value || (isEarlyBird() ? 990 : 1990),
           "21 Day Challenge - Group (India)",
         ),
       );
