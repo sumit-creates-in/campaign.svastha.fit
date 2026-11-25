@@ -114,13 +114,15 @@ export const BATCH_START_SHORT = "Monday, 23 November";
  * Change these three values for every new batch.
  */
 export const INDIA_BATCH = {
-  name: "B157",
-  whatsappGroupUrl: "https://chat.whatsapp.com/HpDgEeX7DtE22BsX4y4h4X",
+  // B158 (Sumit, 25 Nov 2026): orientation Sun 6 Dec 9:30 AM, Day 1 Mon 7 Dec.
+  // Previous: B157, group HpDgEeX7DtE22BsX4y4h4X, 22 Nov.
+  name: "B158",
+  whatsappGroupUrl: "https://chat.whatsapp.com/HgJSITXWVgwL9csvoD0rzi",
   /** Starting session (the Sunday live with Sumit). */
-  sessionDateLabel: "22nd November (Sunday)",
+  sessionDateLabel: "6th December (Sunday)",
   sessionTimeLabel: "9:30 AM (India Time)",
   /** Day 1 of the batch. */
-  day1Label: "Monday, 23rd November",
+  day1Label: "Monday, 7th December",
 } as const;
 
 // ─── Pricing ──────────────────────────────────────────────────────────────────

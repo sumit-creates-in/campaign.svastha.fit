@@ -126,14 +126,15 @@ const Ultimate21DayChallenge = () => {
 
   useMeta({
     title: "Ultimate 21 Day Weight Loss Challenge | Lose up to 10 Kg | Svastha",
-    description: "Join the Ultimate 21 Day Weight Loss Challenge — next batch starts Sunday 22 November 2026. Diet and intermittent fasting plan, live yoga classes, WhatsApp guidance with Sumit Sharma.",
+    description: "Join the Ultimate 21 Day Weight Loss Challenge — next batch starts Sunday 6 December 2026 (New Year offer). Diet and intermittent fasting plan, live yoga classes, WhatsApp guidance with Sumit Sharma.",
     ogTitle: "Ultimate 21 Day Weight Loss Challenge | Svastha",
-    ogDescription: "Next batch starts Sunday 22 November 2026. Diet plan + intermittent fasting + live yoga + WhatsApp support.",
+    ogDescription: "Next batch starts Sunday 6 December 2026. Diet plan + intermittent fasting + live yoga + WhatsApp support.",
     ogImage: "/src/assets/hero-yoga.jpg",
   });
 
-  // Early-bird pricing (Sumit, 12 Nov): same plans, prices and Razorpay pages as
-  // /21-day-challenge — early-bird until EARLY_BIRD.closesAt, regular after.
+  // Offer pricing: same plans, prices and Razorpay pages as /21-day-challenge —
+  // offer price until EARLY_BIRD.closesAt, regular after. New Year offer for
+  // B158 (Sumit, 25 Nov): ₹1,290 / ₹2,990, scroll popup ₹990 / ₹2,790.
   const earlyBird = isEarlyBird();
   const groupPlan = CHALLENGE_PLANS.find((p) => p.id === "group")!;
   const personalPlan = CHALLENGE_PLANS.find((p) => p.id === "personalized")!;
@@ -142,7 +143,7 @@ const Ultimate21DayChallenge = () => {
   const personalPrice = earlyBird ? personalPlan.earlyPrice : personalPlan.regularPrice;
   const personalPage = earlyBird ? personalPlan.earlyPage : personalPlan.regularPage;
   const groupFeeText = earlyBird
-    ? `${groupPrice}/- (early-bird till ${EARLY_BIRD.closesLabel})`
+    ? `${groupPrice}/- (${EARLY_BIRD.name})`
     : `${groupPrice}/-`;
 
   const scrollToRegistration = () => {
@@ -270,16 +271,19 @@ const Ultimate21DayChallenge = () => {
           onClose={() => setIsModalOpen(false)}
           onUpgrade={handleUpgrade}
           onJoinGroup={handleJoinGroup}
-          startDateText="22nd November 2026"
+          startDateText="6th December 2026"
           hideScarcity
         />
         <ScrollPopupModal
           onUpgrade={handleUpgrade}
-          upgradeUrl="https://pages.razorpay.com/pl_TciWVzv0619TOd/view?plan_human_coach=Human%20Coach%20Plan"
-          personalDiscountText="Rs. 500 off"
-          personalPriceText="Rs. 2490"
+          upgradeUrl={earlyBird ? personalPlan.popupPage : personalPage}
+          personalDiscountText={earlyBird ? personalPlan.popupSaving : ""}
+          personalPriceText={earlyBird ? personalPlan.popupPrice : personalPrice}
+          joinGroupUrl={earlyBird ? groupPlan.popupPage : groupPage}
+          groupDiscountText={earlyBird ? groupPlan.popupSaving : ""}
+          groupPriceText={earlyBird ? groupPlan.popupPrice : groupPrice}
           onJoinGroup={handleJoinGroup}
-          startDateText="22nd November 2026"
+          startDateText="6th December 2026"
           onVisibilityChange={setIsScrollModalOpen}
           hideScarcity
         />

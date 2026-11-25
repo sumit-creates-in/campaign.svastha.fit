@@ -8,9 +8,11 @@ import { INDIA_BATCH } from "@/config/masterclass";
  *   Group Plan        — joins the next batch (INDIA_BATCH in masterclass.ts)
  *   Personalized Plan — own dietitian, starts within 48 hours
  *
- * Early-bird price until 15 Nov midnight (IST), regular price after:
- *   Group        ₹1,490 → ₹1,990
- *   Personalized ₹2,490 → ₹2,990
+ * New Year offer (Sumit, 25 Nov 2026) for B158 (orientation Sun 6 Dec), until
+ * 6 Dec midnight (IST), regular price after:
+ *   Group        ₹1,290 (scroll popup ₹990)   → ₹1,990
+ *   Personalized ₹2,990 (scroll popup ₹2,790) → ₹2,990
+ * (Before: early-bird ₹1,490 / ₹2,490 until 15 Nov.)
  *
  * The Razorpay pages are the existing ones (same as /join), so the Automator,
  * the confirmation pages and the app's B157 payment rules already handle them:
@@ -22,9 +24,11 @@ import { INDIA_BATCH } from "@/config/masterclass";
  */
 
 export const EARLY_BIRD = {
-  /** Last moment of the early-bird price (exclusive). */
-  closesAt: Date.parse("2026-11-16T00:00:00+05:30"),
-  closesLabel: "15 November",
+  /** What the offer is called on the pages. */
+  name: "New Year offer",
+  /** Last moment of the offer price (exclusive). */
+  closesAt: Date.parse("2026-12-07T00:00:00+05:30"),
+  closesLabel: "6 December",
 };
 
 export function isEarlyBird(now: number = Date.now()): boolean {
@@ -36,8 +40,8 @@ export const GROUP_SCHEDULE = {
   sessionLabel: INDIA_BATCH.sessionDateLabel, // "22nd November (Sunday)"
   sessionTime: INDIA_BATCH.sessionTimeLabel, // "9:30 AM (India Time)"
   day1Label: INDIA_BATCH.day1Label, // "Monday, 23rd November"
-  shortStart: "Starts 22 Nov",
-  sundays: "22 Nov, 29 Nov and 6 Dec",
+  shortStart: "Starts 6 Dec",
+  sundays: "6 Dec, 13 Dec and 20 Dec",
 };
 
 export interface ChallengePlan {
@@ -48,6 +52,10 @@ export interface ChallengePlan {
   startLine: string;
   earlyPrice: string;
   earlyPage: string;
+  /** One-time scroll-popup discount (Ultimate page). */
+  popupPrice: string;
+  popupPage: string;
+  popupSaving: string;
   regularPrice: string;
   regularPage: string;
   features: string[];
@@ -61,12 +69,15 @@ export const CHALLENGE_PLANS: readonly ChallengePlan[] = [
     label: "Group Plan",
     tagline: "Do the 21 days with Sumit and the batch",
     startLine: `Starting session live with Sumit: ${INDIA_BATCH.sessionDateLabel}, ${INDIA_BATCH.sessionTimeLabel}. Day 1: ${INDIA_BATCH.day1Label}.`,
-    earlyPrice: "₹1,490",
-    earlyPage: "https://pages.razorpay.com/pl_TciTJHasd9VWSs/view",
+    earlyPrice: "₹1,290",
+    earlyPage: "https://pages.razorpay.com/pl_TrgT4iq2FuRZaa/view",
+    popupPrice: "₹990",
+    popupPage: "https://pages.razorpay.com/pl_TyMfI09EM3qcvG/view",
+    popupSaving: "₹300 off",
     regularPrice: "₹1,990",
     regularPage: "https://pages.razorpay.com/pl_QHMrm9qAqyqcdA/view",
     features: [
-      "Live sessions with Sumit every Sunday (22 Nov, 29 Nov, 6 Dec) — recordings shared",
+      "Live sessions with Sumit every Sunday (6 Dec, 13 Dec, 20 Dec) — recordings shared",
       "21 day diet plan with home-cooked food: daal, rice, roti, sabji",
       "Intermittent fasting plan and daily guidance in the batch WhatsApp group",
       "Live yoga classes, Monday to Friday — 8 time slots, recordings shared",
@@ -74,7 +85,7 @@ export const CHALLENGE_PLANS: readonly ChallengePlan[] = [
     ],
     bestFor: [
       "You like doing it together with a group",
-      "You can start on Monday, 23 November",
+      "You can start on Monday, 7 December",
       "You want Sumit's guidance at the best price",
     ],
   },
@@ -84,8 +95,11 @@ export const CHALLENGE_PLANS: readonly ChallengePlan[] = [
     label: "Personalized",
     tagline: "Your own dietitian builds the plan around you",
     startLine: "Start within 48 hours — no waiting for a batch. Our team calls you after you join.",
-    earlyPrice: "₹2,490",
-    earlyPage: "https://pages.razorpay.com/pl_TciWVzv0619TOd/view?plan_human_coach=Human%20Coach%20Plan",
+    earlyPrice: "₹2,990",
+    earlyPage: "https://pages.razorpay.com/pl_QHMy1AvL4XDeqQ/view?plan_human_coach=Human%20Coach%20Plan",
+    popupPrice: "₹2,790",
+    popupPage: "https://pages.razorpay.com/pl_QHfwHt0q52MdOJ/view",
+    popupSaving: "₹200 off",
     regularPrice: "₹2,990",
     regularPage: "https://pages.razorpay.com/pl_QHMy1AvL4XDeqQ/view?plan_human_coach=Human%20Coach%20Plan",
     features: [
@@ -98,7 +112,7 @@ export const CHALLENGE_PLANS: readonly ChallengePlan[] = [
     bestFor: [
       "You are managing thyroid, PCOS, sugar or BP",
       "You have tried before and stalled",
-      "You want to start now, not on 23 November",
+      "You want to start now, not on 7 December",
     ],
   },
 ] as const;

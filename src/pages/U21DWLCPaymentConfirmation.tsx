@@ -1,7 +1,6 @@
 import { motion } from "framer-motion";
 import { CheckCircle, Phone, Mail, MessageCircle } from "lucide-react";
 import { useEffect } from "react";
-import { isEarlyBird } from "@/config/challengeOffer";
 import { trackPurchaseOnce } from "@/lib/trackPurchase";
 import { paidPlanValue } from "@/lib/planValue";
 import { PERSONALIZED_VALUE_KEY } from "@/config/masterclass";
@@ -52,7 +51,7 @@ const U21DWLCPaymentConfirmation = ({ isGlobal = false }: { isGlobal?: boolean }
             (startNow ? Promise.resolve(startNow) : paidPlanValue("personalized")).then((value) =>
                 trackPurchaseOnce(
                     "purchase_u21_personalized_india",
-                    value || (isEarlyBird() ? 2490 : 2990),
+                    value || 2990,
                     "21 Day Challenge - Personalized (India)",
                 ),
             );

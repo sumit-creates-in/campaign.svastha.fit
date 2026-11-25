@@ -1,8 +1,9 @@
+import { useEffect } from "react";
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 // Pages
 import Index from "./pages/Index";
@@ -49,6 +50,14 @@ import SevenDayDetoxChallenge from "./pages/SevenDayDetoxChallenge";
 
 const queryClient = new QueryClient();
 
+/** Sends the visitor to another site (keeps any ?utm=… query string). */
+function ExternalRedirect({ to }: { to: string }) {
+  useEffect(() => {
+    window.location.replace(to + window.location.search);
+  }, [to]);
+  return null;
+}
+
 function App() {
   return (
     <QueryClientProvider client={queryClient}>
@@ -58,10 +67,8 @@ function App() {
         <CountryProvider>
           <BrowserRouter>
             <Routes>
-              <Route
-                path="/"
-                element={<Navigate to="/Ultimate-21-day-weight-loss-challenge" replace />}
-              />
+              {/* Sumit, 25 Nov 2026: the bare domain goes to the main site. */}
+              <Route path="/" element={<ExternalRedirect to="https://svastha.fit" />} />
 
               <Route path="/Ultimate-21-day-weight-loss-challenge" element={<Ultimate21DayChallenge />} />
               <Route path="/21-day-challenge" element={<ChallengeOffer />} />

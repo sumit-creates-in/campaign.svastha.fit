@@ -76,7 +76,7 @@ const STEPS = [
 const FAQS = [
   {
     q: "Which plan should I choose?",
-    a: "Choose the Group Plan if you're generally healthy and enjoy doing it with a batch — it's the best value. Choose Personalized if you're managing thyroid, PCOS, sugar or BP, have tried before and stalled, or want to start now instead of on 23 November.",
+    a: "Choose the Group Plan if you're generally healthy and enjoy doing it with a batch — it's the best value. Choose Personalized if you're managing thyroid, PCOS, sugar or BP, have tried before and stalled, or want to start now instead of on 7 December.",
   },
   {
     q: "When do I start?",
@@ -122,7 +122,7 @@ const ChallengeOffer = () => {
     description:
       "Lose weight with the home-cooked Indian food you already eat. 21 days of diet and fasting guidance, live yoga classes and live sessions with Sumit Sharma. Group Plan or Personalized Plan with your own dietitian.",
     ogTitle: "Ultimate 21 Day Weight Loss Challenge — Svastha",
-    ogDescription: "Group Plan (starts 22 Nov) or Personalized Plan with your own dietitian (start now).",
+    ogDescription: "Group Plan (starts 6 Dec) or Personalized Plan with your own dietitian (start now).",
     ogImage: "https://campaign.svastha.fit/masterclass-og.jpg",
     twitterImage: "https://campaign.svastha.fit/masterclass-og.jpg",
   });
@@ -154,11 +154,11 @@ const ChallengeOffer = () => {
                 <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-white opacity-75" />
                 <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-white" />
               </span>
-              Early-bird price till {EARLY_BIRD.closesLabel}
+              {EARLY_BIRD.name} till {EARLY_BIRD.closesLabel}
             </span>
           ) : (
             <span className="inline-flex items-center rounded-full bg-emerald-50 px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.14em] text-emerald-700 ring-1 ring-emerald-200">
-              Next batch · {GROUP_SCHEDULE.batch} · 22 Nov
+              Next batch · {GROUP_SCHEDULE.batch} · 6 Dec
             </span>
           )}
 
@@ -216,13 +216,13 @@ const ChallengeOffer = () => {
                   <h2 className={`mt-2 text-2xl font-extrabold leading-snug ${dark ? "text-white" : "text-gray-950"}`}>{plan.tagline}</h2>
 
                   <div className="mt-5 flex flex-wrap items-baseline gap-3">
-                    {early && (
+                    {early && plan.regularPrice !== plan.earlyPrice && (
                       <span className={`text-xl font-semibold line-through ${dark ? "text-gray-500" : "text-gray-400"}`}>{plan.regularPrice}</span>
                     )}
                     <span className={`text-5xl font-extrabold tracking-tight ${dark ? "text-white" : "text-gray-950"}`}>{priceOf(plan)}</span>
                   </div>
                   <p className={`mt-1.5 text-sm font-semibold ${dark ? "text-gray-400" : "text-gray-500"}`}>
-                    {early ? `Early-bird price till ${EARLY_BIRD.closesLabel}` : "All inclusive · one-time payment"}
+                    {early ? `${EARLY_BIRD.name} till ${EARLY_BIRD.closesLabel}` : "All inclusive · one-time payment"}
                   </p>
 
                   <div className={`mt-4 flex gap-2.5 rounded-2xl p-3.5 text-sm leading-relaxed ${dark ? "bg-white/5 text-gray-300" : "bg-emerald-50/70 text-gray-700"}`}>
@@ -360,7 +360,7 @@ const ChallengeOffer = () => {
             Twenty one days from now, you'll wish you had started today.
           </h2>
           <p className="mx-auto mt-4 max-w-md text-base text-gray-400">
-            {early ? `Early-bird price till ${EARLY_BIRD.closesLabel}.` : "Pick the plan that fits you."}
+            {early ? `${EARLY_BIRD.name} till ${EARLY_BIRD.closesLabel}.` : "Pick the plan that fits you."}
           </p>
           <div className="mt-8 grid gap-3 sm:grid-cols-2">
             {CHALLENGE_PLANS.map((plan) => (

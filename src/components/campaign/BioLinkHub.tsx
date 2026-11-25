@@ -173,7 +173,7 @@ const BioLinkHub = () => {
             aria-label="Open the 21 Day Challenge page"
           >
             <span className="inline-flex items-center gap-2 text-[11px] font-bold uppercase tracking-[0.16em] text-emerald-400">
-              {early ? `Early-bird price till ${EARLY_BIRD.closesLabel}` : "Join now"}
+              {early ? `${EARLY_BIRD.name} till ${EARLY_BIRD.closesLabel}` : "Join now"}
             </span>
             <h2 className="mt-2 text-[22px] font-extrabold leading-tight text-white">
               Ultimate 21 Day Weight Loss Challenge
