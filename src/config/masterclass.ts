@@ -70,6 +70,14 @@ export const SESSIONS: readonly MasterClassSession[] = [
     dateLabel: "Sunday, 22 November 2026",
     whatsappGroupUrl: "https://chat.whatsapp.com/KHRPiO51puTDhLhEvZv3Wu",
   },
+  {
+    // Wednesday-evening Master Class for B158 (Sumit, 25 Nov). Same WhatsApp
+    // group as the B158 batch (Sumit gave one link for both).
+    startsAt: "2026-12-02T19:30:00+05:30",
+    dateLabel: "Wednesday, 2 December 2026",
+    timeLabel: "7:30 PM IST",
+    whatsappGroupUrl: "https://chat.whatsapp.com/HgJSITXWVgwL9csvoD0rzi",
+  },
 ];
 
 /** How long after the start a session still counts as the current one. */
@@ -101,11 +109,11 @@ export const MASTERCLASS = {
   languageLabel: "Hindi + English",
 
   /** Batch that the Master Class pitches into. */
-  challengeStartLabel: "Monday, 23 November 2026",
+  challengeStartLabel: "Monday, 7 December 2026",
 } as const;
 
 /** Short form used on the offer page ("Batch starts Monday, 26 October"). */
-export const BATCH_START_SHORT = "Monday, 23 November";
+export const BATCH_START_SHORT = "Monday, 7 December";
 
 // ─── Current India 21 Day batch (what buyers join) ──────────────────────────
 /**
