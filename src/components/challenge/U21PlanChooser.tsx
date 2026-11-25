@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, Check, Zap, CalendarDays, Gift, ShieldCheck } from "lucide-react";
+import { X, Check, Zap, CalendarDays, Gift, ShieldCheck, Siren } from "lucide-react";
 
 /**
  * The "when do you want to start?" window on /Ultimate-21-day-weight-loss-challenge
@@ -175,14 +175,25 @@ export const U21PlanChooser = ({
 
             {/* Header */}
             {isOffer ? (
-              <div className="bg-gradient-to-br from-emerald-600 to-green-700 px-6 pb-4 pt-6 text-center text-white">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-yellow-300 px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-gray-900">
+              // Red, attention-grabbing header (Sumit, 25 Nov 2026).
+              <div className="bg-gradient-to-br from-red-600 via-red-600 to-rose-600 px-6 pb-3.5 pt-4 text-center text-white">
+                <style>{`
+                  @keyframes u21-alarm { 0%,100% { transform: rotate(0) scale(1) } 10% { transform: rotate(-14deg) scale(1.08) } 20% { transform: rotate(12deg) scale(1.08) } 30% { transform: rotate(-10deg) scale(1.05) } 40% { transform: rotate(8deg) scale(1.05) } 50% { transform: rotate(0) scale(1) } }
+                  .u21-alarm { animation: u21-alarm 1.2s ease-in-out infinite; transform-origin: 50% 70%; }
+                `}</style>
+                <div className="relative mx-auto flex h-14 w-14 items-center justify-center">
+                  <span className="absolute inset-0 animate-ping rounded-full bg-yellow-300 opacity-60" />
+                  <span className="relative flex h-14 w-14 items-center justify-center rounded-full bg-yellow-300 shadow-lg ring-4 ring-white/40">
+                    <Siren className="u21-alarm h-8 w-8 text-red-600" strokeWidth={2.4} />
+                  </span>
+                </div>
+                <span className="mt-2.5 inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1 text-[11px] font-extrabold uppercase tracking-wider text-red-600">
                   <Gift className="h-3.5 w-3.5" /> Special offer unlocked
                 </span>
-                <p className="mt-2.5 text-[22px] font-extrabold leading-tight">
-                  {hasOffer ? "A little extra off — just for you" : "Ready to begin?"}
+                <p className="mt-2 text-xl font-extrabold leading-tight">
+                  {hasOffer ? "Wait! Extra discount — just for you" : "Ready to begin?"}
                 </p>
-                <p className="mt-1 text-sm text-emerald-50">Pick when you want to start.</p>
+                <p className="mt-0.5 text-sm font-medium text-red-50">Only on this screen — pick when to start.</p>
               </div>
             ) : (
               <div className="px-6 pb-1 pt-6 text-center">

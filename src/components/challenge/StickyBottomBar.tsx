@@ -8,6 +8,8 @@ interface StickyBottomBarProps {
   registerButtonText?: string;
   /** Hide the seats-left counter (Sumit, 2 Nov 2026). */
   hideScarcity?: boolean;
+  /** Gentle heartbeat on the Register button (Ultimate page, Sumit 25 Nov 2026). */
+  pulse?: boolean;
 }
 
 export const StickyBottomBar = ({
@@ -15,6 +17,7 @@ export const StickyBottomBar = ({
   feeText = "Rs.1990/-",
   registerButtonText = "Register Now",
   hideScarcity = false,
+  pulse = false,
 }: StickyBottomBarProps) => {
   const { displaySeats } = useSeatsLeft();
   return (
@@ -35,7 +38,7 @@ export const StickyBottomBar = ({
         <div className="flex flex-col items-end ">
           <Button
             onClick={onRegisterClick}
-            className="bg-gradient-to-r w-full from-green-600 to-lime-400 text-white font-semibold text-sm !px-12 py-2 rounded-full shadow-md transition-all duration-300 mb-1"
+            className={`bg-gradient-to-r w-full from-green-600 to-lime-400 text-white font-semibold text-sm !px-12 py-2 rounded-full shadow-md transition-all duration-300 mb-1 ${pulse ? "sticky-register-pulse" : ""}`}
           >
             {registerButtonText}
           </Button>
@@ -47,6 +50,16 @@ export const StickyBottomBar = ({
           )}
         </div>
       </div>
+      {pulse && (
+        <style>{`
+          @keyframes sticky-register-pulse {
+            0%, 100% { transform: scale(1); box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.55); }
+            25% { transform: scale(1.06); }
+            50% { transform: scale(1); box-shadow: 0 0 0 10px rgba(22, 163, 74, 0); }
+          }
+          .sticky-register-pulse { animation: sticky-register-pulse 1.4s ease-in-out infinite; }
+        `}</style>
+      )}
     </div>
   );
 };

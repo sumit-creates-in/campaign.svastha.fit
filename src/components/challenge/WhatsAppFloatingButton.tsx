@@ -6,18 +6,40 @@ interface WhatsAppFloatingButtonProps {
   message?: string;
   showImmediately?: boolean;
   isModalOpen?: boolean;
+  /**
+   * Ultimate page (Sumit, 25 Nov 2026): show only once `enabled` (after the
+   * discount pop-up has appeared) AND the visitor is this far down the page
+   * (0.55 = 55 %). Leave unset for the old behaviour.
+   */
+  showAfterScrollRatio?: number;
+  enabled?: boolean;
+  /** No pulsing ring around the button. */
+  noPulse?: boolean;
 }
 
 const WhatsAppFloatingButton = ({
   phoneNumber = "15557533653",
   message = "I want to know more about Ultimate 21 Day Weight Loss Challenge",
   showImmediately = false,
-  isModalOpen = false
+  isModalOpen = false,
+  showAfterScrollRatio,
+  enabled = true,
+  noPulse = false,
 }: WhatsAppFloatingButtonProps) => {
   const [isOpen, setIsOpen] = useState(false);
   const [isVisible, setIsVisible] = useState(showImmediately);
 
   useEffect(() => {
+    if (showAfterScrollRatio !== undefined) {
+      const check = () => {
+        const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+        const ratio = scrollable > 0 ? window.scrollY / scrollable : 0;
+        setIsVisible(enabled && ratio >= showAfterScrollRatio);
+      };
+      check();
+      window.addEventListener("scroll", check, { passive: true });
+      return () => window.removeEventListener("scroll", check);
+    }
     if (showImmediately) {
       setIsVisible(true);
       return;
@@ -34,7 +56,7 @@ const WhatsAppFloatingButton = ({
 
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, [showImmediately]);
+  }, [showImmediately, showAfterScrollRatio, enabled]);
 
   const handleChatClick = () => {
     const whatsappUrl = `https://api.whatsapp.com/send/?phone=${phoneNumber}&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
@@ -116,7 +138,7 @@ const WhatsAppFloatingButton = ({
         </svg>
         
         {/* Pulse animation ring */}
-        {!isOpen && (
+        {!isOpen && !noPulse && (
           <span className="absolute inset-0 rounded-full bg-green-400 animate-ping opacity-50"></span>
         )}
       </button>
