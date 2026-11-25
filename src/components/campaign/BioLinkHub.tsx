@@ -16,13 +16,24 @@ import { CHALLENGE_PLANS, EARLY_BIRD, GROUP_SCHEDULE, isEarlyBird } from "@/conf
  * and on a phone. Kept deliberately simple:
  *   1. Who is this?          → photo, name, one line
  *   2. What should I do?     → start now: the 21 Day Challenge (Group / Personalized),
- *                               then the paid Master Class
+ *                               then the paid Master Class (only while we promote it)
  *   3. Other ways in         → consultation call, WhatsApp (as quiet link rows)
- *   4. Can I trust it?       → transformations, then the Master Class button again
+ *   4. Can I trust it?       → transformations, then one more join button
  *
- * Master Class date/time come from src/config/masterclass.ts (SESSIONS), so the
- * card rolls over to the next session by itself — same as the Master Class page.
+ * Keep this page in step with every offer / batch change (Sumit, 25 Nov 2026).
+ * Prices and dates come from src/config/challengeOffer.ts and masterclass.ts.
+ * Master Class date/time come from SESSIONS, so the card rolls over by itself.
  */
+
+/**
+ * Master Class card + bottom Master Class button. Hidden while we sell the
+ * 21 Day Challenge directly (Sumit, 25 Nov 2026: "hide the masterclass option
+ * until we start promoting masterclass"). Set to true when MC promotion starts.
+ */
+const SHOW_MASTERCLASS = false;
+
+/** The page the ads use — it carries the scroll discount popup. */
+const CHALLENGE_PATH = "/Ultimate-21-day-weight-loss-challenge";
 
 const WHATSAPP_NUMBER = "15557533653"; // +1 555-753-3653 (bot number)
 const WHATSAPP_TEXT = "Hi, I want to know more about Svastha programs.";
@@ -106,7 +117,7 @@ const BioLinkHub = () => {
 
   const goToChallenge = (placement: string) => {
     trackPixel("ViewContent", { content_name: "21 Day Challenge", content_category: `bio_link_${placement}` });
-    navigate(withTracking("/21-day-challenge"));
+    navigate(withTracking(CHALLENGE_PATH));
   };
   const early = isEarlyBird(now);
 
@@ -194,7 +205,8 @@ const BioLinkHub = () => {
           </button>
         </motion.article>
 
-        {/* ── 2. The one thing to do: Master Class ───────────────────────── */}
+        {/* ── 2. Master Class (only while we promote it) ─────────────────── */}
+        {SHOW_MASTERCLASS && (
         <motion.article
           initial={{ opacity: 0, y: 14 }}
           animate={{ opacity: 1, y: 0 }}
@@ -271,6 +283,7 @@ const BioLinkHub = () => {
             </button>
           </div>
         </motion.article>
+        )}
 
         {/* ── 3. Other ways in — quiet link rows ─────────────────────────── */}
         <motion.div
@@ -320,10 +333,10 @@ const BioLinkHub = () => {
       <div className="mx-auto mt-8 max-w-md px-5">
         <button
           type="button"
-          onClick={() => goToMasterClass("bottom")}
+          onClick={() => (SHOW_MASTERCLASS ? goToMasterClass("bottom") : goToChallenge("bottom"))}
           className="flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-emerald-600 to-green-600 px-6 py-4 text-base font-bold text-white shadow-lg shadow-emerald-600/20 transition-transform active:scale-[0.98]"
         >
-          Join the Master Class — {PRICING.price}
+          {SHOW_MASTERCLASS ? `Join the Master Class — ${PRICING.price}` : "Join the 21 Day Challenge"}
           <ArrowRight className="h-5 w-5" />
         </button>
         <p className="mt-8 text-center text-xs text-gray-400">© SVASTHA</p>
