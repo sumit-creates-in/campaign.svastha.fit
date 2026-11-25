@@ -138,7 +138,7 @@ const Ultimate21DayChallenge = () => {
 
   // Offer pricing: same plans, prices and Razorpay pages as /21-day-challenge —
   // offer price until EARLY_BIRD.closesAt, regular after. New Year offer for
-  // B158 (Sumit, 25 Nov): ₹1,290 / ₹2,990, scroll popup ₹990 / ₹2,790.
+  // B158 (Sumit, 25 Nov): ₹1,290 / ₹2,990, scroll popup ₹990 / ₹2,690 (₹300 off both).
   const earlyBird = isEarlyBird();
   const groupPlan = CHALLENGE_PLANS.find((p) => p.id === "group")!;
   const personalPlan = CHALLENGE_PLANS.find((p) => p.id === "personalized")!;

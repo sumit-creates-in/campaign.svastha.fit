@@ -109,6 +109,9 @@ export const U21PlanChooser = ({
   };
 
   const hasOffer = isOffer && (!!personal.offerSaving || !!group.offerSaving);
+  // Same saving on both plans → say it once, big, in the header (Sumit, 25 Nov 2026).
+  const sharedSaving =
+    isOffer && personal.offerSaving && personal.offerSaving === group.offerSaving ? personal.offerSaving : "";
 
   const cards = [
     {
@@ -191,9 +194,14 @@ export const U21PlanChooser = ({
                   <Gift className="h-3.5 w-3.5" /> Special offer unlocked
                 </span>
                 <p className="mt-2 text-xl font-extrabold leading-tight">
-                  {hasOffer ? "Wait! Extra discount — just for you" : "Ready to begin?"}
+                  {hasOffer ? "If you close it, you will lose it." : "Ready to begin?"}
                 </p>
-                <p className="mt-0.5 text-sm font-medium text-red-50">Only on this screen — pick when to start.</p>
+                {sharedSaving && (
+                  <div className="mx-auto mt-2.5 inline-flex items-baseline gap-2 rounded-2xl bg-yellow-300 px-5 py-1.5 text-gray-900 shadow-lg ring-4 ring-white/30">
+                    <span className="text-[28px] font-black uppercase leading-none tracking-tight">{sharedSaving}</span>
+                    <span className="text-xs font-bold uppercase">on both plans</span>
+                  </div>
+                )}
               </div>
             ) : (
               <div className="px-6 pb-1 pt-6 text-center">
@@ -224,7 +232,7 @@ export const U21PlanChooser = ({
                         <p className="text-lg font-extrabold leading-tight text-gray-900">{c.when}</p>
                         <p className="text-xs font-medium text-gray-600">{c.whenNote}</p>
                       </div>
-                      {showOffer && (
+                      {showOffer && !sharedSaving && (
                         <span className={`flex-shrink-0 rounded-full px-2.5 py-1 text-[11px] font-extrabold ${c.accent.tag}`}>
                           {c.choice.offerSaving}
                         </span>

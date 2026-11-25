@@ -11,7 +11,7 @@ import { INDIA_BATCH } from "@/config/masterclass";
  * New Year offer (Sumit, 25 Nov 2026) for B158 (orientation Sun 6 Dec), until
  * 6 Dec midnight (IST), regular price after:
  *   Group        ₹1,290 (scroll popup ₹990)   → ₹1,990
- *   Personalized ₹2,990 (scroll popup ₹2,790) → ₹2,990
+ *   Personalized ₹2,990 (scroll popup ₹2,690) → ₹2,990
  * (Before: early-bird ₹1,490 / ₹2,490 until 15 Nov.)
  *
  * The Razorpay pages are the existing ones (same as /join), so the Automator,
@@ -97,9 +97,10 @@ export const CHALLENGE_PLANS: readonly ChallengePlan[] = [
     startLine: "Start within 48 hours — no waiting for a batch. Our team calls you after you join.",
     earlyPrice: "₹2,990",
     earlyPage: "https://pages.razorpay.com/pl_QHMy1AvL4XDeqQ/view?plan_human_coach=Human%20Coach%20Plan",
-    popupPrice: "₹2,790",
-    popupPage: "https://pages.razorpay.com/pl_QHfwHt0q52MdOJ/view",
-    popupSaving: "₹200 off",
+    // Scroll offer: ₹300 off, same as the Group Plan (Sumit, 25 Nov 2026).
+    popupPrice: "₹2,690",
+    popupPage: "https://pages.razorpay.com/pl_U4QRvV0SdWkdE4/view",
+    popupSaving: "₹300 off",
     regularPrice: "₹2,990",
     regularPage: "https://pages.razorpay.com/pl_QHMy1AvL4XDeqQ/view?plan_human_coach=Human%20Coach%20Plan",
     features: [
