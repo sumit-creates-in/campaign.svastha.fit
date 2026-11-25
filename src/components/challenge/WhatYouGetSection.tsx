@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { SectionTitle } from "./SectionTitle";
 import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import sumitImage from "@/assets/sumit sharma.png";
@@ -18,6 +19,8 @@ interface WhatYouGetSectionProps {
   isUltimate?: boolean;
   registerButtonText?: string;
   dietPlanLabel?: string;
+  /** Master Class-style heading, no emoji (Ultimate page). */
+  clean?: boolean;
 }
 
 // IST base times (24h format) for yoga classes
@@ -96,6 +99,7 @@ export const WhatYouGetSection = ({
   isUltimate = false,
   registerButtonText = "Register Now",
   dietPlanLabel,
+  clean = false,
 }: WhatYouGetSectionProps) => {
   const [tzInfo, setTzInfo] = useState<{ name: string; offsetFromIST: number }>(
     {
@@ -219,6 +223,9 @@ export const WhatYouGetSection = ({
     <section className="py-20 px-4 bg-white">
       <div className="container mx-auto max-w-5xl">
         {/* Heading */}
+        {clean ? (
+          <SectionTitle eyebrow="Everything included" title="What you'll get" />
+        ) : (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -230,6 +237,7 @@ export const WhatYouGetSection = ({
             <span>What You'll Get</span>
           </h2>
         </motion.div>
+        )}
 
         {/* Benefits Cards */}
         <div className="space-y-6 mb-12">

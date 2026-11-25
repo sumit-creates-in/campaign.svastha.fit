@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { SectionTitle } from "./SectionTitle";
 import { Button } from "@/components/ui/button";
 import { CheckCircle2, Users } from "lucide-react";
 import { useSeatsLeft } from "@/hooks/useSeatsLeft";
@@ -10,6 +11,9 @@ interface RegisterHereSectionProps {
   registerButtonText?: string;
   /** Hide the seats-left counter (Sumit, 2 Nov 2026). */
   hideScarcity?: boolean;
+  /** Master Class-style heading (Ultimate page). */
+  clean?: boolean;
+  eyebrow?: string;
 }
 
 export const RegisterHereSection = ({
@@ -18,6 +22,8 @@ export const RegisterHereSection = ({
   discountedPrice = "₹1990-",
   registerButtonText = "Register Now",
   hideScarcity = false,
+  clean = false,
+  eyebrow,
 }: RegisterHereSectionProps) => {
   const { displaySeats, loading } = useSeatsLeft();
 
@@ -28,6 +34,9 @@ export const RegisterHereSection = ({
     >
       <div className="container mx-auto max-w-2xl">
         {/* Heading */}
+        {clean ? (
+          <SectionTitle eyebrow={eyebrow} title="Register here" />
+        ) : (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -38,6 +47,7 @@ export const RegisterHereSection = ({
             Register here
           </h2>
         </motion.div>
+        )}
 
         {/* Registration Card */}
         <motion.div

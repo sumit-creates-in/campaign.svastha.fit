@@ -1,4 +1,5 @@
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { SectionTitle } from "./SectionTitle";
 import { Button } from "@/components/ui/button";
 
 // WhatsApp Icon Component
@@ -12,7 +13,7 @@ const WhatsAppIcon = ({ className }: { className?: string }) => (
   </svg>
 );
 
-export const FAQSection = ({ faqs, whatsappUrl }: { faqs?: { question: string; answer: string }[]; whatsappUrl?: string }) => {
+export const FAQSection = ({ faqs, whatsappUrl, clean = false }: { faqs?: { question: string; answer: string }[]; whatsappUrl?: string; /** Master Class-style look (Ultimate page). */ clean?: boolean }) => {
   const defaultFaqs = [
     {
       question: "What will happen after I register?",
@@ -59,26 +60,30 @@ export const FAQSection = ({ faqs, whatsappUrl }: { faqs?: { question: string; a
   const items = faqs || defaultFaqs;
 
   return (
-    <section className="py-20 px-4 bg-[#f5f7f0]">
-      <div className="container mx-auto max-w-4xl">
+    <section className={clean ? "py-20 px-4 bg-white" : "py-20 px-4 bg-[#f5f7f0]"}>
+      <div className={clean ? "container mx-auto max-w-3xl" : "container mx-auto max-w-4xl"}>
         <div className="mb-12">
+          {clean ? (
+            <SectionTitle eyebrow="FAQ" title="Questions people ask" />
+          ) : (
           <h2 className="text-3xl md:text-4xl font-normal text-gray-600 mb-8 italic">
             FAQ's
           </h2>
+          )}
 
           <Accordion type="single" collapsible className="space-y-0">
             {items.map((faq, idx) => (
               <AccordionItem
                 key={idx}
                 value={`item-${idx}`}
-                className="border-b border-gray-300 py-3">
-                <AccordionTrigger className="text-left text-sm md:text-base font-normal text-gray-600 hover:text-gray-900 hover:no-underline [&[data-state=open]>svg]:rotate-90">
+                className={clean ? "mb-3 rounded-2xl border-2 border-gray-100 bg-gray-50/60 px-4 py-1" : "border-b border-gray-300 py-3"}>
+                <AccordionTrigger className={clean ? "no-heartbeat text-left text-[15px] md:text-base font-semibold text-gray-900 hover:no-underline" : "text-left text-sm md:text-base font-normal text-gray-600 hover:text-gray-900 hover:no-underline [&[data-state=open]>svg]:rotate-90"}>
                   <span className="flex items-start gap-2">
-                    <span className="text-gray-500 mt-0.5 text-xs">▸</span>
+                    {!clean && <span className="text-gray-500 mt-0.5 text-xs">▸</span>}
                     <span>{faq.question}</span>
                   </span>
                 </AccordionTrigger>
-                <AccordionContent className="whitespace-pre-line text-gray-600 text-sm leading-relaxed pt-2 pl-6">
+                <AccordionContent className={clean ? "whitespace-pre-line text-gray-700 text-[15px] leading-relaxed pt-1" : "whitespace-pre-line text-gray-600 text-sm leading-relaxed pt-2 pl-6"}>
                   {faq.answer}
                 </AccordionContent>
               </AccordionItem>
@@ -88,12 +93,18 @@ export const FAQSection = ({ faqs, whatsappUrl }: { faqs?: { question: string; a
 
         {/* Chat with us section */}
         <div className="text-center mt-16 pb-24 md:pb-0 mb-12 md:mb-0">
+          {clean ? (
+            <p className="text-lg font-semibold text-gray-900 mb-5">Still have a question? Chat with us.</p>
+          ) : (
+          <>
           <p className="text-xl text-gray-600 italic mb-1">
             Still have concerns?
           </p>
           <p className="text-xl text-gray-600 italic mb-6">
             Chat with us
           </p>
+          </>
+          )}
           <Button
             onClick={() => window.open(whatsappUrl ?? 'https://api.whatsapp.com/send/?phone=15557533653&text=I%20want%20to%20know%20more%20about%20Ultimate%2021%20Day%20Weight%20Loss%20Challenge&type=phone_number&app_absent=0', '_blank')}
             className="no-heartbeat bg-[#25D366] hover:bg-[#20BA5A] text-white font-semibold text-base px-16 py-5 rounded-full shadow-lg hover:shadow-xl transition-all duration-300 flex items-center gap-2 mx-auto">

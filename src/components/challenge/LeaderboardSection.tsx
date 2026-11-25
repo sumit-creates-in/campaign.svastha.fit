@@ -1,12 +1,21 @@
 import { motion } from "framer-motion";
+import { SectionTitle } from "./SectionTitle";
 import { BarChart3 } from "lucide-react";
 
-export const LeaderboardSection = () => {
+export const LeaderboardSection = ({ clean = false }: { clean?: boolean } = {}) => {
   return (
     <section className="py-20 px-4 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
       <div className="container mx-auto max-w-6xl">
         <div className="flex flex-col items-center gap-8 md:grid md:grid-cols-[1.2fr_0.8fr] md:gap-8 lg:gap-12 md:items-center">
           {/* Left Side - Text */}
+          {clean ? (
+            <SectionTitle
+              eyebrow="Stay motivated"
+              title="Live weight loss leaderboard"
+              sub="Track your progress every day and climb to the top."
+              className="w-full"
+            />
+          ) : (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -27,6 +36,7 @@ export const LeaderboardSection = () => {
               Track your progress & stay motivated to be #1!
             </p>
           </motion.div>
+          )}
 
           {/* Right Side - Podium Illustration */}
           <motion.div

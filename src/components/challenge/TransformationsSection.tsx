@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { SectionTitle } from "./SectionTitle";
 import { useEffect, useRef, useState } from "react";
 import transformation2 from "@/assets/tranformation2.jpeg";
 import transformation4 from "@/assets/tranformation4.jpeg";
@@ -105,6 +106,8 @@ type TransformationsSectionProps = {
   transformations?: Transformation[];
   heading?: string;
   subHeading?: string;
+  /** Master Class-style heading, no emoji (Ultimate page). */
+  clean?: boolean;
 };
 
 type Props = TransformationsSectionProps;
@@ -113,6 +116,7 @@ export const TransformationsSection = ({
   heading = "We Deliver The Best Transformations",
   subHeading = "Are you ready for yours?",
   transformations = defaultTransformations,
+  clean = false,
 }: Props) => {
   const scrollRef = useRef<HTMLDivElement>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -269,6 +273,9 @@ export const TransformationsSection = ({
     <section className="py-20 px-4 bg-white">
       <div className="container mx-auto max-w-6xl">
         {/* Heading */}
+        {clean ? (
+          <SectionTitle eyebrow="Transformations" title={heading} sub={subHeading} />
+        ) : (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -281,6 +288,7 @@ export const TransformationsSection = ({
           <p className="text-base md:text-lg text-gray-700">{subHeading}</p>
           <p className="mt-2 text-2xl">🔥🔥🔥</p>
         </motion.div>
+        )}
 
         {/* Horizontal Scroll */}
         {/* Wrapper gives vertical room so card shadows/text don't clip */}

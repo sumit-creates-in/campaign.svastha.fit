@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { SectionTitle } from "./SectionTitle";
 import { Button } from "@/components/ui/button";
 import { Instagram } from "lucide-react";
 import sumitImage from "@/assets/image.png";
@@ -6,17 +7,23 @@ import sumitImage from "@/assets/image.png";
 interface MeetYourMentorSectionProps {
   scrollToRegistration: () => void;
   registerButtonText?: string;
+  /** Master Class-style heading (Ultimate page). */
+  clean?: boolean;
 }
 
 export const MeetYourMentorSection = ({
   scrollToRegistration,
   registerButtonText = "Register Now - Learn from Sumit",
+  clean = false,
 }: MeetYourMentorSectionProps) => {
   return (
     <section className="py-16 px-4 bg-gradient-to-br from-teal-50 via-emerald-50 to-green-50 overflow-hidden">
       <div className="container mx-auto max-w-6xl px-2 md:px-6">
-        <div style={{ height: '3rem' }} />
+        {!clean && <div style={{ height: '3rem' }} />}
         {/* Heading */}
+        {clean ? (
+          <SectionTitle eyebrow="Your coach" title="Meet the programme creator" sub="Get trained by the best in the industry." className="mb-4" />
+        ) : (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -30,9 +37,10 @@ export const MeetYourMentorSection = ({
             Get trained by the best in the industry
           </p>
         </motion.div>
+        )}
 
         {/* Content Grid */}
-        <div className="grid md:grid-cols-2 gap-8 items-center mt-12">
+        <div className={clean ? "grid grid-cols-1 md:grid-cols-2 gap-8 items-center mt-10 [&>*]:min-w-0" : "grid md:grid-cols-2 gap-8 items-center mt-12"}>
           {/* Left Side - Instagram Profile Card */}
           <motion.div
             initial={{ opacity: 0, x: -30 }}

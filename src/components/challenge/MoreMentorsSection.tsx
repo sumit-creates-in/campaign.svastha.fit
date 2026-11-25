@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
+import { SectionTitle } from "./SectionTitle";
 import { useEffect, useRef } from "react";
 import venikaImage from "@/assets/venika agarwal.jpeg";
 import muskanImage from "@/assets/muskan lalwani.jpeg";
 import ankitImage from "@/assets/ankit sharma.webp";
 import anishaImage from "@/assets/Anisha.jpeg";
 
-export const MoreMentorsSection = () => {
+export const MoreMentorsSection = ({ clean = false }: { clean?: boolean } = {}) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   const mentors = [
@@ -62,6 +63,33 @@ export const MoreMentorsSection = () => {
 
     return () => clearInterval(interval);
   }, [mentors.length]);
+
+  // Ultimate page (Sumit, 25 Nov 2026): a still grid instead of the sliding
+  // strip (it cut names off on phones). Venika no longer works with us.
+  if (clean) {
+    const team = mentors.filter((m) => m.name !== "Venika Agarwal");
+    return (
+      <section className="py-20 px-4 bg-gradient-to-br from-gray-50 to-gray-100">
+        <div className="container mx-auto max-w-4xl">
+          <SectionTitle
+            eyebrow="Your support team"
+            title="The dietitians and trainers behind your plan"
+          />
+          <div className="grid grid-cols-3 gap-3 md:gap-6">
+            {team.map((mentor) => (
+              <div key={mentor.name} className="text-center">
+                <div className="aspect-[3/4] w-full overflow-hidden rounded-xl shadow-md">
+                  <img src={mentor.image} alt={mentor.name} className="h-full w-full object-cover" loading="lazy" />
+                </div>
+                <p className="mt-2 text-[13px] font-bold leading-tight text-gray-900 md:text-base">{mentor.name}</p>
+                <p className="text-[11px] text-emerald-700 md:text-sm">{mentor.title.replace(/[()]/g, "")}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="py-16 px-4 bg-gradient-to-br from-gray-50 to-gray-100">

@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { SectionTitle } from "./SectionTitle";
 import { Card, CardContent } from "@/components/ui/card";
 import {
   UserCheck,
@@ -16,6 +17,8 @@ type Step = {
 
 type Props = {
   steps?: Step[];
+  /** Master Class-style heading, no emoji (Ultimate page). */
+  clean?: boolean;
 };
 
 const defaultSteps: Step[] = [
@@ -43,11 +46,15 @@ const defaultSteps: Step[] = [
 
 export const HowItWorksSection = ({
   steps = defaultSteps,
+  clean = false,
 }: Props) => {
   return (
     <section className="py-20 px-4 bg-white">
       <div className="container mx-auto max-w-6xl">
         {/* Header */}
+        {clean ? (
+          <SectionTitle eyebrow="4 simple steps" title="How it works" />
+        ) : (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -64,6 +71,7 @@ export const HowItWorksSection = ({
             </h2>
           </div>
         </motion.div>
+        )}
 
         {/* Cards Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">

@@ -1,9 +1,10 @@
 import { motion } from "framer-motion";
+import { SectionTitle } from "./SectionTitle";
 import TanviImage from "@/assets/TanviPanvar.jpeg";
 import karishmaImage from "@/assets/karishma Kaintura.jpeg";
 import saumyaImage from "@/assets/Saumya.jpg";
 
-export const YogaTeachersSection = () => {
+export const YogaTeachersSection = ({ clean = false }: { clean?: boolean } = {}) => {
   const teachers = [
     {
       name: "Tanvi Panvar",
@@ -29,6 +30,9 @@ export const YogaTeachersSection = () => {
     <section className="py-20 px-4 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
       <div className="container mx-auto max-w-6xl">
         {/* Heading */}
+        {clean ? (
+          <SectionTitle eyebrow="Live classes" title="Meet your yoga teachers" sub="Daily live classes on Zoom, with a teacher who can see you." />
+        ) : (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -43,6 +47,7 @@ export const YogaTeachersSection = () => {
             <div>Teachers</div>
           </h2>
         </motion.div>
+        )}
 
         {/* Teachers Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-16">

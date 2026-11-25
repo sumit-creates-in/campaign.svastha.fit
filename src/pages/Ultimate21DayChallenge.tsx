@@ -5,8 +5,8 @@ import { toast } from "sonner";
 import { CHALLENGE_PLANS, EARLY_BIRD, isEarlyBird } from "@/config/challengeOffer";
 
 // Import all sections
+import { UltimateHero } from "@/components/challenge/UltimateHero";
 import {
-  HeroSection,
   LeaderboardSection,
   JyotiTestimonialSection,
   HowItWorksSection,
@@ -176,92 +176,51 @@ const Ultimate21DayChallenge = () => {
     );
   }
 
+  // Layout tidied in the Master Class page's style (Sumit approved 25 Nov 2026):
+  // new top section (UltimateHero), one heading style (`clean` on every section),
+  // no fixed 150 px gaps between sections, and buttons that stay still.
   return (
     <>
-      <style>{`
-        @keyframes heartbeat {
-          0%, 100% {
-            transform: scale(1);
-          }
-          25% {
-            transform: scale(1.05);
-          }
-          50% {
-            transform: scale(1);
-          }
-        }
-        
-        .ultimate-challenge-page button {
-          animation: heartbeat 1s ease-in-out infinite;
-        }
-        
-        .ultimate-challenge-page button[aria-expanded],
-        .ultimate-challenge-page button.no-heartbeat {
-          animation: none;
-        }
-      `}</style>
-      <div className="ultimate-challenge-page min-h-screen bg-gradient-to-b from-emerald-50 via-white to-teal-50 overflow-x-hidden">
-        <HeroSection scrollToRegistration={scrollToRegistration} showLanguageToggle={true} hideScarcity feeText={groupFeeText} />
-        <div style={{ height: "150px" }} />
+      <div className="ultimate-challenge-page min-h-screen bg-white overflow-x-hidden">
+        <UltimateHero onRegister={scrollToRegistration} />
         {isStartPage && (
           <AanchalTestimonialSection
+            clean
+            eyebrow="Sumit's story"
             heading="Watch Sumit's Amazing Transformation"
+            subHeading="From where he started to where he is today."
             videoUrl="https://www.youtube.com/embed/lyo56Iu67_M"
           />
         )}
-        <div style={{ height: "150px" }} />
-        <LeaderboardSection />
-
-        <div style={{ height: "10px" }} />
-        {(!isStartPage &&
-          <JyotiTestimonialSection
-          />
-        )}
-
-        <div style={{ height: "150px" }} />
-        {isStartPage && (
-          <TransformationsSection
-            transformations={transformation}
-          />
-        )}
-
-        <div style={{ height: "150px" }} />
+        <LeaderboardSection clean />
+        {!isStartPage && <JyotiTestimonialSection clean />}
+        {isStartPage && <TransformationsSection clean transformations={transformation} />}
         {isStartPage && (
           <AanchalTestimonialSection
+            clean
             heading="Rajesh ji Lost 4 Kg's in Just 7 Days 🤩"
+            subHeading="Watch his journey."
             videoUrl="https://www.youtube.com/embed/LVHVl5kHhgI"
           />
         )}
-
-        {!isStartPage && (
-          <AanchalTestimonialSection />
-        )}
-
-        <div style={{ height: "150px" }} />
-        <HowItWorksSection />
-        <div style={{ height: "150px" }} />
-        <WhatYouGetSection scrollToRegistration={scrollToRegistration} isUltimate={true} />
-        <div style={{ height: "150px" }} />
-        <MeetYourMentorSection scrollToRegistration={scrollToRegistration} />
-        <div style={{ height: "150px" }} />
-        <MoreMentorsSection />
-        <div style={{ height: "150px" }} />
-        <BenefitsSection />
-        <div style={{ height: "150px" }} />
-        <TransformationsSection />
-        <div style={{ height: "150px" }} />
-        <WhoIsThisForSection />
-        <div style={{ height: "150px" }} />
-        <YogaTeachersSection />
-        <div style={{ height: "150px" }} />
+        {!isStartPage && <AanchalTestimonialSection clean subHeading="Watch her journey." />}
+        <HowItWorksSection clean />
+        <WhatYouGetSection scrollToRegistration={scrollToRegistration} isUltimate={true} clean />
+        <MeetYourMentorSection scrollToRegistration={scrollToRegistration} clean />
+        <MoreMentorsSection clean />
+        <BenefitsSection clean />
+        <TransformationsSection clean />
+        <WhoIsThisForSection clean />
+        <YogaTeachersSection clean />
         <RegisterHereSection
+          clean
+          eyebrow={earlyBird ? EARLY_BIRD.name : undefined}
           onRegister={scrollToRegistration}
           hideScarcity
           originalPrice={earlyBird ? `${groupPlan.regularPrice}/-` : "₹ 2900/-"}
           discountedPrice={`${groupPrice}/-`}
         />
-        <div style={{ height: "150px" }} />
-        <FAQSection />
+        <FAQSection clean />
         <UpgradeModal
           joinGroupUrl={groupPage}
           groupPriceText={groupPrice}

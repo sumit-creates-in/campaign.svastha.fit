@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import { SectionTitle } from "./SectionTitle";
 import b1 from "@/assets/b1.jpeg";
 import b2 from "@/assets/b2.jpeg";
 import b3 from "@/assets/b3.jpeg";
@@ -13,7 +14,7 @@ import mens3 from "@/assets/mens3.jpeg";
 import mens4 from "@/assets/mens4.jpeg";
 import { useLocation } from "react-router-dom";
 
-export const BenefitsSection = () => {
+export const BenefitsSection = ({ clean = false }: { clean?: boolean } = {}) => {
 
   const { pathname } = useLocation();
   const isStartPage = pathname === "/Ultimate-21-day-weight-loss-challenge-Start"
@@ -57,6 +58,9 @@ export const BenefitsSection = () => {
     <section className="py-20 px-4 bg-gradient-to-br from-blue-50 via-cyan-50 to-teal-50">
       <div className="container mx-auto max-w-5xl">
         {/* Heading */}
+        {clean ? (
+          <SectionTitle eyebrow="What changes" title="Benefits you'll gain" />
+        ) : (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
@@ -66,6 +70,7 @@ export const BenefitsSection = () => {
             Benefits You will Gain
           </h2>
         </motion.div>
+        )}
 
         {/* Benefits Cards */}
         <div className="space-y-6">

@@ -1,15 +1,21 @@
 import { motion } from "framer-motion";
+import { SectionTitle } from "./SectionTitle";
 import { ReactNode } from "react";
 
 interface AanchalTestimonialSectionProps {
   heading?: ReactNode;
   subHeading?: ReactNode;
+  /** Master Class-style heading, no emoji (Ultimate page). */
+  clean?: boolean;
+  eyebrow?: ReactNode;
   videoUrl?: string;
 }
 
 export const AanchalTestimonialSection = ({
   heading = "Aanchal Lost 6.5 Kg in Just 9 Days!",
   subHeading = "🔥 Watch her unbelievable journey! ✨",
+  clean = false,
+  eyebrow = "Member story",
   videoUrl = "https://www.youtube.com/embed/is5v451Bw18",
 }: AanchalTestimonialSectionProps) => {
   return (
@@ -20,6 +26,10 @@ export const AanchalTestimonialSection = ({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center">
+          {clean ? (
+            <SectionTitle eyebrow={eyebrow} title={heading} sub={subHeading} className="mb-8" />
+          ) : (
+          <>
           {/* Heading */}
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-2">
             <span>✨</span>
@@ -33,6 +43,8 @@ export const AanchalTestimonialSection = ({
             <span>{subHeading}</span>
 
           </p>
+          </>
+          )}
 
           {/* Video */}
           <motion.div

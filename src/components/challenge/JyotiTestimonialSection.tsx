@@ -1,11 +1,12 @@
 import { motion } from "framer-motion";
+import { SectionTitle } from "./SectionTitle";
 import { Play, ChevronLeft, ChevronRight, X } from "lucide-react";
 import { useEffect, useRef, useState } from "react";
 import successStory7 from "../../assets/success story 7.png";
 import successStory9 from "../../assets/success story 9.png";
 import successStory10 from "../../assets/success story 10.png";
 
-export const JyotiTestimonialSection = () => {
+export const JyotiTestimonialSection = ({ clean = false }: { clean?: boolean } = {}) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
   const [isPaused, setIsPaused] = useState(false);
   const [selectedVideo, setSelectedVideo] = useState<string | null>(null);
@@ -198,14 +199,18 @@ export const JyotiTestimonialSection = () => {
   }, [isPaused, videos.length]);
 
   return (
-    <section className="px-4 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50" style={{ paddingTop: '5rem', paddingBottom: '5rem', marginTop: '3rem', marginBottom: '5rem' }}>
+    <section className="px-4 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50" style={clean ? { paddingTop: '5rem', paddingBottom: '5rem' } : { paddingTop: '5rem', paddingBottom: '5rem', marginTop: '3rem', marginBottom: '5rem' }}>
       <div className="container mx-auto max-w-6xl">
-        <div style={{ height: '3rem' }} />
+        {!clean && <div style={{ height: '3rem' }} />}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
           className="text-center">
+          {clean ? (
+            <SectionTitle eyebrow="Real members" title="What our members say" sub="Real people, real results." />
+          ) : (
+          <>
           {/* Heading */}
           <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 flex items-center justify-center gap-2 flex-wrap">
             <span>❤️See What People Are Saying About Us❤️</span>
@@ -217,6 +222,8 @@ export const JyotiTestimonialSection = () => {
             <span>💪</span>
             <span>✨</span>
           </p>
+          </>
+          )}
 
           {/* Horizontal Scrolling Video Gallery */}
           <motion.div
