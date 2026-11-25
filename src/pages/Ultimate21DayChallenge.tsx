@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useMeta } from "@/hooks/useMeta";
-import { toast } from "sonner";
 import { CHALLENGE_PLANS, EARLY_BIRD, isEarlyBird } from "@/config/challengeOffer";
+import { INDIA_BATCH } from "@/config/masterclass";
+import { U21PlanChooser } from "@/components/challenge/U21PlanChooser";
 
 // Import all sections
 import { UltimateHero } from "@/components/challenge/UltimateHero";
@@ -20,8 +21,6 @@ import {
   YogaTeachersSection,
   RegisterHereSection,
   FAQSection,
-  UpgradeModal,
-  ScrollPopupModal,
   StickyBottomBar,
   WhatsAppFloatingButton,
 } from "@/components/challenge";
@@ -126,9 +125,9 @@ const Ultimate21DayChallenge = () => {
 
   useMeta({
     title: "Ultimate 21 Day Weight Loss Challenge | Lose up to 10 Kg | Svastha",
-    description: "Join the Ultimate 21 Day Weight Loss Challenge — next batch starts Sunday 6 December 2026 (New Year offer). Diet and intermittent fasting plan, live yoga classes, WhatsApp guidance with Sumit Sharma.",
+    description: "Join the Ultimate 21 Day Weight Loss Challenge — New Year offer. Diet and intermittent fasting plan with home food, daily live yoga classes, WhatsApp guidance with Sumit Sharma.",
     ogTitle: "Ultimate 21 Day Weight Loss Challenge | Svastha",
-    ogDescription: "Next batch starts Sunday 6 December 2026. Diet plan + intermittent fasting + live yoga + WhatsApp support.",
+    ogDescription: "Diet plan + intermittent fasting + daily live yoga + WhatsApp support. Start now or join the New Year batch.",
     ogImage: "/src/assets/hero-yoga.jpg",
   });
 
@@ -146,21 +145,29 @@ const Ultimate21DayChallenge = () => {
     ? `${groupPrice}/- (${EARLY_BIRD.name})`
     : `${groupPrice}/-`;
 
+  // The two choices in the Register window and the scroll offer.
+  const personalChoice = {
+    price: personalPrice,
+    offerPrice: earlyBird ? personalPlan.popupPrice : personalPrice,
+    offerSaving: earlyBird ? personalPlan.popupSaving : "",
+    url: personalPage,
+    offerUrl: earlyBird ? personalPlan.popupPage : personalPage,
+  };
+  const groupChoice = {
+    price: groupPrice,
+    offerPrice: earlyBird ? groupPlan.popupPrice : groupPrice,
+    offerSaving: earlyBird ? groupPlan.popupSaving : "",
+    url: groupPage,
+    offerUrl: earlyBird ? groupPlan.popupPage : groupPage,
+  };
+  // "6th December (Sunday)" → "6th December" + "Sunday · live orientation 9:30 AM IST"
+  const batchStartLabel = INDIA_BATCH.sessionDateLabel.replace(/\s*\(.*\)\s*/, "");
+  const batchDay = INDIA_BATCH.sessionDateLabel.match(/\(([^)]+)\)/)?.[1] ?? "";
+  const batchTime = INDIA_BATCH.sessionTimeLabel.replace(/\s*\(India Time\)/i, " IST");
+  const batchStartDetail = [batchDay, `live orientation ${batchTime}`].filter(Boolean).join(" · ");
+
   const scrollToRegistration = () => {
     setIsModalOpen(true);
-  };
-
-  const handleUpgrade = () => {
-    setIsModalOpen(false);
-    toast.success("Redirecting to upgrade payment...");
-    window.open("https://pages.razorpay.com/pl_PERSONALIZED21DAY/view", "_blank");
-  };
-
-  const handleJoinGroup = () => {
-    setIsModalOpen(false);
-    const paymentUrl = `https://pages.razorpay.com/pl_CHALLENGE21DAY/view`;
-    toast.success("Redirecting to payment...");
-    window.open(paymentUrl, "_blank");
   };
 
   // Show loading or nothing while redirecting
@@ -221,30 +228,25 @@ const Ultimate21DayChallenge = () => {
           discountedPrice={`${groupPrice}/-`}
         />
         <FAQSection clean />
-        <UpgradeModal
-          joinGroupUrl={groupPage}
-          groupPriceText={groupPrice}
-          upgradeUrl={personalPage}
-          upgradePriceText={personalPrice}
+        {/* Start date lives only here (Sumit, 25 Nov 2026): "Start now" vs "Start on 6th December". */}
+        <U21PlanChooser
+          mode="register"
           isOpen={isModalOpen}
           onClose={() => setIsModalOpen(false)}
-          onUpgrade={handleUpgrade}
-          onJoinGroup={handleJoinGroup}
-          startDateText="6th December 2026"
-          hideScarcity
+          personal={personalChoice}
+          group={groupChoice}
+          batchName={earlyBird ? "New Year batch" : "Next batch"}
+          batchStartLabel={batchStartLabel}
+          batchStartDetail={batchStartDetail}
         />
-        <ScrollPopupModal
-          onUpgrade={handleUpgrade}
-          upgradeUrl={earlyBird ? personalPlan.popupPage : personalPage}
-          personalDiscountText={earlyBird ? personalPlan.popupSaving : ""}
-          personalPriceText={earlyBird ? personalPlan.popupPrice : personalPrice}
-          joinGroupUrl={earlyBird ? groupPlan.popupPage : groupPage}
-          groupDiscountText={earlyBird ? groupPlan.popupSaving : ""}
-          groupPriceText={earlyBird ? groupPlan.popupPrice : groupPrice}
-          onJoinGroup={handleJoinGroup}
-          startDateText="6th December 2026"
+        <U21PlanChooser
+          mode="offer"
+          personal={personalChoice}
+          group={groupChoice}
+          batchName={earlyBird ? "New Year batch" : "Next batch"}
+          batchStartLabel={batchStartLabel}
+          batchStartDetail={batchStartDetail}
           onVisibilityChange={setIsScrollModalOpen}
-          hideScarcity
         />
         <StickyBottomBar onRegisterClick={scrollToRegistration} hideScarcity feeText={groupFeeText} />
         <WhatsAppFloatingButton showImmediately={true} isModalOpen={isModalOpen || isScrollModalOpen} />

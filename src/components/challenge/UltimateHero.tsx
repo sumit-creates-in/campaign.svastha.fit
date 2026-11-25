@@ -1,40 +1,22 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
-import { Calendar, Clock, Languages, MessageCircle, UtensilsCrossed, Video } from "lucide-react";
-import { INDIA_BATCH } from "@/config/masterclass";
-import { CHALLENGE_PLANS, EARLY_BIRD, GROUP_SCHEDULE, isEarlyBird } from "@/config/challengeOffer";
+import { Languages, MessageCircle, MonitorPlay, Mic, UtensilsCrossed, Video } from "lucide-react";
+import { CHALLENGE_PLANS, EARLY_BIRD, isEarlyBird } from "@/config/challengeOffer";
 
 /**
  * Top of /Ultimate-21-day-weight-loss-challenge, in the Master Class page's
  * style (Sumit approved 25 Nov 2026): eyebrow, headline, programme box with the
- * "Lose up to 10 Kg" pill, video, batch chips, price, one button, and a
- * countdown to the end of the offer price (a real deadline — EARLY_BIRD.closesAt).
+ * "Lose up to 10 Kg" pill, video, what's-included chips, price, one button.
+ * No start date and no countdown here (Sumit, 25 Nov 2026): people see
+ * "Start now" vs "Start on <batch day>" only in the Register window.
  *
- * Dates and prices come from config (INDIA_BATCH, CHALLENGE_PLANS, EARLY_BIRD),
- * so the next batch only needs the config changed.
+ * Prices come from config (CHALLENGE_PLANS, EARLY_BIRD).
  */
 
 interface Props {
   onRegister: () => void;
   videoId?: string;
-}
-
-function useCountdown(target: number) {
-  const [left, setLeft] = useState(() => target - Date.now());
-  useEffect(() => {
-    const tick = () => setLeft(target - Date.now());
-    tick();
-    const id = setInterval(tick, 1000);
-    return () => clearInterval(id);
-  }, [target]);
-  if (left <= 0) return null;
-  return {
-    days: Math.floor(left / 86_400_000),
-    hours: Math.floor((left % 86_400_000) / 3_600_000),
-    minutes: Math.floor((left % 3_600_000) / 60_000),
-    seconds: Math.floor((left % 60_000) / 1000),
-  };
 }
 
 const VIDEO_HINDI = "0zkAOy4AP38";
@@ -44,17 +26,16 @@ export const UltimateHero = ({ onRegister, videoId = VIDEO_HINDI }: Props) => {
   const early = isEarlyBird();
   const group = CHALLENGE_PLANS.find((p) => p.id === "group")!;
   const price = early ? group.earlyPrice : group.regularPrice;
-  const countdown = useCountdown(early ? EARLY_BIRD.closesAt : 0);
 
   const [videoModal, setVideoModal] = useState(false);
   const [modalVideoId, setModalVideoId] = useState<string | null>(null);
 
   const details = [
-    { icon: Calendar, label: `Starts ${INDIA_BATCH.sessionDateLabel}` },
-    { icon: Clock, label: `Orientation ${INDIA_BATCH.sessionTimeLabel}` },
     { icon: Video, label: "Daily live yoga on Zoom" },
     { icon: UtensilsCrossed, label: "Diet + fasting plan, home food" },
-    { icon: MessageCircle, label: "WhatsApp group support" },
+    { icon: Mic, label: "Weekly live sessions with Sumit" },
+    { icon: MessageCircle, label: "WhatsApp support" },
+    { icon: MonitorPlay, label: "Recordings of every class" },
     { icon: Languages, label: "Hindi + English" },
   ];
 
@@ -73,7 +54,7 @@ export const UltimateHero = ({ onRegister, videoId = VIDEO_HINDI }: Props) => {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-600" />
             </span>
-            {early ? "New Year batch" : "Next batch"} · {GROUP_SCHEDULE.shortStart}
+            {early ? `${EARLY_BIRD.name} · enrolling now` : "Enrolling now"}
           </span>
         </motion.div>
 
@@ -174,7 +155,7 @@ export const UltimateHero = ({ onRegister, videoId = VIDEO_HINDI }: Props) => {
               <span className="text-sm font-medium text-gray-500">only</span>
             </div>
             <p className="mt-1.5 text-center text-xs text-gray-500 lg:text-left">
-              {early ? `${EARLY_BIRD.name} · ` : ""}Group Plan · all 21 days included
+              {early ? `${EARLY_BIRD.name} · ` : ""}starting price · all 21 days included
             </p>
 
             <Button
@@ -182,21 +163,9 @@ export const UltimateHero = ({ onRegister, videoId = VIDEO_HINDI }: Props) => {
               size="lg"
               className="no-heartbeat mt-5 w-full rounded-full bg-gradient-to-r from-green-600 to-lime-500 py-7 text-lg font-bold text-white shadow-xl transition-all hover:scale-[1.02] hover:from-green-700 hover:to-lime-600"
             >
-              {early ? "Join the New Year Batch" : "Register Now"} — {price}
+              Register Now
             </Button>
 
-            {countdown && (
-              <div className="mt-4 flex items-center justify-center gap-2 lg:justify-start">
-                <span className="text-xs font-semibold uppercase tracking-wide text-gray-500">
-                  {EARLY_BIRD.name} ends in
-                </span>
-                <span className="font-mono text-sm font-bold text-red-600">
-                  {countdown.days}d {String(countdown.hours).padStart(2, "0")}h{" "}
-                  {String(countdown.minutes).padStart(2, "0")}m{" "}
-                  {String(countdown.seconds).padStart(2, "0")}s
-                </span>
-              </div>
-            )}
           </motion.div>
         </div>
       </div>
