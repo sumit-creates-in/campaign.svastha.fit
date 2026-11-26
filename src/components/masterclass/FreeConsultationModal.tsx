@@ -40,7 +40,7 @@ const DOUBTS = [
 
 type Day = { key: string; label: string; date: Date };
 
-/** Today (if there's still a slot left), tomorrow and the day after — in IST. */
+/** Today, tomorrow and the day after — in IST. */
 function upcomingDays(now = new Date()): Day[] {
   const out: Day[] = [];
   for (let i = 0; i < 3; i++) {
@@ -51,17 +51,8 @@ function upcomingDays(now = new Date()): Day[] {
   return out;
 }
 
-function slotHourIst(slot: string) {
-  const [hm, ampm] = slot.split(" ");
-  const h = Number(hm.split(":")[0]) % 12;
-  return ampm === "PM" ? h + 12 : h;
-}
 
-function nowHourIst(now = new Date()) {
-  return Number(now.toLocaleString("en-GB", { hour: "2-digit", hour12: false, timeZone: "Asia/Kolkata" }));
-}
-
-type Errors = { name?: string; phone?: string; day?: string; slot?: string };
+type Errors = { name?: string; phone?: string; day?: string };
 
 export const FreeConsultationModal = ({
   onClose,
@@ -74,8 +65,8 @@ export const FreeConsultationModal = ({
   const [name, setName] = useState(() => getStoredMetaUser().name ?? "");
   const [phone, setPhone] = useState(() => getStoredMetaUser().phone ?? "");
   const [doubt, setDoubt] = useState("");
-  const [day, setDay] = useState("");
-  const [slot, setSlot] = useState("");
+  // Day only, no time slot (Sumit, 26 Nov 2026): the sales team calls as soon as possible on that day.
+  const [day, setDay] = useState(() => days[0].key);
   const [errors, setErrors] = useState<Errors>({});
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
@@ -83,9 +74,6 @@ export const FreeConsultationModal = ({
   const phoneRef = useRef<HTMLInputElement>(null);
 
   const isToday = day === days[0].key;
-  const hourNow = nowHourIst();
-  const slots = C.slots.filter((s) => !isToday || slotHourIst(s) >= hourNow + 1);
-  const visibleDays = days.filter((d, i) => i > 0 || C.slots.some((s) => slotHourIst(s) >= hourNow + 1));
 
   const clear = (k: keyof Errors) =>
     setErrors((e) => {
@@ -101,7 +89,6 @@ export const FreeConsultationModal = ({
       name: validateName(name),
       phone: validatePhone(phone),
       day: day ? undefined : "Pick a day",
-      slot: slot ? undefined : "Pick a time",
     };
     (Object.keys(found) as (keyof Errors)[]).forEach((k) => found[k] === undefined && delete found[k]);
     if (Object.keys(found).length) {
@@ -118,9 +105,9 @@ export const FreeConsultationModal = ({
         name: name.trim(),
         phone,
         source,
-        details: `Free consultation call booked from ${fromLabel}. Main doubt: ${doubt || "not given"} | Preferred: ${day}, ${slot}.`,
-        callDate: day,
-        callTime: slot,
+        details: `Free consultation call booked from ${fromLabel}. Main doubt: ${doubt || "not given"} | Call on: ${isToday ? `today (${day})` : day} — as soon as possible.`,
+        callDate: isToday ? new Date().toISOString() : day,
+        callTime: isToday ? "" : "10:00 AM",
       },
       4000,
     );
@@ -139,8 +126,8 @@ export const FreeConsultationModal = ({
             Your free call is booked
           </h2>
           <p className="mt-2 text-sm text-gray-600">
-            Our team will call you on <b>{day}</b> around <b>{slot}</b> (India time). Keep your phone handy —
-            we'll message you on WhatsApp first.
+            Our team will call you {isToday ? <b>today, as soon as possible</b> : <>on <b>{day}</b>, as soon as possible</>}.
+            Keep your phone handy.
           </p>
           <button
             type="button"
@@ -218,16 +205,15 @@ export const FreeConsultationModal = ({
 
           <div>
             <p className="mb-2 text-xs font-semibold text-gray-700">
-              When should we call? <span className="text-red-500">*</span>
+              Which day should we call you? <span className="text-red-500">*</span>
             </p>
             <div className="grid grid-cols-3 gap-2">
-              {visibleDays.map((d) => (
+              {days.map((d) => (
                 <button
                   key={d.key}
                   type="button"
                   onClick={() => {
                     setDay(d.key);
-                    setSlot("");
                     clear("day");
                   }}
                   className={chipClass(day === d.key, !!errors.day)}
@@ -237,24 +223,7 @@ export const FreeConsultationModal = ({
               ))}
             </div>
             {errors.day && <ErrorText>{errors.day}</ErrorText>}
-            {day && (
-              <div className="mt-2 grid grid-cols-3 gap-2">
-                {slots.map((s) => (
-                  <button
-                    key={s}
-                    type="button"
-                    onClick={() => {
-                      setSlot(s);
-                      clear("slot");
-                    }}
-                    className={chipClass(slot === s, !!errors.slot)}
-                  >
-                    {s}
-                  </button>
-                ))}
-              </div>
-            )}
-            {errors.slot && <ErrorText>{errors.slot}</ErrorText>}
+            <p className="mt-1.5 text-[11px] text-gray-500">Our team calls as soon as possible on the day you pick.</p>
           </div>
 
           <button

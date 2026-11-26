@@ -41,17 +41,8 @@ function upcomingDays(now = new Date()): Day[] {
   return out;
 }
 
-function slotHourIst(slot: string) {
-  const [hm, ampm] = slot.split(" ");
-  const h = Number(hm.split(":")[0]) % 12;
-  return ampm === "PM" ? h + 12 : h;
-}
 
-function nowHourIst(now = new Date()) {
-  return Number(now.toLocaleString("en-GB", { hour: "2-digit", hour12: false, timeZone: "Asia/Kolkata" }));
-}
-
-type Errors = Partial<Record<"name" | "phone" | "age" | "gender" | "goal" | "open" | "day" | "slot", string>>;
+type Errors = Partial<Record<"name" | "phone" | "age" | "gender" | "goal" | "open" | "day", string>>;
 
 interface Props {
   /** Shown after booking: opens the plan window. */
@@ -76,8 +67,8 @@ export const ConsultationFunnelForm = forwardRef<HTMLDivElement, Props>(({ onSee
   const [tried, setTried] = useState<string[]>([]);
   const [open, setOpen] = useState("");
   const [lang, setLang] = useState("Hindi");
-  const [day, setDay] = useState("");
-  const [slot, setSlot] = useState("");
+  // Day only, no time slot (Sumit, 26 Nov 2026): the sales team calls as soon as possible on that day.
+  const [day, setDay] = useState(() => days[0].key);
   const [errors, setErrors] = useState<Errors>({});
   const [busy, setBusy] = useState(false);
   const [done, setDone] = useState(false);
@@ -86,9 +77,6 @@ export const ConsultationFunnelForm = forwardRef<HTMLDivElement, Props>(({ onSee
   const topRef = useRef<HTMLDivElement>(null);
 
   const isToday = day === days[0].key;
-  const hourNow = nowHourIst();
-  const slots = C.slots.filter((s) => !isToday || slotHourIst(s) >= hourNow + 1);
-  const visibleDays = days.filter((_, i) => i > 0 || C.slots.some((s) => slotHourIst(s) >= hourNow + 1));
 
   const clear = (k: keyof Errors) =>
     setErrors((e) => {
@@ -136,7 +124,7 @@ export const ConsultationFunnelForm = forwardRef<HTMLDivElement, Props>(({ onSee
   };
 
   const submit = async () => {
-    if (!check({ open: open ? undefined : "Pick one", day: day ? undefined : "Pick a day", slot: slot ? undefined : "Pick a time" })) return;
+    if (!check({ open: open ? undefined : "Pick one", day: day ? undefined : "Pick a day" })) return;
     setBusy(true);
     trackPixel("Lead", { content_name: "Free consultation - 21 day consultation page" });
     await sendCrmLead(
@@ -152,10 +140,11 @@ export const ConsultationFunnelForm = forwardRef<HTMLDivElement, Props>(({ onSee
           `Tried before: ${tried.length ? tried.join(", ") : "not given"}`,
           `Open to a paid plan: ${open}`,
           `Call in: ${lang}`,
-          `Preferred: ${day}, ${slot}.`,
+          `Call on: ${isToday ? `today (${day})` : day} — as soon as possible.`,
         ].join(" | "),
-        callDate: day,
-        callTime: slot,
+        // Today: the call is due now. Another day: due that morning.
+        callDate: isToday ? new Date().toISOString() : day,
+        callTime: isToday ? "" : "10:00 AM",
       },
       4000,
     );
@@ -177,8 +166,8 @@ export const ConsultationFunnelForm = forwardRef<HTMLDivElement, Props>(({ onSee
           </div>
           <h2 className="text-2xl font-extrabold text-gray-900">Your free call is booked</h2>
           <p className="mt-2 text-sm text-gray-600">
-            A SVASTHA expert will call you on <b>{day}</b> around <b>{slot}</b> (India time) in <b>{lang}</b>. We'll
-            message you on WhatsApp first.
+            A SVASTHA expert will call you {isToday ? <b>today, as soon as possible</b> : <>on <b>{day}</b>, as soon as possible</>}{" "}
+            in <b>{lang}</b>. Keep your phone handy.
           </p>
           <div className="mt-6 space-y-3">
             <button
@@ -323,7 +312,7 @@ export const ConsultationFunnelForm = forwardRef<HTMLDivElement, Props>(({ onSee
 
         {step === 3 && (
           <div className="space-y-4">
-            <h2 className="text-xl font-extrabold leading-snug text-gray-900">Pick a time for your call</h2>
+            <h2 className="text-xl font-extrabold leading-snug text-gray-900">Almost done</h2>
             <div>
               {label("If our plan suits you, would you like to join a paid programme?")}
               <ChipRow items={OPEN_TO_PLAN} value={open} onPick={(v) => { setOpen(v); clear("open"); }} error={errors.open} cols="grid-cols-1" />
@@ -333,15 +322,14 @@ export const ConsultationFunnelForm = forwardRef<HTMLDivElement, Props>(({ onSee
               <ChipRow items={LANGS} value={lang} onPick={setLang} cols="grid-cols-2" />
             </div>
             <div>
-              {label("Day")}
+              {label("Which day should we call you?")}
               <div className="grid grid-cols-3 gap-2">
-                {visibleDays.map((d) => (
+                {days.map((d) => (
                   <button
                     key={d.key}
                     type="button"
                     onClick={() => {
                       setDay(d.key);
-                      setSlot("");
                       clear("day");
                     }}
                     className={chipClass(day === d.key, !!errors.day)}
@@ -351,13 +339,8 @@ export const ConsultationFunnelForm = forwardRef<HTMLDivElement, Props>(({ onSee
                 ))}
               </div>
               {errors.day && <ErrorText>{errors.day}</ErrorText>}
+              <p className="mt-1.5 text-[11px] text-gray-500">Our team calls as soon as possible on the day you pick.</p>
             </div>
-            {day && (
-              <div>
-                {label("Time (India time)")}
-                <ChipRow items={slots} value={slot} onPick={(v) => { setSlot(v); clear("slot"); }} error={errors.slot} />
-              </div>
-            )}
             <button
               type="button"
               onClick={submit}
