@@ -5,6 +5,8 @@ import venikaImage from "@/assets/venika agarwal.jpeg";
 import muskanImage from "@/assets/muskan lalwani.jpeg";
 import ankitImage from "@/assets/ankit sharma.webp";
 import anishaImage from "@/assets/Anisha.jpeg";
+import archanaImage from "@/assets/archana-team.jpg";
+import vishakhaImage from "@/assets/vishakha-team.jpg";
 
 export const MoreMentorsSection = ({ clean = false }: { clean?: boolean } = {}) => {
   const scrollContainerRef = useRef<HTMLDivElement>(null);
@@ -65,9 +67,15 @@ export const MoreMentorsSection = ({ clean = false }: { clean?: boolean } = {}) 
   }, [mentors.length]);
 
   // Ultimate page (Sumit, 25 Nov 2026): a still grid instead of the sliding
-  // strip (it cut names off on phones). Venika no longer works with us.
+  // strip (it cut names off on phones). Current team (Sumit, 26 Nov 2026):
+  // Venika and Anisha no longer work with us; Archana and Vishakha joined.
   if (clean) {
-    const team = mentors.filter((m) => m.name !== "Venika Agarwal");
+    const team = [
+      { name: "Muskan Lalwani", title: "Dietitian", image: muskanImage },
+      { name: "Archana", title: "Dietitian", image: archanaImage },
+      { name: "Vishakha", title: "Dietitian", image: vishakhaImage },
+      { name: "Ankit Sharma", title: "Fitness Trainer", image: ankitImage },
+    ];
     return (
       <section className="py-20 px-4 bg-gradient-to-br from-gray-50 to-gray-100">
         <div className="container mx-auto max-w-4xl">
@@ -75,14 +83,14 @@ export const MoreMentorsSection = ({ clean = false }: { clean?: boolean } = {}) 
             eyebrow="Your support team"
             title="The dietitians and trainers behind your plan"
           />
-          <div className="grid grid-cols-3 gap-3 md:gap-6">
+          <div className="grid grid-cols-2 gap-4 md:grid-cols-4 md:gap-6">
             {team.map((mentor) => (
               <div key={mentor.name} className="text-center">
                 <div className="aspect-[3/4] w-full overflow-hidden rounded-xl shadow-md">
                   <img src={mentor.image} alt={mentor.name} className="h-full w-full object-cover" loading="lazy" />
                 </div>
-                <p className="mt-2 text-[13px] font-bold leading-tight text-gray-900 md:text-base">{mentor.name}</p>
-                <p className="text-[11px] text-emerald-700 md:text-sm">{mentor.title.replace(/[()]/g, "")}</p>
+                <p className="mt-2 text-[15px] font-bold leading-tight text-gray-900 md:text-base">{mentor.name}</p>
+                <p className="text-[13px] text-emerald-700 md:text-sm">{mentor.title.replace(/[()]/g, "")}</p>
               </div>
             ))}
           </div>
