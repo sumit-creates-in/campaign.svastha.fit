@@ -1,4 +1,4 @@
-import { forwardRef, useMemo, useRef, useState } from "react";
+import { forwardRef, useId, useMemo, useRef, useState } from "react";
 import { ArrowLeft, CheckCircle, Loader2, Lock, PhoneCall } from "lucide-react";
 import { FREE_CONSULTATION as C } from "@/config/masterclass";
 import { istDateLabel, sendCrmLead, trackPixel } from "@/lib/crmLead";
@@ -57,10 +57,15 @@ interface Props {
   /** Shown after booking: opens the plan window. */
   onSeePlans: () => void;
   onWhatsApp: () => void;
+  /** No card border/shadow (inside a pop-up). */
+  bare?: boolean;
+  /** Which part of the page the form was opened from (CRM details). */
+  from?: string;
 }
 
-export const ConsultationFunnelForm = forwardRef<HTMLDivElement, Props>(({ onSeePlans, onWhatsApp }, ref) => {
+export const ConsultationFunnelForm = forwardRef<HTMLDivElement, Props>(({ onSeePlans, onWhatsApp, bare = false, from = "" }, ref) => {
   const days = useMemo(() => upcomingDays(), []);
+  const uid = useId().replace(/:/g, "");
   const [step, setStep] = useState(1);
   const [name, setName] = useState(() => getStoredMetaUser().name ?? "");
   const [phone, setPhone] = useState(() => getStoredMetaUser().phone ?? "");
@@ -140,7 +145,7 @@ export const ConsultationFunnelForm = forwardRef<HTMLDivElement, Props>(({ onSee
         phone,
         source: CONSULT_PAGE_SOURCE,
         details: [
-          "Free consultation call booked on the 21 Day consultation page.",
+          `Free consultation call booked on the 21 Day consultation page${from ? ` (${from})` : ""}.`,
           `Age: ${age} | ${gender}`,
           `Goal: ${goal}`,
           `Health: ${conditions.length ? conditions.join(", ") : "not given"}`,
@@ -159,7 +164,9 @@ export const ConsultationFunnelForm = forwardRef<HTMLDivElement, Props>(({ onSee
     requestAnimationFrame(() => topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }));
   };
 
-  const card = "w-full rounded-3xl border-2 border-emerald-100 bg-white p-5 shadow-2xl md:p-7";
+  const card = bare
+    ? "w-full bg-white px-5 pb-6 pt-8 md:px-7"
+    : "w-full rounded-3xl border-2 border-emerald-100 bg-white p-5 shadow-2xl md:p-7";
 
   if (done) {
     return (
@@ -216,7 +223,7 @@ export const ConsultationFunnelForm = forwardRef<HTMLDivElement, Props>(({ onSee
   return (
     <div ref={ref} className="scroll-mt-4">
       <div ref={topRef} className={card}>
-        <div className="mb-4 flex items-center justify-between">
+        <div className={`mb-4 flex items-center justify-between ${bare ? "pr-10" : ""}`}>
           {step > 1 ? (
             <button type="button" onClick={() => goTo(step - 1)} className="no-heartbeat inline-flex items-center gap-1 text-xs font-semibold text-gray-500 hover:text-gray-900">
               <ArrowLeft className="h-3.5 w-3.5" /> Back
@@ -236,11 +243,11 @@ export const ConsultationFunnelForm = forwardRef<HTMLDivElement, Props>(({ onSee
           <div className="space-y-4">
             <h2 className="text-xl font-extrabold leading-snug text-gray-900">Book your free consultation call</h2>
             <div>
-              <label htmlFor="cf-name" className="mb-1.5 block text-xs font-semibold text-gray-700">
+              <label htmlFor={`cf-name-${uid}`} className="mb-1.5 block text-xs font-semibold text-gray-700">
                 Your name <span className="text-red-500">*</span>
               </label>
               <input
-                id="cf-name"
+                id={`cf-name-${uid}`}
                 ref={nameRef}
                 value={name}
                 onChange={(e) => {
@@ -254,7 +261,7 @@ export const ConsultationFunnelForm = forwardRef<HTMLDivElement, Props>(({ onSee
               {errors.name && <ErrorText>{errors.name}</ErrorText>}
             </div>
             <PhoneInput
-              id="cf-phone"
+              id={`cf-phone-${uid}`}
               ref={phoneRef}
               value={phone}
               onChange={(d) => {
