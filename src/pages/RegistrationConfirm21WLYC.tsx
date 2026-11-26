@@ -12,9 +12,6 @@ import {
 } from "lucide-react";
 import { useLocation } from "react-router-dom";
 import { useMeta } from "@/hooks/useMeta";
-import { isEarlyBird } from "@/config/challengeOffer";
-import { trackPurchaseOnce } from "@/lib/trackPurchase";
-import { paidPlanValue } from "@/lib/planValue";
 
 function formatTime12h(hour24: number): string {
   let h = ((hour24 % 24) + 24) % 24;
@@ -139,16 +136,9 @@ const RegistrationConfirm21WLYC = ({
 
     w.fbq("init", "4183888118531938");
     w.fbq("track", "PageView");
-    if (isIndia) {
-      // Real amount paid (₹990 flash, ₹1,290 Master Class, …), not a fixed ₹1,490.
-      paidPlanValue("group").then((value) =>
-        trackPurchaseOnce(
-          "purchase_u21_group_india",
-          value || (isEarlyBird() ? 990 : 1990),
-          "21 Day Challenge - Group (India)",
-        ),
-      );
-    }
+    // Purchase is NOT sent from this page (Sumit, 26 Nov 2026): every Razorpay payment page already sends
+    // Purchase to the same pixel (4183888118531938, "payment complete" event, with the real amount and a
+    // server copy). Sending it here too counted each sale twice, and counted visits without a payment.
   }, []);
 
   // Set meta tags based on page type

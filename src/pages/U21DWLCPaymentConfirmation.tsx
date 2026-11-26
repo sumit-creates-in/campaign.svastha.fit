@@ -1,23 +1,6 @@
 import { motion } from "framer-motion";
 import { CheckCircle, Phone, Mail, MessageCircle } from "lucide-react";
 import { useEffect } from "react";
-import { trackPurchaseOnce } from "@/lib/trackPurchase";
-import { paidPlanValue } from "@/lib/planValue";
-import { PERSONALIZED_VALUE_KEY } from "@/config/masterclass";
-
-/** Amount the buyer chose on /masterclass (₹1,990 or ₹2,490), if within the last day. */
-function rememberedPersonalizedValue(): number | null {
-    try {
-        const raw = localStorage.getItem(PERSONALIZED_VALUE_KEY);
-        if (!raw) return null;
-        const v = JSON.parse(raw) as { value?: number; at?: number };
-        if (!v.value || !v.at || Date.now() - v.at > 24 * 60 * 60 * 1000) return null;
-        localStorage.removeItem(PERSONALIZED_VALUE_KEY);
-        return v.value;
-    } catch {
-        return null;
-    }
-}
 
 const U21DWLCPaymentConfirmation = ({ isGlobal = false }: { isGlobal?: boolean }) => {
     useEffect(() => {
@@ -45,17 +28,10 @@ const U21DWLCPaymentConfirmation = ({ isGlobal = false }: { isGlobal?: boolean }
 
         w.fbq("init", "4183888118531938");
         w.fbq("track", "PageView");
-        if (!isGlobal) {
-            // Start-now price from /masterclass first, then the /join / flash price.
-            const startNow = rememberedPersonalizedValue();
-            (startNow ? Promise.resolve(startNow) : paidPlanValue("personalized")).then((value) =>
-                trackPurchaseOnce(
-                    "purchase_u21_personalized_india",
-                    value || 2990,
-                    "21 Day Challenge - Personalized (India)",
-                ),
-            );
-        }
+        // Purchase is NOT sent from this page (Sumit, 26 Nov 2026): every Razorpay payment page already
+        // sends Purchase to the same pixel (4183888118531938, "payment complete" event, with the real
+        // amount and a server copy). Sending it here too counted each sale twice, and counted visits
+        // without a payment.
     }, []);
 
     const handleWhatsApp = () => {

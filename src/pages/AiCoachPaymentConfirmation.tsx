@@ -14,12 +14,8 @@ import { useMeta } from "@/hooks/useMeta";
 const AiCoachPaymentConfirmation = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
-    try {
-      const fbq = (window as unknown as { fbq?: (...a: unknown[]) => void }).fbq;
-      if (typeof fbq === "function") fbq("track", "Purchase", { currency: "INR", content_name: "21 Day Personalized Plan — AI Coach" });
-    } catch {
-      /* never block the page */
-    }
+    // No Purchase here (Sumit, 26 Nov 2026): the Razorpay payment page already sends it to the
+    // pixel with the real amount; sending it again counted every sale twice.
   }, []);
 
   useMeta({
