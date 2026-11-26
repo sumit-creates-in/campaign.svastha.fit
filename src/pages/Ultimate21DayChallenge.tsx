@@ -97,11 +97,6 @@ function detectUserLocation(): Promise<{ country: string }> {
 const Ultimate21DayChallenge = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [isScrollModalOpen, setIsScrollModalOpen] = useState(false);
-  // The WhatsApp button only appears after the discount pop-up has been shown.
-  const [offerSeen, setOfferSeen] = useState(false);
-  useEffect(() => {
-    if (isScrollModalOpen) setOfferSeen(true);
-  }, [isScrollModalOpen]);
   const [shouldRedirect, setShouldRedirect] = useState(true);
   const navigate = useNavigate();
   const { pathname } = useLocation();
@@ -254,10 +249,10 @@ const Ultimate21DayChallenge = () => {
           onVisibilityChange={setIsScrollModalOpen}
         />
         <StickyBottomBar onRegisterClick={scrollToRegistration} hideScarcity feeText={groupFeeText} pulse />
-        {/* WhatsApp chat: only after the discount pop-up, past ~55 % of the page, no pulsing (Sumit, 25 Nov 2026). */}
+        {/* WhatsApp chat: "Ask on WhatsApp first" (Sumit, 26 Nov 2026) — visible early, no longer waits for the
+            discount pop-up. Still no pulsing. */}
         <WhatsAppFloatingButton
-          showAfterScrollRatio={0.55}
-          enabled={offerSeen}
+          showAfterScrollRatio={0.12}
           noPulse
           isModalOpen={isModalOpen || isScrollModalOpen}
         />

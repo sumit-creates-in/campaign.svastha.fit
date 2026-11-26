@@ -12,6 +12,11 @@ export interface CrmLead {
   callDate?: string;
   /** CRM call time, e.g. "10:00 AM". Defaults to now (IST). */
   callTime?: string;
+  /**
+   * Optional CRM event (26 Nov 2026), e.g. "checkout_abandoned": the CRM files the lead with that status and
+   * a call task at callDate (an ISO time works). A later "paid" closes the task by itself.
+   */
+  crmEvent?: string;
 }
 
 export function istDateLabel(d: Date = new Date()) {
@@ -47,6 +52,7 @@ export async function sendCrmLead(lead: CrmLead, maxWaitMs = 2500): Promise<void
     submitted_date: lead.callDate ?? istDateLabel(),
     submitted_time: lead.callTime ?? istTimeLabel(),
     paid: false,
+    ...(lead.crmEvent ? { crm_event: lead.crmEvent } : {}),
   });
   try {
     await Promise.race([

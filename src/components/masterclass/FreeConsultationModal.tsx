@@ -2,7 +2,7 @@ import { useMemo, useRef, useState } from "react";
 import { CheckCircle, Loader2, PhoneCall, ShieldCheck } from "lucide-react";
 import { FREE_CONSULTATION as C, LEAD_SOURCES } from "@/config/masterclass";
 import { istDateLabel, sendCrmLead, trackPixel } from "@/lib/crmLead";
-import { applyMetaUserData, saveMetaUserData } from "@/lib/metaUserData";
+import { applyMetaUserData, getStoredMetaUser, saveMetaUserData } from "@/lib/metaUserData";
 import {
   ErrorText,
   Overlay,
@@ -21,6 +21,12 @@ import {
  */
 interface Props {
   onClose: () => void;
+  /** CRM source (default: the Master Class page's). */
+  source?: string;
+  /** Where the visitor booked from, written into the CRM details. */
+  fromLabel?: string;
+  /** content_name of the Meta Lead event. */
+  pixelName?: string;
 }
 
 const DOUBTS = [
@@ -57,10 +63,16 @@ function nowHourIst(now = new Date()) {
 
 type Errors = { name?: string; phone?: string; day?: string; slot?: string };
 
-export const FreeConsultationModal = ({ onClose }: Props) => {
+export const FreeConsultationModal = ({
+  onClose,
+  source = LEAD_SOURCES.consultation,
+  fromLabel = "the Master Class page (read the full page, still unsure)",
+  pixelName = "Free consultation - Master Class page",
+}: Props) => {
   const days = useMemo(() => upcomingDays(), []);
-  const [name, setName] = useState("");
-  const [phone, setPhone] = useState("");
+  // Prefill from this device so nobody types twice (26 Nov 2026).
+  const [name, setName] = useState(() => getStoredMetaUser().name ?? "");
+  const [phone, setPhone] = useState(() => getStoredMetaUser().phone ?? "");
   const [doubt, setDoubt] = useState("");
   const [day, setDay] = useState("");
   const [slot, setSlot] = useState("");
@@ -100,13 +112,13 @@ export const FreeConsultationModal = ({ onClose }: Props) => {
     setBusy(true);
     saveMetaUserData({ name: name.trim(), phone });
     applyMetaUserData();
-    trackPixel("Lead", { content_name: "Free consultation - Master Class page" });
+    trackPixel("Lead", { content_name: pixelName });
     await sendCrmLead(
       {
         name: name.trim(),
         phone,
-        source: LEAD_SOURCES.consultation,
-        details: `Free consultation call booked from the Master Class page (read the full page, still unsure). Main doubt: ${doubt || "not given"} | Preferred: ${day}, ${slot}.`,
+        source,
+        details: `Free consultation call booked from ${fromLabel}. Main doubt: ${doubt || "not given"} | Preferred: ${day}, ${slot}.`,
         callDate: day,
         callTime: slot,
       },

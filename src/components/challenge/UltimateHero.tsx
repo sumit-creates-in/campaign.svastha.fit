@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { Languages, MessageCircle, MonitorPlay, Mic, UtensilsCrossed, Video } from "lucide-react";
 import { CHALLENGE_PLANS, EARLY_BIRD, isEarlyBird } from "@/config/challengeOffer";
+import { openWhatsApp } from "@/lib/whatsapp";
 
 /**
  * Top of /Ultimate-21-day-weight-loss-challenge, in the Master Class page's
@@ -165,6 +166,23 @@ export const UltimateHero = ({ onRegister, videoId = VIDEO_HINDI }: Props) => {
             >
               Register Now
             </Button>
+
+            {/* Trust + ask-first (Sumit, 26 Nov 2026) */}
+            <p className="mt-3 text-center text-sm font-semibold text-gray-700 lg:text-left">
+              ⭐ Over 10,000 people helped by SVASTHA
+            </p>
+            <button
+              type="button"
+              onClick={() =>
+                openWhatsApp(
+                  "Hi, I have a question about the Ultimate 21 Day Weight Loss Challenge before I join.",
+                  "WhatsApp - 21 day hero",
+                )
+              }
+              className="no-heartbeat mt-3 flex w-full items-center justify-center gap-2 rounded-full border-2 border-[#25D366] bg-white py-3 text-base font-bold text-[#128C7E] hover:bg-green-50"
+            >
+              <MessageCircle className="h-5 w-5" /> Have a question? Ask on WhatsApp first
+            </button>
 
           </motion.div>
         </div>

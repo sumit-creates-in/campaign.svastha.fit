@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { MessageCircle, X, ChevronDown } from "lucide-react";
+import { trackPixel } from "@/lib/crmLead";
 
 interface WhatsAppFloatingButtonProps {
   phoneNumber?: string;
@@ -60,6 +61,8 @@ const WhatsAppFloatingButton = ({
 
   const handleChatClick = () => {
     const whatsappUrl = `https://api.whatsapp.com/send/?phone=${phoneNumber}&text=${encodeURIComponent(message)}&type=phone_number&app_absent=0`;
+    // Count the chat as a Contact for Meta (26 Nov 2026).
+    trackPixel("Contact", { content_name: "WhatsApp floating button" });
     window.open(whatsappUrl, "_blank");
   };
 

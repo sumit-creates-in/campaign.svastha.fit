@@ -60,3 +60,16 @@ export function applyMetaUserData() {
     /* tracking must never break the page */
   }
 }
+
+/** The name/phone saved on this device (last 30 days), to prefill forms so nobody types twice. */
+export function getStoredMetaUser(): { name?: string; phone?: string; email?: string } {
+  try {
+    const raw = localStorage.getItem(KEY);
+    if (!raw) return {};
+    const u = JSON.parse(raw) as StoredUser;
+    if (!u || !u.at || Date.now() - u.at > MAX_AGE_MS) return {};
+    return { name: u.name, phone: u.phone?.replace(/\D/g, "").slice(-10), email: u.email };
+  } catch {
+    return {};
+  }
+}
