@@ -25,15 +25,17 @@ export const BenefitsSection = ({ clean = false }: { clean?: boolean } = {}) => 
       image: isStartPage ? mens1 : b7
     },
     {
-      title: "Lose Inches Like Magic",
+      title: clean ? "Lose Inches, Feel Lighter" : "Lose Inches Like Magic",
       image: isStartPage ? mens2 : b8
     },
     {
-      title: "Learn to Fight Type 2 Diabetes, PCOS, Hypothyriod, Hypertension, Fatty Liver, Uric Acid etc.",
+      title: clean
+        ? "Build Daily Habits That Support Your Overall Health"
+        : "Learn to Fight Type 2 Diabetes, PCOS, Hypothyriod, Hypertension, Fatty Liver, Uric Acid etc.",
       image: b5
     },
     {
-      title: "Naturally Detox & Cleanse Your Body",
+      title: clean ? "Feel Lighter and More Energetic" : "Naturally Detox & Cleanse Your Body",
       image: b6
     },
     {

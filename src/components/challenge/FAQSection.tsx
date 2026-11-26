@@ -57,7 +57,16 @@ export const FAQSection = ({ faqs, whatsappUrl, clean = false }: { faqs?: { ques
     }
   ];
 
-  const items = faqs || defaultFaqs;
+  // Ultimate page (`clean`, Sumit 26 Nov 2026): no average-kg-in-21-days promise.
+  const items = (faqs || defaultFaqs).map((f) =>
+    clean && f.question === "Is it possible to lose weight within 21 days?"
+      ? {
+          ...f,
+          answer:
+            "Many members see a real change in 21 days. How much depends on your starting weight, how consistently you follow the plan and any health conditions — results vary from person to person.",
+        }
+      : f,
+  );
 
   return (
     <section className={clean ? "py-20 px-4 bg-white" : "py-20 px-4 bg-[#f5f7f0]"}>

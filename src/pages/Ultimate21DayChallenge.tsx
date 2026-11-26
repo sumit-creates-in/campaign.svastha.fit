@@ -36,7 +36,7 @@ import transformation9 from "@/assets/tranformation9.jpeg";
 const transformation = [
   {
     image: transformation5,
-    text: "Now I can eat without any tension and enjoy my life. My fatty liver and hypertension are also cured now. Amazing experience. - Ravikant",
+    text: "Now I can eat without any tension and enjoy my life. Amazing experience. - Ravikant",
   },
   {
     image: transformation8,
@@ -56,7 +56,7 @@ const transformation = [
   },
   {
     image: transformation4,
-    text: "Got the results in just 21 days. So happy to have joined this program. - Aditi",
+    text: "So happy to have joined this program. - Aditi",
   },
   {
     image: transformation6,
@@ -210,12 +210,12 @@ const Ultimate21DayChallenge = () => {
         {isStartPage && (
           <AanchalTestimonialSection
             clean
-            heading="Rajesh ji Lost 4 Kg's in Just 7 Days 🤩"
+            heading="Rajesh ji lost 4 kg"
             subHeading="Watch his journey."
             videoUrl="https://www.youtube.com/embed/LVHVl5kHhgI"
           />
         )}
-        {!isStartPage && <AanchalTestimonialSection clean subHeading="Watch her journey." />}
+        {!isStartPage && <AanchalTestimonialSection clean heading="Aanchal lost 6.5 kg" subHeading="Watch her journey." />}
         <HowItWorksSection clean />
         <WhatYouGetSection scrollToRegistration={scrollToRegistration} isUltimate={true} clean />
         <MeetYourMentorSection scrollToRegistration={scrollToRegistration} clean />

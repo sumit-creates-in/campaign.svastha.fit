@@ -152,7 +152,9 @@ export const WhatYouGetSection = ({
         ? "Get a dedicated dietitian who will support you with every step of this journey."
         : (isUae && !isUaeGroup)
           ? "Get a dedicated dietitian who will support you with every step of this journey."
-          : "Learn the secrets of intermittent fasting, diet, health and wellness that Bollywood celebrities use to stay fit and look young. Learn it directly from Sumit Sharma, the ultimate intermittent fasting guru who has taught thousands of people to live healthy and fit forever.",
+          : clean
+            ? "Learn intermittent fasting, the right way to eat home food and the habits that keep the weight off — directly from Sumit Sharma, Yoga & Nutrition Coach and Founder of SVASTHA, who has guided thousands of people."
+            : "Learn the secrets of intermittent fasting, diet, health and wellness that Bollywood celebrities use to stay fit and look young. Learn it directly from Sumit Sharma, the ultimate intermittent fasting guru who has taught thousands of people to live healthy and fit forever.",
       link: isInternational ? "" : (isUae && !isUaeGroup) ? "" : "click here to check him out on Instagram",
       image: isInternational ? muskanImage : (isUae && !isUaeGroup) ? muskanImage : sumitImage,
       imageType: "photo",

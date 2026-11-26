@@ -112,6 +112,17 @@ type TransformationsSectionProps = {
 
 type Props = TransformationsSectionProps;
 
+/**
+ * Ultimate page (`clean`, Sumit 26 Nov 2026): no time frame next to a result
+ * and no "cured" claims in the member quotes.
+ */
+const CLAIM_SAFE_TEXT: Record<string, string> = {
+  "Got the results in just 21 days. So happy to have joined this program. - Aditi":
+    "So happy to have joined this program. - Aditi",
+  "Now I can eat without any tension and enjoy my life. My fatty liver and hypertension are also cured now. Amazing experience. - Ravikant":
+    "Now I can eat without any tension and enjoy my life. Amazing experience. - Ravikant",
+};
+
 export const TransformationsSection = ({
   heading = "We Deliver The Best Transformations",
   subHeading = "Are you ready for yours?",
@@ -225,7 +236,7 @@ export const TransformationsSection = ({
               )}
             </div>
             <p className="text-xs text-gray-600 leading-relaxed italic">
-              "{t.text}"
+              "{clean ? CLAIM_SAFE_TEXT[t.text] ?? t.text : t.text}"
             </p>
           </div>
         </>
@@ -261,7 +272,7 @@ export const TransformationsSection = ({
               </div>
             )}
             <p className="text-xs text-gray-800 text-center leading-relaxed italic w-full">
-              "{t.text}"
+              "{clean ? CLAIM_SAFE_TEXT[t.text] ?? t.text : t.text}"
             </p>
           </div>
         </>

@@ -284,7 +284,7 @@ export const JyotiTestimonialSection = ({ clean = false }: { clean?: boolean } =
                       </div>
                       {/* Video Title */}
                       <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/70 to-transparent p-4">
-                        <p className="text-white font-semibold text-lg">{video.title}</p>
+                        <p className="text-white font-semibold text-lg">{clean ? video.title.replace(/\s+in just .*$/i, "") : video.title}</p>
                       </div>
                     </div>
                   </motion.div>
