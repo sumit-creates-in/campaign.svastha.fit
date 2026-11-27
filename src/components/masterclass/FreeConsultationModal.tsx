@@ -105,7 +105,7 @@ export const FreeConsultationModal = ({
         name: name.trim(),
         phone,
         source,
-        details: `Free consultation call booked from ${fromLabel}. Main doubt: ${doubt || "not given"} | Call on: ${isToday ? `today (${day})` : day} — as soon as possible.`,
+        details: `Consultation call booked from ${fromLabel}. Main doubt: ${doubt || "not given"} | Call on: ${isToday ? `today (${day})` : day} — as soon as possible.`,
         callDate: isToday ? new Date().toISOString() : day,
         callTime: isToday ? "" : "10:00 AM",
       },
@@ -123,7 +123,7 @@ export const FreeConsultationModal = ({
             <CheckCircle className="h-12 w-12 text-emerald-600" />
           </div>
           <h2 id="consult-done-title" className="text-2xl font-extrabold text-gray-900">
-            Your free call is booked
+            Your call is booked
           </h2>
           <p className="mt-2 text-sm text-gray-600">
             Our team will call you {isToday ? <b>today, as soon as possible</b> : <>on <b>{day}</b>, as soon as possible</>}.
@@ -150,11 +150,11 @@ export const FreeConsultationModal = ({
           </div>
           <p className="text-[11px] font-bold uppercase tracking-wider text-emerald-600">Still have questions?</p>
           <h2 id="consult-title" className="mt-1 text-xl font-extrabold leading-snug text-gray-900 md:text-2xl">
-            Book a free {C.durationLabel} consultation call
+            Book a {C.durationLabel} consultation call
           </h2>
           <p className="mt-1.5 text-sm text-gray-600">
             Talk to a Svastha expert about your goal, your routine and any health condition. Get a clear answer on
-            what will work for you. <b>Free, and no pressure to buy.</b>
+            what will work for you. <b>No pressure to buy.</b>
           </p>
         </div>
 
@@ -236,7 +236,7 @@ export const FreeConsultationModal = ({
                 <Loader2 className="h-4 w-4 animate-spin" /> Booking…
               </span>
             ) : (
-              "Book my free call"
+              "Book my call"
             )}
           </button>
           <p className="flex items-center justify-center gap-1.5 text-[11px] text-gray-500">

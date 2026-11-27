@@ -57,7 +57,7 @@ export const UltimateHero = ({ onRegister, videoId = VIDEO_HINDI, consult = fals
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-500 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-600" />
             </span>
-            {consult ? "Free consultation call" : early ? `${EARLY_BIRD.name} · enrolling now` : "Enrolling now"}
+            {consult ? "Consultation call" : early ? `${EARLY_BIRD.name} · enrolling now` : "Enrolling now"}
           </span>
         </motion.div>
 
@@ -153,8 +153,8 @@ export const UltimateHero = ({ onRegister, videoId = VIDEO_HINDI, consult = fals
               <div className="mt-6 rounded-2xl border-2 border-emerald-200 bg-emerald-50/70 px-5 py-4 text-center lg:text-left">
                 <p className="text-lg font-extrabold text-gray-900">Not sure if this challenge suits you?</p>
                 <p className="mt-1 text-sm text-gray-700">
-                  Book a <b>free 15-minute call</b> with our team. Tell us your goal, routine and any health condition
-                  — we'll tell you if the 21 Day Challenge is right for you and which plan fits. Hindi or English, no
+                  Book a <b>15-minute call</b> with our team. Tell us your goal, routine and any health condition — we'll
+                  tell you if the 21 Day Challenge is right for you and explain the plans and fees. Hindi or English, no
                   pressure to buy.
                 </p>
               </div>
@@ -187,7 +187,7 @@ export const UltimateHero = ({ onRegister, videoId = VIDEO_HINDI, consult = fals
                 size="lg"
                 className="no-heartbeat mt-5 w-full rounded-full bg-gradient-to-r from-green-600 to-lime-500 py-7 text-lg font-bold text-white shadow-xl transition-all hover:scale-[1.02] hover:from-green-700 hover:to-lime-600"
               >
-                Book Free Consultation Call
+                Book Consultation Call
               </Button>
             )}
 

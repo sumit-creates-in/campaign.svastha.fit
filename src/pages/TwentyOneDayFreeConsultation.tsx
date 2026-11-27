@@ -32,14 +32,15 @@ import { openWhatsApp } from "@/lib/whatsapp";
  * after booking. Meta: the Lead event here is what the consultation campaign optimises for.
  */
 
-const WA_MESSAGE = "Hi, I want a free consultation for the Ultimate 21 Day Weight Loss Challenge.";
-const BOOK = "Book Free Consultation Call";
+const WA_MESSAGE = "Hi, I want a consultation call for the Ultimate 21 Day Weight Loss Challenge.";
+// No "free" anywhere (Sumit, 27 Nov 2026): callers thought the challenge itself was free.
+const BOOK = "Book Consultation Call";
 
 const FAQS = [
   {
-    question: "Is the consultation call really free?",
+    question: "Is there a charge for the call? Is the challenge paid?",
     answer:
-      "Yes. It is a free 15-minute call with a SVASTHA expert about the Ultimate 21 Day Weight Loss Challenge. There is no pressure to buy anything.",
+      "The 15-minute call has no charge. The Ultimate 21 Day Weight Loss Challenge itself is a paid programme — on the call we explain both plans and their fees, and you decide in your own time.",
   },
   {
     question: "What will we talk about on the call?",
@@ -84,11 +85,11 @@ const FAQS = [
 
 const TwentyOneDayFreeConsultation = () => {
   useMeta({
-    title: "Free Consultation – Ultimate 21 Day Weight Loss Challenge | SVASTHA",
+    title: "Consultation Call – Ultimate 21 Day Weight Loss Challenge | SVASTHA",
     description:
-      "Book a free 15-minute call about the Ultimate 21 Day Weight Loss Challenge — home food, intermittent fasting and daily live yoga with Sumit and the SVASTHA team.",
-    ogTitle: "Free Consultation – Ultimate 21 Day Weight Loss Challenge | SVASTHA",
-    ogDescription: "Not sure if the 21 Day Challenge suits you? Talk to our team free. Hindi or English, no pressure to buy.",
+      "Book a 15-minute call about the Ultimate 21 Day Weight Loss Challenge — home food, intermittent fasting and daily live yoga with Sumit and the SVASTHA team.",
+    ogTitle: "Consultation Call – Ultimate 21 Day Weight Loss Challenge | SVASTHA",
+    ogDescription: "Not sure if the 21 Day Challenge suits you? Talk to our team before you join. Hindi or English, no pressure to buy.",
     ogImage: "/src/assets/hero-yoga.jpg",
   });
 
@@ -155,9 +156,9 @@ const TwentyOneDayFreeConsultation = () => {
         {/* What the free call is */}
         <section className="bg-emerald-50/50 px-4 py-14">
           <div className="container mx-auto max-w-5xl">
-            <p className="text-center text-xs font-bold uppercase tracking-wider text-emerald-700">Free consultation call</p>
+            <p className="text-center text-xs font-bold uppercase tracking-wider text-emerald-700">Consultation call</p>
             <h2 className="mt-2 text-center text-2xl font-extrabold text-gray-900 md:text-3xl">
-              A free 15-minute call about the 21 Day Challenge
+              A 15-minute call about the 21 Day Challenge
             </h2>
             <div className="mt-8 grid grid-cols-1 gap-4 md:grid-cols-3">
               {callSteps.map((s) => (
@@ -192,7 +193,7 @@ const TwentyOneDayFreeConsultation = () => {
         <MeetYourMentorSection
           scrollToRegistration={book("mentor")}
           clean
-          registerButtonText="Book a Free Call with Sumit's Team"
+          registerButtonText="Book a Call with Sumit's Team"
         />
         <MoreMentorsSection clean />
         <BenefitsSection clean />
@@ -205,9 +206,9 @@ const TwentyOneDayFreeConsultation = () => {
           <div className="container mx-auto max-w-xl">
             <div className="mb-6 text-center">
               <PhoneCall className="mx-auto h-10 w-10 text-emerald-600" />
-              <h2 className="mt-3 text-2xl font-extrabold text-gray-900 md:text-3xl">Talk to us before you join — free</h2>
+              <h2 className="mt-3 text-2xl font-extrabold text-gray-900 md:text-3xl">Talk to us before you join</h2>
               <p className="mt-2 text-sm text-gray-600">
-                Book your free consultation call for the Ultimate 21 Day Weight Loss Challenge.
+                Book your consultation call for the Ultimate 21 Day Weight Loss Challenge (a paid programme — we explain the plans and fees on the call).
               </p>
             </div>
             <ConsultationFunnelForm from="bottom form" onSeePlans={seePlans} onWhatsApp={() => whatsapp("after booking")} />
@@ -228,7 +229,7 @@ const TwentyOneDayFreeConsultation = () => {
           <div className="mx-auto flex max-w-3xl items-center gap-3">
             <div className="hidden flex-1 sm:block">
               <p className="text-sm font-bold text-gray-900">Ultimate 21 Day Weight Loss Challenge</p>
-              <p className="text-xs text-gray-500">Free 15-minute consultation call · Hindi or English</p>
+              <p className="text-xs text-gray-500">15-minute consultation call · Hindi or English</p>
             </div>
             <button
               type="button"
@@ -245,7 +246,7 @@ const TwentyOneDayFreeConsultation = () => {
       {formFrom && (
         <Overlay onClose={() => setFormFrom(null)} labelledBy="consult-form-title">
           <span id="consult-form-title" className="sr-only">
-            Book your free consultation call
+            Book your consultation call
           </span>
           <ConsultationFunnelForm bare from={formFrom} onSeePlans={seePlans} onWhatsApp={() => whatsapp("after booking")} />
         </Overlay>

@@ -252,7 +252,7 @@ export const U21PlanChooser = ({
       <FreeConsultationModal
         onClose={() => setConsultOpen(false)}
         source={CONSULT_SOURCE_21DAY}
-        fromLabel={`the 21 Day Challenge ${isOffer ? "scroll offer" : "plan window"} ("Get Free Consultation")`}
+        fromLabel={`the 21 Day Challenge ${isOffer ? "scroll offer" : "plan window"} ("Get Consultation Call")`}
         pixelName="Free consultation - 21 day plan window"
       />
     )}
@@ -464,7 +464,7 @@ export const U21PlanChooser = ({
                     }}
                     className="no-heartbeat flex items-center justify-center gap-1.5 rounded-xl border-2 border-emerald-500 bg-white px-2 py-2.5 text-[13px] font-bold text-emerald-700 hover:bg-emerald-50"
                   >
-                    <PhoneCall className="h-4 w-4" /> Get Free Consultation
+                    <PhoneCall className="h-4 w-4" /> Get Consultation Call
                   </button>
                   <button
                     type="button"

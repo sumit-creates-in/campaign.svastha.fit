@@ -74,6 +74,8 @@ function App() {
               <Route path="/Ultimate-21-day-weight-loss-challenge" element={<Ultimate21DayChallenge />} />
               <Route path="/21-day-challenge" element={<ChallengeOffer />} />
               <Route path="/21-day-free-consultation" element={<TwentyOneDayFreeConsultation />} />
+              {/* Same page without "free" in the address (27 Nov 2026); the old address keeps working. */}
+              <Route path="/21-day-consultation" element={<TwentyOneDayFreeConsultation />} />
 
               {/* Master Class — ₹49 paid webinar funnel.
                   Deliberately NOT geo-redirected: 7:30 PM IST works across the

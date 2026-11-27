@@ -133,7 +133,7 @@ export const ConsultationFunnelForm = forwardRef<HTMLDivElement, Props>(({ onSee
         phone,
         source: CONSULT_PAGE_SOURCE,
         details: [
-          `Free consultation call booked on the 21 Day consultation page${from ? ` (${from})` : ""}.`,
+          `Consultation call booked on the 21 Day consultation page${from ? ` (${from})` : ""}.`,
           `Age: ${age} | ${gender}`,
           `Goal: ${goal}`,
           `Health: ${conditions.length ? conditions.join(", ") : "not given"}`,
@@ -164,7 +164,7 @@ export const ConsultationFunnelForm = forwardRef<HTMLDivElement, Props>(({ onSee
           <div className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full bg-emerald-100">
             <CheckCircle className="h-12 w-12 text-emerald-600" />
           </div>
-          <h2 className="text-2xl font-extrabold text-gray-900">Your free call is booked</h2>
+          <h2 className="text-2xl font-extrabold text-gray-900">Your call is booked</h2>
           <p className="mt-2 text-sm text-gray-600">
             A SVASTHA expert will call you {isToday ? <b>today, as soon as possible</b> : <>on <b>{day}</b>, as soon as possible</>}{" "}
             in <b>{lang}</b>. Keep your phone handy.
@@ -219,7 +219,7 @@ export const ConsultationFunnelForm = forwardRef<HTMLDivElement, Props>(({ onSee
             </button>
           ) : (
             <span className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-emerald-700">
-              <PhoneCall className="h-3.5 w-3.5" /> Free {C.durationLabel} call
+              <PhoneCall className="h-3.5 w-3.5" /> {C.durationLabel} consultation call
             </span>
           )}
           <span className="text-xs font-semibold text-gray-500">Step {step} of 3</span>
@@ -230,7 +230,7 @@ export const ConsultationFunnelForm = forwardRef<HTMLDivElement, Props>(({ onSee
 
         {step === 1 && (
           <div className="space-y-4">
-            <h2 className="text-xl font-extrabold leading-snug text-gray-900">Book your free consultation call</h2>
+            <h2 className="text-xl font-extrabold leading-snug text-gray-900">Book your consultation call</h2>
             <div>
               <label htmlFor={`cf-name-${uid}`} className="mb-1.5 block text-xs font-semibold text-gray-700">
                 Your name <span className="text-red-500">*</span>
@@ -348,9 +348,9 @@ export const ConsultationFunnelForm = forwardRef<HTMLDivElement, Props>(({ onSee
               className="no-heartbeat flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-green-600 to-lime-500 py-3.5 text-base font-extrabold text-white shadow-lg hover:from-green-700 hover:to-lime-600 disabled:opacity-70"
             >
               {busy ? <Loader2 className="h-5 w-5 animate-spin" /> : null}
-              Book my free call
+              Book my call
             </button>
-            <p className="text-center text-[11px] text-gray-500">Free, and no pressure to buy.</p>
+            <p className="text-center text-[11px] text-gray-500">No pressure to buy.</p>
           </div>
         )}
       </div>
