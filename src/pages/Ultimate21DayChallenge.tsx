@@ -1,3 +1,4 @@
+import { memberPhotoTransformations } from "@/components/challenge/TransformationsSection";
 import { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { useMeta } from "@/hooks/useMeta";
@@ -203,7 +204,7 @@ const Ultimate21DayChallenge = () => {
         <SushilStorySection page="ultimate-21-day" ctaText="Register Now" onCta={scrollToRegistration} />
         <LeaderboardSection clean />
         {!isStartPage && <JyotiTestimonialSection clean />}
-        {isStartPage && <TransformationsSection clean transformations={transformation} />}
+        {isStartPage && <TransformationsSection clean transformations={[...memberPhotoTransformations, ...transformation]} />}
         {isStartPage && (
           <AanchalTestimonialSection
             clean

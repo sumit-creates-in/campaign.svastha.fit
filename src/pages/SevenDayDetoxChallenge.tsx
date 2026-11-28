@@ -1,3 +1,4 @@
+import { memberPhotoTransformations } from "@/components/challenge/TransformationsSection";
 import { useEffect, useState } from "react";
 import { useMeta } from "@/hooks/useMeta";
 import { toast } from "sonner";
@@ -178,7 +179,7 @@ const SevenDayDetoxChallenge = () => {
                 <BenefitsSection />
 
                 <div style={{ height: "150px" }} />
-                <TransformationsSection transformations={transformation} />
+                <TransformationsSection transformations={[...memberPhotoTransformations, ...transformation]} />
 
                 <div style={{ height: "150px" }} />
                 <WhoIsThisForSection />

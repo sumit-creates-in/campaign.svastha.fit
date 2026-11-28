@@ -49,7 +49,7 @@ import {
 
 /** Women only: the shared list also has three men's stories. */
 const WOMEN_TRANSFORMATIONS = defaultTransformations.filter(
-  (t) => !/- (Vijay|Ravikant|Sumit)\s*$/.test(t.text),
+  (t) => !t.male && !/- (Vijay|Ravikant|Sumit)\s*$/.test(t.text),
 );
 
 const Gap = () => <div className="h-10 bg-white md:h-16" aria-hidden="true" />;

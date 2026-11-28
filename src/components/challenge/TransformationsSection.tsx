@@ -14,11 +14,39 @@ export type Transformation = {
   name?: string;
   beforeWeight?: number;
   afterWeight?: number;
+  /** Member's own words. Leave empty when they gave none — never invent a quote. */
   text: string;
+  /** Kept off the women-only pages. */
+  male?: boolean;
 };
 
-export const defaultTransformations: Transformation[] = [
+const APP = "https://swcubveqtvjhqwawgcks.supabase.co/storage/v1/object/public/transformations";
+
+const ALL_TRANSFORMATIONS: Transformation[] = [
   // ── Before/After cards (real user data) ──
+  // Only members who ticked "allow social media sharing" in the Svastha app
+  // (user_transformations.allows_social_media_sharing), refreshed 28 Nov 2026.
+  {
+    // Clean crops of the photos he sent (his app upload is a phone screenshot);
+    // weights as he said them in his video review on 27 Nov 2026.
+    beforeImage: "/transformations/sushil-before.webp",
+    afterImage: "/transformations/sushil-after.webp",
+    name: "Sushil Kumar",
+    beforeWeight: 128.7,
+    afterWeight: 88,
+    text: "Koi restriction nahi. Ghar ka khaana — bas cheeni aur packet food band.",
+    male: true,
+  },
+  {
+    beforeImage:
+      "https://swcubveqtvjhqwawgcks.supabase.co/storage/v1/object/public/transformations/c8698136-28bd-4563-a793-1aac42b13d16/before-1769677959334.webp",
+    afterImage:
+      "https://swcubveqtvjhqwawgcks.supabase.co/storage/v1/object/public/transformations/c8698136-28bd-4563-a793-1aac42b13d16/after-1769677959334.webp",
+    name: "Rashmi Aghor",
+    beforeWeight: 99.4,
+    afterWeight: 88.0,
+    text: "11.4 kg lost! My confidence is back and I feel like a completely new person.",
+  },
   {
     beforeImage:
       "https://swcubveqtvjhqwawgcks.supabase.co/storage/v1/object/public/transformations/434bc3d9-0114-4504-bef4-9b0e2e073688/before-1786875100668.webp",
@@ -28,6 +56,22 @@ export const defaultTransformations: Transformation[] = [
     beforeWeight: 75.6,
     afterWeight: 67.6,
     text: "Lost 8 kg and feeling amazing! This program truly changed my life.",
+  },
+  {
+    beforeImage: `${APP}/a613cd2e-eb9a-4481-9e18-cc5c0a61e257/before-1767622004350.webp`,
+    afterImage: `${APP}/a613cd2e-eb9a-4481-9e18-cc5c0a61e257/after-1767622004350.webp`,
+    name: "Manila Bishnoi",
+    beforeWeight: 107,
+    afterWeight: 101,
+    text: "",
+  },
+  {
+    beforeImage: `${APP}/4f8d9591-ccd3-4ea3-81e6-eba537e54206/before-1767616748860.webp`,
+    afterImage: `${APP}/4f8d9591-ccd3-4ea3-81e6-eba537e54206/after-1767616748860.webp`,
+    name: "Sweety",
+    beforeWeight: 78,
+    afterWeight: 73,
+    text: "",
   },
   {
     beforeImage:
@@ -58,16 +102,6 @@ export const defaultTransformations: Transformation[] = [
     beforeWeight: 85.0,
     afterWeight: 81.8,
     text: "Steady progress without any strict diet. Thank you Sumit Sir for this simple approach!",
-  },
-  {
-    beforeImage:
-      "https://swcubveqtvjhqwawgcks.supabase.co/storage/v1/object/public/transformations/c8698136-28bd-4563-a793-1aac42b13d16/before-1769677959334.webp",
-    afterImage:
-      "https://swcubveqtvjhqwawgcks.supabase.co/storage/v1/object/public/transformations/c8698136-28bd-4563-a793-1aac42b13d16/after-1769677959334.webp",
-    name: "Rashmi Aghor",
-    beforeWeight: 99.4,
-    afterWeight: 88.0,
-    text: "11.4 kg lost! My confidence is back and I feel like a completely new person.",
   },
   // ── Legacy single-image cards ──
   {
@@ -101,6 +135,17 @@ export const defaultTransformations: Transformation[] = [
     text: "Lost 12 kg's with the help of Sumit's teachings. Best decision ever. - Rabiya",
   },
 ];
+
+const kgLost = (t: Transformation) => (t.beforeWeight ?? 0) - (t.afterWeight ?? 0);
+
+/** Member photo cards first, biggest result first; the older single-image cards after. */
+export const defaultTransformations: Transformation[] = [
+  ...ALL_TRANSFORMATIONS.filter((t) => t.beforeImage).sort((a, b) => kgLost(b) - kgLost(a)),
+  ...ALL_TRANSFORMATIONS.filter((t) => !t.beforeImage),
+];
+
+/** Just the member photo cards (before + after), for pages that keep their own list. */
+export const memberPhotoTransformations = defaultTransformations.filter((t) => t.beforeImage);
 
 type TransformationsSectionProps = {
   transformations?: Transformation[];
@@ -235,9 +280,15 @@ export const TransformationsSection = ({
                 </span>
               )}
             </div>
-            <p className="text-xs text-gray-600 leading-relaxed italic">
-              "{clean ? CLAIM_SAFE_TEXT[t.text] ?? t.text : t.text}"
-            </p>
+            {t.text ? (
+              <p className="text-xs text-gray-600 leading-relaxed italic">
+                "{clean ? CLAIM_SAFE_TEXT[t.text] ?? t.text : t.text}"
+              </p>
+            ) : (
+              <p className="text-xs text-gray-600 leading-relaxed">
+                {t.beforeWeight} kg → {t.afterWeight} kg · photos shared by the member from the Svastha app
+              </p>
+            )}
           </div>
         </>
       ) : (
