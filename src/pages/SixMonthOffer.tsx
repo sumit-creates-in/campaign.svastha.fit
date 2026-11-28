@@ -25,7 +25,7 @@ import { useFlashOffer, formatMmSs } from "@/hooks/useFlashOffer";
  * Group Plan members in the Week 2 live session: Sumit's Community or
  * Personalized (Human Coach + Group Classes), 6 months + 1 month extra.
  * Offer price inside the window, Sumit's 15-minute flash price when he presses
- * the button (row b156w2), regular price otherwise. See src/config/sixMonthOffer.ts.
+ * the button (row SIX_MONTH_FLASH_ID), regular price otherwise. See src/config/sixMonthOffer.ts.
  */
 
 function useLiveNow(): boolean {

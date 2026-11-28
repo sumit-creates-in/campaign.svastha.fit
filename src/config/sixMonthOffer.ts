@@ -15,7 +15,7 @@
  * branch or app payment rule, so nothing is sent automatically: the team
  * activates the plan in the app after the call.
  *
- * Flash: Supabase row `b156w2` (campaign_flash_offers), only inside the window.
+ * Flash: Supabase row `b157w2` (campaign_flash_offers; B156 used `b156w2`), only inside the window.
  */
 
 export interface SixMonthPlan {
@@ -35,7 +35,7 @@ export interface SixMonthPlan {
   bestFor: string[];
 }
 
-export const SIX_MONTH_FLASH_ID = "b156w2";
+export const SIX_MONTH_FLASH_ID = "b157w2";
 
 export const SIX_MONTH_PLANS: readonly SixMonthPlan[] = [
   {
@@ -96,10 +96,11 @@ export const SIX_MONTH_PLANS: readonly SixMonthPlan[] = [
   },
 ] as const;
 
-/** The offer price is live all of Sun 1 Nov 2026 and closes at midnight (IST). */
+/** The offer price is live all of the Week 2 Sunday and closes at midnight (IST).
+ *  B156: Sun 1 Nov 2026. B157: Sun 29 Nov 2026 (Sumit 28 Nov: "Repeat B156 6-month offer"). */
 export const SIX_MONTH_OFFER_WINDOW = {
-  opensAt: Date.parse("2026-11-01T00:00:00+05:30"),
-  closesAt: Date.parse("2026-11-02T00:00:00+05:30"),
+  opensAt: Date.parse("2026-11-29T00:00:00+05:30"),
+  closesAt: Date.parse("2026-11-30T00:00:00+05:30"),
 };
 
 export const SIX_MONTH_BONUS = "+1 month extra (7 months in total)";
