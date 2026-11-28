@@ -19,6 +19,7 @@ import {
   type PersonalizedOffer,
 } from "@/components/masterclass/PersonalizedLeadModal";
 import { FreeConsultationModal } from "@/components/masterclass/FreeConsultationModal";
+import { SushilStorySection } from "@/components/challenge/SushilStorySection";
 
 import {
   JyotiTestimonialSection,
@@ -149,12 +150,14 @@ const MasterClass = () => {
   return (
     <div className="min-h-screen overflow-x-hidden bg-white pb-24 md:pb-20">
       <MasterClassHero onRegister={openModal} />
+
+      {/* Proof first: Sushil's 40 kg story (Sumit approved 28 Nov 2026) */}
+      <SushilStorySection page="masterclass" ctaText={`Reserve My Seat — ${PRICING.price}`} onCta={openModal} />
       <Gap />
 
       <AgendaSection onRegister={openModal} />
       <Gap />
 
-      {/* Proof early and proof often — the asset competitors don't have */}
       <JyotiTestimonialSection />
       <div className="h-16 bg-white md:h-24" aria-hidden="true" />
 

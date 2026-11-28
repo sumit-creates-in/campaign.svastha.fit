@@ -9,6 +9,10 @@ interface AanchalTestimonialSectionProps {
   clean?: boolean;
   eyebrow?: ReactNode;
   videoUrl?: string;
+  /** Self-hosted video (plays in a <video> tag instead of the YouTube iframe). */
+  mp4Src?: string;
+  poster?: string;
+  title?: string;
 }
 
 export const AanchalTestimonialSection = ({
@@ -17,6 +21,9 @@ export const AanchalTestimonialSection = ({
   clean = false,
   eyebrow = "Member story",
   videoUrl = "https://www.youtube.com/embed/is5v451Bw18",
+  mp4Src,
+  poster,
+  title = "Weight Loss Review - Aanchal",
 }: AanchalTestimonialSectionProps) => {
   return (
     <section className="py-20 px-4 bg-gradient-to-br from-green-50 via-emerald-50 to-teal-50">
@@ -54,13 +61,25 @@ export const AanchalTestimonialSection = ({
             transition={{ duration: 0.5, delay: 0.2 }}
             className="max-w-2xl mx-auto">
             <div className="relative w-full rounded-2xl overflow-hidden shadow-2xl" style={{ paddingBottom: '56.25%' }}>
+              {mp4Src ? (
+                <video
+                  className="absolute top-0 left-0 w-full h-full bg-black"
+                  src={mp4Src}
+                  poster={poster}
+                  title={title}
+                  controls
+                  playsInline
+                  preload="none"
+                ></video>
+              ) : (
               <iframe
                 className="absolute top-0 left-0 w-full h-full"
                 src={videoUrl}
-                title="Weight Loss Review - Aanchal"
+                title={title}
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 allowFullScreen
               ></iframe>
+              )}
             </div>
           </motion.div>
         </motion.div>

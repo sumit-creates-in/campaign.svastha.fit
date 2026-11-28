@@ -6,6 +6,7 @@ import { INDIA_BATCH } from "@/config/masterclass";
 import { U21PlanChooser } from "@/components/challenge/U21PlanChooser";
 import { ConsultationFunnelForm } from "@/components/challenge/ConsultationFunnelForm";
 import { UltimateHero } from "@/components/challenge/UltimateHero";
+import { SushilStorySection } from "@/components/challenge/SushilStorySection";
 import { Overlay } from "@/components/masterclass/leadFormBits";
 import {
   AanchalTestimonialSection,
@@ -152,6 +153,7 @@ const TwentyOneDayFreeConsultation = () => {
     <>
       <div className="ultimate-challenge-page min-h-screen overflow-x-hidden bg-white pb-20">
         <UltimateHero consult onRegister={book("top")} />
+        <SushilStorySection page="21-day-consultation" ctaText={BOOK} onCta={book("sushil-video")} ctaNote="Hindi or English · no pressure to buy" />
 
         {/* What the free call is */}
         <section className="bg-emerald-50/50 px-4 py-14">

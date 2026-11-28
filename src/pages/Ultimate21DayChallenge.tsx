@@ -7,6 +7,7 @@ import { U21PlanChooser } from "@/components/challenge/U21PlanChooser";
 
 // Import all sections
 import { UltimateHero } from "@/components/challenge/UltimateHero";
+import { SushilStorySection } from "@/components/challenge/SushilStorySection";
 import {
   LeaderboardSection,
   JyotiTestimonialSection,
@@ -199,6 +200,7 @@ const Ultimate21DayChallenge = () => {
             videoUrl="https://www.youtube.com/embed/lyo56Iu67_M"
           />
         )}
+        <SushilStorySection page="ultimate-21-day" ctaText="Register Now" onCta={scrollToRegistration} />
         <LeaderboardSection clean />
         {!isStartPage && <JyotiTestimonialSection clean />}
         {isStartPage && <TransformationsSection clean transformations={transformation} />}
